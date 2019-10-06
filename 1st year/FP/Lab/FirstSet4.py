@@ -14,7 +14,7 @@ def read_number():
     Output: -
 '''
 def print_number(number):
-    print("The minimal natural number formed with the same digits is " + str(number))
+    print("The largest natural number formed with the same digits is " + str(number))
 
 '''
     Decomposes a number into digits
@@ -32,22 +32,22 @@ def decompose_number_into_digits(number):
     return digits
 
 '''
-    Returns the minimal number formed from the digits of the given number
+    Returns the largest number formed from the digits of the given number
 
     Input: int - representing the number which will be transformed
-    Output: int - representing the minimal number  
+    Output: int - representing the largest number  
 '''
-def get_minimal_number(number):
+def get_largest_number(number):
     digits = decompose_number_into_digits(number)
-    minimal_numer = 0
+    largest_numer = 0
 
-    for i in range(len(digits)):
+    for i in reversed(range(len(digits))):
         while digits[i] > 0:
-            minimal_numer = minimal_numer * 10 + i
+            largest_numer = largest_numer * 10 + i
             digits[i] -= 1
     
-    return minimal_numer
-
+    return largest_numer
+    
 number = read_number()
-minimal_number = get_minimal_number(number)
-print_number(minimal_number)
+largest_number = get_largest_number(number)
+print_number(largest_number)

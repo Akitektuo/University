@@ -16,7 +16,10 @@ def read_number():
     Output: -
 '''
 def print_solution(number):
-    print("The first prime number larger than the given one is " + str(number))
+    if number < 2:
+        print("No prime number was found smaller than the given one")
+    else:
+        print("The largest prime number smaller than the given one is " + str(number))
 
 '''
     Checks if a number is prime or not
@@ -37,17 +40,17 @@ def is_prime(number):
     return True
 
 '''
-    Searches for the closest prime number after the given one
+    Searches for the closest prime number before the given one
 
     Input: int - representing the number from which the search starts
-    Output: int - representing the prime number after the given one
+    Output: int - representing the prime number before the given one
 '''
-def find_next_prime_number(number):
-    number += 1
-    while(not is_prime(number)):
-        number += 1
+def find_previous_prime_number(number):
+    number -= 1
+    while(number > 1 and not is_prime(number)):
+        number -= 1
     return number
 
 num = read_number()
-res = find_next_prime_number(num)
+res = find_previous_prime_number(num)
 print_solution(res)
