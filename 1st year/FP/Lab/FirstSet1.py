@@ -1,12 +1,30 @@
 import math
 
-def readNumber():
+'''
+    Reads from the console a natural number and returns it
+
+    Input: -
+    Output: int - representing the natural number 
+'''
+def read_number():
     return int(input("Give a natural number: "))
 
-def printSolution(number):
+'''
+    Prints the number found as the solution in console
+
+    Input: int - representing the number found as solution
+    Output: -
+'''
+def print_solution(number):
     print("The first prime number larger than the given one is " + str(number))
 
-def isPrime(number):
+'''
+    Checks if a number is prme or not
+
+    Input: int - representing the number that is being checked
+    Output: bool - true if it the given number is prime, false otherwise
+'''
+def is_prime(number):
     if number <= 1:
         return False
     if number <= 3:
@@ -18,12 +36,18 @@ def isPrime(number):
             return False
     return True
 
-def findNextPrimeNumber(number):
+'''
+    Searches for the closest prime number after the given one
+
+    Input: int - representing the number from which the search starts
+    Output: int - representing the prime number after the given one
+'''
+def find_next_prime_number(number):
     number += 1
-    while(not isPrime(number)):
+    while(not is_prime(number)):
         number += 1
     return number
 
-num = readNumber()
-res = findNextPrimeNumber(num)
-printSolution(res)
+num = read_number()
+res = find_next_prime_number(num)
+print_solution(res)

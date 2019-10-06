@@ -9,92 +9,112 @@ class Date:
     Reads from the console the day, month and year of a birth date and returns it as a Date object
 
     Input: -
-    Output: a Date object containing the day, month and year
+    Output: Date - contains the day, month and year
 '''
-def readBirthDate():
-    birthDate = Date()
+def read_birth_date():
+    birth_date = Date()
 
-    birthDate.day = int(input("Give the day of birth: "))
-    birthDate.month = int(input("Give the month of birth: "))
-    birthDate.year = int(input("Give the year of birth: "))
+    birth_date.day = int(input("Give the day of birth: "))
+    birth_date.month = int(input("Give the month of birth: "))
+    birth_date.year = int(input("Give the year of birth: "))
 
-    return birthDate
+    return birth_date
 
 '''
     Prints to the console the age in Days
 
-    Input: ageInDays representing the age in days
+    Input: int - ageInDays representing the age in days
     Output: -
 '''
-def printAgeInDays(ageInDays):
-    if ageInDays < 0:
+def print_age_in_days(age_in_days):
+    if age_in_days < 0:
         print("Birth date can't be in the future")
     else:
-        print("Age represented in days is " + str(ageInDays))
+        print("Age represented in days is " + str(age_in_days))
 
 '''
     Checks if the birth date is valid or not
 
-    Input: birthDate representing a Date object
-    Output: True if it is valid, false if it is not valid
+    Input: Date - representing the birth date
+    Output: bool - true if it is valid, false otherwise
 '''
-def isBirthDateValid(birthDate):
+def is_birth_date_valid(birth_date):
     now = date.today()
 
-    if (now.year < birthDate.year):
+    if (now.year < birth_date.year):
         return False
-    if (now.year == birthDate.year and now.month < birthDate.month):
+    if (now.year == birth_date.year and now.month < birth_date.month):
         return False
-    if (now.year == birthDate.year and now.month == birthDate.month and now.day < birthDate.day):
+    if (now.year == birth_date.year and now.month == birth_date.month and now.day < birth_date.day):
         return False
     
     return True
 
-
 '''
     Returns the difference of years between the current date and the birth date in days
+
+    Input: Date - representing the birth date
+    Output: int - representing the difference of years in days
 '''
-def getDifferenceOfYearsInDays(birthDate):
+def get_difference_of_years_in_days(birth_date):
     now = date.today()
-    yearsInDays = 0
+    years_in_days = 0
 
-    while birthDate.year != now.year:
-        if birthDate.year % 4 == 0:
-            yearsInDays += 366
+    while birth_date.year != now.year:
+        if birth_date.year % 4 == 0:
+            years_in_days += 366
         else:
-            yearsInDays += 365
-        birthDate.year += 1
+            years_in_days += 365
+        birth_date.year += 1
     
-    return yearsInDays
+    return years_in_days
 
-def getDifferenceOfMonthsInDays(birthDate):
+'''
+    Returns the difference of months between the current date and the birth date in days
+
+    Input: Date - representing the birth date
+    Output: int - representing the difference of months in days
+'''
+def get_difference_of_months_in_days(birth_date):
     now = date.today()
-    monthsInDays = 0
-    daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    months_in_days = 0
+    days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-    while birthDate.month != now.month:
-        monthsInDays += daysInMonth[birthDate.month - 1]
-        birthDate.month += 1
+    while birth_date.month != now.month:
+        months_in_days += days_in_month[birth_date.month - 1]
+        birth_date.month += 1
     
-    return monthsInDays
+    return months_in_days
 
-def getDifferenceOfDays(birthDate):
+'''
+    Returns the difference of days between the current date and the birth date
+
+    Input: Date - representing the birth date
+    Output: int - representing the difference of days
+'''
+def get_difference_of_days(birth_date):
     now = date.today()
 
-    return now.day - birthDate.day
+    return now.day - birth_date.day
 
-def getAgeInDaysForBirthDay(birthDate):
-    ageInDays = 0
+'''
+    Returns the age of a person in days for a given birth date until the present
 
-    if not isBirthDateValid(birthDate):
+    Input: Date - representing the birth date
+    Output: int - representing the age in days
+'''
+def get_age_in_days_for_birth_day(birth_date):
+    age_in_days = 0
+
+    if not is_birth_date_valid(birth_date):
         return -1
     
-    ageInDays += getDifferenceOfYearsInDays(birthDate)
-    ageInDays += getDifferenceOfMonthsInDays(birthDate)
-    ageInDays += getDifferenceOfDays(birthDate)
+    age_in_days += get_difference_of_years_in_days(birth_date)
+    age_in_days += get_difference_of_months_in_days(birth_date)
+    age_in_days += get_difference_of_days(birth_date)
     
-    return ageInDays
+    return age_in_days
 
-birthDate = readBirthDate()
-ageInDays = getAgeInDaysForBirthDay(birthDate)
-printAgeInDays(ageInDays)
+birth_date = read_birth_date()
+age_in_days = get_age_in_days_for_birth_day(birth_date)
+print_age_in_days(age_in_days)
