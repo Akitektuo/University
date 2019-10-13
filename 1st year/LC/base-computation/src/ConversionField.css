@@ -1,0 +1,31 @@
+div.ConversionField {
+    margin: 8px;
+}
+
+div.ConversionField div.base {
+    color: #fafafa;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+div.ConversionField div.base input.input-base {
+    padding: 2px 4px;
+    margin: 4px 8px;
+    width: 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #fafafa;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+div.ConversionField input.input-number {
+    padding: 4px 8px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    border: none;
+    text-align: end;
+}

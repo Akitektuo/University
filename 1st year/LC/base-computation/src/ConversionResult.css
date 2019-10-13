@@ -1,0 +1,20 @@
+div.ConversionResult {
+    margin: 8px;
+}
+
+div.ConversionResult div.base {
+    color: #fafafa;
+    font-weight: bold;
+}
+
+div.ConversionResult div.number {
+    padding: 4px 8px;
+    margin: 8px 0;
+    width: 169px;
+    height: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    background-color: #fafafa;
+    border: none;
+    text-align: end;
+}

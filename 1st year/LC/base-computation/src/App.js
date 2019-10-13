@@ -4,11 +4,8 @@ import Calculator from './Calculator';
 import Test from './Test';
 
 class App extends Component {
-  
-  componentWillMount() {
-    this.setState({
-      mainScreen: true
-    })
+  state = {
+    mainScreen: true
   }
 
   render() {

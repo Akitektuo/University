@@ -1,0 +1,17 @@
+div.Operations {
+    margin: 8px;
+    min-width: 256px;
+}
+
+div.Operations div.title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #fafafa;
+}
+
+div.Operations div.soon {
+    font-weight: bold;
+    font-size: 16px;
+    color: #fafafa;
+    margin: 16px;
+}
