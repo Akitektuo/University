@@ -11,8 +11,8 @@ segment data use32 class=data
     
 segment code use32 class=code
 start:
-    mov AL, [a]
-    mul BYTE [b]
+    mov AL, [a] ; al = a
+    mul BYTE [b] ; ax = a * b
     
     push dword 0
     call [exit]
