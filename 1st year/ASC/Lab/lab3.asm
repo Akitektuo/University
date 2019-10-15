@@ -27,7 +27,7 @@ start:
     sub bx, ax
     mov ax, 0 ; ax:bx = a + b / c - d * 2
     add bx, word [a]
-    add ax, word [a + 2]
+    adc ax, word [a + 2]
     mov dx, ax
     mov ax, bx
     push dx
@@ -49,7 +49,7 @@ start:
     mov ax, bx
     cwd
     add ax, word [a]
-    add dx, word [a + 2]
+    adc dx, word [a + 2]
     push dx
     push ax
     pop eax

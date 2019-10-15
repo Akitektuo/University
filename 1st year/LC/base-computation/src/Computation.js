@@ -101,7 +101,6 @@ function convertFromBase10(numberInBase10, intoBase) {
 }
 
 function convertBase10toBase16(numberInBase10) {
-    //repair this
     let digits = [];
     while (numberInBase10 > 0) {
         digits.push(getHexaEquivalent(numberInBase10 % 16));
