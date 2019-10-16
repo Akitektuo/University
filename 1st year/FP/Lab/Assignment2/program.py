@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from range import Range
 from complex import Complex
 
@@ -214,24 +215,24 @@ class Program:
         Input: lambda - receives a Complex object to filter and return a boolean value
         Output: range - representing the maximum sequence with the given rule
     '''
-    def compute_sequence(self, withRule):
+    def compute_sequence(self, with_rule):
         # [start, end)
-        maxSequence = Range()
+        max_sequence = Range()
         start = 0 
         end = 0
 
         for i in range(len(self.__complex_numbers)):
-            if(withRule(self.__complex_numbers[i])):
+            if(with_rule(self.__complex_numbers[i])):
                 if (end != i):
                     start = i
                     end = i + 1
                 else:
                     end += 1
                 
-                if (end - start > maxSequence.get_size()):
-                    maxSequence.update(start, end)
+                if (end - start > max_sequence.get_size()):
+                    max_sequence.update(start, end)
 
-        return maxSequence.to_range()
+        return max_sequence.to_range()
 
     '''
         Builds a visual representation for a sequence as string
@@ -240,13 +241,13 @@ class Program:
         Output: string - representing the visual representation
     '''
     def build_string_sequence(self, sequence):
-        sequenceString = "("
+        sequence_string = "("
         for i in sequence:
-            sequenceString += str(self.__complex_numbers[i]) + ", "
-        sequenceString = sequenceString[:-2]
-        sequenceString += ")"
+            sequence_string += str(self.__complex_numbers[i]) + ", "
+        sequence_string = sequence_string[:-2]
+        sequence_string += ")"
         
-        return sequenceString
+        return sequence_string
 
     '''
         Starts menu functionality for displaying the longest sequence of real numbers
