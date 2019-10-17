@@ -8,9 +8,11 @@ import constants
 
 class Program:
 
-    __ui_manager = CommandUI()
-    __DEBUGGING_MODE = True
-    __expenses = []
+    def __init__(self):
+        self.__ui_manager = CommandUI()
+        self.__DEBUGGING_MODE = True
+        self.__expenses = []
+        self.__function = Function(self.__expenses)
 
     def change_ui(self):
         if self.__ui_manager.is_prefered():
@@ -25,41 +27,75 @@ class Program:
         self.__ui_manager.show_help()
         while True:
             action = self.__ui_manager.get_action()
+
             if action.type == constants.ACTION_ADD:
-                pass
+                result = self.__function.add(action.params)
+                self.__ui_manager.handle_result(result)
+
             elif action.type == constants.ACTION_CHANGE_UI:
                 self.change_ui()
+
             elif action.type == constants.ACTION_ERROR:
                 self.__ui_manager.on_invalid_command()
+
             elif action.type == constants.ACTION_EXIT:
                 return
+
             elif action.type == constants.ACTION_FILTER_CATEGORY:
-                pass
+                result = self.__function.filter_category(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_FILTER_CATEGORY_CONDITION:
-                pass
+                result = self.__function.filter_category_condition(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_HELP:
                 self.__ui_manager.show_help()
+
             elif action.type == constants.ACTION_INSERT:
-                pass
+                result = self.__function.insert(action.params)
+                self.__ui_manager.handle_result(result)
+
             elif action.type == constants.ACTION_LIST_ALL:
-                pass
+                result = self.__function.list_all()
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_LIST_CATEGORY:
-                pass
+                result = self.__function.list_category(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_LIST_CATEGORY_CONDITION:
-                pass
+                result = self.__function.list_category_condition(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_MAX_DAY:
-                pass
+                result = self.__function.max_day(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_REMOVE_CATEGORY:
-                pass
+                result = self.__function.remove_category(action.params)
+                self.__ui_manager.handle_result(result)
+
             elif action.type == constants.ACTION_REMOVE_DAY:
-                pass
+                result = self.__function.remove_day(action.params)
+                self.__ui_manager.handle_result(result)
+
             elif action.type == constants.ACTION_REMOVE_RANGE:
-                pass
+                result = self.__function.remove_range(action.params)
+                self.__ui_manager.handle_result(result)
+
             elif action.type == constants.ACTION_SORT_CATEGORY:
-                pass
+                result = self.__function.sort_category(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_SORT_DAY:
-                pass
+                result = self.__function.sort_day(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_SUM_CATEGORY:
-                pass
+                result = self.__function.sum_category(action.params)
+                self.__ui_manager.print_result(result)
+
             elif action.type == constants.ACTION_UNDO:
-                pass
+                result = self.__function.undo_last_action()
+                self.__ui_manager.handle_result(result)

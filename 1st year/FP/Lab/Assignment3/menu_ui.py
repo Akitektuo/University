@@ -27,19 +27,25 @@ class MenuUI:
         print("10. Print the maximm expense in a day")
         print("11. Print a day's expenses in ascending order")
         print("12. Print expenses from a category in ascending order")
-        print("13. Show only the expenses from a category")
-        print("14. Show only the expenses from a category with a condition")
+        print("13. Keep only the expenses from a category")
+        print("14. Keep only the expenses from a category with a condition")
         print("15. Undo prevoius change in the list")
         print("16. Change UI")
         print("17. Exit")
 
+    def get_add_params(self):
+        pass # TODO
+
     def get_action(self):
-        command = input("> ")
+        command = input("\n> ")
         if command == "0":
             return Action(constants.ACTION_HELP)
-        elif command == "16":
+        if command == "1":
+            params = self.get_add_params()
+            return Action(constants.ACTION_ADD, params)
+        if command == "16":
             return Action(constants.ACTION_CHANGE_UI)
-        elif command == "17":
+        if command == "17":
             return Action(constants.ACTION_EXIT)
         return Action(constants.ACTION_ERROR)
 
