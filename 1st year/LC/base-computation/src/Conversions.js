@@ -42,36 +42,42 @@ class Conversions extends Component {
                 <div className="title">Conversions</div>
                 <BaseInput
                     onNumberChange={ this.computeConversion } />
-                <NumberResult
-                    base={ 2 }
-                    value={ base2 } />
-                <NumberResult
-                    base={ 3 }
-                    value={ base3 } />
-                <NumberResult
-                    base={ 4 }
-                    value={ base4 } />
-                <NumberResult
-                    base={ 5 }
-                    value={ base5 } />
-                <NumberResult
-                    base={ 6 }
-                    value={ base6 } />
-                <NumberResult
-                    base={ 7 }
-                    value={ base7 } />
-                <NumberResult
-                    base={ 8 }
-                    value={ base8 } />
-                <NumberResult
-                    base={ 9 }
-                    value={ base9 } />
-                <NumberResult
-                    base={ 10 }
-                    value={ base10 } />
-                <NumberResult
-                    base={ 16 }
-                    value={ base16 } />
+                <div className="results">
+                    <div className="column">
+                    <NumberResult
+                        base={ 2 }
+                        value={ base2 } />
+                    <NumberResult
+                        base={ 3 }
+                        value={ base3 } />
+                    <NumberResult
+                        base={ 4 }
+                        value={ base4 } />
+                    <NumberResult
+                        base={ 5 }
+                        value={ base5 } />
+                    <NumberResult
+                        base={ 6 }
+                        value={ base6 } />
+                    </div>
+                    <div className="column">
+                    <NumberResult
+                        base={ 7 }
+                        value={ base7 } />
+                    <NumberResult
+                        base={ 8 }
+                        value={ base8 } />
+                    <NumberResult
+                        base={ 9 }
+                        value={ base9 } />
+                    <NumberResult
+                        base={ 10 }
+                        value={ base10 } />
+                    <NumberResult
+                        base={ 16 }
+                        value={ base16 } />
+                    </div>
+                </div>
             </div>
         );
     }

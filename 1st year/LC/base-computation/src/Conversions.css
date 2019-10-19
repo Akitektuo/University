@@ -7,3 +7,8 @@ div.Conversions div.title {
     font-size: 24px;
     color: #fafafa;
 }
+
+div.Conversions div.results {
+    display: flex;
+    flex-direction: row;
+}
