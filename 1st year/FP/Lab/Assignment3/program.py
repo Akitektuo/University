@@ -11,8 +11,7 @@ class Program:
     def __init__(self):
         self.__ui_manager = CommandUI()
         self.__DEBUGGING_MODE = True
-        self.__expenses = []
-        self.__function = Function(self.__expenses)
+        self.__function = Function()
 
     def change_ui(self):
         if not self.__ui_manager.switch():
