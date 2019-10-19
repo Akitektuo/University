@@ -190,6 +190,8 @@ class Function:
         day = int(day_string)
 
         max_day = self.get_max_by(lambda e: e.day == day)
+        if max_day < 1:
+            return "No expenses found in the " + self.format_day(day) + " day"
         return "\nThe maximum of the " + self.format_day(day) + " day is " + str(max_day)
 
     def sort_day(self, params):
