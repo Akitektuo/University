@@ -19,9 +19,9 @@ class App extends Component {
           <div className="tag">
             Alex Copindean @ Akitektuo
           </div>
-          <div className="button-test ripple" onClick={() => {this.setState({ mainScreen: !mainScreen })}}>
+          {/* <div className="button-test ripple" onClick={() => {this.setState({ mainScreen: !mainScreen })}}>
             {mainScreen ? "Go to tests" : "Go back"}
-          </div>
+          </div> */}
         </div>
       </div>
     );

@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import './ConversionField.css';
+import './BaseInput.css';
 
-class ConversionField extends Component {
+class BaseInput extends Component {
 
     state = {
         inputBase: 2,
         inputNumber: ""
     }
 
+    componentDidUpdate() {
+        const { base } = this.props
+
+        const { inputBase } = this.state;
+
+        if (base && inputBase !== base) {
+            this.setState({
+                inputBase: base,
+                inputNumber: ""
+            })
+        }
+    }
+
     render() {
+        const { base } = this.props
+
         const { inputBase, inputNumber } = this.state;
 
         return (
-            <div className="ConversionField">
+            <div className="BaseInput">
                 <div className="base">
                     Base
                     <input
@@ -21,7 +36,7 @@ class ConversionField extends Component {
                         name="inputBase"
                         type="text"
                         pattern="[0-9]*"
-                        value={ inputBase }
+                        value={ base ? base : inputBase }
                         onPaste={ this.preventPaste }
                         onChange={ (e) => { this.filterBase(e.target.value) } } />
                 </div>
@@ -33,7 +48,7 @@ class ConversionField extends Component {
                     pattern="[0-9]*" 
                     value={ inputNumber }
                     onChange={ (e) => { this.filterNumber(e.target.value) } }
-                    placeholder={ `Number in base ${inputBase}` } 
+                    placeholder={ `Number in base ${base ? base : inputBase}` } 
                     onPaste={ this.filterNumber } />
             </div>
         );
@@ -51,6 +66,11 @@ class ConversionField extends Component {
     }
 
     filterBase = (value) => {
+        const { base } = this.props
+        if (base != undefined) {
+            return;
+        }
+
         const lastChar = this.getLastChar(value);
         if (lastChar < '0' || lastChar > '9') {
             return;
@@ -117,11 +137,11 @@ class ConversionField extends Component {
 
     notifyConversion = () => {
         setTimeout(() => {
-            const { onConversionRequest } = this.props;
+            const { onNumberChange } = this.props;
             const { inputBase, inputNumber } = this.state;
-            onConversionRequest(inputBase, inputBase === 1 ? "" : inputNumber);
+            onNumberChange(inputBase, inputBase === 1 ? "" : inputNumber);
         }, 10)
     }
 }
 
-export default ConversionField;
+export default BaseInput;

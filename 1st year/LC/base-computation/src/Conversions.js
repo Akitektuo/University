@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Conversions.css';
-import ConversionField from './ConversionField';
+import BaseInput from './BaseInput';
 import { convertIntoBase10, convertFromBase10 } from './Computation';
-import ConversionResult from './ConversionResult';
+import NumberResult from './NumberResult';
 
 class Conversions extends Component {
 
@@ -40,36 +40,36 @@ class Conversions extends Component {
         return (
             <div className="Conversions">
                 <div className="title">Conversions</div>
-                <ConversionField
-                    onConversionRequest={ this.computeConversion } />
-                <ConversionResult
+                <BaseInput
+                    onNumberChange={ this.computeConversion } />
+                <NumberResult
                     base={ 2 }
                     value={ base2 } />
-                <ConversionResult
+                <NumberResult
                     base={ 3 }
                     value={ base3 } />
-                <ConversionResult
+                <NumberResult
                     base={ 4 }
                     value={ base4 } />
-                <ConversionResult
+                <NumberResult
                     base={ 5 }
                     value={ base5 } />
-                <ConversionResult
+                <NumberResult
                     base={ 6 }
                     value={ base6 } />
-                <ConversionResult
+                <NumberResult
                     base={ 7 }
                     value={ base7 } />
-                <ConversionResult
+                <NumberResult
                     base={ 8 }
                     value={ base8 } />
-                <ConversionResult
+                <NumberResult
                     base={ 9 }
                     value={ base9 } />
-                <ConversionResult
+                <NumberResult
                     base={ 10 }
                     value={ base10 } />
-                <ConversionResult
+                <NumberResult
                     base={ 16 }
                     value={ base16 } />
             </div>

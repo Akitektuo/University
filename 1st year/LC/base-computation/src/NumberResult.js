@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './ConversionResult.css';
+import './NumberResult.css';
 
-class ConversionResult extends Component {
+class NumberResult extends Component {
 
     render() {
         const { base, value } = this.props;
         return (
-            <div className="ConversionResult">
+            <div className="NumberResult">
                 <div className="base">{ `Base ${base}` }</div>
                 <div className="number">{value}</div>
             </div>
@@ -15,4 +15,4 @@ class ConversionResult extends Component {
 
 }
 
-export default ConversionResult;
+export default NumberResult;

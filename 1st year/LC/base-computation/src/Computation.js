@@ -113,4 +113,35 @@ function convertBase10toBase16(numberInBase10) {
     return numberInBase16;
 }
 
-export { convertIntoBase10, convertFromBase10 }
+function addNumbers(number1, number2, base) {
+    const number1In10 = convertIntoBase10(base, number1);
+    const number2In10 = convertIntoBase10(base, number2);
+    const res = number1In10 + number2In10;
+    return convertFromBase10(res, base);
+}
+
+function substractNumbers(number1, number2, base) {
+    const number1In10 = convertIntoBase10(base, number1);
+    const number2In10 = convertIntoBase10(base, number2);
+    const res = number1In10 - number2In10;
+    return convertFromBase10(res, base);
+}
+
+function mulyiplyNumbers(number1, number2, base) {
+    const number1In10 = convertIntoBase10(base, number1);
+    const number2In10 = convertIntoBase10(base, number2);
+    const res = number1In10 * number2In10;
+    return convertFromBase10(res, base);
+}
+
+function divideNumbers(number1, number2, base) {
+    const number1In10 = convertIntoBase10(base, number1);
+    const number2In10 = convertIntoBase10(base, number2);
+    const res = number1In10 / number2In10;
+    let convertedRes = convertFromBase10(res, base)
+    if (convertedRes.includes('.'))
+        convertedRes = convertedRes.split('.')[0]
+    return convertedRes;
+}
+
+export { convertIntoBase10, convertFromBase10, addNumbers, substractNumbers, mulyiplyNumbers, divideNumbers }
