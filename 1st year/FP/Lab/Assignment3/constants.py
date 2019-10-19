@@ -2,6 +2,7 @@ TYPE_COMMAND = "type_command"
 TYPE_MENU = "type_menu"
 
 ACTION_ADD = "action_add"
+ACTION_ADD_LIST = "action_add_list"
 ACTION_INSERT = "action_insert"
 ACTION_REMOVE = "action_remove"
 ACTION_REMOVE_DAY = "action_remove_day"

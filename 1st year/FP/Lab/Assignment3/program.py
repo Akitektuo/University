@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from command_ui import CommandUI
 from menu_ui import MenuUI
-from tester import Tester
+from tester import run_tests
 from function import Function
 from action import Action
 import constants
@@ -15,7 +15,7 @@ class Program:
         self.__function = Function(self.__expenses)
 
     def change_ui(self):
-        if self.__ui_manager.is_prefered():
+        if not self.__ui_manager.switch():
             return
         if self.__ui_manager.TYPE == constants.TYPE_COMMAND:
             self.__ui_manager = MenuUI()
@@ -23,8 +23,13 @@ class Program:
             self.__ui_manager = CommandUI()
 
     def start(self):
+        if self.__DEBUGGING_MODE:
+            run_tests()
+
+        self.__function.preload_list()
         self.change_ui()
         self.__ui_manager.show_help()
+
         while True:
             action = self.__ui_manager.get_action()
 
@@ -43,11 +48,11 @@ class Program:
 
             elif action.type == constants.ACTION_FILTER_CATEGORY:
                 result = self.__function.filter_category(action.params)
-                self.__ui_manager.print_result(result)
+                self.__ui_manager.handle_result(result)
 
             elif action.type == constants.ACTION_FILTER_CATEGORY_CONDITION:
                 result = self.__function.filter_category_condition(action.params)
-                self.__ui_manager.print_result(result)
+                self.__ui_manager.handle_result(result)
 
             elif action.type == constants.ACTION_HELP:
                 self.__ui_manager.show_help()

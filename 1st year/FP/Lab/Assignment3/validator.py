@@ -101,3 +101,28 @@ class Validator:
             return "Day cannot be less than 1"
         if day > 31:
             return "Day cannot be more than 31"
+
+    def validate_sort_day(self, day):
+        if not self.is_int(day):
+            return "Day must be a natural number"
+        day = int(day)
+        if day < 1:
+            return "Day cannot be less than 1"
+        if day > 31:
+            return "Day cannot be more than 31"
+
+    def validate_sort_category(self, category):
+        if not self.is_category_valid(category):
+            return "Category is not valid"
+
+    def validate_filter_category(self, category):
+        if not self.is_category_valid(category):
+            return "Category is not valid"
+
+    def validate_filter_category_condition(self, category, operator, value):
+        if not self.is_category_valid(category):
+            return "Category is not valid"
+        if not self.is_operator(operator):
+            return "Operator is not valid, use only '<', '=' or '>'"
+        if not self.is_int(value):
+            return "The value must be a natural number"

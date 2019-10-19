@@ -10,8 +10,8 @@ class CommandUI:
         self.TYPE = constants.TYPE_COMMAND
         self.validator = Validator()
 
-    def is_prefered(self):
-        print("\nDo you want to use command based UI? (yes/no)")
+    def switch(self):
+        print("\nDo you want to use menu based UI? (yes/no)")
         user_input = input("> ")
         return re.search("^y|^Y", user_input)
 

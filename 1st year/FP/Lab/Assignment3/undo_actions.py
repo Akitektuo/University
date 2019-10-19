@@ -18,8 +18,14 @@ class UndoActions:
     def removed(self, expense):
         self.actions.append(Action(constants.ACTION_ADD, expense))
 
+    def removed_list(self, expenses):
+        self.actions.append(Action(constants.ACTION_ADD_LIST, expenses))
+
     def __add_back(self, expense):
         self.expenses.append(expense)
+
+    def __add_back_list(self, expenses):
+        self.expenses.extend(expenses)
 
     def __revert_add(self, expense):
         self.expenses.remove(expense)
@@ -30,5 +36,10 @@ class UndoActions:
         last_action = self.actions.pop()
         if last_action.type == constants.ACTION_ADD:
             self.__add_back(last_action.params)
-        else:
+            return
+        if last_action.type == constants.ACTION_ADD_LIST:
+            self.__add_back_list(last_action.params)
+            return
+        if last_action.type == constants.ACTION_REMOVE:
             self.__revert_add(last_action.params)
+            return

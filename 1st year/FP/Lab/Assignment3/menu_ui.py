@@ -8,8 +8,8 @@ class MenuUI:
     def __init__(self):
         self.TYPE = constants.TYPE_MENU
 
-    def is_prefered(self):
-        print("\nDo you want to use menu based UI? (1/0)")
+    def switch(self):
+        print("\nDo you want to use command based UI? (1/0)")
         user_input = input("> ")
         return re.search("1+", user_input)
 
