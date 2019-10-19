@@ -34,7 +34,78 @@ class MenuUI:
         print("17. Exit")
 
     def get_add_params(self):
-        pass # TODO
+        params = []
+        params.append(input("Give cost: "))
+        params.append(input("Give category: "))
+        return params
+
+    def get_insert_params(self):
+        params = []
+        params.append(input("Give day: "))
+        params.append(input("Give cost: "))
+        params.append(input("Give category: "))
+        return params
+
+    def get_remove_day_params(self):
+        params = []
+        params.append(input("Give day: "))
+        return params
+
+    def get_remove_range_params(self):
+        params = []
+        params.append(input("Give start day: "))
+        params.append("")
+        params.append(input("Give end day: "))
+        return params
+
+    def get_remove_category_params(self):
+        params = []
+        params.append(input("Give category: "))
+        return params
+
+    def get_list_category_params(self):
+        params = []
+        params.append(input("Give category: "))
+        return params
+
+    def get_list_category_condition_params(self):
+        params = []
+        params.append(input("Give category: "))
+        params.append(input("Give operator (< = >): "))
+        params.append(input("Give value: "))
+        return params
+
+    def get_sum_category_params(self):
+        params = []
+        params.append(input("Give category: "))
+        return params
+
+    def get_max_day_params(self):
+        params = []
+        params.append(input("Give day: "))
+        return params
+
+    def get_sort_day_params(self):
+        params = []
+        params.append(input("Give day: "))
+        return params
+
+    def get_sort_category_params(self):
+        params = []
+        params.append(input("Give category: "))
+        return params
+
+    def get_filter_category_params(self):
+        params = []
+        params.append(input("Give category: "))
+        return params
+
+    def get_filter_category_condition_params(self):
+        params = []
+        params.append(input("Give category: "))
+        params.append(input("Give operator (< = >): "))
+        params.append(input("Give value: "))
+        return params
 
     def get_action(self):
         command = input("\n> ")
@@ -43,6 +114,46 @@ class MenuUI:
         if command == "1":
             params = self.get_add_params()
             return Action(constants.ACTION_ADD, params)
+        if command == "2":
+            params = self.get_insert_params()
+            return Action(constants.ACTION_INSERT, params)
+        if command == "3":
+            params = self.get_remove_day_params()
+            return Action(constants.ACTION_REMOVE_DAY, params)
+        if command == "4":
+            params = self.get_remove_range_params()
+            return Action(constants.ACTION_REMOVE_RANGE, params)
+        if command == "5":
+            params = self.get_remove_category_params()
+            return Action(constants.ACTION_REMOVE_CATEGORY, params)
+        if command == "6":
+            return Action(constants.ACTION_LIST_ALL)
+        if command == "7":
+            params = self.get_list_category_params()
+            return Action(constants.ACTION_LIST_CATEGORY, params)
+        if command == "8":
+            params = self.get_list_category_condition_params()
+            return Action(constants.ACTION_LIST_CATEGORY_CONDITION, params)
+        if command == "9":
+            params = self.get_sum_category_params()
+            return Action(constants.ACTION_SUM_CATEGORY, params)
+        if command == "10":
+            params = self.get_max_day_params()
+            return Action(constants.ACTION_MAX_DAY, params)
+        if command == "11":
+            params = self.get_sort_day_params()
+            return Action(constants.ACTION_SORT_DAY, params)
+        if command == "12":
+            params = self.get_sort_category_params()
+            return Action(constants.ACTION_SORT_CATEGORY, params)
+        if command == "13":
+            params = self.get_filter_category_params()
+            return Action(constants.ACTION_FILTER_CATEGORY, params)
+        if command == "14":
+            params = self.get_filter_category_condition_params()
+            return Action(constants.ACTION_FILTER_CATEGORY_CONDITION, params)
+        if command == "15":
+            return Action(constants.ACTION_UNDO)
         if command == "16":
             return Action(constants.ACTION_CHANGE_UI)
         if command == "17":
@@ -51,3 +162,14 @@ class MenuUI:
 
     def on_invalid_command(self):
         print("Invalid command, enter 0 if you want to see the menu")
+
+    def handle_result(self, result):
+        if result:
+            print("Error: " + result)
+            return
+        print("Operation successful")
+
+    def print_result(self, result):
+        if (result == "" or '\n' not in result):
+            return self.handle_result(result)
+        print(result)
