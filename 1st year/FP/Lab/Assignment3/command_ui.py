@@ -107,13 +107,11 @@ class CommandUI:
     def on_invalid_command(self):
         print("Invalid command, type \"help\" if you want to see the commands")
 
-    def handle_result(self, result):
-        if result:
-            print("Error: " + result)
-            return
-        print("Operation successful")
+    def handle_error(self, error):
+        print("Error: " + str(error))
 
     def print_result(self, result):
-        if (result == "" or '\n' not in result):
-            return self.handle_result(result)
+        if result == "" or result == None:
+            print("Operation successful")
+            return
         print(result)

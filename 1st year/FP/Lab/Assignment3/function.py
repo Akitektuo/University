@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from expense import Expense
 from validator import Validator
 from undo_actions import UndoActions
+from validation_error import ValidationError
 import constants
 
 class Function:
@@ -41,14 +42,13 @@ class Function:
         list_expenses = ""
         prints = 0
 
-        for i in range(len(expenses)):
-            e = expenses[i]
+        for e in expenses:
             if condition(e):
                 prints += 1
                 list_expenses += "\n" + str(prints) + ". " + str(e)
 
         if prints < 1:
-            list_expenses = "No expenses found"
+            raise ValidationError("No expenses found")
 
         return list_expenses
 
@@ -150,9 +150,7 @@ class Function:
         cost_string = params[0]
         category = params[1]
 
-        error = self.validator.validate_add(cost_string, category)
-        if error:
-            return error
+        self.validator.validate_add(cost_string, category)
         cost = int(cost_string)
 
         self.add_expense(Expense(cost, category))
@@ -168,9 +166,7 @@ class Function:
         cost_string = params[1]
         category = params[2]
 
-        error = self.validator.validate_insert(day_string, cost_string, category)
-        if error:
-            return error
+        self.validator.validate_insert(day_string, cost_string, category)
         day = int(day_string)
         cost = int(cost_string)
 
@@ -185,9 +181,7 @@ class Function:
         '''
         day_string = params[0]
 
-        error = self.validator.validate_remove_day(day_string)
-        if error:
-            return error
+        self.validator.validate_remove_day(day_string)
         day = int(day_string)
 
         self.remove_from_list(lambda e: e.day == day)
@@ -202,9 +196,7 @@ class Function:
         day_from_string = params[0]
         day_to_string = params[2]
 
-        error = self.validator.validate_remove_range(day_from_string, day_to_string)
-        if error:
-            return error
+        self.validator.validate_remove_range(day_from_string, day_to_string)
         day_from = int(day_from_string)
         day_to = int(day_to_string)
 
@@ -219,9 +211,7 @@ class Function:
         '''
         category = params[0]
 
-        error = self.validator.validate_remove_category(category)
-        if error:
-            return error
+        self.validator.validate_remove_category(category)
             
         self.remove_from_list(lambda e: e.category == category)
 
@@ -243,9 +233,7 @@ class Function:
         '''
         category = params[0]
 
-        error = self.validator.validate_list_category(category)
-        if error:
-            return error
+        self.validator.validate_list_category(category)
         condition = lambda e: e.category == category
 
         return self.build_list(self.expenses, condition)
@@ -261,9 +249,7 @@ class Function:
         operator = params[1]
         value_string = params[2]
 
-        error = self.validator.validate_list_category_condition(category, operator, value_string)
-        if error:
-            return error
+        self.validator.validate_list_category_condition(category, operator, value_string)
         value = int(value_string)
         comparison = self.get_comparison(operator)
         condition = lambda e: e.category == category and comparison(e.cost, value)
@@ -279,9 +265,7 @@ class Function:
         '''
         category = params[0]
 
-        error = self.validator.validate_sum_category(category)
-        if error:
-            return error
+        self.validator.validate_sum_category(category)
         
         category_sum = self.sum_by(lambda e: e.category == category)
         return "\nThe sum of total expenses of category '" + category + "' is " + str(category_sum)
@@ -295,14 +279,12 @@ class Function:
         '''
         day_string = params[0]
 
-        error = self.validator.validate_max_day(day_string)
-        if error:
-            return error
+        self.validator.validate_max_day(day_string)
         day = int(day_string)
 
         max_day = self.get_max_by(lambda e: e.day == day)
         if max_day < 1:
-            return "No expenses found in the " + self.format_day(day) + " day"
+            raise ValidationError("No expenses found in the " + self.format_day(day) + " day")
         return "\nThe maximum of the " + self.format_day(day) + " day is " + str(max_day)
 
     def sort_day(self, params):
@@ -314,9 +296,7 @@ class Function:
         '''
         day_string = params[0]
 
-        error = self.validator.validate_sort_day(day_string)
-        if error:
-            return error
+        self.validator.validate_sort_day(day_string)
         day = int(day_string)
 
         ordered_list = sorted(self.expenses, key = lambda e: e.cost)
@@ -331,9 +311,7 @@ class Function:
         '''
         category = params[0]
 
-        error = self.validator.validate_sort_category(category)
-        if error:
-            return error
+        self.validator.validate_sort_category(category)
 
         ordered_list = sorted(self.expenses, key = lambda e: e.cost)
         return self.build_list(ordered_list, lambda e: e.category == category)
@@ -347,9 +325,7 @@ class Function:
         '''
         category = params[0]
 
-        error = self.validator.validate_filter_category(category)
-        if error:
-            return error
+        self.validator.validate_filter_category(category)
             
         self.remove_from_list(lambda e: e.category != category)
 
@@ -364,9 +340,7 @@ class Function:
         operator = params[1]
         value_string = params[2]
 
-        error = self.validator.validate_filter_category_condition(category, operator, value_string)
-        if error:
-            return error
+        self.validator.validate_filter_category_condition(category, operator, value_string)
         value = int(value_string)
             
         comparison = self.get_comparison(operator)
@@ -380,5 +354,5 @@ class Function:
         Output: -
         '''
         if self.undo_actions.nothing_to_undo():
-            return "No action available to undo"
+            raise ValidationError("No action available to undo")
         self.undo_actions.undo()
