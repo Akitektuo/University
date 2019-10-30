@@ -13,7 +13,7 @@ segment data use32 class=data
 segment code use32 class=code
 start:
 
-    ; positive
+    ; UNSIGNED
 
     mov al, [a] ; al = a
     mul al ; ax = a * a
@@ -37,8 +37,8 @@ start:
     mov bx, 2 ; bx = 2
 
     ; cx:bx = 2 + b
-    add bx, [b]
     mov cx, 0 
+    add bx, [b]
     adc cx, 0 
 
     ; ebx = 2 + b
@@ -57,7 +57,7 @@ start:
     sub eax, dword [x]
     sbb ebx, dword [x + 4]
 
-    ; negative
+    ; SIGNED
 
     mov al, [a] ; al = a
     imul al ; ax = a * a
