@@ -20,7 +20,7 @@ start:
         cmp byte [esi], 0
         jge end
         test byte [esi], 1
-        jnz  end
+        jnz end
         mov al, [esi]
         mov [edi], al
         inc edi
