@@ -1,17 +1,18 @@
-ACTION_ADD = "action_add"
-ACTION_REMOVE = "action_remove"
-ACTION_UPDATE = "action_update"
-ACTION_LIST = "action_list"
-ACTION_GRADE = "action_grid"
-ACTION_SEARCH = "action_search"
-ACTION_SEE_FAILING_STUDENTS = "action_see_failing_students"
-ACTION_SEE_BEST_STUDENTS = "action_see_best_students"
-ACTION_SEE_GRADES = "action_see_grades"
-ACTION_UNDO = "action_undo"
-ACTION_HELP = "action_help"
-ACTION_EXIT = "action_exit"
-
 class Action:
+    ADD = "action_add"
+    REMOVE = "action_remove"
+    UPDATE = "action_update"
+    LIST = "action_list"
+    GRADE = "action_grid"
+    SEARCH = "action_search"
+    SEE_FAILING_STUDENTS = "action_see_failing_students"
+    SEE_BEST_STUDENTS = "action_see_best_students"
+    SEE_GRADES = "action_see_grades"
+    UNDO = "action_undo"
+    HELP = "action_help"
+    UI = "action_ui"
+    TEST = "action_test"
+    EXIT = "action_exit"
     
     def __init__(self, atype, params = []):
         self.type = atype
