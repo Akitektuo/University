@@ -186,8 +186,10 @@ class Services:
             raise NoDataError("No students failing at one or more disciplines")
 
         students_to_show = "\nStudents failing:"
+        count = 1
         for f in faillings:
-            students_to_show += "\n" + f[0] + " at " + f[1] + " with the average of " + self.format_float(f[2])
+            students_to_show += "\n" + str(count) + ". " + f[0] + " at " + f[1] + " with the average of " + self.format_float(f[2])
+            count += 1
         return students_to_show
 
     def see_best_students(self):
@@ -199,8 +201,10 @@ class Services:
         best_students = sorted(best_students, key = lambda b: b[1], reverse = True)
 
         students_to_show = "\nBest students in descending order of average grades:"
+        count = 1
         for b in best_students:
-            students_to_show += "\n" + b[0] + " with the average of " + self.format_float(b[1])
+            students_to_show += "\n" + str(count) + ". " + b[0] + " with the average of " + self.format_float(b[1])
+            count += 1
         return students_to_show
 
     def see_grades(self):
@@ -212,6 +216,8 @@ class Services:
         disciplines_with_grades = sorted(disciplines_with_grades, key = lambda d: d[1], reverse = True)
 
         disciplines_to_show = "\nDisciplines with grades in descending order of average grades:"
+        count = 1
         for d in disciplines_with_grades:
-            disciplines_to_show += "\n" + d[0] + " with the average of " + self.format_float(d[1])
+            disciplines_to_show += "\n" + str(count) + ". " + d[0] + " with the average of " + self.format_float(d[1])
+            count += 1
         return disciplines_to_show
