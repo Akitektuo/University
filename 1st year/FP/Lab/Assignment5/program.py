@@ -30,28 +30,28 @@ class Program:
                     self.__services.add(action.params)
 
                 elif action.type == Action.REMOVE:
-                    pass
+                    self.__services.remove(action.params)
 
                 elif action.type == Action.UPDATE:
-                    pass
+                    self.__services.update(action.params)
 
                 elif action.type == Action.LIST:
-                    result = self.__services.list_all_data()
+                    result = self.__services.list_all()
 
                 elif action.type == Action.GRADE:
-                    pass
+                    self.__services.grade(action.params)
 
                 elif action.type == Action.SEARCH:
-                    pass
+                    result = self.__services.search(action.params)
 
                 elif action.type == Action.SEE_FAILING_STUDENTS:
-                    pass
+                    result = self.__services.see_failing_students()
 
                 elif action.type == Action.SEE_BEST_STUDENTS:
-                    pass
+                    result = self.__services.see_best_students()
 
                 elif action.type == Action.SEE_GRADES:
-                    pass
+                    result = self.__services.see_grades()
 
                 elif action.type == Action.UNDO:
                     pass

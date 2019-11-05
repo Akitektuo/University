@@ -1,6 +1,7 @@
 from action import Action
-from exceptions.invalid_command_error import InvalidCommandError
+from exceptions import InvalidCommandError
 from validator import is_type_valid
+from validator import validate_existing_discipline_id
 
 class MenuUI:
     TYPE = "menu_ui"
@@ -13,7 +14,7 @@ class MenuUI:
         print("1. Add a student or discipline")
         print("2. Remove a student or discipline by ID")
         print("3. Update a student or discipline")
-        print("4. List all the students and/or disciplines")
+        print("4. List all the students and disciplines")
         print("5. Grade students at a given discipline")
         print("6. Seacrh for disciplines and students")
         print("7. Show all students failing at one or more disciplines")
@@ -33,6 +34,33 @@ class MenuUI:
         name = input("Give name: ")
         return [atype, aid, name]
 
+    def get_remove_params(self):
+        atype = input("What do you want to remove? (student/discipline): ")
+        while not is_type_valid(atype):
+            print("Invalid type, try again...\n")
+            atype = input("What do you want to remove? (student/discipline): ")
+        aid = input("Give an existing ID: ")
+        return [atype, aid]
+
+    def get_update_params(self):
+        atype = input("What do you want to update? (student/discipline): ")
+        while not is_type_valid(atype):
+            print("Invalid type, try again...\n")
+            atype = input("What do you want to update? (student/discipline): ")
+        aid = input("Give an existing ID: ")
+        name = input("Give new name: ")
+        return [atype, aid, name]
+
+    def get_grade_params(self):
+        sid = input("Grade student (ID): ")
+        did = input("At discipline (ID): ")
+        grade = input("With (grade): ")
+        return [sid, did, grade]
+
+    def get_search_params(self):
+        keyword = input("Give keyword: ")
+        return [keyword]
+
     def get_action(self):
         command = input("\n> ")
         if command == "0":
@@ -40,15 +68,15 @@ class MenuUI:
         if command == "1":
             return Action(Action.ADD, self.get_add_params())
         if command == "2":
-            return Action(Action.REMOVE)
+            return Action(Action.REMOVE, self.get_remove_params())
         if command == "3":
-            return Action(Action.UPDATE)
+            return Action(Action.UPDATE, self.get_update_params())
         if command == "4":
             return Action(Action.LIST)
         if command == "5":
-            return Action(Action.GRADE)
+            return Action(Action.GRADE, self.get_grade_params())
         if command == "6":
-            return Action(Action.SEARCH)
+            return Action(Action.SEARCH, self.get_search_params())
         if command == "7":
             return Action(Action.SEE_FAILING_STUDENTS)
         if command == "8":
