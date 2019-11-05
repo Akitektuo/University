@@ -1,0 +1,2 @@
+class IdExistsError(Exception):
+    pass

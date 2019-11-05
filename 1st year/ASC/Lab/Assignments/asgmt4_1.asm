@@ -12,7 +12,7 @@ segment code use32 class=code
 start:
     mov ebx, 0 ; bx = 0 - reazultat
 
-    ; ebx[0, 3] = b[5-8]
+    ; ebx[0, 3] = b[5, 8]
     mov eax, [b]
     and eax, 00000000000000000000000111100000b
     mov cl, 5

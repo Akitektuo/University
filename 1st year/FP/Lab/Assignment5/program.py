@@ -27,7 +27,7 @@ class Program:
                 action = self.__ui_manager.get_action()
 
                 if action.type == Action.ADD:
-                    pass
+                    self.__services.add(action.params)
 
                 elif action.type == Action.REMOVE:
                     pass
