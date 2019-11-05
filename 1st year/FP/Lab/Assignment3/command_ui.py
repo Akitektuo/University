@@ -20,7 +20,7 @@ class CommandUI:
         print("The commands are the following:")
         print("Adding")
         print("   - add <sum> <category>")
-        print("   - add <day> <sum> <category>")
+        print("   - insert <day> <sum> <category>")
         print("Removing")
         print("   - remove <day>")
         print("   - remove <start day> to <end day>")
@@ -53,6 +53,9 @@ class CommandUI:
             params.pop(0)
             if len(params) == 2:
                 return Action(constants.ACTION_ADD, params)
+        if re.search("^i", command):
+            params = re.split(" ", command)
+            params.pop(0)
             if len(params) == 3:
                 return Action(constants.ACTION_INSERT, params)
         if re.search("^r", command):
@@ -71,7 +74,8 @@ class CommandUI:
                 return Action(constants.ACTION_LIST_CATEGORY, params)
             if len(params) == 3:
                 return Action(constants.ACTION_LIST_CATEGORY_CONDITION, params)
-            return Action(constants.ACTION_LIST_ALL)
+            if len(params) == 0:
+                return Action(constants.ACTION_LIST_ALL)
         if re.search("^su", command):
             params = re.split(" ", command)
             params.pop(0)
