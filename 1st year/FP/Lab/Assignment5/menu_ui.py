@@ -98,6 +98,7 @@ class MenuUI:
         if (command.startswith('1')):
             print("Starting GUI")
             return True
+        self.show_help()
         return False
 
     def handle_error(self, error):
