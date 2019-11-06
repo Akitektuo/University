@@ -1,7 +1,10 @@
 from domains import Student
 from domains import Discipline
 from domains import Grade
+from domains import Average
 from validator import is_int
+from action_tracker import ActionTracker
+import copy
 
 class Repository:
 
@@ -9,6 +12,7 @@ class Repository:
         self.students = []
         self.disciplines = []
         self.grades = []
+        self.tracker = ActionTracker(self)
 
     def is_empty(self):
         return len(self.students) < 1 and len(self.disciplines) < 1 and len(self.grades) < 1
@@ -27,10 +31,11 @@ class Repository:
         self.disciplines.clear()
         self.grades.clear()
 
-    def copy_from(self, other):
+    def add_all(self, other):
         self.students.extend(other.students)
         self.disciplines.extend(other.disciplines)
         self.grades.extend(other.grades)
+        self.tracker.add_action(ActionTracker.ADD_MULTIPLE, other)
 
     def is_student_id(self, sid):
         for s in self.students:
@@ -45,10 +50,14 @@ class Repository:
         return False
 
     def add_student(self, sid, name):
-        self.students.append(Student(sid, name))
+        student = Student(sid, name)
+        self.students.append(student)
+        self.tracker.add_action(ActionTracker.ADD, student, ActionTracker.STUDENT)
 
     def add_discipline(self, did, name):
-        self.disciplines.append(Discipline(did, name))
+        discipline = Discipline(did, name)
+        self.disciplines.append(discipline)
+        self.tracker.add_action(ActionTracker.ADD, discipline, ActionTracker.DISCIPLINE)
 
     def get_discipline(self, did):
         for d in self.disciplines:
@@ -62,41 +71,53 @@ class Repository:
                 return s
         raise Exception("Invalid student ID, no student found with ID " + str(sid))
 
-    def add_grade(self, discipline, student, grade):
+    def add_grade(self, discipline, student, value):
         if is_int(discipline):
             discipline = self.get_discipline(discipline)
 
         if is_int(student):
             student = self.get_student(student)
 
-        self.grades.append(Grade(discipline, student, grade))
+        grade = Grade(discipline, student, value)
+        self.grades.append(grade)
+        self.tracker.add_action(ActionTracker.ADD, grade, ActionTracker.GRADE)
 
     def remove_student(self, sid):
+        deleted = Repository()
         student = self.get_student(sid)
 
         grades_copy = list(self.grades)
         for g in grades_copy:
             if g.student == student:
+                deleted.grades.append(g)
                 self.grades.remove(g)
 
+        deleted.students.append(student)
         self.students.remove(student)
+        self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
 
     def remove_discipline(self, did):
+        deleted = Repository()
         discipline = self.get_discipline(did)
 
         grades_copy = list(self.grades)
         for g in grades_copy:
             if g.discipline == discipline:
+                deleted.grades.append(g)
                 self.grades.remove(g)
                 
+        deleted.students.append(discipline)
         self.disciplines.remove(discipline)
+        self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
 
     def update_student(self, sid, name):
         student = self.get_student(sid)
+        self.tracker.add_action(ActionTracker.EDIT, copy(student), ActionTracker.STUDENT)
         student.name = name
 
     def update_discipline(self, did, name):
         discipline = self.get_discipline(did)
+        self.tracker.add_action(ActionTracker.EDIT, copy(discipline), ActionTracker.DISCIPLINE)
         discipline.name = name
 
     def search(self, keyword):
@@ -131,7 +152,7 @@ class Repository:
                 average /= count
 
                 if average < 5:
-                    students_with_grades.append([s.name, d.name, average])
+                    students_with_grades.append(Average(average, s.name, d.name))
 
         return students_with_grades
 
@@ -161,7 +182,7 @@ class Repository:
                 continue
 
             total_average /= total_count
-            students_with_grades.append([s.name, total_average])
+            students_with_grades.append(Average(total_average, student_name = s.name))
 
         return students_with_grades
 
@@ -181,6 +202,9 @@ class Repository:
                 continue
 
             average /= count
-            disciplines_with_grades.append([d.name, average])
+            disciplines_with_grades.append(Average(average, discipline_name = d.name))
         
         return disciplines_with_grades
+
+    def restore(self):
+        self.tracker.revert()

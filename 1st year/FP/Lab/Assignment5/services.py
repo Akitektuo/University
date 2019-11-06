@@ -29,7 +29,7 @@ class Services:
                 randomiser.get_random_grade()
             )
 
-        self.repository.copy_from(repository_to_add)
+        self.repository.add_all(repository_to_add)
 
     def add(self, params):
         validate_param_length(params, 3)
@@ -113,7 +113,7 @@ class Services:
                     discipline_string = str(repository.disciplines[i])
                     data_string += discipline_string + generator.generate_chars(' ', 57 - len(discipline_string)) + " |"
                 else:
-                    data_string += generator.generate_chars(' ', 59) + "|"
+                    data_string += generator.generate_chars(' ', 58) + "|"
 
             data_string += "\n" + generator.generate_chars('-', 121)
             return data_string
@@ -188,7 +188,7 @@ class Services:
         students_to_show = "\nStudents failing:"
         count = 1
         for f in faillings:
-            students_to_show += "\n" + str(count) + ". " + f[0] + " at " + f[1] + " with the average of " + self.format_float(f[2])
+            students_to_show += "\n" + str(count) + ". " + f.student_name + " at " + f.discipline_name + " with the average of " + f.get_formated_average()
             count += 1
         return students_to_show
 
@@ -198,12 +198,12 @@ class Services:
         if len(best_students) < 1:
             raise NoDataError("No students with grades to show")
 
-        best_students = sorted(best_students, key = lambda b: b[1], reverse = True)
+        best_students = sorted(best_students, key = lambda b: b.value, reverse = True)
 
         students_to_show = "\nBest students in descending order of average grades:"
         count = 1
         for b in best_students:
-            students_to_show += "\n" + str(count) + ". " + b[0] + " with the average of " + self.format_float(b[1])
+            students_to_show += "\n" + str(count) + ". " + b.student_name + " with the average of " + b.get_formated_average()
             count += 1
         return students_to_show
 
@@ -213,11 +213,11 @@ class Services:
         if len(disciplines_with_grades) < 1:
             raise NoDataError("No disciplines with grades to show")
 
-        disciplines_with_grades = sorted(disciplines_with_grades, key = lambda d: d[1], reverse = True)
+        disciplines_with_grades = sorted(disciplines_with_grades, key = lambda d: d.value, reverse = True)
 
         disciplines_to_show = "\nDisciplines with grades in descending order of average grades:"
         count = 1
         for d in disciplines_with_grades:
-            disciplines_to_show += "\n" + str(count) + ". " + d[0] + " with the average of " + self.format_float(d[1])
+            disciplines_to_show += "\n" + str(count) + ". " + d.discipline_name + " with the average of " + d.get_formated_average()
             count += 1
         return disciplines_to_show

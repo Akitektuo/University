@@ -34,3 +34,18 @@ class Student:
 
     def __str__(self):
         return str(self.id) + ". " + self.name
+
+
+class Average:
+
+    def __init__(self, value, student_name = "", discipline_name = ""):
+        self.value = value
+        self.student_name = student_name
+        self.discipline_name = discipline_name
+
+    def get_formated_average(self):
+        value = round(self.value, 2)
+        int_value = int(value)
+        if value == int_value:
+            value = int_value
+        return str(value)
