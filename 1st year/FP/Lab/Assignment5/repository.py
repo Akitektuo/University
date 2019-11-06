@@ -31,11 +31,12 @@ class Repository:
         self.disciplines.clear()
         self.grades.clear()
 
-    def add_all(self, other):
+    def add_all(self, other, track = True):
         self.students.extend(other.students)
         self.disciplines.extend(other.disciplines)
         self.grades.extend(other.grades)
-        self.tracker.add_action(ActionTracker.ADD_MULTIPLE, other)
+        if track:
+            self.tracker.add_action(ActionTracker.ADD_MULTIPLE, other)
 
     def is_student_id(self, sid):
         for s in self.students:
@@ -49,15 +50,17 @@ class Repository:
                 return True
         return False
 
-    def add_student(self, sid, name):
+    def add_student(self, sid, name, track = True):
         student = Student(sid, name)
         self.students.append(student)
-        self.tracker.add_action(ActionTracker.ADD, student, ActionTracker.STUDENT)
+        if track:
+            self.tracker.add_action(ActionTracker.ADD, student, ActionTracker.STUDENT)
 
-    def add_discipline(self, did, name):
+    def add_discipline(self, did, name, track = True):
         discipline = Discipline(did, name)
         self.disciplines.append(discipline)
-        self.tracker.add_action(ActionTracker.ADD, discipline, ActionTracker.DISCIPLINE)
+        if track:
+            self.tracker.add_action(ActionTracker.ADD, discipline, ActionTracker.DISCIPLINE)
 
     def get_discipline(self, did):
         for d in self.disciplines:
@@ -71,7 +74,7 @@ class Repository:
                 return s
         raise Exception("Invalid student ID, no student found with ID " + str(sid))
 
-    def add_grade(self, discipline, student, value):
+    def add_grade(self, discipline, student, value, track = True):
         if is_int(discipline):
             discipline = self.get_discipline(discipline)
 
@@ -80,9 +83,10 @@ class Repository:
 
         grade = Grade(discipline, student, value)
         self.grades.append(grade)
-        self.tracker.add_action(ActionTracker.ADD, grade, ActionTracker.GRADE)
+        if track:
+            self.tracker.add_action(ActionTracker.ADD, grade, ActionTracker.GRADE)
 
-    def remove_student(self, sid):
+    def remove_student(self, sid, track = True):
         deleted = Repository()
         student = self.get_student(sid)
 
@@ -94,9 +98,10 @@ class Repository:
 
         deleted.students.append(student)
         self.students.remove(student)
-        self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
+        if track:
+            self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
 
-    def remove_discipline(self, did):
+    def remove_discipline(self, did, track = True):
         deleted = Repository()
         discipline = self.get_discipline(did)
 
@@ -108,16 +113,19 @@ class Repository:
                 
         deleted.students.append(discipline)
         self.disciplines.remove(discipline)
-        self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
+        if track:
+            self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)
 
-    def update_student(self, sid, name):
+    def update_student(self, sid, name, track = True):
         student = self.get_student(sid)
-        self.tracker.add_action(ActionTracker.EDIT, copy(student), ActionTracker.STUDENT)
+        if track:
+            self.tracker.add_action(ActionTracker.EDIT, copy.copy(student), ActionTracker.STUDENT)
         student.name = name
 
-    def update_discipline(self, did, name):
+    def update_discipline(self, did, name, track = True):
         discipline = self.get_discipline(did)
-        self.tracker.add_action(ActionTracker.EDIT, copy(discipline), ActionTracker.DISCIPLINE)
+        if track:
+            self.tracker.add_action(ActionTracker.EDIT, copy.copy(discipline), ActionTracker.DISCIPLINE)
         discipline.name = name
 
     def search(self, keyword):

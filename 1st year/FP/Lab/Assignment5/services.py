@@ -221,3 +221,6 @@ class Services:
             disciplines_to_show += "\n" + str(count) + ". " + d.discipline_name + " with the average of " + d.get_formated_average()
             count += 1
         return disciplines_to_show
+
+    def undo(self):
+        self.repository.restore()

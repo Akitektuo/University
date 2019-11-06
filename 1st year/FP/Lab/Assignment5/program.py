@@ -54,7 +54,7 @@ class Program:
                     result = self.__services.see_grades()
 
                 elif action.type == Action.UNDO:
-                    pass
+                    self.__services.undo()
 
                 elif action.type == Action.HELP:
                     self.__ui_manager.show_help()

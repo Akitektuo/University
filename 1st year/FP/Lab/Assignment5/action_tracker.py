@@ -39,34 +39,38 @@ class ActionTracker:
         if self.is_empty():
             raise Exception("Nothing left to undo")
         last_action = self.actions.pop()
-        if last_action.type == ADD:
-            return self.add(last_action)
-        if last_action.type == ADD_MULTIPLE:
+        if last_action.type == self.ADD_MULTIPLE:
             return self.add_multiple(last_action)
-        if last_action.type == EDIT:
+        if last_action.type == self.EDIT:
             return self.edit(last_action)
-        if last_action.type == REMOVE:
+        if last_action.type == self.REMOVE:
             return self.remove(last_action)
-        if last_action.type == REMOVE_MULTIPLE:
+        if last_action.type == self.REMOVE_MULTIPLE:
             return self.remove_multiple(last_action)
 
-    def add(self, action):
-        if action.data_type == STUDENT:
-            self.repo_to_track.students.append(action.data)
-            return
-        if action.data_type == DISCIPLINE:
-            self.repo_to_track.disciplines.append(action.data)
-            return
-
     def add_multiple(self, action):
-        pass
+        self.repo_to_track.add_all(action.data, False)
 
     def edit(self, action):
-        pass
+        data = action.data
+        if action.data_type == self.STUDENT:
+            return self.repo_to_track.update_student(data.id, data.name, False)
+        if action.data_type == self.DISCIPLINE:
+            return self.repo_to_track.update_discipline(data.id, data.name, False)
 
     def remove(self, action):
-        pass
+        if action.data_type == self.STUDENT:
+            return self.repo_to_track.students.remove(action.data)
+        if action.data_type == self.DISCIPLINE:
+            return self.repo_to_track.disciplines.remove(action.data)
+        if action.data_type == self.GRADE:
+            return self.repo_to_track.grades.remove(action.data)
 
     def remove_multiple(self, action):
-        pass
+        for sr in action.data.students:
+            self.repo_to_track.students.remove(sr)
+        for dr in action.data.disciplines:
+            self.repo_to_track.disciplines.remove(dr)
+        for gr in action.data.grades:
+            self.repo_to_track.grades.remove(gr)
 
