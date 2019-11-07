@@ -214,5 +214,8 @@ class Repository:
         
         return disciplines_with_grades
 
-    def restore(self):
-        self.tracker.revert()
+    def undo(self):
+        self.tracker.undo()
+
+    def redo(self):
+        self.tracker.redo()

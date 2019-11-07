@@ -223,4 +223,7 @@ class Services:
         return disciplines_to_show
 
     def undo(self):
-        self.repository.restore()
+        self.repository.undo()
+
+    def redo(self):
+        self.repository.redo()

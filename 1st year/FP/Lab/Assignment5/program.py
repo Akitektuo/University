@@ -56,6 +56,9 @@ class Program:
                 elif action.type == Action.UNDO:
                     self.__services.undo()
 
+                elif action.type == Action.REDO:
+                    self.__services.redo()
+
                 elif action.type == Action.HELP:
                     self.__ui_manager.show_help()
                     continue

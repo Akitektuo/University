@@ -9,6 +9,7 @@ class Action:
     SEE_BEST_STUDENTS = "action_see_best_students"
     SEE_GRADES = "action_see_grades"
     UNDO = "action_undo"
+    REDO = "action_redo"
     HELP = "action_help"
     UI = "action_ui"
     TEST = "action_test"

@@ -21,9 +21,10 @@ class MenuUI:
         print("8. Show the students with the best school situation")
         print("9. Show all disciplines with grades")
         print("10. Undo the previous operation")
-        print("11. Change to graphical UI")
-        print("12. Run all tests and stop the program")
-        print("13. Exit")
+        print("11. Redo the previous undo")
+        print("12. Change to graphical UI")
+        print("13. Run all tests and stop the program")
+        print("14. Exit")
 
     def get_add_params(self):
         atype = input("What do you want to add? (student/discipline): ")
@@ -86,10 +87,12 @@ class MenuUI:
         if command == "10":
             return Action(Action.UNDO)
         if command == "11":
-            return Action(Action.UI)
+            return Action(Action.REDO)
         if command == "12":
-            return Action(Action.TEST)
+            return Action(Action.UI)
         if command == "13":
+            return Action(Action.TEST)
+        if command == "14":
             return Action(Action.EXIT)
         raise InvalidCommandError("Invalid command, enter 0 if you want to see the menu")
 
