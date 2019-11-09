@@ -14,17 +14,26 @@ class Repository:
         self.grades = []
         self.tracker = ActionTracker(self)
 
-    def is_empty(self):
-        return len(self.students) < 1 and len(self.disciplines) < 1 and len(self.grades) < 1
+    def get_students_count(self):
+        return len(self.students)
+
+    def get_disciplines_count(self):
+        return len(self.disciplines)
+
+    def get_grades_count(self):
+        return len(self.grades)
 
     def has_students(self):
-        return len(self.students) > 0
+        return self.get_students_count() > 0
 
     def has_disciplines(self):
-        return len(self.disciplines) > 0
+        return self.get_disciplines_count() > 0
 
     def has_grades(self):
-        return len(self.grades) > 0
+        return self.get_grades_count() > 0
+
+    def is_empty(self):
+        return not self.has_students() and not self.has_disciplines() and not self.has_grades()
 
     def clear(self):
         self.students.clear()
@@ -111,7 +120,7 @@ class Repository:
                 deleted.grades.append(g)
                 self.grades.remove(g)
                 
-        deleted.students.append(discipline)
+        deleted.disciplines.append(discipline)
         self.disciplines.remove(discipline)
         if track:
             self.tracker.add_action(ActionTracker.REMOVE_MULTIPLE, deleted)

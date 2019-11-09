@@ -2,7 +2,6 @@ from exceptions import ValidationError
 
 STUDENT = "student"
 DISCIPLINE = "discipline"
-BOTH = "both"
 
 def validate_param_length(params, expected_length):
     if len(params) != expected_length:
@@ -23,7 +22,7 @@ def is_float(value):
         return False
 
 def is_type_valid(atype):
-    return atype == STUDENT or atype == DISCIPLINE or atype == BOTH
+    return atype == STUDENT or atype == DISCIPLINE
 
 def validate_int_id(string_id):
     if not is_int(string_id):

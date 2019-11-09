@@ -68,7 +68,9 @@ class Program:
                     continue
 
                 elif action.type == Action.TEST:
-                    unittest.main()
+                    test = unittest.main(module = "services_test", exit = False)
+                    print(test.result)
+                    continue
 
                 elif action.type == Action.EXIT:
                     return

@@ -23,7 +23,7 @@ class MenuUI:
         print("10. Undo the previous operation")
         print("11. Redo the previous undo")
         print("12. Change to graphical UI")
-        print("13. Run all tests and stop the program")
+        print("13. Run all tests")
         print("14. Exit")
 
     def get_add_params(self):
