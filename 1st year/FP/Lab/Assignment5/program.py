@@ -1,6 +1,7 @@
 import unittest
 from services import Services
 from menu_ui import MenuUI
+from graphical_ui import GraphicalUI
 from action import Action
 
 class Program:
@@ -12,7 +13,7 @@ class Program:
     def change_ui(self):
          if self.__ui_manager.switch_ui_prefernece():
             if self.__ui_manager.TYPE == MenuUI.TYPE:
-                pass # self.__ui_manager = GraficalUI()
+                self.__ui_manager = GraphicalUI()
             else:
                 self.__ui_manager = MenuUI()
 
@@ -68,8 +69,7 @@ class Program:
                     continue
 
                 elif action.type == Action.TEST:
-                    test = unittest.main(module = "services_test", exit = False)
-                    print(test.result)
+                    unittest.main(module = "services_test", exit = False) 
                     continue
 
                 elif action.type == Action.EXIT:
