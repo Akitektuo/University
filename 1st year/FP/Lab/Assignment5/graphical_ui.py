@@ -82,7 +82,7 @@ class GraphicalUI:
         self.main.protocol("WM_DELETE_WINDOW", self.on_destroy)
         self.main.mainloop()
 
-    def build_button(self, text, action, width = 128):
+    def build_button(self, text, action, width = 64):
         gui.Button(self.main, text = text, width = width, command = action).pack()
 
     def build_dropdown(self, values):
