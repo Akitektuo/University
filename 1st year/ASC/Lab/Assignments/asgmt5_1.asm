@@ -8,8 +8,8 @@ import exit msvcrt.dll
 segment data use32 class=data
     a db 2, 1, -3, 3, 3, -4, 2, 6
     b db 4, 5, 7, 6, 2, 1
-    bLen equ ($ - b) / 2
-    aLen equ ($ - a) / 2
+    bLen equ $ - b
+    aLen equ $ - a
     r resb aLen + bLen
     
 segment code use32 class=code

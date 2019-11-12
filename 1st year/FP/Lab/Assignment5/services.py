@@ -13,6 +13,12 @@ class Services:
         self.repository = Repository()
 
     def preload_list(self):
+        """
+        Adds to the repository a list of predefined values that are randomised
+
+        Input: -
+        Output: -
+        """
         randomiser = Randomiser()
         repository_to_add = Repository()
 
@@ -32,6 +38,12 @@ class Services:
         self.repository.add_all(repository_to_add)
 
     def add(self, params):
+        """
+        Add a student or discipline to the repository
+
+        Input: list - list of params (type, id, name)
+        Output: -
+        """
         validate_param_length(params, 3)
 
         atype = params[0]
@@ -52,6 +64,12 @@ class Services:
             self.repository.add_discipline(aid, name)
 
     def remove(self, params):
+        """
+        Remove a student or discipline from the repository
+
+        Input: list - list of params (type, id)
+        Output: -
+        """
         validate_param_length(params, 2)
 
         atype = params[0]
@@ -70,6 +88,12 @@ class Services:
             self.repository.remove_discipline(aid)
 
     def update(self, params):
+        """
+        Update a student or discipline from the repository
+
+        Input: list - list of params (type, id, new_name)
+        Output: -
+        """
         validate_param_length(params, 3)
 
         atype = params[0]
@@ -90,6 +114,14 @@ class Services:
             self.repository.update_discipline(aid, name)
 
     def build_list(self, repository, header = "All students and diciplines"):
+        """
+        Parses a repository's data into a string to be printed
+
+        Input: 
+            Repository - repository to parse
+            string - header to show at the beginning of the generated string
+        Output: string - the parsed repository
+        """
         if repository.is_empty():
             raise NoDataError("No data to show")
 
@@ -134,21 +166,22 @@ class Services:
 
             return data_string
 
-    def print_grades(self):
-        if self.repository.has_grades():
-            count = 1
-            data = "\nGrades\n" + generator.generate_chars('-', 60)
-            for grade in self.repository.grades:
-                data += "\n" + str(count) + ". " + str(grade)
-                count += 1
-            print(data)
-            return
-        raise NoDataError("No grades in repository to show")
-
     def list_all(self):
+        """
+        Builds are returns a list as string representing the repository to be printed
+
+        Input: -
+        Output: string - string representing the repository
+        """
         return self.build_list(self.repository)
 
     def grade(self, params):
+        """
+        Gives a grade to a student at a given discipline
+
+        Input: params - list of params (student_id, discipline_id, grade)
+        Output: -
+        """
         validate_param_length(params, 3)
 
         sid = params[0]
@@ -160,9 +193,14 @@ class Services:
         validate_grade(grade)
 
         self.repository.add_grade(int(did), int(sid), float(grade))
-        # self.print_grades()
 
     def search(self, params):
+        """
+        Searches by a keyword and returns a string with the results
+
+        Input: params - list of params (keyword)
+        Output: string - results of search
+        """
         validate_param_length(params, 1)
 
         keyword = params[0]
@@ -172,14 +210,13 @@ class Services:
         repo_with_search = self.repository.search(keyword)
         return self.build_list(repo_with_search, "Results for the keyword '" + keyword + "'")
 
-    def format_float(self, value):
-        value = round(value, 2)
-        int_value = int(value)
-        if value == int_value:
-            value = int_value
-        return str(value)
-
     def see_failing_students(self):
+        """
+        Returns a string representing the failing students
+
+        Input: -
+        Output: string - all failing students
+        """
         faillings = self.repository.get_failing_students()
 
         if len(faillings) < 1:
@@ -193,6 +230,12 @@ class Services:
         return students_to_show
 
     def see_best_students(self):
+        """
+        Returns a string representing all students ordered by their average grades
+
+        Input: -
+        Output: string - all students ordered by their average grades
+        """
         best_students = self.repository.get_best_students()
 
         if len(best_students) < 1:
@@ -208,6 +251,12 @@ class Services:
         return students_to_show
 
     def see_grades(self):
+        """
+        Returns a string representing all disciplines ordered by their average grades
+
+        Input: -
+        Output: string - all disciplines ordered by their average grades
+        """
         disciplines_with_grades = self.repository.get_disciplines_with_grades()
 
         if len(disciplines_with_grades) < 1:
@@ -223,7 +272,19 @@ class Services:
         return disciplines_to_show
 
     def undo(self):
+        """
+        Undos the last operation that modified the repository
+
+        Input: -
+        Output: -
+        """
         self.repository.undo()
 
     def redo(self):
+        """
+        Redos the last operation that modified the repository
+
+        Input: -
+        Output: -
+        """
         self.repository.redo()

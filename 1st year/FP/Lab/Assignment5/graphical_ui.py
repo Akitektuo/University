@@ -1,7 +1,6 @@
 import tkinter as gui
 from tkinter import messagebox
 from action import Action
-from validator import validate_existing_discipline_id
 
 class GraphicalUI:
     TYPE = "graphical_ui"
