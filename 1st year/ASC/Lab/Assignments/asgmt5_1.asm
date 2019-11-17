@@ -22,7 +22,7 @@ start:
         cld ; clear direction: ->->->
         lods ; al = b[i++]
         std ; set direction: <-<-<-
-        stosb ; r[j++] = al
+        stosb ; r[j--] = al
         loop fill_b ; whiile (len > 0)
     
     cld ; clear direction: ->->->
