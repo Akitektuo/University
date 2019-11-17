@@ -2,7 +2,7 @@ import random
 
 class Randomiser:
 
-    firstNames = [
+    first_names = [
         "Liam",
         "Noah",
         "William",
@@ -39,7 +39,7 @@ class Randomiser:
         "Susan",
         "Margaret"
     ]
-    lastNames = [
+    last_names = [
         "Smith",
         "Johnson",
         "Williams",
@@ -112,20 +112,20 @@ class Randomiser:
     ]
 
     def __init__(self):
-        self.usedNames = []
+        self.used_names = []
 
     def __get_random_name(self, name_list):
-        randomName = random.choice(name_list)
-        while randomName in self.usedNames:
-            randomName = random.choice(name_list)
-        self.usedNames.append(randomName)
-        return randomName
+        random_name = random.choice(name_list)
+        while random_name in self.used_names:
+            random_name = random.choice(name_list)
+        self.used_names.append(random_name)
+        return random_name
 
     def get_random_first_name(self):
-        return self.__get_random_name(self.firstNames)
+        return self.__get_random_name(self.first_names)
 
     def get_random_last_name(self):
-        return self.__get_random_name(self.lastNames)
+        return self.__get_random_name(self.last_names)
 
     def get_random_discipline_name(self):
          return self.__get_random_name(self.disciplines)
@@ -133,5 +133,5 @@ class Randomiser:
     def get_random_grade(self):
         return random.randint(1, 10)
 
-    def get_random(self, listWithElements):
-        return random.choice(listWithElements)
+    def get_random(self, list_with_elements):
+        return random.choice(list_with_elements)
