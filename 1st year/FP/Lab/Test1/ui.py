@@ -5,7 +5,7 @@ def show_menu():
     print("1. Add a new flight")
     print("2. Modify the duration of a flight")
     print("3. Reroute a flight")
-    print("4. Show all flights")
+    print("4. Show all flights") # This is wrong, should only show flights with a specific departure city
     print("5. Exit")
 
 def print_error(error):
