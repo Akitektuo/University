@@ -1,0 +1,80 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit, printf, scanf
+     6                                  import exit msvcrt.dll
+     7                                  import printf msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 00000000                    a dd 0
+    12 00000004 00000000                    b dd 0
+    13 00000008 02000000                    k dd 2
+    14 0000000C 6E3D00                      result db "n=", 0
+    15 0000000F 256400                      format_d db "%d", 0
+    16                                      
+    17                                  segment code use32 class=code
+    18                                  start:
+    19                                  
+    20                                      ; citire a
+    21 00000000 68[00000000]                push dword a
+    22 00000005 68[0F000000]                push dword format_d
+    23 0000000A FF15[00000000]              call [scanf]
+    24 00000010 83C408                      add esp, 4 * 2
+    25                                  
+    26                                      ; citire b
+    27 00000013 68[04000000]                push dword b
+    28 00000018 68[0F000000]                push dword format_d
+    29 0000001D FF15[00000000]              call [scanf]
+    30 00000023 83C408                      add esp, 4 * 2
+    31                                  
+    32 00000026 BA00000000                  mov edx, 0 ; edx = 0
+    33 0000002B A1[00000000]                mov eax, [a] ; edx:eax = a
+    34 00000030 F735[04000000]              div dword [b] ; eax = edx:eax / b = a / b
+    35 00000036 F725[08000000]              mul dword [k] ; edx:eax = a / b * k
+    36                                  
+    37 0000003C BF[0C000000]                mov edi, result
+    38                                  
+    39                                      build_edx:
+    40 00000041 83FA00                      cmp edx, 0
+    41 00000044 740E                        jz build_eax
+    42                                  
+    43 00000046 D1E2                        shl edx, 1
+    44 00000048 7205                        jc add_edx
+    45                                  
+    46 0000004A B030                        mov al, "0"
+    47 0000004C AA                          stosb
+    48 0000004D EBF2                        jmp build_edx
+    49                                  
+    50                                      add_edx:
+    51 0000004F B031                        mov al, "1"
+    52 00000051 AA                          stosb
+    53 00000052 EBED                        jmp build_edx
+    54                                  
+    55                                      build_eax:
+    56 00000054 83F800                      cmp eax, 0
+    57 00000057 7411                        jz end
+    58                                  
+    59 00000059 D1E0                        shl eax, 1
+    60 0000005B 7205                        jc add_eax
+    61                                  
+    62 0000005D B030                        mov al, "0"
+    63 0000005F AA                          stosb
+    64 00000060 EBF2                        jmp build_eax
+    65                                  
+    66                                      add_eax:
+    67 00000062 B031                        mov al, "1"
+    68 00000064 AA                          stosb
+    69 00000065 EBED                        jmp build_eax
+    70                                  
+    71 00000067 B000                        mov al, 0
+    72 00000069 AA                          stosb
+    73                                  
+    74                                      end:
+    75 0000006A 68[0C000000]                push dword result
+    76 0000006F FF15[00000000]              call [printf]
+    77 00000075 83C404                      add esp, 4 * 1
+    78                                      
+    79 00000078 6A00                        push dword 0
+    80 0000007A FF15[00000000]              call [exit]
