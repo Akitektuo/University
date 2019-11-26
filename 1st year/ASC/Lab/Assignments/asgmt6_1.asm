@@ -7,7 +7,7 @@ import exit msvcrt.dll
 
 segment data use32 class=data
     s dw 12345, 20778, 4596
-    len resb $ - s
+    len equ ($ - s) / 2
     l db 0
     r times 14 db 0 
     
@@ -26,8 +26,8 @@ start:
             jz end_loop_numbers ; if (ax == 0)
             mov dx, 0 ; dx = 0 (reset dx for div)
             div word 10 ; ax = dx:ax / 10 ; dx = dx:ax % 10
-            mov [edi], dl ; r[j] = dl
-            inc edi ; j++
+            mov al, dl ; r[j] = dl
+            stosb ; j++
             inc byte [l] ; l++
             jmp loop_numbers ; while (ax > 0)
         end_loop_numbers: ; is called when the current number has no digits left

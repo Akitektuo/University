@@ -11,70 +11,60 @@
     11 00000000 00000000                    a dd 0
     12 00000004 00000000                    b dd 0
     13 00000008 02000000                    k dd 2
-    14 0000000C 6E3D00                      result db "n=", 0
-    15 0000000F 256400                      format_d db "%d", 0
-    16                                      
-    17                                  segment code use32 class=code
-    18                                  start:
-    19                                  
-    20                                      ; citire a
-    21 00000000 68[00000000]                push dword a
-    22 00000005 68[0F000000]                push dword format_d
-    23 0000000A FF15[00000000]              call [scanf]
-    24 00000010 83C408                      add esp, 4 * 2
-    25                                  
-    26                                      ; citire b
-    27 00000013 68[04000000]                push dword b
-    28 00000018 68[0F000000]                push dword format_d
-    29 0000001D FF15[00000000]              call [scanf]
-    30 00000023 83C408                      add esp, 4 * 2
-    31                                  
-    32 00000026 BA00000000                  mov edx, 0 ; edx = 0
-    33 0000002B A1[00000000]                mov eax, [a] ; edx:eax = a
-    34 00000030 F735[04000000]              div dword [b] ; eax = edx:eax / b = a / b
-    35 00000036 F725[08000000]              mul dword [k] ; edx:eax = a / b * k
-    36                                  
-    37 0000003C BF[0C000000]                mov edi, result
-    38                                  
-    39                                      build_edx:
-    40 00000041 83FA00                      cmp edx, 0
-    41 00000044 740E                        jz build_eax
-    42                                  
-    43 00000046 D1E2                        shl edx, 1
-    44 00000048 7205                        jc add_edx
-    45                                  
-    46 0000004A B030                        mov al, "0"
-    47 0000004C AA                          stosb
-    48 0000004D EBF2                        jmp build_edx
+    14 0000000C 256400                      format_d db "%d", 0
+    15 0000000F 257300                      format_s db "%s", 0
+    16 00000012 2D                          result db "-"
+    17                                      
+    18                                  segment code use32 class=code
+    19                                  start:
+    20                                  
+    21                                      ; citire a
+    22 00000000 68[00000000]                push dword a
+    23 00000005 68[0C000000]                push dword format_d
+    24 0000000A FF15[00000000]              call [scanf]
+    25 00000010 83C408                      add esp, 4 * 2
+    26                                  
+    27                                      ; citire b
+    28 00000013 68[04000000]                push dword b
+    29 00000018 68[0C000000]                push dword format_d
+    30 0000001D FF15[00000000]              call [scanf]
+    31 00000023 83C408                      add esp, 4 * 2
+    32                                  
+    33 00000026 BA00000000                  mov edx, 0 ; edx = 0
+    34 0000002B A1[00000000]                mov eax, [a] ; edx:eax = a
+    35 00000030 F735[04000000]              div dword [b] ; eax = edx:eax / b = a / b
+    36 00000036 F725[08000000]              mul dword [k] ; edx:eax = a / b * k
+    37                                  
+    38 0000003C BF[12000000]                mov edi, result ; result[]
+    39 00000041 B120                        mov cl, 32 ; cl = 32
+    40 00000043 89C2                        mov edx, eax ; edx = a / b * k
+    41                                  
+    42                                      build:
+    43 00000045 80F900                      cmp cl, 0 ; cl ? 0
+    44 00000048 7413                        jz end ; cl == 0 -> 'end'
+    45 0000004A FEC9                        dec cl ; cl--
+    46                                  
+    47 0000004C D1E2                        shl edx, 1 ; edx << 1
+    48 0000004E 7205                        jc add_bit ; CF == 1 -> 'add_bit'
     49                                  
-    50                                      add_edx:
-    51 0000004F B031                        mov al, "1"
-    52 00000051 AA                          stosb
-    53 00000052 EBED                        jmp build_edx
-    54                                  
-    55                                      build_eax:
-    56 00000054 83F800                      cmp eax, 0
-    57 00000057 7411                        jz end
+    50 00000050 B030                        mov al, "0" ; al = "0"
+    51 00000052 AA                          stosb ; result[i++] = "0"
+    52 00000053 EBF0                        jmp build ; -> 'build'
+    53                                  
+    54                                      add_bit:
+    55 00000055 B031                        mov al, "1" ; al = "1"
+    56 00000057 AA                          stosb ; result[i++] = "1"
+    57 00000058 EBEB                        jmp build ; -> 'build'
     58                                  
-    59 00000059 D1E0                        shl eax, 1
-    60 0000005B 7205                        jc add_eax
-    61                                  
-    62 0000005D B030                        mov al, "0"
-    63 0000005F AA                          stosb
-    64 00000060 EBF2                        jmp build_eax
-    65                                  
-    66                                      add_eax:
-    67 00000062 B031                        mov al, "1"
-    68 00000064 AA                          stosb
-    69 00000065 EBED                        jmp build_eax
-    70                                  
-    71 00000067 B000                        mov al, 0
-    72 00000069 AA                          stosb
-    73                                  
-    74                                      end:
-    75 0000006A 68[0C000000]                push dword result
-    76 0000006F FF15[00000000]              call [printf]
-    77 00000075 83C404                      add esp, 4 * 1
-    78                                      
-    79 00000078 6A00                        push dword 0
-    80 0000007A FF15[00000000]              call [exit]
+    59                                      ; mark end of array
+    60 0000005A B000                        mov al, 0 ; al = 0
+    61 0000005C AA                          stosb ; result[i++] = 0
+    62                                  
+    63                                      end: ; afisare rezultat
+    64 0000005D 68[12000000]                push dword result
+    65 00000062 68[0F000000]                push dword format_s
+    66 00000067 FF15[00000000]              call [printf]
+    67 0000006D 83C408                      add esp, 4 * 2
+    68                                      
+    69 00000070 6A00                        push dword 0
+    70 00000072 FF15[00000000]              call [exit]
