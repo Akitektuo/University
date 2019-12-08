@@ -137,10 +137,11 @@ function mulyiplyNumbers(number1, number2, base) {
 function divideNumbers(number1, number2, base) {
     const number1In10 = convertIntoBase10(base, number1);
     const number2In10 = convertIntoBase10(base, number2);
-    const res = number1In10 / number2In10;
+    const res = Math.round(number1In10 / number2In10);
     let convertedRes = convertFromBase10(res, base)
-    if (convertedRes.includes('.'))
-        convertedRes = convertedRes.split('.')[0]
+    if (convertedRes.includes('.')) {
+        convertedRes = convertedRes.split('.')[0];
+    }
     return convertedRes;
 }
 
