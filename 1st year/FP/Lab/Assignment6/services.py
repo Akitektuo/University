@@ -3,19 +3,27 @@ from domains import Discipline
 from domains import Grade
 from domains import Average
 from validator import is_int
+from repository import Repository
 from action_tracker import ActionTracker
 import copy
 
-class Services:
+class Group:
 
     def __init__(self):
         self.students = []
         self.disciplines = []
         self.grades = []
+
+class Services:
+
+    def __init__(self):
+        self.students = Repository(Repository.TYPE_STUDENTS)
+        self.disciplines = []
+        self.grades = []
         self.tracker = ActionTracker(self)
 
     def get_students_count(self):
-        return len(self.students)
+        return self.students.size()
 
     def get_disciplines_count(self):
         return len(self.disciplines)
@@ -24,7 +32,7 @@ class Services:
         return len(self.grades)
 
     def has_students(self):
-        return self.get_students_count() > 0
+        return self.students.is_not_empty()
 
     def has_disciplines(self):
         return self.get_disciplines_count() > 0
@@ -33,7 +41,7 @@ class Services:
         return self.get_grades_count() > 0
 
     def is_empty(self):
-        return not self.has_students() and not self.has_disciplines() and not self.has_grades()
+        return self.students.is_empty() and not self.has_disciplines() and not self.has_grades()
 
     def clear(self):
         self.students.clear()
@@ -41,14 +49,14 @@ class Services:
         self.grades.clear()
 
     def add_all(self, other, track = True):
-        self.students.extend(other.students)
+        self.students.add_all(other.students)
         self.disciplines.extend(other.disciplines)
         self.grades.extend(other.grades)
         if track:
             self.tracker.add_action(ActionTracker.ADD_MULTIPLE, other)
 
     def is_student_id(self, sid):
-        for s in self.students:
+        for s in self.students.data:
             if s.id == sid:
                 return True
         return False
@@ -61,7 +69,7 @@ class Services:
 
     def add_student(self, sid, name, track = True):
         student = Student(sid, name)
-        self.students.append(student)
+        self.students.add(student)
         if track:
             self.tracker.add_action(ActionTracker.ADD, student, ActionTracker.STUDENT)
 
@@ -78,7 +86,7 @@ class Services:
         raise Exception("Invalid discipline ID, no discipline found with ID " + str(did))
 
     def get_student(self, sid):
-        for s in self.students:
+        for s in self.students.data:
             if s.id == sid:
                 return s
         raise Exception("Invalid student ID, no student found with ID " + str(sid))
@@ -96,7 +104,7 @@ class Services:
             self.tracker.add_action(ActionTracker.ADD, grade, ActionTracker.GRADE)
 
     def remove_student(self, sid, track = True):
-        deleted = Services()
+        deleted = Group()
         student = self.get_student(sid)
 
         grades_copy = list(self.grades)
@@ -138,22 +146,22 @@ class Services:
         discipline.name = name
 
     def search(self, keyword):
-        services_with_search = Services()
+        search_group = Group()
         keyword = keyword.upper()
 
-        for s in self.students:
+        for s in self.students.data:
             if keyword in str(s.id).upper() or keyword in s.name.upper():
-                services_with_search.students.append(s)
+                search_group.students.append(s)
         for d in self.disciplines:
             if keyword in str(d.id).upper() or keyword in d.name.upper():
-                services_with_search.disciplines.append(d)
+                search_group.disciplines.append(d)
     
-        return services_with_search
+        return search_group
 
     def get_failing_students(self):
         students_with_grades = []
 
-        for s in self.students:
+        for s in self.students.data:
             for d in self.disciplines:
                 count = 0
                 average = 0
@@ -176,7 +184,7 @@ class Services:
     def get_best_students(self):
         students_with_grades = []
 
-        for s in self.students:
+        for s in self.students.data:
             total_count = 0
             total_average = 0
 

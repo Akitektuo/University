@@ -209,10 +209,15 @@ class Repository:
         if self.store_type != Repository.STORE_MEMORY:
             self.__parse_to_file()
 
-    def remove(self, condition):
+    def remove_all(self, condition):
         initial_data = list(self.data)
         for element in initial_data:
             if condition(element):
                 self.data.remove(element)
+        if self.store_type != Repository.STORE_MEMORY:
+            self.__parse_to_file()
+
+    def remove(self, element):
+        self.data.remove(element)
         if self.store_type != Repository.STORE_MEMORY:
             self.__parse_to_file()

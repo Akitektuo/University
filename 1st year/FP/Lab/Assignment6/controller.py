@@ -2,7 +2,7 @@ from domains import Student
 from domains import Discipline
 from domains import Grade
 from exceptions import NoDataError
-from services import Services
+from services import Services, Group
 from randomiser import Randomiser
 from validator import *
 import generator
@@ -20,16 +20,16 @@ class Controller:
         Output: -
         """
         randomiser = Randomiser()
-        data_to_add = Services()
+        data_to_add = Group()
 
         for i in range(10):
             random_name = randomiser.get_random_first_name() + " " + randomiser.get_random_last_name()
 
-            data_to_add.add_student(i, random_name)
-            data_to_add.add_discipline(i, randomiser.get_random_discipline_name())
+            data_to_add.students.append(i, random_name)
+            data_to_add.disciplines.append(i, randomiser.get_random_discipline_name())
         
         for i in range(10):
-            data_to_add.add_grade(
+            data_to_add.grades.append(
                 randomiser.get_random(data_to_add.disciplines),
                 randomiser.get_random(data_to_add.students),
                 randomiser.get_random_grade()

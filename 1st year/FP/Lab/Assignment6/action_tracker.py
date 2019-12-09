@@ -71,7 +71,7 @@ class ActionTracker:
     def add(self, action):
         self.actions.append(Action(self.REMOVE, action.data, action.data_type))
         if action.data_type == self.STUDENT:
-            return self.repo_to_track.students.append(action.data)
+            return self.repo_to_track.students.add(action.data)
         if action.data_type == self.DISCIPLINE:
             return self.repo_to_track.disciplines.append(action.data)
         if action.data_type == self.GRADE:
