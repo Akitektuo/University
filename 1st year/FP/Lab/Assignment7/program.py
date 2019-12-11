@@ -14,20 +14,20 @@ class Program:
 
     def start_singleplayer(self):
         player_table = Table()
-        # while player_table.has_boats_to_place():
-        #     self.clear()
-        #     player_table.show_remaining_boats()
-        #     print()
-        #     player_table.show_boats()
+        while player_table.has_boats_to_place():
+            self.clear()
+            player_table.show_remaining_boats()
+            print()
+            player_table.show_boats()
 
-        #     start = input("From: ")
-        #     end = input("To: ")
-        #     player_table.place_boat_input(start, end)
+            start = input("From: ")
+            end = input("To: ")
+            player_table.place_boat_input(start, end)
 
         computer_table = Table()
         computer_table.place_random_boats()
-        computer_table.show_boats()
-        
+        input("Game ready, press enter to continue...")
+        # continue game
 
     def start(self):
         self.print_menu()
