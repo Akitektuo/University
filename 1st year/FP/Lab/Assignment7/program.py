@@ -1,7 +1,10 @@
+from table import Table
+import os
+
 class Program:
 
     def __init__(self):
-        pass
+        self.clear = lambda: os.system("cls")
     
     def print_menu(self):
         print("Welcome to Battleships!")
@@ -9,20 +12,22 @@ class Program:
         print("2. Mulltiplayer")
         print("3. Exit")
 
-    def print_table(self, table):
-        tableStr = "   | A | B | C | D |   \n"
-        tableStr += "---+---+---+---+---+---\n"
-        tableStr += " 1 | x |   |   |   | 1 \n"
-        print(tableStr)
-
     def start_singleplayer(self):
-        table = [
-            ['x', '', '', ''],
-            ['', 'x', '', ''],
-            ['', '', 'x', ''],
-            ['', '', '', 'x']
-        ]
-        self.print_table(table)
+        player_table = Table()
+        # while player_table.has_boats_to_place():
+        #     self.clear()
+        #     player_table.show_remaining_boats()
+        #     print()
+        #     player_table.show_boats()
+
+        #     start = input("From: ")
+        #     end = input("To: ")
+        #     player_table.place_boat_input(start, end)
+
+        computer_table = Table()
+        computer_table.place_random_boats()
+        computer_table.show_boats()
+        
 
     def start(self):
         self.print_menu()
