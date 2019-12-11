@@ -3,6 +3,7 @@ from domains import Discipline
 from domains import Grade
 from exceptions import NoDataError
 from services import Services, Group
+from repository import Repository
 from randomiser import Randomiser
 from validator import *
 import generator
@@ -25,17 +26,17 @@ class Controller:
         for i in range(10):
             random_name = randomiser.get_random_first_name() + " " + randomiser.get_random_last_name()
 
-            data_to_add.students.append(i, random_name)
-            data_to_add.disciplines.append(i, randomiser.get_random_discipline_name())
+            data_to_add.students.append(Student(i, random_name))
+            data_to_add.disciplines.append(Discipline(i, randomiser.get_random_discipline_name()))
         
         for i in range(10):
-            data_to_add.grades.append(
+            data_to_add.grades.append(Grade(
                 randomiser.get_random(data_to_add.disciplines),
                 randomiser.get_random(data_to_add.students),
                 randomiser.get_random_grade()
-            )
-
-        self.services.add_all(data_to_add)
+            ))
+        if self.services.students.store_type == Repository.STORE_MEMORY:
+            self.services.add_all(data_to_add)
 
     def add(self, params):
         """
@@ -131,18 +132,18 @@ class Controller:
         if repository.has_students() and repository.has_disciplines():
             data_string += "\n" + generator.generate_chars('-', 121) + "\n|" + generator.generate_chars(' ', 4) + "Students" + generator.generate_chars(' ', 47) + "|" + generator.generate_chars(' ', 4) + "Disciplines" +  generator.generate_chars(' ', 44) + "|\n" + generator.generate_chars('-', 121)
             
-            students_length = len(repository.students)
-            disciplines_length = len(repository.disciplines)
+            students_length = len(repository.students.data)
+            disciplines_length = len(repository.disciplines.data)
             max_length = max(students_length, disciplines_length)
 
             for i in range(max_length):
                 if i < students_length:
-                    student_string = str(repository.students[i])
+                    student_string = str(repository.students.data[i])
                     data_string += "\n| " + student_string + generator.generate_chars(' ', 57 - len(student_string)) + " | "
                 else:
                     data_string += "\n|" + generator.generate_chars(' ', 59) + "| "
                 if i < disciplines_length:
-                    discipline_string = str(repository.disciplines[i])
+                    discipline_string = str(repository.disciplines.data[i])
                     data_string += discipline_string + generator.generate_chars(' ', 57 - len(discipline_string)) + " |"
                 else:
                     data_string += generator.generate_chars(' ', 58) + "|"
@@ -153,7 +154,7 @@ class Controller:
         if repository.has_students():
             data_string += "\n" + generator.generate_chars('-', 60) + "\nStudents\n" + generator.generate_chars('-', 60)
 
-            for student in repository.students:
+            for student in repository.students.data:
                 data_string += "\n" + str(student)
 
             return data_string
@@ -161,7 +162,7 @@ class Controller:
         if repository.has_disciplines():
             data_string += "\n" + generator.generate_chars('-', 60) + "\nDisciplines\n" + generator.generate_chars('-', 60)
 
-            for discipline in repository.disciplines:
+            for discipline in repository.disciplines.data:
                 data_string += "\n" + str(discipline)
 
             return data_string

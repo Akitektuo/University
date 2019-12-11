@@ -18,30 +18,30 @@ class Services:
 
     def __init__(self):
         self.students = Repository(Repository.TYPE_STUDENTS)
-        self.disciplines = []
-        self.grades = []
+        self.disciplines = Repository(Repository.TYPE_DISCIPLINES)
+        self.grades = Repository(Repository.TYPE_GRADES)
         self.tracker = ActionTracker(self)
 
     def get_students_count(self):
         return self.students.size()
 
     def get_disciplines_count(self):
-        return len(self.disciplines)
+        return self.disciplines.size()
 
     def get_grades_count(self):
-        return len(self.grades)
+        return self.grades.size()
 
     def has_students(self):
         return self.students.is_not_empty()
 
     def has_disciplines(self):
-        return self.get_disciplines_count() > 0
+        return self.disciplines.is_not_empty()
 
     def has_grades(self):
-        return self.get_grades_count() > 0
+        return self.grades.is_not_empty()
 
     def is_empty(self):
-        return self.students.is_empty() and not self.has_disciplines() and not self.has_grades()
+        return self.students.is_empty() and self.disciplines.is_empty() and self.grades.is_empty()
 
     def clear(self):
         self.students.clear()
@@ -50,8 +50,8 @@ class Services:
 
     def add_all(self, other, track = True):
         self.students.add_all(other.students)
-        self.disciplines.extend(other.disciplines)
-        self.grades.extend(other.grades)
+        self.disciplines.add_all(other.disciplines)
+        self.grades.add_all(other.grades)
         if track:
             self.tracker.add_action(ActionTracker.ADD_MULTIPLE, other)
 
@@ -62,7 +62,7 @@ class Services:
         return False
 
     def is_discipline_id(self, did):
-        for d in self.disciplines:
+        for d in self.disciplines.data:
             if d.id == did:
                 return True
         return False
@@ -75,12 +75,12 @@ class Services:
 
     def add_discipline(self, did, name, track = True):
         discipline = Discipline(did, name)
-        self.disciplines.append(discipline)
+        self.disciplines.add(discipline)
         if track:
             self.tracker.add_action(ActionTracker.ADD, discipline, ActionTracker.DISCIPLINE)
 
     def get_discipline(self, did):
-        for d in self.disciplines:
+        for d in self.disciplines.data:
             if d.id == did:
                 return d
         raise Exception("Invalid discipline ID, no discipline found with ID " + str(did))
@@ -99,7 +99,7 @@ class Services:
             student = self.get_student(student)
 
         grade = Grade(discipline, student, value)
-        self.grades.append(grade)
+        self.grades.add(grade)
         if track:
             self.tracker.add_action(ActionTracker.ADD, grade, ActionTracker.GRADE)
 
@@ -107,7 +107,7 @@ class Services:
         deleted = Group()
         student = self.get_student(sid)
 
-        grades_copy = list(self.grades)
+        grades_copy = list(self.grades.data)
         for g in grades_copy:
             if g.student == student:
                 deleted.grades.append(g)
@@ -122,7 +122,7 @@ class Services:
         deleted = Services()
         discipline = self.get_discipline(did)
 
-        grades_copy = list(self.grades)
+        grades_copy = list(self.grades.data)
         for g in grades_copy:
             if g.discipline == discipline:
                 deleted.grades.append(g)
@@ -152,7 +152,7 @@ class Services:
         for s in self.students.data:
             if keyword in str(s.id).upper() or keyword in s.name.upper():
                 search_group.students.append(s)
-        for d in self.disciplines:
+        for d in self.disciplines.data:
             if keyword in str(d.id).upper() or keyword in d.name.upper():
                 search_group.disciplines.append(d)
     
@@ -162,11 +162,11 @@ class Services:
         students_with_grades = []
 
         for s in self.students.data:
-            for d in self.disciplines:
+            for d in self.disciplines.data:
                 count = 0
                 average = 0
 
-                for g in self.grades:
+                for g in self.grades.data:
                     if g.student == s and g.discipline == d:
                         count += 1
                         average += g.value
@@ -188,11 +188,11 @@ class Services:
             total_count = 0
             total_average = 0
 
-            for d in self.disciplines:
+            for d in self.disciplines.data:
                 count = 0
                 average = 0
 
-                for g in self.grades:
+                for g in self.grades.data:
                     if g.student == s and g.discipline == d:
                         count += 1
                         average += g.value
@@ -214,11 +214,11 @@ class Services:
     def get_disciplines_with_grades(self):
         disciplines_with_grades = []
 
-        for d in self.disciplines:
+        for d in self.disciplines.data:
             count = 0
             average = 0
 
-            for g in self.grades:
+            for g in self.grades.data:
                 if g.discipline == d:
                     count += 1
                     average += g.value

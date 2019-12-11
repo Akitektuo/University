@@ -1,5 +1,5 @@
 from domains import Student, Discipline, Grade
-from pickle import Unpickler, Pickler
+import pickle
 
 class Repository:
     STORE_MEMORY = "inmemory"
@@ -16,7 +16,7 @@ class Repository:
     def __init__(self, dtype):
         self.store_type = None
         self.path_students = ""
-        self.path_discipliness = ""
+        self.path_disciplines = ""
         self.path_grades = ""
 
         self.data = []
@@ -95,14 +95,17 @@ class Repository:
             file_students = open(self.path_students, "r")
             lines = file_students.readlines()
             for line in lines:
-                data = line.split(';')
+                if len(line) < 3:
+                    continue
+                data = line.strip().split(';')
                 self.data.append(Student(int(data[0]), data[1]))
             file_students.close()
             return
 
-        if Repository.FILE_TXT in self.path_students:
-            file_students = Unpickler(self.path_students)
-            self.data = file_students.load()
+        if Repository.FILE_PICKLE in self.path_students:
+            file_students = open(self.path_students, "rb")
+            self.data = pickle.load(file_students)
+            file_students.close()
             return
 
     def __parse_disciplines_from_file(self):
@@ -110,14 +113,17 @@ class Repository:
             file_disciplines = open(self.path_disciplines, "r")
             lines = file_disciplines.readlines()
             for line in lines:
-                data = line.split(';')
+                if len(line) < 3:
+                    continue
+                data = line.strip().split(';')
                 self.data.append(Discipline(int(data[0]), data[1]))
             file_disciplines.close()
             return
 
-        if Repository.FILE_TXT in self.path_disciplines:
-            file_disciplines = Unpickler(self.path_disciplines)
-            self.data = file_disciplines.load()
+        if Repository.FILE_PICKLE in self.path_disciplines:
+            file_disciplines = open(self.path_disciplines, "rb")
+            self.data = pickle.load(file_disciplines)
+            file_disciplines.close()
             return
 
     def __parse_grades_from_file(self):
@@ -125,14 +131,17 @@ class Repository:
             file_grades = open(self.path_grades, "r")
             lines = file_grades.readlines()
             for line in lines:
-                data = line.split(';')
+                if len(line) < 3:
+                    continue
+                data = line.strip().split(';')
                 self.data.append(Grade(Student(data[0], ""), Discipline(data[1], ""), data[2]))
             file_grades.close()
             return
 
-        if Repository.FILE_TXT in self.path_grades:
-            file_grades = Unpickler(self.path_grades)
-            self.data = file_grades.load()
+        if Repository.FILE_PICKLE in self.path_grades:
+            file_grades = open(self.path_grades, "rb")
+            self.data = pickle.load(file_grades)
+            file_grades.close()
             return
 
     def __parse_to_file(self):
@@ -157,8 +166,9 @@ class Repository:
             return
 
         if Repository.FILE_TXT in self.path_students:
-            file_students = Pickler(self.path_students)
-            file_students.dump(self.data)
+            file_students = open(self.path_students, "wb")
+            pickle.dump(data, file_students)
+            file_students.close()
             return
 
     def __parse_disciplines_to_file(self):
@@ -170,8 +180,9 @@ class Repository:
             return
 
         if Repository.FILE_TXT in self.path_disciplines:
-            file_disciplines = Pickler(self.path_disciplines)
-            file_disciplines.dump(self.data)
+            file_disciplines = open(self.path_disciplines, "wb")
+            pickle.dump(data, file_disciplines)
+            file_disciplines.close()
             return
 
     def __parse_grades_to_file(self):
@@ -183,8 +194,9 @@ class Repository:
             return
 
         if Repository.FILE_TXT in self.path_grades:
-            file_grades = Pickler(self.path_grades)
-            file_grades.dump(self.data)
+            file_grades = open(self.path_grades, "wb")
+            pickle.dump(data, file_grades)
+            file_grades.close()
             return
 
     def clear(self):
