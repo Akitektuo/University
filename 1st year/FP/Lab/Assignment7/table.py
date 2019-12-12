@@ -1,5 +1,5 @@
 from validator import validate_coordinate_input, validate_coordinates, map_number_to_letter
-from domains import Box, Coordinate
+from domains import Box, Coordinate, HitEvent
 import random
 
 class Table:
@@ -13,6 +13,8 @@ class Table:
         self.width = 10
         self.init_boxes()
         self.unplaced_boats = [5, 4, 3, 3, 2, 2, 2]
+        self.hitpoints = sum(self.unplaced_boats)
+        self.hit_history = []
 
     def init_boxes(self):
         self.boxes = []
@@ -119,8 +121,83 @@ class Table:
         table_str += self.generate_header() + "\n"
         print(table_str)
 
-    def hit(self, x, y):
+    def is_alive(self):
+        return self.hitpoints > 0
+
+    def record_hit(self, coordinates):
+        x = coordinates.x
+        y = coordinates.y
+
         self.boxes[x][y].is_hit = True
+        if not self.boxes[x][y].is_boat:
+            return False
+        self.hitpoints -= 1
+        return True
+
+    def hit(self, other, coordinates):
+        self.hit_history.append(HitEvent(coordinates, other.record_hit(coordinates)))
+
+    def is_hit_at(self, coordinates):
+        for hit in self.hit_history:
+            if hit.coordinates.equals(coordinates):
+                return hit
+
+    def last_hit_successful(self):
+        return self.hit_history[-1].successful
+
+    def check_explored(self, hit):
+        coordinates = hit.coordinates
+        x = coordinates.x
+        y = coordinates.y
+
+        top_coord = Coordinate(x, y - 1)
+        right_coord = Coordinate(x + 1, y)
+        bottom_coord = Coordinate(x, y + 1)
+        left_coord = Coordinate(x - 1, y)
+        
+        if top_coord.y > -1 and not self.is_hit_at(top_coord):
+            return top_coord
+        
+        if right_coord.x < self.width and not self.is_hit_at(right_coord):
+            return right_coord
+        
+        if bottom_coord.y < self.height and not self.is_hit_at(bottom_coord):
+            return bottom_coord
+        
+        if left_coord.x > -1 and not self.is_hit_at(left_coord):
+            return left_coord
+
+    def get_first_unexplored_hit(self):
+        for hit in self.hit_history:
+            if not hit.successful:
+                continue
+            next_position = self.check_explored(hit)
+            if next_position:
+                return next_position
+
+    def get_random_coordinate(self):
+        x = random.randrange(0, self.width)
+        y = random.randrange(0, self.height)
+        return Coordinate(x, y)
+
+    def coordinate_to_str(self, coordinate):
+        return map_number_to_letter[coordinate.y] + str(coordinate.x)
+
+    def compute_hit(self, other):
+        computed_hit = self.get_first_unexplored_hit()
+        if computed_hit:
+            self.hit(other, computed_hit)
+            return self.coordinate_to_str(computed_hit)
+        
+        coordinate = self.get_random_coordinate()
+        while self.is_hit_at(coordinate):
+            coordinate = self.get_random_coordinate()
+        self.hit(other, coordinate)
+        return self.coordinate_to_str(coordinate)
+
+    def hit_input(self, other, coord):
+        coord = validate_coordinate_input(coord)
+        self.hit(other, coord)
 
     def draw_boat(self, boat_size):
         boat_str = ""
@@ -130,7 +207,7 @@ class Table:
         return boat_str
     
     def show_remaining_boats(self):
-        print("You have " + str(len(self.unplaced_boats)) + " boat(s) to place")
+        print("You have " + str(len(self.unplaced_boats)) + " boat(s) to place, to quit the game at anytime press enter")
         for boat in self.unplaced_boats:
             print(self.draw_boat(boat))
 
@@ -153,8 +230,8 @@ class Table:
         while i < len(self.unplaced_boats):
             boat = self.unplaced_boats[i]
             
-            x = random.randint(0, 9)
-            y = random.randint(0, 9)
+            x = random.randrange(0, self.width)
+            y = random.randrange(0, self.height)
             direction = random.randint(0, 3)
 
             try:
@@ -165,13 +242,13 @@ class Table:
                     continue
                         
                 if direction == Table.DIRECTION_RIGHT:
-                    if (10 - x >= boat):
+                    if (self.width - x >= boat):
                         self.place_boat(Coordinate(x, y), Coordinate(x + boat - 1, y))
                         i += 1
                     continue
                         
                 if direction == Table.DIRECTION_BOTTOM:
-                    if (10 - y >= boat):
+                    if (self.height - y >= boat):
                         self.place_boat(Coordinate(x, y), Coordinate(x, y + boat - 1))
                         i += 1
                     continue
@@ -183,14 +260,3 @@ class Table:
                     continue
             except:
                 continue
-
-# table = Table()
-# table.place_boat(Coordinate(0, 0), Coordinate(0, 3))
-# table.hit(1, 0)
-# table.hit(0, 4)
-# table.hit(1, 4)
-# table.hit(1, 3)
-# table.hit(0, 0)
-# table.hit(0, 4)
-# table.show_hits()
-# table.show_remaining_boats()

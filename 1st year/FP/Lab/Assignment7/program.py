@@ -1,43 +1,30 @@
-from table import Table
+from singleplayer import Singleplayer
 import os
 
 class Program:
-
+    
     def __init__(self):
         self.clear = lambda: os.system("cls")
-    
+
     def print_menu(self):
+        self.clear()
         print("Welcome to Battleships!")
         print("1. Singleplayer")
         print("2. Mulltiplayer")
         print("3. Exit")
-
-    def start_singleplayer(self):
-        player_table = Table()
-        while player_table.has_boats_to_place():
-            self.clear()
-            player_table.show_remaining_boats()
-            print()
-            player_table.show_boats()
-
-            start = input("From: ")
-            end = input("To: ")
-            player_table.place_boat_input(start, end)
-
-        computer_table = Table()
-        computer_table.place_random_boats()
-        input("Game ready, press enter to continue...")
-        # continue game
 
     def start(self):
         self.print_menu()
         while True:
             cmd = input("> ")
             if cmd == "1":
-                self.start_singleplayer()
-                return
+                Singleplayer().start_setup()
+                self.print_menu()
+                continue
             if cmd == "2":
-                return
+                print("Soon...")
+                continue
             if cmd == "3":
+                self.clear()
                 return
             print("Invalid command")
