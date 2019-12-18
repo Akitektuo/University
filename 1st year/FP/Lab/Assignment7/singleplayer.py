@@ -6,7 +6,6 @@ class Singleplayer:
     def __init__(self):
         self.clear = lambda: os.system("cls")
         self.player = Table()
-        self.computer = Table()
 
     def place_boats_player(self):
         while self.player.has_boats_to_place():
@@ -18,6 +17,9 @@ class Singleplayer:
             start = input("From: ")
             if start == "":
                 return False
+            if start == "random":
+                self.player.place_random_boats()
+                return True
             end = input("To: ")
             if end == "":
                 return False
@@ -25,7 +27,30 @@ class Singleplayer:
 
         return True
 
+    def select_difficulty(self):
+        self.clear()
+        print("Select the difficulty")
+        print("1. Easy")
+        print("2. Normal")
+        print("3. Hard")
+        print("4. Extreme")
+
+        difficulty = Table.DIFFICULTY_NORMAL
+        command = input("> ")
+        if command == "1":
+            difficulty = Table.DIFFICULTY_EASY
+        if command == "3":
+            difficulty = Table.DIFFICULTY_HARD
+        if command == "4":
+            difficulty = Table.DIFFICULTY_EXTREME
+        
+        self.computer = Table(difficulty)
+
+        input("\nDifficulty set to " + difficulty + ", press enter to continue...")
+
     def start_setup(self):
+        self.select_difficulty()
+
         if not self.place_boats_player():
             return
 
@@ -90,7 +115,7 @@ class Singleplayer:
                 player_turn = not player_turn
             except Exception as ex:
                 if str(ex) == "Exiting...":
-                    print(ex)
+                    print("Exiting...")
                     return
         
         print()

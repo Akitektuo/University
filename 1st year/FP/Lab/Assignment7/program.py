@@ -1,4 +1,5 @@
 from singleplayer import Singleplayer
+from multiplayer import Multiplayer
 import os
 
 class Program:
@@ -22,7 +23,8 @@ class Program:
                 self.print_menu()
                 continue
             if cmd == "2":
-                print("Soon...")
+                Multiplayer().start_setup()
+                self.print_menu()
                 continue
             if cmd == "3":
                 self.clear()

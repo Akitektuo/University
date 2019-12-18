@@ -34,7 +34,7 @@ def is_int(var):
         return False
 
 def validate_coordinate_input(coord):
-    coord = coord.replace(' ', '')
+    coord = coord.upper().replace(' ', '')
     if len(coord) != 2:
         raise Exception("The coordinates should be in the form of 'A0' or '0A'")
     coord = Coordinate(coord[0], coord[1])

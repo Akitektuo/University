@@ -8,13 +8,19 @@ class Table:
     DIRECTION_BOTTOM = 2
     DIRECTION_LEFT = 3
 
-    def __init__(self):
+    DIFFICULTY_EASY = "easy"
+    DIFFICULTY_NORMAL = "normal"
+    DIFFICULTY_HARD = "hard"
+    DIFFICULTY_EXTREME = "extreme"
+
+    def __init__(self, difficulty = DIFFICULTY_NORMAL):
         self.height = 10
         self.width = 10
         self.init_boxes()
         self.unplaced_boats = [5, 4, 3, 3, 2, 2, 2]
         self.hitpoints = sum(self.unplaced_boats)
         self.hit_history = []
+        self.difficulty = difficulty
 
     def init_boxes(self):
         self.boxes = []
@@ -62,6 +68,18 @@ class Table:
             return '#'
         return ' '
 
+    def check_boats(self, start, end):
+        if start.x == end.x:
+            for y in range(start.y, end.y + 1):
+                if (self.boxes[start.x][y].is_boat):
+                    return Coordinate(start.x, y)
+            return
+        if start.y == end.y:
+            for x in range(start.x, end.x + 1):
+                if (self.boxes[x][start.y].is_boat):
+                    return Coordinate(x, start.y)
+            return
+
     def place_boat(self, start, end):
         if (start.x > end.x):
             start.x ^= end.x
@@ -73,16 +91,17 @@ class Table:
             end.y ^= start.y
             start.y ^= end.y
 
+        overlap = self.check_boats(start, end)
+        if overlap:
+            raise Exception("Boat is overlapping at " + map_number_to_letter[overlap.y] + str(overlap.x))
+
         if start.x == end.x:
             for y in range(start.y, end.y + 1):
-                if (self.boxes[start.x][y].is_boat):
-                    raise Exception("Boat already exists at " + str(start.x) + map_number_to_letter[y])
                 self.boxes[start.x][y].is_boat = True
             return
+    
         if start.y == end.y:
             for x in range(start.x, end.x + 1):
-                if (self.boxes[x][start.y].is_boat):
-                    raise Exception("Boat already exists at " + str(x) + map_number_to_letter[start.y])
                 self.boxes[x][start.y].is_boat = True
 
     def show_hits(self):
@@ -183,7 +202,28 @@ class Table:
     def coordinate_to_str(self, coordinate):
         return map_number_to_letter[coordinate.y] + str(coordinate.x)
 
-    def compute_hit(self, other):
+    def get_strategic_coordinate(self, other):
+        for x in range(self.height):
+            for y in range(self.width):
+                if x % 2 == y % 2 or other.boxes[x][y].is_hit:
+                    continue
+                return Coordinate(x, y)
+
+    def get_exact_coordinate(self, other):
+        for x in range(self.height):
+            for y in range(self.width):
+                if other.boxes[x][y].is_boat and not other.boxes[x][y].is_hit:
+                    return Coordinate(x, y)
+
+    def compute_easy_hit(self, other):
+        coordinate = self.get_random_coordinate()
+        while self.is_hit_at(coordinate):
+            coordinate = self.get_random_coordinate()
+
+        self.hit(other, coordinate)
+        return self.coordinate_to_str(coordinate)
+
+    def compute_normal_hit(self, other):
         computed_hit = self.get_first_unexplored_hit()
         if computed_hit:
             self.hit(other, computed_hit)
@@ -192,11 +232,41 @@ class Table:
         coordinate = self.get_random_coordinate()
         while self.is_hit_at(coordinate):
             coordinate = self.get_random_coordinate()
+
         self.hit(other, coordinate)
         return self.coordinate_to_str(coordinate)
 
+    def compute_hard_hit(self, other):
+        computed_hit = self.get_first_unexplored_hit()
+        if computed_hit:
+            self.hit(other, computed_hit)
+            return self.coordinate_to_str(computed_hit)
+        
+        coordinate = self.get_strategic_coordinate(other)
+
+        self.hit(other, coordinate)
+        return self.coordinate_to_str(coordinate)
+
+    def compute_extreme_hit(self, other):
+        coordinate = self.get_exact_coordinate(other)
+
+        self.hit(other, coordinate)
+        return self.coordinate_to_str(coordinate)
+
+    def compute_hit(self, other):
+        if self.difficulty == Table.DIFFICULTY_EASY:
+            return self.compute_easy_hit(other)
+        if self.difficulty == Table.DIFFICULTY_NORMAL:
+            return self.compute_normal_hit(other)
+        if self.difficulty == Table.DIFFICULTY_HARD:
+            return self.compute_hard_hit(other)
+        if self.difficulty == Table.DIFFICULTY_EXTREME:
+            return self.compute_extreme_hit(other)
+
     def hit_input(self, other, coord):
         coord = validate_coordinate_input(coord)
+        if self.is_hit_at(coord):
+            raise Exception("You already fired at this coordinate")
         self.hit(other, coord)
 
     def draw_boat(self, boat_size):
