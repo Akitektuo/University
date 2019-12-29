@@ -20,6 +20,7 @@ class Repository:
         self.path_grades = ""
 
         self.data = []
+        self.index = 0
         self.type = dtype
 
         self.__init_repo()
@@ -167,7 +168,7 @@ class Repository:
 
         if Repository.FILE_TXT in self.path_students:
             file_students = open(self.path_students, "wb")
-            pickle.dump(data, file_students)
+            pickle.dump(self.data, file_students)
             file_students.close()
             return
 
@@ -181,7 +182,7 @@ class Repository:
 
         if Repository.FILE_TXT in self.path_disciplines:
             file_disciplines = open(self.path_disciplines, "wb")
-            pickle.dump(data, file_disciplines)
+            pickle.dump(self.data, file_disciplines)
             file_disciplines.close()
             return
 
@@ -195,18 +196,18 @@ class Repository:
 
         if Repository.FILE_TXT in self.path_grades:
             file_grades = open(self.path_grades, "wb")
-            pickle.dump(data, file_grades)
+            pickle.dump(self.data, file_grades)
             file_grades.close()
             return
 
     def clear(self):
         self.data.clear()
 
-    def size(self):
+    def get_size(self):
         return len(self.data)
         
     def is_empty(self):
-        return self.size() < 1
+        return self.get_size() < 1
         
     def is_not_empty(self):
         return not self.is_empty()
@@ -233,3 +234,43 @@ class Repository:
         self.data.remove(element)
         if self.store_type != Repository.STORE_MEMORY:
             self.__parse_to_file()
+
+    def __iter__(self):
+        self.index = 0
+        return self
+
+    def __next__(self):
+        try:
+            item = self.data[self.index]
+        except IndexError:
+            raise StopIteration()
+        self.index += 1
+        return item
+
+    def __heapify(self, arr, n, i, cond):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
+
+        if l < n and cond(arr[i], arr[l]):
+            largest = l
+
+        if r < n and cond(arr[largest], arr[r]):
+            largest = r
+
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            self.__heapify(arr, n, largest, cond)
+
+    def sorted(self, condition):
+        arr = list(self.data)
+        n = len(arr)
+
+        for i in range(n, -1, -1):
+            self.__heapify(arr, n, i, condition)
+
+        for i in range(n - 1, 0, -1):
+            arr[i], arr[0] = arr[0], arr[i]
+            self.__heapify(arr, i, 0, condition)
+
+        return arr
