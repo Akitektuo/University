@@ -1,0 +1,77 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fread, fprintf, fclose, fscanf, printf
+     6                                  import fopen msvcrt.dll
+     7                                  import fread msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  import fscanf msvcrt.dll
+    11                                  import printf msvcrt.dll
+    12                                  import exit msvcrt.dll
+    13                                  
+    14                                  segment data use32 class=data
+    15 00000000 6772616465732E7478-         file_name db "grades.txt", 0
+    15 00000009 7400               
+    16 0000000B 612B00                      access_mode db "a+", 0
+    17 0000000E 256400                      read_format db "%d", 0
+    18 00000011 0A256400                    print_format db 10, "%d", 0
+    19 00000015 FFFFFFFF                    descriptor dd -1
+    20 00000019 00000000                    buffer dd 0
+    21 0000001D 00000000                    sum dd 0
+    22 00000021 0000                        count dw 0
+    23                                      
+    24                                  segment code use32 class=code
+    25                                  start:
+    26 00000000 68[0B000000]                push access_mode
+    27 00000005 68[00000000]                push file_name
+    28 0000000A FF15[00000000]              call [fopen]
+    29 00000010 83C408                      add esp, 4 * 2
+    30                                  
+    31 00000013 83F800                      cmp eax, 0
+    32 00000016 0F8480000000                je .return
+    33                                  
+    34 0000001C A3[15000000]                mov [descriptor], eax
+    35                                  
+    36                                  .read:
+    37 00000021 68[19000000]                push buffer
+    38 00000026 68[0E000000]                push read_format
+    39 0000002B FF35[15000000]              push dword [descriptor]
+    40 00000031 FF15[00000000]              call [fscanf]
+    41 00000037 83C40C                      add esp, 4 * 3
+    42                                  
+    43 0000003A 85C0                        test eax, eax
+    44 0000003C 7825                        js .stop_read
+    45                                  
+    46 0000003E A1[19000000]                mov eax, [buffer]
+    47 00000043 668B0D[21000000]            mov cx, [count]
+    48 0000004A 8B1D[1D000000]              mov ebx, [sum]
+    49 00000050 6641                        inc cx
+    50 00000052 01C3                        add ebx, eax
+    51 00000054 66890D[21000000]            mov [count], cx
+    52 0000005B 891D[1D000000]              mov [sum], ebx
+    53                                  
+    54 00000061 EBBE                        jmp .read
+    55                                  
+    56                                  .stop_read:
+    57 00000063 66A1[1D000000]              mov ax, [sum]
+    58 00000069 66BA0000                    mov dx, 0
+    59 0000006D 668B1D[21000000]            mov bx, [count]
+    60                                  
+    61 00000074 66F7F3                      div bx
+    62 00000077 98                          cwde
+    63                                  
+    64 00000078 50                          push dword eax
+    65 00000079 68[11000000]                push dword print_format
+    66 0000007E FF35[15000000]              push dword [descriptor]
+    67 00000084 FF15[00000000]              call [fprintf]
+    68 0000008A 83C40C                      add esp, 4 * 3
+    69                                  
+    70 0000008D FF35[15000000]              push dword [descriptor]
+    71 00000093 FF15[00000000]              call [fclose]
+    72 00000099 83C404                      add esp, 4
+    73                                  
+    74                                  .return:
+    75 0000009C 6A00                        push dword 0
+    76 0000009E FF15[00000000]              call [exit]
