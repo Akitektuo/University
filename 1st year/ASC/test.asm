@@ -6,11 +6,13 @@ extern exit
 import exit msvcrt.dll
 
 segment data use32 class=data
-    a db '0', '1', '2', '3', '4', '5'
+    sum dd 7
 
 segment code use32 class=code
 start:
-    mov ax, [a + 2]
+    mov ax, 14
+    mov dx, 0
+    div word [sum]
     
     push dword 0
     call [exit]
