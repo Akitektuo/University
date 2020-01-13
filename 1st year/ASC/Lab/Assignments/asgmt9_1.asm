@@ -6,6 +6,7 @@ extern exit, scanf, printf
 import exit msvcrt.dll
 import scanf msvcrt.dll
 import printf msvcrt.dll
+%include  "asgmt9_2.asm"
 
 segment data use32 class=data
     table db "OPQRSTUVWXYZABCDEFGHIJKLMN", 0
@@ -33,19 +34,3 @@ start:
     
     push dword 0
     call [exit]
-
-map_string:
-    mov ebx, [esp + 4]
-    mov esi, [esp + 4 * 2]
-    mov edi, [esp + 4 * 3]
-
-    map:
-    lodsb
-    sub al, 'a'
-    js return
-    xlat
-    stosb
-    jmp map
-
-    return:
-    ret
