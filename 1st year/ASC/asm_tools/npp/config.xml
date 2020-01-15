@@ -15,6 +15,7 @@
         <File filename="D:\DOCS\UBB\ASC\intrebari_TODOs.txt" />
         <File filename="C:\Asus ROG\University\1st year\ASC\test.exe" />
         <File filename="D:\IT\University\1st year\ASC\Lab\Assignments\lab2_1.exe" />
+        <File filename="C:\Asus ROG\University\1st year\ASC\Lab\Assignments\asgmt9_1.asm" />
     </History>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">standard</GUIConfig>
@@ -23,7 +24,7 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="yes" size="4" />
-        <GUIConfig name="AppPosition" x="-140" y="194" width="1100" height="900" isMaximized="yes" />
+        <GUIConfig name="AppPosition" x="-140" y="194" width="1100" height="900" isMaximized="no" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">no</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
         <GUIConfig name="CheckHistoryFiles">no</GUIConfig>
@@ -62,7 +63,7 @@
             <ActiveTabs cont="0" activeTab="-1" />
             <ActiveTabs cont="1" activeTab="-1" />
             <ActiveTabs cont="2" activeTab="-1" />
-            <ActiveTabs cont="3" activeTab="-1" />
+            <ActiveTabs cont="3" activeTab="0" />
         </GUIConfig>
     </GUIConfigs>
     <ProjectPanels>
