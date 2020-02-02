@@ -1,7 +1,8 @@
 <NotepadPlus>
     <Session activeView="0">
-        <mainView activeIndex="0">
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="576" startPos="0" endPos="0" selMode="0" lang="Assembly" encoding="-1" filename="C:\Asus ROG\University\1st year\ASC\Lab\Assignments\asgmt9_1.asm" backupFilePath="" originalFileLastModifTimestamp="1578381533" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-1" mapWrapIndentMode="-1" mapIsWrap="no" />
+        <mainView activeIndex="1">
+            <File firstVisibleLine="33" xOffset="0" scrollWidth="1" startPos="1104" endPos="1104" selMode="0" lang="Assembly" encoding="-1" filename="F:\IT\University\1st year\ASC\grades.asm" backupFilePath="" originalFileLastModifTimestamp="1578942950" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="536876544" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="702" startPos="552" endPos="552" selMode="0" lang="Assembly" encoding="-1" filename="F:\IT\University\1st year\ASC\test.asm" backupFilePath="" originalFileLastModifTimestamp="1580294764" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1" mapWrapIndentMode="-1" mapIsWrap="no" />
         </mainView>
         <subView activeIndex="0" />
     </Session>

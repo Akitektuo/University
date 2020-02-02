@@ -6,13 +6,27 @@
      6                                  import exit msvcrt.dll
      7                                  
      8                                  segment data use32 class=data
-     9 00000000 07000000                    sum dd 7
-    10                                  
-    11                                  segment code use32 class=code
-    12                                  start:
-    13 00000000 66B80E00                    mov ax, 14
-    14 00000004 66BA0000                    mov dx, 0
-    15 00000008 66F735[00000000]            div word [sum]
-    16                                      
-    17 0000000F 6A00                        push dword 0
-    18 00000011 FF15[00000000]              call [exit]
+     9 00000000 323536                      a1 db '256'
+    10 00000003 0056                        a2 db 256, 256h
+    10          ******************       warning: byte data exceeds bounds [-w+number-overflow]
+    11                                      ;a3 db $ + a2 -> The result cannot be located
+    12                                      a4 equ -256 / 4
+    13                                      ;a5 db 256 shr 1, 256 shl 1 -> shr and shl are instructions, not operators
+    14                                      ;a6 dw -1 lt 256 -> lt is not written as string
+    15 00000005 [03000000]                  a7 dd a2
+    16 00000009 5602000056622500            a8 dd 256h, 256256h
+    17 00000011 00000000                    a9 dd $ - a9
+    18 00000015 0000                        a10 db 256, -256
+    18          ******************       warning: byte data exceeds bounds [-w+number-overflow]
+    19 00000017 78563412                    a dd 12345678h
+    20                                  
+    21                                  segment code use32 class=code
+    22                                  start:
+    23 00000000 B8[17000000]                mov eax, a
+    24 00000005 B300                        mov bl, 0
+    25                                      ; push dword [ebx + 6]
+    26                                      ; pop ebx
+    27 00000007 F6F3                        div bl
+    28                                  
+    29 00000009 6A00                        push dword 0
+    30 0000000B FF15[00000000]              call [exit]
