@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <NotepadPlus>
     <Session activeView="0">
         <mainView activeIndex="1">
@@ -7,3 +8,13 @@
         <subView activeIndex="0" />
     </Session>
 </NotepadPlus>
+=======
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="0">
+            <File firstVisibleLine="5" xOffset="0" scrollWidth="396" startPos="857" endPos="857" selMode="0" lang="Assembly" encoding="-1" filename="C:\Asus ROG\University\1st year\ASC\Practical\test.asm" backupFilePath="" originalFileLastModifTimestamp="1578984390" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7471105" mapWrapIndentMode="-1" mapIsWrap="no" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>
+>>>>>>> fc45b8d7a867bf73abd987c105d5ba85ad9d6c7e
