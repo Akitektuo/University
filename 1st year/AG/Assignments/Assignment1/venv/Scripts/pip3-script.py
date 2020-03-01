@@ -1,4 +1,4 @@
-#!"C:\Asus ROG\University\1st year\AG\Assignments\Assignment1\venv\Scripts\python.exe"
+#!"F:\IT\University\1st year\AG\Assignments\Assignment1\venv\Scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'pip==19.0.3','console_scripts','pip3'
 __requires__ = 'pip==19.0.3'
 import re

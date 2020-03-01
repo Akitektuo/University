@@ -19,6 +19,18 @@ def print_menu():
     print("14. Exit")
 
 
+def fill(char, times):
+    str_builder = ""
+    for i in range(times):
+        str_builder += char
+    return str_builder
+
+
+def print_progress(progress):
+    if progress % 10 == 0:
+        print("Processing " + str(progress) + "%...")
+
+
 class Menu:
 
     def __init__(self):
@@ -41,36 +53,108 @@ class Menu:
 
                 if command == "2":
                     file_name = input("Please provide a txt file name (without extension): ")
-                    print("Importing, big files will take a few seconds to be processed...")
+                    print("Importing, big files will take a few seconds to be processed...\n")
 
-                    self.controller.import_graph(file_name)
+                    self.controller.import_graph(file_name, lambda progress: print_progress(progress))
                     self.controller.select_last_graph()
 
-                    print("Graph imported successfully and selected")
+                    print("Processing 100%...\n\nGraph imported successfully and selected")
                     continue
 
                 if command == "3":
+                    graph_number = input("Please give a graph index loaded in memory: ")
+                    if not graph_number.isdecimal():
+                        raise Exception("Input must be of type integer")
+
+                    self.controller.select_graph(int(graph_number))
+
+                    print("Graph " + graph_number + " selected")
                     continue
 
                 if command == "4":
+                    print("The selected graph has " + str(self.controller.get_vertices_count()) + " vertices")
                     continue
 
                 if command == "5":
+                    confirmation = input(
+                        "Show all " + str(self.controller.get_vertices_count()) + " vertices? (Y/N): ").lower()
+
+                    if confirmation.startswith("y"):
+                        print(self.controller.get_vertices())
+
                     continue
 
                 if command == "6":
+                    starting_vertex = input("Give starting vertex: ")
+                    if not starting_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    ending_vertex = input("Give ending vertex: ")
+                    if not ending_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    if self.controller.is_edge(int(starting_vertex), int(ending_vertex)):
+                        print("The edge (" + starting_vertex + ", " + ending_vertex + ") exists")
+                    else:
+                        print("The edge (" + starting_vertex + ", " + ending_vertex + ") does not exist")
+
                     continue
 
                 if command == "7":
+                    vertex = input("Give vertex: ")
+
+                    if not vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    (degree_in, degree_out) = self.controller.get_vertex_in_and_out(int(vertex))
+                    print("The vertex " + vertex + " has the in degree " + str(degree_in) +
+                          " and the out degree " + str(degree_out))
+
                     continue
 
                 if command == "8":
+                    vertex = input("Give vertex: ")
+
+                    if not vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    print("The vertex " + vertex + " has outbound edges with " +
+                          self.controller.get_vertex_out(int(vertex)))
                     continue
 
                 if command == "9":
+                    vertex = input("Give vertex: ")
+
+                    if not vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    print("The vertex " + vertex + " has inbound edges with " +
+                          self.controller.get_vertex_in(int(vertex)))
                     continue
 
                 if command == "10":
+                    starting_vertex = input("Give starting vertex: ")
+                    if not starting_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    ending_vertex = input("Give ending vertex: ")
+                    if not ending_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    confirmation = input("The edge (" + starting_vertex + ", " + ending_vertex + ") has the cost of " +
+                                         str(self.controller.get_edge_cost(int(starting_vertex), int(ending_vertex))) +
+                                         ". Would you like to change it? (Y/N): ").lower()
+
+                    if not confirmation.startswith("y"):
+                        continue
+
+                    new_cost = input("Give new cost of edge (" + starting_vertex + ", " + ending_vertex + "): ")
+
+                    if not new_cost.isdecimal():
+                        raise Exception("The cost must be of type integer")
+
+                    self.controller.set_edge_cost(int(starting_vertex), int(ending_vertex), int(new_cost))
+                    print("The new cost was successfully set to " + new_cost)
                     continue
 
                 if command == "11":
