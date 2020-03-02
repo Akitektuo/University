@@ -1,3 +1,6 @@
+import copy
+
+
 class DirectedGraph:
 
     def __init__(self, size=0):
@@ -10,7 +13,7 @@ class DirectedGraph:
             self.store_to[v] = []
 
     def get_vertices(self):
-        return max(len(self.store_from), len(self.store_to))
+        return len(self.store_from)
 
     def get_edges(self):
         return len(self.store_cost)
@@ -51,3 +54,23 @@ class DirectedGraph:
 
     def set_edge_cost(self, having_start, having_end, cost):
         self.store_cost[(having_start, having_end)] = cost
+
+    def add_vertex(self):
+        index = len(self.store_from)
+        self.store_from[index] = []
+        self.store_to[index] = []
+
+    def remove_edge(self, having_start, having_end):
+        self.store_cost.pop((having_start, having_end))
+        self.store_from[having_start].remove(having_end)
+        self.store_to[having_end].remove(having_start)
+
+    def remove_vertex(self, vertex):
+        for v in self.parse_vertex_out(vertex):
+            self.remove_edge(vertex, v)
+
+        for v in self.parse_vertex_in(vertex):
+            self.remove_edge(v, vertex)
+
+    def get_copy(self):
+        return copy.deepcopy(self)

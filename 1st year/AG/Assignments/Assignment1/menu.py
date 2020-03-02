@@ -158,12 +158,65 @@ class Menu:
                     continue
 
                 if command == "11":
+                    edit_type = input("Do you want to add or remove a vertex/edge? (A/R): ").lower()
+                    edit_type = ("add", "remove")[edit_type.startswith("r")]
+                    what_to_edit = input("What do you want to " + edit_type + "? (V/E): ").lower()
+                    if what_to_edit.startswith("v"):
+                        if edit_type == "add":
+                            self.controller.add_vertex()
+                            print("Vertex added successfully")
+                        else:
+                            vertex = input("Give vertex to remove: ")
+                            if not vertex.isdecimal():
+                                raise Exception("The vertex must be of type integer")
+
+                            self.controller.remove_vertex(int(vertex))
+                            print("Vertex removed successfully")
+                    else:
+                        if edit_type == "add":
+                            starting_vertex = input("Give starting vertex of the new edge: ")
+                            if not starting_vertex.isdecimal():
+                                raise Exception("The vertex must be of type integer")
+
+                            ending_vertex = input("Give ending vertex of the new edge: ")
+                            if not ending_vertex.isdecimal():
+                                raise Exception("The vertex must be of type integer")
+
+                            cost = input("Give the cost of the new edge: ")
+                            if not cost.isdecimal():
+                                raise Exception("The cost must be of type integer")
+
+                            self.controller.add_edge(int(starting_vertex), int(ending_vertex), int(cost))
+                            print("Edge added successfully")
+                        else:
+                            starting_vertex = input("Give starting vertex of the edge: ")
+                            if not starting_vertex.isdecimal():
+                                raise Exception("The vertex must be of type integer")
+
+                            ending_vertex = input("Give ending vertex of the edge: ")
+                            if not ending_vertex.isdecimal():
+                                raise Exception("The vertex must be of type integer")
+
+                            self.controller.remove_edge(int(starting_vertex), int(ending_vertex))
+                            print("Edge removed successfully")
                     continue
 
                 if command == "12":
+                    self.controller.copy_selected()
+                    print("Copy made")
                     continue
 
                 if command == "13":
+                    vertices = input("Give number of vertices: ")
+                    if not vertices.isdecimal():
+                        raise Exception("The number of vertices must be of type integer")
+
+                    edges = input("Give number of edges: ")
+                    if not edges.isdecimal():
+                        raise Exception("The number of edges must be of type integer")
+
+                    self.controller.generate(int(vertices), int(edges))
+                    print("Graph generated successfully and selected")
                     continue
 
                 if command == "14":
