@@ -16,7 +16,8 @@ def print_menu():
     print("11. Edit graph")
     print("12. Save a copy of the graph")
     print("13. Generate a new graph")
-    print("14. Exit")
+    print("14. Save selected graph ")
+    print("15. Exit")
 
 
 def fill(char, times):
@@ -220,6 +221,14 @@ class Menu:
                     continue
 
                 if command == "14":
+                    file_name = input("Please provide a txt file name (without extension): ")
+
+                    self.controller.save_graph(file_name)
+
+                    print("Selected graph saved successfully")
+                    continue
+
+                if command == "15":
                     return
 
                 raise Exception("Invalid command")
