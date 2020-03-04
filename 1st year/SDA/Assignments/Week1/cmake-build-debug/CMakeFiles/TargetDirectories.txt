@@ -1,0 +1,3 @@
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/cmake-build-debug/CMakeFiles/Week1.dir
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

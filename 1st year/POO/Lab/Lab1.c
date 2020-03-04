@@ -1,74 +1,98 @@
 #include <stdio.h>
 
-int readArray(int arr[])
+typedef struct
 {
-	int len = 0, result = 1;
+	int x, y;
+} Point;
 
-	while (result)
+int readArray(int array[])
+{
+	int length = 0, isScanSuccessful = 1;
+
+	while (isScanSuccessful)
 	{
-		result = scanf("%d", &arr[len++]);
+		isScanSuccessful = scanf("%d", &array[length++]);
 	}
 
-	return --len;
+	return --length;
 }
 
-void printArray(int arr[], int from, int until)
+void printArray(int array[], int from, int until)
 {
 	for (int i = from; i < until; i++)
 	{
-		printf("%d ", arr[i]);
+		printf("%d ", array[i]);
 	}
 	printf("\n");
 }
 
-int arePointsCollinear(int x1, int y1, int x2, int y2, int x3, int y3)
+Point createPoint(int x, int y)
 {
-	if (x1 == x3 && y1 == y3)
+	Point newPoint;
+	newPoint.x = x;
+	newPoint.y = y;
+	return newPoint;
+}
+
+int arePointsEqual(Point* pointA, Point* pointB)
+{
+	return pointA->x == pointB->x && pointA->y == pointB->y;
+}
+
+int arePointsCollinear(Point* point1, Point* point2, Point* point3)
+{
+	if (arePointsEqual(point1, point3))
 	{
 		return 0;
 	}
 
-	int detSum = x1 * y2 + x2 * y3 + x3 * y1;
-	int detDif = y1 * x2 + y2 * x3 + y3 * x1;
+	// Using the determinant to check if 3 points are collinear
+	int determinantSum = point1->x * point2->y + point2->x * point3->y + point3->x * point1->y;
+	int determinantDiference = point1->y * point2->x + point2->y * point3->x + point3->y * point1->x;
 	
-	return detSum == detDif;
+	return determinantSum == determinantDiference;
 }
-
-
 
 int main()
 {
-	int arr[100] = { 0 }, len = 0;
+	int pointArray[100] = { 0 }, lengthOfPointArray = 0;
 
-	len = readArray(arr);
+	lengthOfPointArray = readArray(pointArray);
 
-	if (len < 4)
+	int START_OF_3RD_POINT = 4, SIZE_OF_POINT = 2;
+
+	if (lengthOfPointArray < START_OF_3RD_POINT)
 	{
 		return 0;
 	}
 
-	if (len < 6)
+	if (lengthOfPointArray < START_OF_3RD_POINT + SIZE_OF_POINT)
 	{
-		printArray(arr, 0, 4);
+		printArray(pointArray, 0, START_OF_3RD_POINT);
 	}
 
-	int maxLength = 4, maxStart = 0, maxEnd = 4, start = 0, end = 0;
+	
+	int maxLength = START_OF_3RD_POINT, maxStart = 0, maxEnd = START_OF_3RD_POINT, start = 0, end = 0;
 
-	for (int i = 4; i < len - 1; i += 2)
+	for (int i = START_OF_3RD_POINT; i < lengthOfPointArray - 1; i += SIZE_OF_POINT)
 	{
-		if (!arePointsCollinear(arr[i - 4], arr[i - 3], arr[i - 2], arr[i - 1], arr[i], arr[i + 1]))
+		Point point1 = createPoint(pointArray[i - START_OF_3RD_POINT], pointArray[i - START_OF_3RD_POINT + 1]);
+		Point point2 = createPoint(pointArray[i - SIZE_OF_POINT], pointArray[i - SIZE_OF_POINT + 1]);
+		Point point3 = createPoint(pointArray[i], pointArray[i + 1]);
+
+		if (!arePointsCollinear(&point1, &point2, &point3))
 		{
 			continue;
 		}
 
 		if (end == i)
 		{
-			end += 2;
+			end += SIZE_OF_POINT;
 		}
 		else 
 		{
-			start = i - 4;
-			end = i + 2;
+			start = i - START_OF_3RD_POINT;
+			end = i + SIZE_OF_POINT;
 		}
 
 		int currentLength = end - start;
@@ -81,5 +105,5 @@ int main()
 		}
 	}
 
-	printArray(arr, maxStart, maxEnd);
+	printArray(pointArray, maxStart, maxEnd);
 }

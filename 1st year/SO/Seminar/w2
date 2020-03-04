@@ -1,0 +1,54 @@
+ls
+ls -a (idden files)
+ls -l (details about files)
+
+Regular Expressions
+. - any single character
+\ - excape
+[abc] - matches any one of the characters in the range
+
+[a-z]
+[A-Za-z]
+[A-Za-z0-9]
+
+[^a-z] - anything except lower case letters
+^ - beginning of line
+$ - end of line
+\< - beginning of word
+\> - end of word
+\(...\) - group rules in an expression
+* - previous expression or rule 0 or more times
+\+ - 1 or more times
+\? - 0 or 1 times
+\{m, n\} - at least m, at most n times
+\{m\} - excatly m times
+\{m,\} - at least m times
+\{,n\} - at most n times
+\| - or
+
+/etc/passwd - username:password:uid:gid:info:home-dir:shell
+grep "dan" /etc/passwd
+grep "\<[Dd][Aa][Nn]\>" /etc/passwd
+grep -i "\<dan\>" /etc/passwd
+grep "^[^0-9:]\+:" /etc/passwd
+grep "^[^:]*:[^:]*:[^:]*:[^:]*:[^Uu:]*:" /etc/passwd
+grep "^\([^:]*:\)\{4\}[^Uu:]*:" /etc/passwd
+grep -i "\<joe\>" /etc/passwd | grep -i -v "\<john\>" /etc/passwd
+
+SED
+search replace
+sed "s/\<john\>/joe/gi"
+flags:
+	-g - replace everywhere on the line
+	-i - case insensitive
+	
+"s/[aeiou]/ /gi"
+"s/.*\///"
+
+sed "y/abc/123/"
+sed "y/aeiou/AEIOU/"
+
+tr 'a-z' 'A-Z'
+
+sed "sed/\([aeiou]\)/\1\1/gi"
+sed "sed/\([a-z]\)\([0-9]\)/\2\1/gi"

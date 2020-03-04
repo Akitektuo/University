@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/App.cpp
+Set.h
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/Set.h
+SetIterator.h
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/SetIterator.h
+ExtendedTest.h
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/ExtendedTest.h
+ShortTest.h
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/ShortTest.h
+stack
+-
+iostream
+-
+
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/ExtendedTest.h
+
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/Set.h
+
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/SetIterator.h
+Set.h
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/Set.h
+
+C:/Asus ROG/University/1st year/SDA/Assignments/Week1/ShortTest.h
+
