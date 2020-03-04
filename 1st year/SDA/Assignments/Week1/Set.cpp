@@ -2,12 +2,13 @@
 #include "Set.h"
 #include "SetIterator.h"
 
+//O(1)
 Set::Set() {
     array = nullptr;
     length = 0;
 }
 
-
+//O(n)
 bool Set::add(TElem elem) {
     if (search(elem)) {
         return false;
@@ -20,7 +21,7 @@ bool Set::add(TElem elem) {
     return true;
 }
 
-
+//O(n)
 bool Set::remove(TElem elem) {
     for (int i = 0; i < length; i++) {
         if (array[i] == elem) {
@@ -34,6 +35,7 @@ bool Set::remove(TElem elem) {
     return false;
 }
 
+//O(n)
 bool Set::search(TElem elem) const {
     for (int i = 0; i < length; i++) {
         if (array[i] == elem) {
@@ -43,17 +45,17 @@ bool Set::search(TElem elem) const {
     return false;
 }
 
-
+//O(1)
 int Set::size() const {
     return length;
 }
 
-
+//O(1)
 bool Set::isEmpty() const {
     return length < 1;
 }
 
-
+//O(1)
 Set::~Set() {
     free(array);
 }
