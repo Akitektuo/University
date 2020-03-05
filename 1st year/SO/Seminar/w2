@@ -52,3 +52,48 @@ tr 'a-z' 'A-Z'
 
 sed "sed/\([aeiou]\)/\1\1/gi"
 sed "sed/\([a-z]\)\([0-9]\)/\2\1/gi"
+
+
+COURSE
+int   FILE*
+ 0    stdin
+ 1    stdout
+ 2	  stderr
+ 
+b - txt file
+filter - c file
+
+> - override
+>> - append
+< - ./filter < b (uses b as input)
+| - cat b | ./filter (prints the result of filter using b as input)
+2> - put error in a file
+2>> - append error to a file
+> a.txt 2>&1
+
+/dev/null -> discard changes
+
+0 == success == true
+1 == failure == false
+
+Strings: == != -n -z
+Integers: -et -ec -eq -ne -ge -gt
+Files: -e -f -d -r -w -x
+
+$* - all arguments
+$# - number of arguments
+$? - return value of last command
+
+#!/bin/bash
+
+for A in a b c d e; do
+	echo $A
+done
+
+if cmd; then
+	...
+elif cmd; then
+	...
+else
+	...
+fi

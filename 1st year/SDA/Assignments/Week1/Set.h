@@ -12,6 +12,7 @@ class Set {
 
     private:
 		int length;
+		int maxSize;
         TElem *array;
 
     public:

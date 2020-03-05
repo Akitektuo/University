@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     Set test;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         test.add(i);
     }
 //    SetIterator it = test.iterator();
@@ -14,6 +14,7 @@ int main() {
 //        cout << it.getCurrent() << " ";
 //        it.next();
 //    }
+
     for (SetIterator it = test.iterator(); it.valid(); it.next()) {
         cout << it.getCurrent() << " ";
     }
