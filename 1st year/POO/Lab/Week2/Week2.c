@@ -1,6 +1,8 @@
-#include <stdio.h>
+#include "ConsoleUI.h"
 
 int main()
 {
-    printf("Hello World!\n");
+    startConsoleUI();
+
+    return 0;
 }

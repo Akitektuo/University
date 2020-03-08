@@ -147,7 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleUI.c" />
+    <ClCompile Include="Controller.c" />
+    <ClCompile Include="Offer.c" />
+    <ClCompile Include="Repository.c" />
+    <ClCompile Include="Service.c" />
     <ClCompile Include="Week2.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConsoleUI.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Offer.h" />
+    <ClInclude Include="Repository.h" />
+    <ClInclude Include="Service.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

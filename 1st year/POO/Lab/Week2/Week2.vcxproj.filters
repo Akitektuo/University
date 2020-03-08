@@ -18,5 +18,37 @@
     <ClCompile Include="Week2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Offer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Repository.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Service.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleUI.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Offer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Service.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <cstring>
 #include "Set.h"
 #include "SetIterator.h"
 
@@ -32,9 +31,7 @@ bool Set::add(TElem elem) {
         }
         tempArray[length++] = elem;
         delete[] array;
-        array = new TElem[maxSize];
-        std::memcpy(array, tempArray, sizeof(TElem) * maxSize);
-        delete[] tempArray;
+        array = tempArray;
         return true;
     }
 
@@ -60,7 +57,7 @@ bool Set::remove(TElem elem) {
         return true;
     }
 
-    if (length - 1 <= maxSize / 2) { // 8 maxSize, length = 5
+    if (length - 1 <= maxSize / 2) {
         maxSize /= 2;
     }
 
@@ -74,9 +71,7 @@ bool Set::remove(TElem elem) {
             tempArray[j - 1] = array[j];
         }
         delete[] array;
-        array = new TElem[maxSize];
-        std::memcpy(array, tempArray, sizeof(TElem) * maxSize);
-        delete[] tempArray;
+        array = tempArray;
         length--;
         return true;
     }
