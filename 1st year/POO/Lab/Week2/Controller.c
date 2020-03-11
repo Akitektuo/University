@@ -28,6 +28,39 @@ int getCommandType(char* commandKeyWord)
 	return COMMAND_UNKNOWN;
 }
 
+void buildStringList(Offer** listOfOffers, char* stringResult)
+{
+	if (listOfOffers[0] == NULL)
+	{
+		return;
+	}
+
+	char* offerAsString = (char*) malloc(OFFER_STRING_AVERAGE_MEMORY_SIZE * sizeof(char));
+
+	for (int i = 0; listOfOffers[i] != NULL; i++)
+	{
+		Offer* currentOffer = listOfOffers[i];
+
+		snprintf(
+			offerAsString,
+			OFFER_STRING_AVERAGE_MEMORY_SIZE,
+			"Id: %d\nType: %s\nDestination: %s\nPrice: %d\n\n",
+			getId(currentOffer),
+			getType(currentOffer),
+			getDestination(currentOffer),
+			getPrice(currentOffer)
+		);
+
+		if (offerAsString != NULL)
+		{
+			strcat_s(stringResult, LIST_MAXIMUM_STRING_SIZE, offerAsString);
+		}
+	}
+
+	free(offerAsString);
+	free(listOfOffers);
+}
+
 Controller* createController()
 {
 	Controller* newController = (Controller*) malloc(sizeof(Controller));
@@ -41,10 +74,11 @@ Controller* createController()
 	return newController;
 }
 
-int handleCommand(Controller* controller, char* command, char* string_result)
+int handleCommand(Controller* controller, char* command, char* stringResult)
 {
 	Service* service = controller->service;
 
+	// getting rid of '\n'
 	strncpy_s(command, MAXIMUM_COMMAND_SIZE, command, strlen(command) - 1);
 
 	char* token = NULL;
@@ -55,7 +89,7 @@ int handleCommand(Controller* controller, char* command, char* string_result)
 	int id = 0;
 	char* type = NULL;
 	char* destination = NULL;
-	char* listOfOffers = NULL;
+	Offer** listOfOffers = NULL;
 
 	while (parameter != NULL)
 	{
@@ -76,7 +110,8 @@ int handleCommand(Controller* controller, char* command, char* string_result)
 				switch (commandType)
 				{
 					case COMMAND_LIST:
-						getOffersListByDestinationService(service, parameter, string_result);
+						listOfOffers = getOffersListByDestinationService(service, parameter);
+						buildStringList(listOfOffers, stringResult);
 						return RESULT_SUCCESSFUL;
 
 					case COMMAND_DELETE:
@@ -105,7 +140,8 @@ int handleCommand(Controller* controller, char* command, char* string_result)
 
 	if (phase == 1 && commandType == COMMAND_LIST)
 	{
-		getOffersListService(service, string_result);
+		listOfOffers = getOffersListService(service);
+		buildStringList(listOfOffers, stringResult);
 		return RESULT_SUCCESSFUL;
 	}
 

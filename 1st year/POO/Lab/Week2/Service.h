@@ -17,8 +17,8 @@ int updateOfferService(Service* service, int existingOfferId, char* type, char* 
 
 int deleteOfferService(Service* service, int existingOfferId);
 
-void getOffersListService(Service* service, char* listOfOffers);
+Offer** getOffersListService(Service* service);
 
-void getOffersListByDestinationService(Service* service, char* destination, char* listOfOffers);
+Offer** getOffersListByDestinationService(Service* service, char* destination);
 
 void destroyService(Service* service);

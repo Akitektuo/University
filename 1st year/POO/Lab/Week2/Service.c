@@ -43,40 +43,36 @@ int deleteOfferService(Service* service, int existingOfferId)
 	return removeOffer(service->repository, existingOfferId);
 }
 
-void getOffersListService(Service* service, char* listOfOffers)
+Offer** getOffersListService(Service* service)
 {
 	Repository* repository = service->repository;
+	Offer** listOfOffers = (Offer**) malloc((repository->size + 1) * sizeof(Offer*));
+	if (listOfOffers == NULL)
+	{
+		return;
+	}
 
-	char* offerAsString = (char*) malloc(OFFER_STRING_AVERAGE_MEMORY_SIZE * sizeof(char));
+	int listOfOffersSize = 0;
 
 	for (int i = 0; i < repository->size; i++)
 	{
-		Offer* currentOffer = getOfferAtIndex(repository, i);
-
-		snprintf(
-			offerAsString, 
-			OFFER_STRING_AVERAGE_MEMORY_SIZE, 
-			"Id: %d\nType: %s\nDestination: %s\nPrice: %d\n\n", 
-			getId(currentOffer), 
-			getType(currentOffer), 
-			getDestination(currentOffer), 
-			getPrice(currentOffer)
-		);
-
-		if (offerAsString != NULL)
-		{
-			strcat_s(listOfOffers, LIST_MAXIMUM_STRING_SIZE, offerAsString);
-		}
+		listOfOffers[listOfOffersSize++] = getOfferAtIndex(repository, i);
 	}
 
-	free(offerAsString);
+	listOfOffers[listOfOffersSize] = NULL;
+	return listOfOffers;
 }
 
-void getOffersListByDestinationService(Service* service, char* destination, char* listOfOffers)
+Offer** getOffersListByDestinationService(Service* service, char* destination)
 {
 	Repository* repository = service->repository;
+	Offer** listOfOffers = (Offer**)malloc((repository->size + 1) * sizeof(Offer*));
+	if (listOfOffers == NULL)
+	{
+		return;
+	}
 
-	char* offerAsString = (char*) malloc(OFFER_STRING_AVERAGE_MEMORY_SIZE * sizeof(char));
+	int listOfOffersSize = 0;
 
 	for (int i = 0; i < repository->size; i++)
 	{
@@ -87,23 +83,11 @@ void getOffersListByDestinationService(Service* service, char* destination, char
 			continue;
 		}
 
-		snprintf(
-			offerAsString,
-			OFFER_STRING_AVERAGE_MEMORY_SIZE,
-			"Id: %d\nType: %s\nDestination: %s\nPrice: %d\n\n",
-			getId(currentOffer),
-			getType(currentOffer),
-			getDestination(currentOffer),
-			getPrice(currentOffer)
-		);
-
-		if (offerAsString != NULL)
-		{
-			strcat_s(listOfOffers, OFFER_STRING_AVERAGE_MEMORY_SIZE, offerAsString);
-		}
+		listOfOffers[listOfOffersSize++] = currentOffer;
 	}
 
-	free(offerAsString);
+	listOfOffers[listOfOffersSize] = NULL;
+	return listOfOffers;
 }
 
 void destroyService(Service* service)
