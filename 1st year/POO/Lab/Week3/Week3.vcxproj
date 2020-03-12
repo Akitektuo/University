@@ -25,6 +25,7 @@
     <ClCompile Include="Repository.c" />
     <ClCompile Include="Service.c" />
     <ClCompile Include="ActionTracker.c" />
+    <ClCompile Include="TestManager.c" />
     <ClCompile Include="Week3.c" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="ActionTracker.h" />
+    <ClInclude Include="TestManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
