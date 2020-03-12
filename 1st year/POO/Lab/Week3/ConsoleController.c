@@ -132,10 +132,12 @@ int handleCommand(ConsoleController* consoleController, char* command, char* str
 						return RESULT_EXIT;
 
 					case COMMAND_UNDO:
-						return RESULT_EXIT;
+						undoAction(service);
+						return RESULT_SUCCESSFUL;
 
 					case COMMAND_REDO:
-						return RESULT_EXIT;
+						redoAction(service);
+						return RESULT_SUCCESSFUL;
 				}
 				break;
 			case 1:

@@ -21,6 +21,18 @@ Offer* createOffer(int id, char* type, char* destination, int price)
 	return newOffer;
 }
 
+Offer* createOfferCopy(Offer* offer)
+{
+	return createOffer(getId(offer), getType(offer), getDestination(offer), getPrice(offer));;
+}
+
+void copyOfferWithoutId(Offer* toOffer, Offer* fromOffer)
+{
+	setType(toOffer, getType(fromOffer));
+	setDestination(toOffer, getDestination(fromOffer));
+	setPrice(toOffer, getPrice(fromOffer));
+}
+
 int getId(Offer* offer)
 {
 	return offer->id;

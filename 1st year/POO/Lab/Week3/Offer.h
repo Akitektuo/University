@@ -10,6 +10,10 @@ typedef struct
 
 Offer* createOffer(int id, char* type, char* destination, int price);
 
+Offer* createOfferCopy(Offer* offer);
+
+void copyOfferWithoutId(Offer* toOffer, Offer* fromOffer);
+
 int getId(Offer* offer);
 
 void setType(Offer* offer, char* type);

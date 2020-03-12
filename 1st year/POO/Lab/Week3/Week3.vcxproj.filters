@@ -33,6 +33,9 @@
     <ClCompile Include="ConsoleController.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ActionTracker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Service.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionTracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
