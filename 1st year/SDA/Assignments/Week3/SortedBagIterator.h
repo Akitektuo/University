@@ -11,7 +11,9 @@ private:
 	const SortedBag& bag;
 	SortedBagIterator(const SortedBag& b);
 
-	//TODO - Representation
+	int index;
+	SortedBag::Link* currentElementLink;
+	SortedBag::Link* currentFrequencyLink;
 
 public:
 	TComp getCurrent();
