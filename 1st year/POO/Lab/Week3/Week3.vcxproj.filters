@@ -39,9 +39,6 @@
     <ClCompile Include="TestManager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestConsoleController.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestOffer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TestConsoleController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestOffer.h">

@@ -25,7 +25,6 @@
     <ClCompile Include="Repository.c" />
     <ClCompile Include="Service.c" />
     <ClCompile Include="ActionTracker.c" />
-    <ClCompile Include="TestConsoleController.c" />
     <ClCompile Include="TestManager.c" />
     <ClCompile Include="TestOffer.c" />
     <ClCompile Include="TestRepository.c" />
@@ -39,7 +38,6 @@
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="ActionTracker.h" />
-    <ClInclude Include="TestConsoleController.h" />
     <ClInclude Include="TestManager.h" />
     <ClInclude Include="TestOffer.h" />
     <ClInclude Include="TestRepository.h" />
