@@ -5,5 +5,4 @@ void runAllTests()
 	runAllOfferTests();
 	runAllRepositoryTests();
 	runAllServiceTests();
-	runAllConsoleControllerTests();
 }
