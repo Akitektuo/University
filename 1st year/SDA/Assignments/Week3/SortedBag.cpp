@@ -1,6 +1,7 @@
 #include "SortedBag.h"
 #include "SortedBagIterator.h"
 
+// O(1)
 SortedBag::SortedBag(Relation r) {
     relation = r;
     length = 0;
@@ -12,6 +13,7 @@ SortedBag::SortedBag(Relation r) {
     frequencyHead->linkedTo = nullptr;
 }
 
+// O(n)
 void SortedBag::add(TComp e) {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
@@ -59,6 +61,7 @@ void SortedBag::add(TComp e) {
     length++;
 }
 
+// O(n)
 bool SortedBag::remove(TComp e) {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
@@ -91,7 +94,7 @@ bool SortedBag::remove(TComp e) {
     return false;
 }
 
-
+// O(n)
 bool SortedBag::search(TComp elem) const {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
@@ -114,7 +117,7 @@ bool SortedBag::search(TComp elem) const {
     return false;
 }
 
-
+// O(n)
 int SortedBag::nrOccurrences(TComp elem) const {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
@@ -137,22 +140,22 @@ int SortedBag::nrOccurrences(TComp elem) const {
     return 0;
 }
 
-
+// O(1)
 int SortedBag::size() const {
     return length;
 }
 
-
+// O(1)
 bool SortedBag::isEmpty() const {
     return length < 1;
 }
 
-
+// O(1)
 SortedBagIterator SortedBag::iterator() const {
     return SortedBagIterator(*this);
 }
 
-
+// O(n)
 SortedBag::~SortedBag() {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
