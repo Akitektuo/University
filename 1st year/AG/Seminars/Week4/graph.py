@@ -295,7 +295,6 @@ if __name__ == "__main__":
 	# run(matrix_graph)
 	# print_result("MatrixGraph", n, start_time)
 
-
 	# start_time = time.time()
 	# n = 1000
 	# matrix_graph = init_random_graph(DictGraph, n, n * 10)
