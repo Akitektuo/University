@@ -1,15 +1,15 @@
 #include "Service.h"
 
-void Service::setMode(char mode)
+bool Service::setMode(char mode)
 {
 	switch (mode)
 	{
 	case 'A':
 		isAdmin = true;
-		return;
+		return isAdmin;
 	default:
 		isAdmin = false;
-		return;
+		return isAdmin;
 	}
 }
 

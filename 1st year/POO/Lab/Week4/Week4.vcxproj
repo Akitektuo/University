@@ -150,7 +150,10 @@
     <ClCompile Include="ArrayList.cpp" />
     <ClCompile Include="ConsoleUI.cpp" />
     <ClCompile Include="Repository.cpp" />
+    <ClCompile Include="RepositoryTest.cpp" />
     <ClCompile Include="Service.cpp" />
+    <ClCompile Include="ServiceTest.cpp" />
+    <ClCompile Include="TestManager.cpp" />
     <ClCompile Include="TrenchCoat.cpp" />
     <ClCompile Include="Week4.cpp" />
   </ItemGroup>
@@ -158,7 +161,10 @@
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="ConsoleUI.h" />
     <ClInclude Include="Repository.h" />
+    <ClInclude Include="RepositoryTest.h" />
     <ClInclude Include="Service.h" />
+    <ClInclude Include="ServiceTest.h" />
+    <ClInclude Include="TestManager.h" />
     <ClInclude Include="TrenchCoat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

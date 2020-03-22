@@ -338,7 +338,8 @@ int ArrayList<E>::countBy(const std::function<bool(const E&)>& selection) const
 }
 
 template<class E>
-E& ArrayList<E>::maxBy(const std::function<bool(const E&)>& selection) const
+template<typename T>
+E& ArrayList<E>::maxBy(const std::function<T(const E&)>& selection) const
 {
 	if (size < 1)
 	{
@@ -362,7 +363,8 @@ E& ArrayList<E>::maxBy(const std::function<bool(const E&)>& selection) const
 }
 
 template<class E>
-E& ArrayList<E>::minBy(const std::function<bool(const E&)>& selection) const
+template<typename T>
+E& ArrayList<E>::minBy(const std::function<T(const E&)>& selection) const
 {
 	if (size < 1)
 	{
@@ -386,7 +388,8 @@ E& ArrayList<E>::minBy(const std::function<bool(const E&)>& selection) const
 }
 
 template<class E>
-int ArrayList<E>::sumBy(const std::function<int(const E&)>& selection) const
+template<typename T>
+int ArrayList<E>::sumBy(const std::function<T(const E&)>& selection) const
 {
 	auto sum = 0;
 
@@ -411,7 +414,8 @@ ArrayList<E>& ArrayList<E>::reversed()
 }
 
 template<class E>
-ArrayList<E>& ArrayList<E>::sortBy(const std::function<int(const E&)>& selection)
+template<typename T>
+ArrayList<E>& ArrayList<E>::sortBy(const std::function<T(const E&)>& selection)
 {
 	std::sort(elements, elements + size, [&](const E& firstElement, const E& lastElement) {
 		return selection(firstElement) < selection(lastElement);

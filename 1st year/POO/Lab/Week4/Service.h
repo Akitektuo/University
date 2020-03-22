@@ -8,7 +8,7 @@ private:
 	bool isAdmin;
 	Repository repository;
 public:
-	void setMode(char mode);
+	bool setMode(char mode);
 
 	bool addTrenchCoat(std::string trenchCoatName, std::string trenchCoatSize, int trenchCoatPrice, std::string trenchCoatImage);
 

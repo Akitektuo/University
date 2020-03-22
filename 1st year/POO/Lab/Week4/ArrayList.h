@@ -55,11 +55,15 @@ public:
 	void removeAll(const std::function<bool(const E&)>& selection);
 
 	int countBy(const std::function<bool(const E&)>& selection) const;
-	E& maxBy(const std::function<bool(const E&)>& selection) const;
-	E& minBy(const std::function<bool(const E&)>& selection) const;
-	int sumBy(const std::function<int(const E&)>& selection) const;
+	template <typename T>
+	E& maxBy(const std::function<T(const E&)>& selection) const;
+	template <typename T>
+	E& minBy(const std::function<T(const E&)>& selection) const;
+	template <typename T>
+	int sumBy(const std::function<T(const E&)>& selection) const;
 
 	ArrayList<E>& reversed();
-	ArrayList<E>& sortBy(const std::function<int(const E&)>& selection);
+	template <typename T>
+	ArrayList<E>& sortBy(const std::function<T(const E&)>& selection);
 	ArrayList<E>& filter(const std::function<bool(const E&)>& selection);
 };
