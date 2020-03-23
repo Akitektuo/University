@@ -2,8 +2,6 @@
 #include "SortedBag.h"
 #include <exception>
 
-using namespace std;
-
 // O(1)
 SortedBagIterator::SortedBagIterator(const SortedBag &b) : bag(b) {
     index = 0;
@@ -15,7 +13,7 @@ SortedBagIterator::SortedBagIterator(const SortedBag &b) : bag(b) {
 // O(1)
 TComp SortedBagIterator::getCurrent() {
     if (currentElementLink == nullptr) {
-        throw exception("No element");
+        throw std::exception("No element");
     }
     return currentElementLink->value;
 }
@@ -29,7 +27,7 @@ bool SortedBagIterator::valid() {
 // O(1)
 void SortedBagIterator::next() {
     if (!valid()) {
-        throw exception("No next element");
+        throw std::exception("No next element");
     }
     if (++index < currentFrequencyLink->value) {
         return;
