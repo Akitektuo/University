@@ -37,6 +37,29 @@ void SortedBagIterator::next() {
     index = 0;
 }
 
+// O(n)
+void SortedBagIterator::previous() {
+    if (index-- > 0) {
+        return;
+    }
+
+    auto searchElementLink = bag.elementsHead->linkedTo;
+    auto searchFrequencyLink = bag.frequencyHead->linkedTo;
+
+    if (searchElementLink == nullptr || currentElementLink == searchElementLink) {
+        throw std::exception("No previous element");
+    }
+
+    while (searchElementLink->linkedTo != currentElementLink) {
+        searchElementLink = searchElementLink->linkedTo;
+        searchFrequencyLink = searchFrequencyLink->linkedTo;
+    }
+
+    currentElementLink = searchElementLink;
+    currentFrequencyLink = searchFrequencyLink;
+    index = currentFrequencyLink->value;
+}
+
 // O(1)
 void SortedBagIterator::first() {
     index = 0;
@@ -44,4 +67,5 @@ void SortedBagIterator::first() {
     currentElementLink = bag.elementsHead->linkedTo;
     currentFrequencyLink = bag.frequencyHead->linkedTo;
 }
+
 

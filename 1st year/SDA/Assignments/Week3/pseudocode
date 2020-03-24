@@ -1,0 +1,17 @@
+subalgorithm previous() is:
+	if @index > 0 and decrement index then
+		@stop function
+	end-if
+	@set searchElementLink and searchFrequencyLink to head (first element)
+	
+	if @current selected link is the first link or the first link is null then
+		@throw an error and stop the funtion
+	end-if
+	
+	while @next link is not the current link execute
+		@go to the next link
+	end-while
+	
+	@set the current link to the previous link
+	@set index to current frequency value
+end-subalgorithm

@@ -18,7 +18,8 @@ private:
 public:
 	TComp getCurrent();
 	bool valid();
-	void next();
+    void next();
+    void previous();
 	void first();
 };
 

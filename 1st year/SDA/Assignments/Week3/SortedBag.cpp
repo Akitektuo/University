@@ -140,22 +140,22 @@ int SortedBag::nrOccurrences(TComp elem) const {
     return 0;
 }
 
-// O(1)
+// Theta(1)
 int SortedBag::size() const {
     return length;
 }
 
-// O(1)
+// Theta(1)
 bool SortedBag::isEmpty() const {
     return length < 1;
 }
 
-// O(1)
+// Theta(1)
 SortedBagIterator SortedBag::iterator() const {
     return SortedBagIterator(*this);
 }
 
-// O(n)
+// Theta(n)
 SortedBag::~SortedBag() {
     auto currentElementLink = elementsHead;
     auto currentFrequencyLink = frequencyHead;
