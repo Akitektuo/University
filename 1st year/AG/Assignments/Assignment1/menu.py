@@ -14,7 +14,7 @@ def print_menu():
     print("9. Iterate the set of ingoing edges of a vertex")
     print("10. Get and modify the cost of an edge")
     print("11. Edit graph")
-    print("12. Save a copy of the graph")
+    print("12. Make a copy of the graph")
     print("13. Generate a new graph")
     print("14. Save selected graph ")
     print("15. Exit")

@@ -166,5 +166,5 @@ class Controller:
         file_graph = open(file_name + ".txt", "w")
         file_graph.write(str(self.selected_graph.get_vertices()) + " " + str(self.selected_graph.get_edges()) + "\n")
         for vertices, cost in self.selected_graph.store_cost.items():
-            file_graph.write(str(vertices[0]) + " " + str(vertices[1]) + " " + str(cost) + "\n")
+            file_graph.write(str(vertices[0].value) + " " + str(vertices[1].value) + " " + str(cost) + "\n")
         file_graph.close()
