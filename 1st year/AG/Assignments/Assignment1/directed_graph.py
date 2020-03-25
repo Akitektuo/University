@@ -2,6 +2,7 @@ import copy
 
 
 class DirectedGraph:
+    # TODO add comments, Check Remove of an index
 
     def __init__(self, size=0):
         self.store_from = {}
