@@ -93,7 +93,7 @@ void ConsoleUI::start()
 			{
 				service.getListOfTrenchCoats().forEach([](const TrenchCoat& trenchCoat) {
 					std::cout << trenchCoat.toString() << "\n";
-					});
+				});
 				continue;
 			}
 			if (words.getSize() == 3)

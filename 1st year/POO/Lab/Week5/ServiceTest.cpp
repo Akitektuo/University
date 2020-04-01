@@ -21,7 +21,7 @@ void SetMode_AdminMode_SetsAdminMode()
 	assert(service.setMode('A'));
 }
 
-void AddTrenchCoat_InvalidTrenchCoat_ReturnsFalse()
+void AddTrenchCoat_DuplicateTrenchCoat_ReturnsFalse()
 {
 	Service service;
 
@@ -49,7 +49,7 @@ void AddTrenchCoat_ValidTrenchCoatWithPermissions_ReturnsTrue()
 	assert(service.addTrenchCoat("abc", "def", 100, "ghi"));
 }
 
-void UpdateTrenchCoat_InvalidTrenchCoat_ReturnsFalse()
+void UpdateTrenchCoat_NotExistingTrenchCoat_ReturnsFalse()
 {
 	Service service;
 
@@ -78,7 +78,7 @@ void UpdateTrenchCoat_ValidTrenchCoatWithPermissions_ReturnsTrue()
 	assert(service.updateTrenchCoat("abc", "jkl", 200, "mno"));
 }
 
-void DeleteTrenchCoat_InvalidTrenchCoat_ReturnsFalse()
+void DeleteTrenchCoat_NotExistingTrenchCoat_ReturnsFalse()
 {
 	Service service;
 
@@ -144,10 +144,10 @@ void runAllServiceTests()
 	SetMode_InvalidMode_SetsDefaultMode();
 	SetMode_AdminMode_SetsAdminMode();
 	SetMode_UserMode_SetsUserMode();
-	AddTrenchCoat_InvalidTrenchCoat_ReturnsFalse();
+	AddTrenchCoat_DuplicateTrenchCoat_ReturnsFalse();
 	AddTrenchCoat_ValidTrenchCoatWithoutPermissions_ReturnsFalse();
 	AddTrenchCoat_ValidTrenchCoatWithPermissions_ReturnsTrue();
-	UpdateTrenchCoat_InvalidTrenchCoat_ReturnsFalse();
+	UpdateTrenchCoat_NotExistingTrenchCoat_ReturnsFalse();
 	UpdateTrenchCoat_ValidTrenchCoatWithoutPermissions_ReturnsFalse();
 	UpdateTrenchCoat_ValidTrenchCoatWithPermissions_ReturnsTrue();
 }

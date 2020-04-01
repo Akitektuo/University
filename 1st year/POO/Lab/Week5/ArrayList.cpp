@@ -7,7 +7,7 @@ void ArrayList<E>::resizeIfNeeded(int newSize)
 	{
 		memorySize *= 2;
 	}
-	else if (newSize * 4 < memorySize && memorySize > MINIMUM_MEMORY_SIZE)
+	else if (newSize * 4 < memorySize && memorySize > MINIMUM_ARRAY_CAPACITY)
 	{
 		memorySize /= 2;
 	}
@@ -35,7 +35,7 @@ template <class E>
 ArrayList<E>::ArrayList()
 {
 	size = 0;
-	memorySize = MINIMUM_MEMORY_SIZE;
+	memorySize = MINIMUM_ARRAY_CAPACITY;
 	elements = new E[memorySize];
 }
 
@@ -46,13 +46,13 @@ ArrayList<E>::~ArrayList()
 }
 
 template<class E>
-ArrayList<E>::ArrayList(const ArrayList<E>& arrayList)
+ArrayList<E>::ArrayList(const ArrayList<E>& fromArrayList)
 {
-	size = arrayList.size;
-	memorySize = arrayList.memorySize;
+	size = fromArrayList.size;
+	memorySize = fromArrayList.memorySize;
 
 	elements = new E[memorySize];
-	arrayList.forEachIndexed([&](const E& element, int index) {
+	fromArrayList.forEachIndexed([&](const E& element, int index) {
 		elements[index] = element;
 	});
 }
@@ -88,9 +88,9 @@ void ArrayList<E>::addAt(const int& index, const E& element)
 }
 
 template<class E>
-void ArrayList<E>::addAll(const ArrayList<E>& arrayList)
+void ArrayList<E>::addAll(const ArrayList<E>& fromArrayList)
 {
-	arrayList.forEach([&](const E& element) {
+	fromArrayList.forEach([&](const E& element) {
 		add(element);
 	});
 }
@@ -112,7 +112,7 @@ template<class E>
 void ArrayList<E>::clear() const
 {
 	size = 0;
-	memorySize = MINIMUM_MEMORY_SIZE;
+	memorySize = MINIMUM_ARRAY_CAPACITY;
 	delete[] elements;
 	elements = new E[memorySize];
 }
@@ -149,11 +149,11 @@ bool ArrayList<E>::contains(const E& element) const
 }
 
 template<class E>
-bool ArrayList<E>::equals(const ArrayList<E>& arrayList) const
+bool ArrayList<E>::equals(const ArrayList<E>& toArrayList) const
 {
 	for (auto i = 0; i < size; i++)
 	{
-		if (elements[i] != arrayList.get(i))
+		if (elements[i] != toArrayList.get(i))
 		{
 			return false;
 		}

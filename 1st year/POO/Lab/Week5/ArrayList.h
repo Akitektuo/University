@@ -2,7 +2,7 @@
 #include <functional>
 #include <algorithm>
 
-constexpr auto MINIMUM_MEMORY_SIZE = 16;
+constexpr auto MINIMUM_ARRAY_CAPACITY = 16;
 constexpr auto MIN_INT = -2147483648;
 constexpr auto MAX_INT = 2147483647;
 
@@ -20,11 +20,11 @@ private:
 public:
 	ArrayList();
 	~ArrayList();
-	ArrayList(const ArrayList<E>& arrayList);
+	ArrayList(const ArrayList<E>& fromArrayList);
 
 	void add(const E& element);
 	void addAt(const int& index, const E& element);
-	void addAll(const ArrayList<E>& arrayList);
+	void addAll(const ArrayList<E>& fromArrayList);
 
 	bool any(const std::function<bool(const E&)>& selection) const;
 
@@ -35,7 +35,7 @@ public:
 
 	bool contains(const E& element) const;
 
-	bool equals(const ArrayList<E>& arrayList) const;
+	bool equals(const ArrayList<E>& toArrayList) const;
 
 	int indexOf(const E& element) const;
 	int firstIndexOf(const E& element) const;

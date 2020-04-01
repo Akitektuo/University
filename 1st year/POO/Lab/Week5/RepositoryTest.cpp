@@ -7,7 +7,7 @@ void Add_ValidTrenchCoat_ReturnsTrue()
 	assert(repository.add({ "abc", "def", 100, "ghi" }));
 }
 
-void Add_InvalidTrenchCoat_ReturnsFalse()
+void Add_DuplicateTrenchCoat_ReturnsFalse()
 {
 	Repository repository;
 
@@ -25,7 +25,7 @@ void Update_ValidTrenchCoat_ReturnsTrue()
 	assert(repository.update({ "abc", "jkl", 200, "mno" }));
 }
 
-void Update_InvalidTrenchCoat_ReturnsFalse()
+void Update_NotExistingTrenchCoat_ReturnsFalse()
 {
 	Repository repository;
 
@@ -41,7 +41,7 @@ void Remove_ValidTrenchCoat_ReturnsTrue()
 	assert(repository.remove("abc"));
 }
 
-void Remove_InvalidTrenchCoat_ReturnsFalse()
+void Remove_NotExistingTrenchCoat_ReturnsFalse()
 {
 	Repository repository;
 
@@ -69,11 +69,11 @@ void GetTrenchCoatsAsArrayList_RepositoryWithSomeTrenchCoats_ReturnsArrayListOfT
 void runAllRepositoryTests()
 {
 	Add_ValidTrenchCoat_ReturnsTrue();
-	Add_InvalidTrenchCoat_ReturnsFalse();
+	Add_DuplicateTrenchCoat_ReturnsFalse();
 	Update_ValidTrenchCoat_ReturnsTrue();
-	Update_InvalidTrenchCoat_ReturnsFalse();
+	Update_NotExistingTrenchCoat_ReturnsFalse();
 	Remove_ValidTrenchCoat_ReturnsTrue();
-	Remove_InvalidTrenchCoat_ReturnsFalse();
+	Remove_NotExistingTrenchCoat_ReturnsFalse();
 	GetTrenchCoatsAsArrayList_EmptyRepository_ReturnsEmptyArrayList();
 	GetTrenchCoatsAsArrayList_RepositoryWithSomeTrenchCoats_ReturnsArrayListOfTrenchCoats();
 }
