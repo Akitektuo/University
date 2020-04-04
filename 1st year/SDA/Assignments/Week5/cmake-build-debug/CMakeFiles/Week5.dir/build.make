@@ -58,23 +58,23 @@ include CMakeFiles\Week5.dir\progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles\Week5.dir\flags.make
 
-CMakeFiles\Week5.dir\main.cpp.obj: CMakeFiles\Week5.dir\flags.make
-CMakeFiles\Week5.dir\main.cpp.obj: ..\main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Week5.dir/main.cpp.obj"
+CMakeFiles\Week5.dir\App.cpp.obj: CMakeFiles\Week5.dir\flags.make
+CMakeFiles\Week5.dir\App.cpp.obj: ..\App.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Week5.dir/App.cpp.obj"
 	C:\PROGRA~2\MICROS~4\2019\COMMUN~1\VC\Tools\MSVC\1425~1.286\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Week5.dir\main.cpp.obj /FdCMakeFiles\Week5.dir\ /FS -c "F:\IT\University\1st year\SDA\Assignments\Week5\main.cpp"
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Week5.dir\App.cpp.obj /FdCMakeFiles\Week5.dir\ /FS -c "F:\IT\University\1st year\SDA\Assignments\Week5\App.cpp"
 <<
 
-CMakeFiles\Week5.dir\main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Week5.dir/main.cpp.i"
-	C:\PROGRA~2\MICROS~4\2019\COMMUN~1\VC\Tools\MSVC\1425~1.286\bin\Hostx86\x86\cl.exe > CMakeFiles\Week5.dir\main.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\IT\University\1st year\SDA\Assignments\Week5\main.cpp"
+CMakeFiles\Week5.dir\App.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Week5.dir/App.cpp.i"
+	C:\PROGRA~2\MICROS~4\2019\COMMUN~1\VC\Tools\MSVC\1425~1.286\bin\Hostx86\x86\cl.exe > CMakeFiles\Week5.dir\App.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\IT\University\1st year\SDA\Assignments\Week5\App.cpp"
 <<
 
-CMakeFiles\Week5.dir\main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Week5.dir/main.cpp.s"
+CMakeFiles\Week5.dir\App.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Week5.dir/App.cpp.s"
 	C:\PROGRA~2\MICROS~4\2019\COMMUN~1\VC\Tools\MSVC\1425~1.286\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Week5.dir\main.cpp.s /c "F:\IT\University\1st year\SDA\Assignments\Week5\main.cpp"
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Week5.dir\App.cpp.s /c "F:\IT\University\1st year\SDA\Assignments\Week5\App.cpp"
 <<
 
 CMakeFiles\Week5.dir\ExtendedTest.cpp.obj: CMakeFiles\Week5.dir\flags.make
@@ -155,7 +155,7 @@ CMakeFiles\Week5.dir\ShortTest.cpp.s: cmake_force
 
 # Object files for target Week5
 Week5_OBJECTS = \
-"CMakeFiles\Week5.dir\main.cpp.obj" \
+"CMakeFiles\Week5.dir\App.cpp.obj" \
 "CMakeFiles\Week5.dir\ExtendedTest.cpp.obj" \
 "CMakeFiles\Week5.dir\MultiMap.cpp.obj" \
 "CMakeFiles\Week5.dir\MultiMapIterator.cpp.obj" \
@@ -164,7 +164,7 @@ Week5_OBJECTS = \
 # External object files for target Week5
 Week5_EXTERNAL_OBJECTS =
 
-Week5.exe: CMakeFiles\Week5.dir\main.cpp.obj
+Week5.exe: CMakeFiles\Week5.dir\App.cpp.obj
 Week5.exe: CMakeFiles\Week5.dir\ExtendedTest.cpp.obj
 Week5.exe: CMakeFiles\Week5.dir\MultiMap.cpp.obj
 Week5.exe: CMakeFiles\Week5.dir\MultiMapIterator.cpp.obj

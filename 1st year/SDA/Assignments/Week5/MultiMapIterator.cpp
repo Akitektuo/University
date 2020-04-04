@@ -3,25 +3,38 @@
 
 
 MultiMapIterator::MultiMapIterator(const MultiMap& c): col(c) {
-	this->currentPos = 0;
+    currentIndex = 0;
+    valuesIndex = 0;
 }
 
-TElem MultiMapIterator::getCurrent() const{
-	pair<TKey, TValue> elem;
-	elem.first = col.elems[this->currentPos].first;
-	elem.second =col.elems[this->currentPos].second;
-	return elem;
+TElem MultiMapIterator::getCurrent() const {
+    auto currentElement = col.array[currentIndex];
+
+    return {
+            currentElement.key,
+            currentElement.values.at(valuesIndex)
+    };
 }
 
 bool MultiMapIterator::valid() const {
-	return this->currentPos < this->col.len;
+    auto currentElement = col.array[currentIndex];
+    return valuesIndex < currentElement.values.size() || currentElement.next != -1;
 }
 
 void MultiMapIterator::next() {
-	this->currentPos++;
+    if (!valid()) {
+        throw std::exception("No valid next item");
+    }
+
+    if (++valuesIndex < col.array[currentIndex].values.size()) {
+        return;
+    }
+    valuesIndex = 0;
+    currentIndex = col.array[currentIndex].next;
 }
 
 void MultiMapIterator::first() {
-	this->currentPos = 0;
+    currentIndex = 0;
+    valuesIndex = 0;
 }
 

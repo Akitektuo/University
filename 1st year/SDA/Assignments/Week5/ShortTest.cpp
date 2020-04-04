@@ -21,7 +21,7 @@ void testAll() {
 
 	assert(m.size() == 5);
 
-    vector<TValue> v;
+    std::vector<TValue> v;
 	v=m.search(6);
 	assert(v.size()==0);
 

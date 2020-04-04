@@ -124,6 +124,33 @@ Week5\fast:
 	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\build
 .PHONY : Week5\fast
 
+App.obj: App.cpp.obj
+
+.PHONY : App.obj
+
+# target to build an object file
+App.cpp.obj:
+	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\App.cpp.obj
+.PHONY : App.cpp.obj
+
+App.i: App.cpp.i
+
+.PHONY : App.i
+
+# target to preprocess a source file
+App.cpp.i:
+	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\App.cpp.i
+.PHONY : App.cpp.i
+
+App.s: App.cpp.s
+
+.PHONY : App.s
+
+# target to generate assembly for a file
+App.cpp.s:
+	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\App.cpp.s
+.PHONY : App.cpp.s
+
 ExtendedTest.obj: ExtendedTest.cpp.obj
 
 .PHONY : ExtendedTest.obj
@@ -232,33 +259,6 @@ ShortTest.cpp.s:
 	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\ShortTest.cpp.s
 .PHONY : ShortTest.cpp.s
 
-main.obj: main.cpp.obj
-
-.PHONY : main.obj
-
-# target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\main.cpp.obj
-.PHONY : main.cpp.obj
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\Week5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Week5.dir\main.cpp.s
-.PHONY : main.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -268,6 +268,9 @@ help:
 	@echo ... edit_cache
 	@echo ... Week5
 	@echo ... rebuild_cache
+	@echo ... App.obj
+	@echo ... App.i
+	@echo ... App.s
 	@echo ... ExtendedTest.obj
 	@echo ... ExtendedTest.i
 	@echo ... ExtendedTest.s
@@ -280,9 +283,6 @@ help:
 	@echo ... ShortTest.obj
 	@echo ... ShortTest.i
 	@echo ... ShortTest.s
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
 .PHONY : help
 
 

@@ -3,20 +3,23 @@
 
 class MultiMap;
 
-class MultiMapIterator
-{
-	friend class MultiMap;
+class MultiMapIterator {
+    friend class MultiMap;
 
 private:
-	const MultiMap& col;
-	//TODO - Representation
+    const MultiMap &col;
+    int currentIndex;
+    int valuesIndex;
 
-	MultiMapIterator(const MultiMap& c);
+    MultiMapIterator(const MultiMap &c);
 
 public:
-	TElem getCurrent()const;
-	bool valid() const;
-	void next();
-	void first();
+    TElem getCurrent() const;
+
+    bool valid() const;
+
+    void next();
+
+    void first();
 };
 

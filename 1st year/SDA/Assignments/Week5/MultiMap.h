@@ -1,6 +1,8 @@
 #pragma once
-#include<vector>
-#include<utility>
+
+#include <vector>
+#include <utility>
+#include <algorithm>
 //DO NOT INCLUDE MultiMapIterator
 
 //DO NOT CHANGE THIS PART
@@ -22,37 +24,37 @@ constexpr auto INITIAL_CAPACITY = 16;
 class MultiMapIterator;
 
 class MultiMap {
-	friend class MultiMapIterator;
+    friend class MultiMapIterator;
 
 private:
-    ListElement* array;
+    ListElement *array;
     int capacity, keysHead, emptyHead, length;
 
 public:
-	//constructor
-	MultiMap();
+    //constructor
+    MultiMap();
 
-	//adds a key value pair to the multimap
-	void add(TKey c, TValue v);
+    //adds a key value pair to the multimap
+    void add(TKey c, TValue v);
 
-	//removes a key value pair from the multimap
-	//returns true if the pair was removed (if it was in the multimap) and false otherwise
-	bool remove(TKey c, TValue v);
+    //removes a key value pair from the multimap
+    //returns true if the pair was removed (if it was in the multimap) and false otherwise
+    bool remove(TKey c, TValue v);
 
-	//returns the vector of values associated to a key. If the key is not in the MultiMap, the vector is empty
-	std::vector<TValue> search(TKey c) const;
+    //returns the vector of values associated to a key. If the key is not in the MultiMap, the vector is empty
+    std::vector<TValue> search(TKey c) const;
 
-	//returns the number of pairs from the multimap
-	int size() const;
+    //returns the number of pairs from the multimap
+    int size() const;
 
-	//checks whether the multimap is empty
-	bool isEmpty() const;
+    //checks whether the multimap is empty
+    bool isEmpty() const;
 
-	//returns an iterator for the multimap
-	MultiMapIterator iterator() const;
+    //returns an iterator for the multimap
+    MultiMapIterator iterator() const;
 
-	//destructor
-	~MultiMap();
+    //destructor
+    ~MultiMap();
 
 
 };

@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "F:/IT/University/1st year/SDA/Assignments/Week5/App.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/App.cpp.obj"
   "F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ExtendedTest.cpp.obj"
   "F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMap.cpp.obj"
   "F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMapIterator.cpp.obj"
   "F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ShortTest.cpp.obj"
-  "F:/IT/University/1st year/SDA/Assignments/Week5/main.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 
