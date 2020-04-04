@@ -15,7 +15,23 @@ MultiMap::MultiMap() {
 }
 
 void MultiMap::add(TKey k, TValue v) {
-    //TODO - Implementation
+    auto firstEmptyPosition = emptyHead;
+    length++;
+
+    if (keysHead < 0) {
+        keysHead = emptyHead;
+
+        array[firstEmptyPosition].key = k;
+        array[firstEmptyPosition].values.push_back(v);
+        array[firstEmptyPosition].next = -1;
+
+        emptyHead = array[firstEmptyPosition].next;
+        return;
+    }
+
+    for (auto i = keysHead; i >= 0; i = array[i].next) {
+        
+    }
 }
 
 bool MultiMap::remove(TKey k, TValue v) {
