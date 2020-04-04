@@ -3,6 +3,7 @@
 #include <exception>
 #include <iostream>
 
+// O(n)
 MultiMap::MultiMap() {
     capacity = INITIAL_CAPACITY;
     array = new ListElement[capacity];
@@ -14,6 +15,7 @@ MultiMap::MultiMap() {
     length = 0;
 }
 
+// O(n)
 void MultiMap::add(TKey k, TValue v) {
     /**
      * Steps for adding new element:
@@ -81,6 +83,7 @@ void MultiMap::add(TKey k, TValue v) {
     array[firstEmptyPosition].values.push_back(v);
 }
 
+// O(n)
 bool MultiMap::remove(TKey k, TValue v) {
     auto previousIndex = -1;
 
@@ -118,6 +121,7 @@ bool MultiMap::remove(TKey k, TValue v) {
     return false;
 }
 
+// O(n)
 std::vector<TValue> MultiMap::search(TKey k) const {
     for (auto i = keysHead; i > -1; i = array[i].next) {
         if (array[i].key == k) {
@@ -127,18 +131,22 @@ std::vector<TValue> MultiMap::search(TKey k) const {
     return {};
 }
 
+// Theta(1)
 int MultiMap::size() const {
     return length;
 }
 
+// Theta(1)
 bool MultiMap::isEmpty() const {
-    return length < 0;
+    return length < 1;
 }
 
+// Theta(1)
 MultiMapIterator MultiMap::iterator() const {
     return MultiMapIterator(*this);
 }
 
+// Theta(1)
 MultiMap::~MultiMap() {
     delete[] array;
 }

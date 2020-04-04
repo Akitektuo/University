@@ -1,5 +1,6 @@
 #pragma once
 #include "MultiMap.h"
+#include <exception>
 
 class MultiMap;
 
@@ -10,6 +11,7 @@ private:
     const MultiMap &col;
     int currentIndex;
     int valuesIndex;
+    int iterated;
 
     MultiMapIterator(const MultiMap &c);
 

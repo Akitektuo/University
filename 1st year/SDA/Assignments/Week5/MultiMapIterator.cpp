@@ -1,30 +1,35 @@
 #include "MultiMapIterator.h"
 #include "MultiMap.h"
 
-
+// Theta(1)
 MultiMapIterator::MultiMapIterator(const MultiMap& c): col(c) {
-    currentIndex = 0;
+    currentIndex = col.keysHead;
     valuesIndex = 0;
+    iterated = 0;
 }
 
+// Theta(1)
 TElem MultiMapIterator::getCurrent() const {
-    auto currentElement = col.array[currentIndex];
+    if (!valid()) {
+        throw std::exception();
+    }
 
-    return {
-            currentElement.key,
-            currentElement.values.at(valuesIndex)
-    };
+    auto currentElement = col.array[currentIndex];
+    return {currentElement.key, currentElement.values.at(valuesIndex)};
 }
 
+// Theta(1)
 bool MultiMapIterator::valid() const {
-    auto currentElement = col.array[currentIndex];
-    return valuesIndex < currentElement.values.size() || currentElement.next != -1;
+    return iterated < col.size() && currentIndex > -1;
 }
 
+// Theta(1)
 void MultiMapIterator::next() {
     if (!valid()) {
-        throw std::exception("No valid next item");
+        throw std::exception();
     }
+
+    iterated++;
 
     if (++valuesIndex < col.array[currentIndex].values.size()) {
         return;
@@ -33,8 +38,10 @@ void MultiMapIterator::next() {
     currentIndex = col.array[currentIndex].next;
 }
 
+// Theta(1)
 void MultiMapIterator::first() {
-    currentIndex = 0;
+    currentIndex = col.keysHead;
     valuesIndex = 0;
+    iterated = 0;
 }
 

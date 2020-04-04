@@ -4,114 +4,110 @@
 	<Project>
 		<Option title="Week5"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="msvc8"/>
+		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
+				<Option working_dir="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 all"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
+				<Option working_dir="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 edit_cache"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Week5">
-				<Option output="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Week5.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
+				<Option output="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Week5.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 Week5"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 Week5"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Week5/fast">
-				<Option output="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Week5.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
+				<Option output="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Week5.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 Week5/fast"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 Week5/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
+				<Option working_dir="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;F:\IT\University\1st year\SDA\Assignments\Week5\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/App.cpp">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/App.cpp">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.h">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ExtendedTest.h">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.cpp">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.cpp">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.h">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.cpp">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ShortTest.cpp">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.h">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ShortTest.h">
 			<Option target="Week5"/>
 		</Unit>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week5/CMakeLists.txt">
+		<Unit filename="C:/Asus ROG/University/1st year/SDA/Assignments/Week5/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
