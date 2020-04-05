@@ -9,8 +9,11 @@ class MultiMapIterator {
 
 private:
     const MultiMap &col;
-    int currentIndex;
-    int valuesIndex;
+//    int currentIndex;
+//    int valuesIndex;
+//    int iterated;
+    int keyIndex;
+    int valueIndex;
     int iterated;
 
     MultiMapIterator(const MultiMap &c);

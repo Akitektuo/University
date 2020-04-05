@@ -5,14 +5,16 @@
 
 // O(n)
 MultiMap::MultiMap() {
-    capacity = INITIAL_CAPACITY;
-    array = new ListElement[capacity];
-    for (int i = 0; i < capacity - 1; i++) {
-        array[i].next = i + 1;
-    }
-    keysHead = -1;
-    emptyHead = 0;
-    length = 0;
+//    capacity = INITIAL_CAPACITY;
+//    array = new ListElement[capacity];
+//    for (int i = 0; i < capacity - 1; i++) {
+//        array[i].next = i + 1;
+//    }
+//    keysHead = -1;
+//    emptyHead = 0;
+//    length = 0;
+    totalSize = 0;
+    keyList = createSLAA<KeyElement>();
 }
 
 // O(n)
@@ -27,118 +29,179 @@ void MultiMap::add(TKey k, TValue v) {
      * 4. Set the key
      * 5. Add the value to the array
      */
-    auto firstEmptyPosition = emptyHead;
-    length++;
+//    auto firstEmptyPosition = emptyHead;
+//    length++;
+//
+//    if (keysHead < 0) {
+//        emptyHead = array[firstEmptyPosition].next;
+//        keysHead = firstEmptyPosition;
+//        array[firstEmptyPosition].next = -1;
+//
+//        array[firstEmptyPosition].key = k;
+//        array[firstEmptyPosition].values.push_back(v);
+//        return;
+//    }
+//
+//    auto lastKeyPosition = -1;
+//
+//    for (auto i = keysHead; i > -1; i = array[i].next) {
+//        if (array[i].key != k) {
+//            lastKeyPosition = i;
+//            continue;
+//        }
+//        array[i].values.push_back(v);
+//        return;
+//    }
+//
+//    if (firstEmptyPosition < 0) {
+//        auto oldCapacity = capacity;
+//        capacity *= 2;
+//
+//        auto tempArray = new ListElement[capacity];
+//        for (int i = 0; i < capacity - 1; i++) {
+//            if (i < oldCapacity) {
+//                tempArray[i] = array[i];
+//            } else {
+//                tempArray[i].next = i + 1;
+//            }
+//        }
+//        delete[] array;
+//        array = tempArray;
+//
+//        emptyHead = oldCapacity + 1;
+//        array[lastKeyPosition].next = oldCapacity;
+//        array[oldCapacity].next = -1;
+//
+//        array[oldCapacity].key = k;
+//        array[oldCapacity].values.push_back(v);
+//        return;
+//    }
+//
+//    emptyHead = array[firstEmptyPosition].next;
+//    array[lastKeyPosition].next = firstEmptyPosition;
+//    array[firstEmptyPosition].next = -1;
+//
+//    array[firstEmptyPosition].key = k;
+//    array[firstEmptyPosition].values.push_back(v);
+    totalSize++;
 
-    if (keysHead < 0) {
-        emptyHead = array[firstEmptyPosition].next;
-        keysHead = firstEmptyPosition;
-        array[firstEmptyPosition].next = -1;
+    auto index = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement>& element) {
+        return element.payload.key == k;
+    });
 
-        array[firstEmptyPosition].key = k;
-        array[firstEmptyPosition].values.push_back(v);
-        return;
+    /// No element found with the given key ///
+    if (index < 0) {
+        auto newValuesList = createSLAA<TValue>();
+        addPayload(newValuesList, v);
+
+        KeyElement newPayload;
+        newPayload.key = k;
+        newPayload.values = newValuesList;
+
+        addPayload(keyList, newPayload);
+    } else {
+        addPayload(keyList.elements[index].payload.values, v);
     }
-
-    auto lastKeyPosition = -1;
-
-    for (auto i = keysHead; i > -1; i = array[i].next) {
-        if (array[i].key != k) {
-            lastKeyPosition = i;
-            continue;
-        }
-        array[i].values.push_back(v);
-        return;
-    }
-
-    if (firstEmptyPosition < 0) {
-        auto oldCapacity = capacity;
-        capacity *= 2;
-
-        auto tempArray = new ListElement[capacity];
-        for (int i = 0; i < capacity - 1; i++) {
-            if (i < oldCapacity) {
-                tempArray[i] = array[i];
-            } else {
-                tempArray[i].next = i + 1;
-            }
-        }
-        delete[] array;
-        array = tempArray;
-
-        emptyHead = oldCapacity + 1;
-        array[lastKeyPosition].next = oldCapacity;
-        array[oldCapacity].next = -1;
-
-        array[oldCapacity].key = k;
-        array[oldCapacity].values.push_back(v);
-        return;
-    }
-
-    emptyHead = array[firstEmptyPosition].next;
-    array[lastKeyPosition].next = firstEmptyPosition;
-    array[firstEmptyPosition].next = -1;
-
-    array[firstEmptyPosition].key = k;
-    array[firstEmptyPosition].values.push_back(v);
 }
 
 // O(n)
 bool MultiMap::remove(TKey k, TValue v) {
-    auto previousIndex = -1;
+//    auto previousIndex = -1;
+//
+//    for (auto i = keysHead; i > -1; i = array[i].next) {
+//        if (array[i].key != k) {
+//            previousIndex = i;
+//            continue;
+//        }
+//
+//        auto position = std::find(array[i].values.begin(), array[i].values.end(), v);
+//
+//        if (position == array[i].values.end()) {
+//            return false;
+//        }
+//
+//        array[i].values.erase(position);
+//        length--;
+//
+//        if (!array[i].values.empty()) {
+//            return true;
+//        }
+//
+//        /// Update previous key ///
+//        array[previousIndex].next = array[i].next;
+//
+//        /// Search for and update last empty position ///
+//        auto lastEmptyIndex = emptyHead;
+//        while (lastEmptyIndex > -1) {
+//            lastEmptyIndex = array[lastEmptyIndex].next;
+//        }
+//        array[lastEmptyIndex].next = i;
+//
+//        return true;
+//    }
+//    return false;
+    auto keyPreviousIndex = -1;
+    auto keyIndex = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement>& element) {
+        return element.payload.key == k;
+    }, &keyPreviousIndex);
 
-    for (auto i = keysHead; i > -1; i = array[i].next) {
-        if (array[i].key != k) {
-            previousIndex = i;
-            continue;
-        }
+    if (keyIndex < 0) {
+        return false;
+    }
 
-        auto position = std::find(array[i].values.begin(), array[i].values.end(), v);
+    auto valuePreviousIndex = -1;
+    auto valueIndex = getElementIndex<TValue>(keyList.elements[keyIndex].payload.values, [&](const SLLAElement<TValue>& element) {
+        return element.payload == v;
+    }, &valuePreviousIndex);
 
-        if (position == array[i].values.end()) {
-            return false;
-        }
+    if (valueIndex < 0) {
+        return false;
+    }
 
-        array[i].values.erase(position);
-        length--;
+    totalSize--;
 
-        if (!array[i].values.empty()) {
-            return true;
-        }
-
-        /// Update previous key ///
-        array[previousIndex].next = array[i].next;
-
-        /// Search for and update last empty position ///
-        auto lastEmptyIndex = emptyHead;
-        while (lastEmptyIndex > -1) {
-            lastEmptyIndex = array[lastEmptyIndex].next;
-        }
-        array[lastEmptyIndex].next = i;
-
+    if (keyList.elements[keyIndex].payload.values.size < 2) {
+        destroySLAA(keyList.elements[keyIndex].payload.values);
+        relink(keyList, keyPreviousIndex, keyIndex, keyList.elements[keyIndex].next);
         return true;
     }
-    return false;
+    relink(keyList.elements[keyIndex].payload.values, valuePreviousIndex, valueIndex, keyList.elements[keyIndex].payload.values.elements[valueIndex].next);
+    return true;
 }
 
 // O(n)
 std::vector<TValue> MultiMap::search(TKey k) const {
-    for (auto i = keysHead; i > -1; i = array[i].next) {
-        if (array[i].key == k) {
-            return array[i].values;
-        }
+//    for (auto i = keysHead; i > -1; i = array[i].next) {
+//        if (array[i].key == k) {
+//            return array[i].values;
+//        }
+//    }
+//    return {};
+    auto keyIndex = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement>& element) {
+        return element.payload.key == k;
+    });
+
+    if (keyIndex < 0) {
+        return {};
     }
-    return {};
+
+    std::vector<TValue> result;
+    for (auto i = keyList.elements[keyIndex].payload.values.valueHead; i > -1; i = keyList.elements[keyIndex].payload.values.elements[i].next) {
+        result.push_back(keyList.elements[keyIndex].payload.values.elements[i].payload);
+    }
+    return result;
 }
 
 // Theta(1)
 int MultiMap::size() const {
-    return length;
+//    return length;
+    return totalSize;
 }
 
 // Theta(1)
 bool MultiMap::isEmpty() const {
-    return length < 1;
+//    return length < 1;
+    return totalSize < 1;
 }
 
 // Theta(1)
@@ -147,6 +210,13 @@ MultiMapIterator MultiMap::iterator() const {
 }
 
 // Theta(1)
+// O(n)
 MultiMap::~MultiMap() {
-    delete[] array;
+//    delete[] array;
+    for (auto i = 0; i < keyList.capacity; i++) {
+        if (!isSLAANull(keyList.elements[i].payload.values)) {
+            destroySLAA(keyList.elements[i].payload.values);
+        }
+    }
+    destroySLAA(keyList);
 }
