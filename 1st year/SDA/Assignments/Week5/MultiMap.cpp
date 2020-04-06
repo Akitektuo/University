@@ -85,23 +85,24 @@ void MultiMap::add(TKey k, TValue v) {
 //    array[firstEmptyPosition].values.push_back(v);
     totalSize++;
 
-    auto index = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement>& element) {
+    auto index = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement> &element) {
         return element.payload.key == k;
     });
 
-    /// No element found with the given key ///
-    if (index < 0) {
-        auto newValuesList = createSLLA<TValue>();
-        addPayload(newValuesList, v);
-
-        KeyElement newPayload;
-        newPayload.key = k;
-        newPayload.values = newValuesList;
-
-        addPayload(keyList, newPayload);
-    } else {
+    if (index > -1) {
         addPayload(keyList.elements[index].payload.values, v);
+        return;
     }
+
+    /// No element found with the given key ///
+    auto newValuesList = createSLLA<TValue>();
+    addPayload(newValuesList, v);
+
+    KeyElement newPayload;
+    newPayload.key = k;
+    newPayload.values = newValuesList;
+
+    addPayload(keyList, newPayload);
 }
 
 // O(n)
