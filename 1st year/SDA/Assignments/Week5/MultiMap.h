@@ -54,7 +54,7 @@ private:
     int totalSize;
 
     template<typename T>
-    static SLLA<T> createSLAA() {
+    static SLLA<T> createSLLA() {
         SLLA<T> list;
         list.elements = new SLLAElement<T>[list.capacity];
         for (auto i = 1; i < list.capacity; i++) {
@@ -64,16 +64,19 @@ private:
     }
 
     template<typename T>
-    static void destroySLAA(SLLA<T>& list) {
-        delete[] list.elements;
+    static void destroySLLA(SLLA<T> &list) {
+        if (list.elements) {
+            delete[] list.elements;
+            list.elements = nullptr;
+        }
         list.capacity = INITIAL_CAPACITY;
         list.size = 0;
         list.valueHead = 0;
         list.freeHead = 0;
     }
 
-    template <typename T>
-    static bool isSLAANull(const SLLA<T>& list) {
+    template<typename T>
+    static bool isSLLANull(const SLLA<T> &list) {
         return list.elements == nullptr;
     }
 
@@ -105,7 +108,7 @@ private:
             list.capacity *= 2;
 
             auto tempElements = new SLLAElement<T>[list.capacity];
-            for (int i = 0; i < list.capacity; i++) {
+            for (int i = 0; i < list.capacity - 1; i++) {
                 if (i < oldCapacity) {
                     tempElements[i] = list.elements[i];
                 } else {
@@ -146,6 +149,8 @@ private:
         list.size--;
         if (previous > -1) {
             list.elements[previous].next = next;
+        } else {
+            list.valueHead = next;
         }
         auto lastFreeIndex = list.freeHead;
         while (lastFreeIndex > -1) {

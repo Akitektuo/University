@@ -45,8 +45,9 @@ void MultiMapIterator::next() {
 //    }
 //    valuesIndex = 0;
 //    currentIndex = col.array[currentIndex].next;
-    if (valueIndex > -1) {
-        valueIndex = col.keyList.elements[keyIndex].payload.values.elements[valueIndex].next;
+    auto nextValueIndex = col.keyList.elements[keyIndex].payload.values.elements[valueIndex].next;
+    if (nextValueIndex > -1) {
+        valueIndex = nextValueIndex;
         return;
     }
     keyIndex = col.keyList.elements[keyIndex].next;

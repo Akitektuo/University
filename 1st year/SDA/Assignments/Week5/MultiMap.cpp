@@ -14,7 +14,7 @@ MultiMap::MultiMap() {
 //    emptyHead = 0;
 //    length = 0;
     totalSize = 0;
-    keyList = createSLAA<KeyElement>();
+    keyList = createSLLA<KeyElement>();
 }
 
 // O(n)
@@ -91,7 +91,7 @@ void MultiMap::add(TKey k, TValue v) {
 
     /// No element found with the given key ///
     if (index < 0) {
-        auto newValuesList = createSLAA<TValue>();
+        auto newValuesList = createSLLA<TValue>();
         addPayload(newValuesList, v);
 
         KeyElement newPayload;
@@ -161,7 +161,7 @@ bool MultiMap::remove(TKey k, TValue v) {
     totalSize--;
 
     if (keyList.elements[keyIndex].payload.values.size < 2) {
-        destroySLAA(keyList.elements[keyIndex].payload.values);
+        destroySLLA(keyList.elements[keyIndex].payload.values);
         relink(keyList, keyPreviousIndex, keyIndex, keyList.elements[keyIndex].next);
         return true;
     }
@@ -214,9 +214,9 @@ MultiMapIterator MultiMap::iterator() const {
 MultiMap::~MultiMap() {
 //    delete[] array;
     for (auto i = 0; i < keyList.capacity; i++) {
-        if (!isSLAANull(keyList.elements[i].payload.values)) {
-            destroySLAA(keyList.elements[i].payload.values);
+        if (!isSLLANull(keyList.elements[i].payload.values)) {
+            destroySLLA(keyList.elements[i].payload.values);
         }
     }
-    destroySLAA(keyList);
+    destroySLLA(keyList);
 }

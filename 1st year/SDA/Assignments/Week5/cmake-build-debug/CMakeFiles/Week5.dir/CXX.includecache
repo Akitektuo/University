@@ -6,13 +6,25 @@
 
 #IncludeRegexTransform: 
 
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp
-ShortTest.h
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ShortTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/App.cpp
+iostream
+-
 MultiMap.h
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
+ExtendedTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.h
+ShortTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.h
 MultiMapIterator.h
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+
+F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp
+ShortTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.h
+MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
+MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
 assert.h
 -
 iostream
@@ -24,7 +36,19 @@ vector
 exception
 -
 
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.h
+
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.cpp
+MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
+MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+exception
+-
+iostream
+-
+
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
 vector
 -
 utility
@@ -34,11 +58,31 @@ algorithm
 functional
 -
 
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp
+MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
 MultiMap.h
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
+
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
 exception
 -
 
-C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ShortTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.cpp
+ShortTest.h
+F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.h
+MultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.h
+MultiMapIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.h
+assert.h
+-
+vector
+-
+iostream
+-
+
+F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.h
 

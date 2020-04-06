@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/App.cpp" "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/App.cpp.obj"
-  "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp" "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ExtendedTest.cpp.obj"
-  "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMap.cpp" "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMap.cpp.obj"
-  "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp" "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMapIterator.cpp.obj"
-  "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/ShortTest.cpp" "C:/Asus ROG/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ShortTest.cpp.obj"
+  "F:/IT/University/1st year/SDA/Assignments/Week5/App.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/App.cpp.obj"
+  "F:/IT/University/1st year/SDA/Assignments/Week5/ExtendedTest.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ExtendedTest.cpp.obj"
+  "F:/IT/University/1st year/SDA/Assignments/Week5/MultiMap.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMap.cpp.obj"
+  "F:/IT/University/1st year/SDA/Assignments/Week5/MultiMapIterator.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/MultiMapIterator.cpp.obj"
+  "F:/IT/University/1st year/SDA/Assignments/Week5/ShortTest.cpp" "F:/IT/University/1st year/SDA/Assignments/Week5/cmake-build-debug/CMakeFiles/Week5.dir/ShortTest.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
