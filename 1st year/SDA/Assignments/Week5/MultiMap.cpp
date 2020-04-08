@@ -170,6 +170,34 @@ bool MultiMap::remove(TKey k, TValue v) {
     return true;
 }
 
+
+// Worst: Theta(n)
+// Best: Theta(n)
+// Average: Theta(n)
+std::vector<TValue> MultiMap::removeKey(TKey key) {
+    /// Find the index with the given key ///
+    auto keyPreviousIndex = -1;
+    auto keyIndex = getElementIndex<KeyElement>(keyList, [&](const SLLAElement<KeyElement>& element) {
+        return element.payload.key == key;
+    }, &keyPreviousIndex);
+
+    /// If no index was found (index == -1), return an empty vector ///
+    if (keyIndex < 0) {
+        return {}; // Calling default constructor
+    }
+
+    std::vector<TValue> result;
+    for (auto i = keyList.elements[keyIndex].payload.values.valueHead; i > -1; i = keyList.elements[keyIndex].payload.values.elements[i].next) {
+        totalSize--;
+        result.push_back(keyList.elements[keyIndex].payload.values.elements[i].payload); // Add each value mapped with the key
+    }
+
+    destroySLLA(keyList.elements[keyIndex].payload.values); // Deallocate value list
+    relink(keyList, keyPreviousIndex, keyIndex, keyList.elements[keyIndex].next); // Relink for the found index
+
+    return result;
+}
+
 // O(n)
 std::vector<TValue> MultiMap::search(TKey k) const {
 //    for (auto i = keysHead; i > -1; i = array[i].next) {

@@ -206,7 +206,7 @@ class DirectedGraph:
         del self.store_from[vertex]
 
         for i in range(vertex_value, len(self.existing_vertices)):
-            self.existing_vertices[i] -= 1
+            self.existing_vertices[i].value -= 1
 
         self.existing_vertices.pop()
 

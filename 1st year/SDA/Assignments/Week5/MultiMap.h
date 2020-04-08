@@ -152,16 +152,9 @@ private:
         } else {
             list.valueHead = next;
         }
-        auto lastFreeIndex = list.freeHead;
-        while (lastFreeIndex > -1) {
-            lastFreeIndex = list.elements[lastFreeIndex].next;
-        }
-        list.elements[current].next = -1;
-        if (lastFreeIndex > -1) {
-            list.elements[lastFreeIndex].next = current;
-        } else {
-            list.freeHead = current;
-        }
+
+        list.elements[current].next = list.freeHead;
+        list.freeHead = current;
     }
 
 public:
@@ -174,6 +167,8 @@ public:
     //removes a key value pair from the multimap
     //returns true if the pair was removed (if it was in the multimap) and false otherwise
     bool remove(TKey c, TValue v);
+
+    std::vector<TValue> removeKey(TKey key);
 
     //returns the vector of values associated to a key. If the key is not in the MultiMap, the vector is empty
     std::vector<TValue> search(TKey c) const;

@@ -238,9 +238,12 @@ class Menu:
                     if not target_vertex.isdecimal():
                         raise Exception("The vertex must be of type integer")
 
+                    shortest_path = self.controller.compute_length_of_shortest_path(int(source_vertex),
+                                                                                    int(target_vertex))
+
                     print(
-                        "The length of the shortest path from " + source_vertex + " to " + target_vertex + " is " + str(
-                            self.controller.compute_length_of_shortest_path(int(source_vertex), int(target_vertex))))
+                        "The shortest path from " + source_vertex + " to " + target_vertex + " is " + str(
+                            shortest_path.vertices) + " having the length of " + str(shortest_path.value))
 
                     continue
 

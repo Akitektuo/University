@@ -206,7 +206,7 @@ class DirectedGraph:
         del self.store_from[vertex]
 
         for i in range(vertex_value, len(self.existing_vertices)):
-            self.existing_vertices[i] -= 1
+            self.existing_vertices[i].value -= 1
 
         self.existing_vertices.pop()
 
@@ -227,22 +227,31 @@ class DirectedGraph:
         :param target: int
         :return: int
         """
+
+        class SearchPair:
+            def __init__(self, value=0, vertices=None):
+                if vertices is None:
+                    vertices = []
+
+                self.value = value
+                self.vertices = vertices
+
         source, target = target, source
 
         visited = [False] * len(self.existing_vertices)
-        distance = [None] * len(self.existing_vertices)
+        distance = [SearchPair()] * len(self.existing_vertices)
 
         queue = [source]
         visited[source] = True
-        distance[source] = 0
+
+        distance[source].vertices = [source]
 
         while len(queue) > 0:
             root = queue.pop(0)
             for v in self.parse_vertex_in(root):
                 if not visited[v]:
                     visited[v] = True
-                    distance[v] = distance[root] + 1
+                    distance[v] = SearchPair(distance[root].value + 1, distance[root].vertices + [v])
                     queue.append(v)
 
         return distance[target]
-

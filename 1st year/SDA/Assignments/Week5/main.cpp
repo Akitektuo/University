@@ -5,7 +5,7 @@
 int main() {
     MultiMap multiMap;
     multiMap.add(1, 0);
-    multiMap.add(1, 0);
+    multiMap.add(1, 1);
     multiMap.add(2, 0);
     multiMap.add(3, 0);
     multiMap.add(4, 0);
@@ -23,12 +23,19 @@ int main() {
     multiMap.add(16, 0);
     multiMap.add(17, 0);
 
+    auto removed = multiMap.removeKey(1);
+
     auto count = 0;
     for (auto it = multiMap.iterator(); it.valid(); it.next()) {
         count++;
         auto val = it.getCurrent();
         std::cout << val.first << " " << val.second << "\n";
     }
-    std::cout << count << "/" << multiMap.size();
+    std::cout << count << "/" << multiMap.size() << "\n";
+
+    std::cout << "\nRemoved: ";
+    for (auto& it : removed) {
+        std::cout << it << " ";
+    }
     return 0;
 }
