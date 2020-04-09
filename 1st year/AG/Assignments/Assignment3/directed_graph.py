@@ -271,12 +271,13 @@ class DirectedGraph:
         distance = {source: 0}
         while queue:
             x = queue.get()[1]
+            if x == target:
+                break
             for y in self.parse_vertex_out(x):
                 if y not in distance.keys() or distance[x] + self.get_edge_cost(x, y) < distance[y]:
                     distance[y] = distance[x] + self.get_edge_cost(x, y)
                     queue.put((distance[y], y))
-                    if y not in previous:
-                        previous += [y]
-            if x == target:
-                break
+                    if y in previous:
+                        previous.remove(y)
+                    previous += [y]
         return previous, distance[target]
