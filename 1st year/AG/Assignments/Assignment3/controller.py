@@ -171,3 +171,6 @@ class Controller:
 
     def compute_length_of_shortest_path(self, source, target):
         return self.selected_graph.breadth_first_search(source, target)
+
+    def find_lowest_path(self, source, target):
+        return self.selected_graph.find_lowest_cost_path(source, target)

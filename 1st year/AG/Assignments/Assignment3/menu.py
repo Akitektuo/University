@@ -18,7 +18,8 @@ def print_menu():
     print("13. Generate a new graph")
     print("14. Save selected graph ")
     print("15. Get length of the shortest path")
-    print("16. Exit")
+    print("16. Get the shortest path")
+    print("17. Exit")
 
 
 def fill(char, times):
@@ -238,13 +239,32 @@ class Menu:
                     if not target_vertex.isdecimal():
                         raise Exception("The vertex must be of type integer")
 
+                    shortest_path = self.controller.compute_length_of_shortest_path(int(source_vertex),
+                                                                                    int(target_vertex))
+
                     print(
-                        "The length of the shortest path from " + source_vertex + " to " + target_vertex + " is " + str(
-                            self.controller.compute_length_of_shortest_path(int(source_vertex), int(target_vertex))))
+                        "The shortest path from " + source_vertex + " to " + target_vertex + " is " + str(
+                            shortest_path.vertices) + " having the length of " + str(shortest_path.value))
 
                     continue
 
                 if command == "16":
+                    source_vertex = input("Give source vertex: ")
+                    if not source_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    target_vertex = input("Give target vertex: ")
+                    if not target_vertex.isdecimal():
+                        raise Exception("The vertex must be of type integer")
+
+                    result = self.controller.find_lowest_path(int(source_vertex), int(target_vertex))
+
+                    print("The shortest path from " + source_vertex + " to " + target_vertex + " is " + str(result[0]) +
+                          " with the cost of " + str(result[1]))
+
+                    continue
+
+                if command == "17":
                     return
 
                 raise Exception("Invalid command")

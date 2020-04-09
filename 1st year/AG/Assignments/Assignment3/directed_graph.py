@@ -1,3 +1,4 @@
+from queue import PriorityQueue
 import copy
 
 
@@ -221,28 +222,61 @@ class DirectedGraph:
     # noinspection PyTypeChecker
     def breadth_first_search(self, source, target):
         """
-        Returns the shortest length betweehn the given source and target
+        Returns the shortest length between the given source and target
 
         :param source: int
         :param target: int
-        :return: int
+        :return: SearchPair
         """
+
+        class SearchPair:
+            def __init__(self, value=0, vertices=None):
+                if vertices is None:
+                    vertices = []
+
+                self.value = value
+                self.vertices = vertices
+
         source, target = target, source
 
         visited = [False] * len(self.existing_vertices)
-        distance = [None] * len(self.existing_vertices)
+        distance = [SearchPair()] * len(self.existing_vertices)
 
         queue = [source]
         visited[source] = True
-        distance[source] = 0
+
+        distance[source].vertices = [source]
 
         while len(queue) > 0:
             root = queue.pop(0)
             for v in self.parse_vertex_in(root):
                 if not visited[v]:
                     visited[v] = True
-                    distance[v] = distance[root] + 1
+                    distance[v] = SearchPair(distance[root].value + 1, distance[root].vertices + [v])
                     queue.append(v)
 
         return distance[target]
 
+    def find_lowest_cost_path(self, source, target):
+        """
+        Returns the shortest path between the given source and target
+
+        :param source: int
+        :param target: int
+        :return: (list, int)
+        """
+        queue = PriorityQueue()
+        previous = [source]
+        queue.put((0, source))
+        distance = {source: 0}
+        while queue:
+            x = queue.get()[1]
+            for y in self.parse_vertex_out(x):
+                if y not in distance.keys() or distance[x] + self.get_edge_cost(x, y) < distance[y]:
+                    distance[y] = distance[x] + self.get_edge_cost(x, y)
+                    queue.put((distance[y], y))
+                    if y not in previous:
+                        previous += [y]
+            if x == target:
+                break
+        return previous, distance[target]
