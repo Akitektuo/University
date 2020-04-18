@@ -93,12 +93,17 @@ ArrayList<TrenchCoat> Service::getListOfTrenchCoatsBySizeAndPrice(std::string tr
 	});
 }
 
-const ArrayList<TrenchCoat>& Service::getShoppingListOfTrenchCoats()
+ArrayList<TrenchCoat> Service::getShoppingListOfTrenchCoats()
 {
-	return shoppingCart;
+	return shoppingCart.getTrenchCoatsAsArrayList();
 }
 
 void Service::setFileLocation(std::string fileLocation)
 {
-	repository.addFilePath(fileLocation);
+	repository.setFilePath(fileLocation);
+}
+
+void Service::setShoppingCartLocation(std::string fileLocation)
+{
+	shoppingCart.setFilePath(fileLocation);
 }

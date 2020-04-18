@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <functional>
 #include <algorithm>
 
@@ -10,16 +11,11 @@ template <class E>
 class ArrayList
 {
 private:
-	int size;
-	int memorySize;
-	E* elements;
-
-	void resizeIfNeeded(int newSize);
-	bool isIndexValid(int index) const;
+	std::vector<E> elements;
 
 public:
-	ArrayList();
-	~ArrayList();
+	ArrayList() {};
+	~ArrayList() {};
 	ArrayList(const ArrayList<E>& fromArrayList);
 
 	void add(const E& element);
@@ -70,177 +66,85 @@ public:
 };
 
 template<class E>
-void ArrayList<E>::resizeIfNeeded(int newSize)
-{
-	if (newSize > memorySize)
-	{
-		memorySize *= 2;
-	}
-	else if (newSize * 4 < memorySize && memorySize > MINIMUM_ARRAY_CAPACITY)
-	{
-		memorySize /= 2;
-	}
-	else
-	{
-		return;
-	}
-
-	auto temporaryElements = new E[memorySize];
-	forEachIndexed([&](const E& element, int index) {
-		temporaryElements[index] = element;
-		});
-
-	delete[] elements;
-	elements = temporaryElements;
-}
-
-template<class E>
-bool ArrayList<E>::isIndexValid(int index) const
-{
-	return 0 <= index && index < size;
-}
-
-template <class E>
-ArrayList<E>::ArrayList()
-{
-	size = 0;
-	memorySize = MINIMUM_ARRAY_CAPACITY;
-	elements = new E[memorySize];
-}
-
-template <class E>
-ArrayList<E>::~ArrayList()
-{
-	delete[] elements;
-}
-
-template<class E>
 ArrayList<E>::ArrayList(const ArrayList<E>& fromArrayList)
 {
-	size = fromArrayList.size;
-	memorySize = fromArrayList.memorySize;
-
-	elements = new E[memorySize];
-	fromArrayList.forEachIndexed([&](const E& element, int index) {
-		elements[index] = element;
-		});
+	elements = fromArrayList.elements;
 }
 
 template<class E>
 void ArrayList<E>::add(const E& element)
 {
-	resizeIfNeeded(size + 1);
-
-	elements[size++] = element;
+	elements.push_back(element);
 }
 
 template<class E>
 void ArrayList<E>::addAt(const int& index, const E& element)
 {
-	if (!isIndexValid(index))
+	if (!hasIndex(index))
 	{
 		throw std::exception("Invalid index, index out of range");
 	}
-	resizeIfNeeded(size + 1);
-
-	for (auto i = size - 1; i >= 0; i--)
-	{
-		elements[i + 1] = elements[i];
-		if (i == index)
-		{
-			elements[i] = element;
-			break;
-		}
-	}
-
-	size++;
+	
+	elements.insert(index, element);
 }
 
 template<class E>
 void ArrayList<E>::addAll(const ArrayList<E>& fromArrayList)
 {
-	fromArrayList.forEach([&](const E& element) {
-		add(element);
-		});
+	elements.insert(elements.end(), fromArrayList.elements.begin(), fromArrayList.elements.end());
 }
 
 template<class E>
 bool ArrayList<E>::any(const std::function<bool(const E&)>& selection) const
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (selection(elements[i]))
-		{
-			return true;
-		}
-	}
-	return false;
+	return std::any_of(elements.begin(), elements.end(), selection);
 }
 
 template<class E>
 void ArrayList<E>::clear() const
 {
-	size = 0;
-	memorySize = MINIMUM_ARRAY_CAPACITY;
-	delete[] elements;
-	elements = new E[memorySize];
+	elements.clear();
 }
 
 template<class E>
 bool ArrayList<E>::isEmpty() const
 {
-	return size < 1;
+	return elements.empty();
 }
 
 template<class E>
 int ArrayList<E>::getSize() const
 {
-	return size;
+	return elements.size();
 }
 
 template<class E>
 bool ArrayList<E>::hasIndex(int index) const
 {
-	return isIndexValid(index);
+	return 0 <= index && index < elements.size();
 }
 
 template<class E>
 bool ArrayList<E>::contains(const E& element) const
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (elements[i] == element)
-		{
-			return true;
-		}
-	}
-	return false;
+	return std::find(elements.begin(), elements.end(), element) != elements.end();
 }
 
 template<class E>
 bool ArrayList<E>::equals(const ArrayList<E>& toArrayList) const
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (elements[i] != toArrayList.get(i))
-		{
-			return false;
-		}
-	}
-	return true;
+	return elements == toArrayList.elements;
 }
 
 template<class E>
 int ArrayList<E>::indexOf(const E& element) const
 {
-	for (auto i = 0; i < size; i++)
+	auto iteratorPosition = std::find(elements.begin(), elements.end(), element);
+	if (iteratorPosition == elements.end())
 	{
-		if (elements[i] == element)
-		{
-			return i;
-		}
+		return -1;
 	}
-	return -1;
+	return std::distance(elements.begin(), iteratorPosition);
 }
 
 template<class E>
@@ -252,33 +156,29 @@ int ArrayList<E>::firstIndexOf(const E& element) const
 template<class E>
 int ArrayList<E>::lastIndexOf(const E& element) const
 {
-	for (auto i = size - 1; i >= 0; i--)
+	auto iteratorPosition = std::find(elements.rbegin(), elements.rend(), element);
+	if (iteratorPosition == elements.rend())
 	{
-		if (elements[i] == element)
-		{
-			return i;
-		}
+		return -1;
 	}
-	return -1;
+	return std::distance(elements.rbegin(), iteratorPosition);
 }
 
 template<class E>
 int ArrayList<E>::findIndexOf(const std::function<bool(const E&)>& selection) const
 {
-	for (auto i = 0; i < size; i++)
+	auto iteratorPosition = std::find_if(elements.begin(), elements.end(), selection);
+	if (iteratorPosition == elements.end())
 	{
-		if (selection(elements[i]))
-		{
-			return i;
-		}
+		return -1;
 	}
-	return -1;
+	return std::distance(elements.begin(), iteratorPosition);
 }
 
 template<class E>
 void ArrayList<E>::set(int index, const E& element)
 {
-	if (!isIndexValid(index))
+	if (!hasIndex(index))
 	{
 		throw std::exception("Index out of range");
 	}
@@ -288,7 +188,7 @@ void ArrayList<E>::set(int index, const E& element)
 template<class E>
 const E& ArrayList<E>::get(int index) const
 {
-	if (!isIndexValid(index))
+	if (!hasIndex(index))
 	{
 		throw std::exception("Index out of range");
 	}
@@ -298,7 +198,7 @@ const E& ArrayList<E>::get(int index) const
 template<class E>
 const E& ArrayList<E>::getFirst() const
 {
-	if (size < 1)
+	if (getSize() < 1)
 	{
 		throw std::exception("Empty array");
 	}
@@ -308,121 +208,89 @@ const E& ArrayList<E>::getFirst() const
 template<class E>
 const E& ArrayList<E>::getLast() const
 {
-	if (size < 1)
+	if (getSize() < 1)
 	{
 		throw std::exception("Empty array");
 	}
-	return elements[0];
+	return elements[elements.size() - 1];
 }
 
 template<class E>
 const E& ArrayList<E>::find(const std::function<bool(const E&)>& selection) const
 {
-	for (auto i = 0; i < size; i++)
+	auto iteratorPosition = std::find_if(elements.begin(), elements.end(), selection);
+	if (iteratorPosition == elements.end())
 	{
-		if (selection(elements[i]))
-		{
-			return elements[i];
-		}
+		throw std::exception("No element found");
 	}
-	throw std::exception("No element found");
+	return *iteratorPosition;
 }
 
 template<class E>
 void ArrayList<E>::forEach(const std::function<void(const E&)>& action) const
 {
-	for (auto i = 0; i < size; i++)
+	for (auto element : elements)
 	{
-		action(elements[i]);
+		action(element);
 	}
 }
 
 template<class E>
 void ArrayList<E>::forEachIndexed(const std::function<void(const E&, int)>& action) const
 {
-	for (auto i = 0; i < size; i++)
+	auto i = 0;
+	for (auto element : elements)
 	{
-		action(elements[i], i);
+		action(element, i++);
 	}
 }
 
 template<class E>
 bool ArrayList<E>::remove(const E& element)
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (elements[i] != element)
-		{
-			continue;
-		}
-		for (auto j = i; j < size - 1; j++)
-		{
-			elements[j] = elements[j + 1];
-		}
-		resizeIfNeeded(--size);
-		return true;
-	}
-	return false;
+	auto elementIndex = std::remove(elements.begin(), elements.end(), element);
+	elements.erase(elementIndex, elements.end());
+	return elementIndex == elements.end();
 }
 
 template<class E>
 bool ArrayList<E>::removeAt(int index)
 {
-	if (!isIndexValid(index))
+	if (!hasIndex(index))
 	{
 		return false;
 	}
 
-	for (auto i = index; i < size - 1; i++)
-	{
-		elements[i] = elements[i + 1];
-
-	}
-	resizeIfNeeded(--size);
+	elements.erase(elements.begin() + index);
 	return true;
 }
 
 template<class E>
 void ArrayList<E>::removeAll(const std::function<bool(const E&)>& selection)
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (selection(elements[i]))
-		{
-			removeAt(i--);
-		}
-	}
+	auto elementIndex = std::remove_if(elements.begin(), elements.end(), selection);
+	elements.erase(elementIndex, elements.end());
 }
 
 template<class E>
 int ArrayList<E>::countBy(const std::function<bool(const E&)>& selection) const
 {
-	auto count = 0;
-
-	for (auto i = 0; i < size; i++)
-	{
-		if (selection(elements[i]))
-		{
-			count++;
-		}
-	}
-
-	return count;
+	return std::count_if(elements.begin(), elements.end(), selection);
 }
 
 template<class E>
 template<typename T>
 const E& ArrayList<E>::maxBy(const std::function<T(const E&)>& selection) const
 {
-	if (size < 1)
+	if (getSize() < 1)
 	{
-		return nullptr;
+		return {};
 	}
 
 	auto maxIndex = 0;
 	auto maxValue = MIN_INT;
 
-	for (auto i = 0; i < size; i++)
+	for (auto i = 0; i < getSize(); i++)
 	{
 		auto selectionValue = selection(elements[i]);
 		if (selectionValue > maxValue)
@@ -433,21 +301,22 @@ const E& ArrayList<E>::maxBy(const std::function<T(const E&)>& selection) const
 	}
 
 	return elements[maxIndex];
+
 }
 
 template<class E>
 template<typename T>
 const E& ArrayList<E>::minBy(const std::function<T(const E&)>& selection) const
 {
-	if (size < 1)
+	if (getSize() < 1)
 	{
-		return nullptr;
+		return {};
 	}
 
 	auto minIndex = 0;
 	auto minValue = MAX_INT;
 
-	for (auto i = 0; i < size; i++)
+	for (auto i = 0; i < getSize(); i++)
 	{
 		auto selectionValue = selection(elements[i]);
 		if (selectionValue < minValue)
@@ -466,9 +335,9 @@ int ArrayList<E>::sumBy(const std::function<T(const E&)>& selection) const
 {
 	auto sum = 0;
 
-	for (auto i = 0; i < size; i++)
+	for (auto element : elements)
 	{
-		sum += selection(elements[i]);
+		sum += selection(element);
 	}
 
 	return sum;
@@ -477,12 +346,7 @@ int ArrayList<E>::sumBy(const std::function<T(const E&)>& selection) const
 template<class E>
 const ArrayList<E>& ArrayList<E>::reversed()
 {
-	for (auto i = 0; i < size / 2; i++)
-	{
-		elements[i] ^= elements[size - i - 1];
-		elements[size - i - 1] ^= elements[i];
-		elements[i] ^= elements[size - i - 1];
-	}
+	std::reverse(elements.begin(), elements.end());
 	return *this;
 }
 
@@ -490,7 +354,7 @@ template<class E>
 template<typename T>
 const ArrayList<E>& ArrayList<E>::sortBy(const std::function<T(const E&)>& selection)
 {
-	std::sort(elements, elements + size, [&](const E& firstElement, const E& lastElement) {
+	std::sort(elements.begin(), elements.end(), [&](const E& firstElement, const E& lastElement) {
 		return selection(firstElement) < selection(lastElement);
 	});
 	return *this;
@@ -499,12 +363,8 @@ const ArrayList<E>& ArrayList<E>::sortBy(const std::function<T(const E&)>& selec
 template<class E>
 const ArrayList<E>& ArrayList<E>::filter(const std::function<bool(const E&)>& selection)
 {
-	for (auto i = 0; i < size; i++)
-	{
-		if (!selection(elements[i]))
-		{
-			removeAt(i--);
-		}
-	}
+	removeAll([&](const E& element) {
+		return !selection(element);
+	});
 	return *this;
 }

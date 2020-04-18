@@ -234,14 +234,18 @@ void GetListOfTrenchCoatsBySizeAndPrice_ListOfTrenchCoats_ReturnsAListWithOneTre
 void GetShoppingListOfTrenchCoats_EmptyListOfTrenchCoats_ReturnsAnEmptyList()
 {
 	Service service;
+	service.setShoppingCartLocation(SERVICE_TEST_CART_FILE_NAME);
 
 	assert(service.getShoppingListOfTrenchCoats().isEmpty());
+
+	std::remove(SERVICE_TEST_CART_FILE_NAME);
 }
 
 void GetShoppingListOfTrenchCoats_ListOfTrenchCoats_ReturnsList()
 {
 	Service service;
 	service.setFileLocation(SERVICE_TEST_FILE_NAME);
+	service.setShoppingCartLocation(SERVICE_TEST_CART_FILE_NAME);
 
 	service.setMode('A');
 	service.addTrenchCoat("trenchCoat0", "abc", 100, "ghi");
@@ -256,6 +260,7 @@ void GetShoppingListOfTrenchCoats_ListOfTrenchCoats_ReturnsList()
 	assert(service.getShoppingListOfTrenchCoats().getSize() == 4);
 
 	std::remove(SERVICE_TEST_FILE_NAME);
+	std::remove(SERVICE_TEST_CART_FILE_NAME);
 }
 
 void runAllServiceTests()
