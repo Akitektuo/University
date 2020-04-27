@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+F:/IT/University/1st year/SDA/Assignments/Week7/ExtendedTest.cpp
+exception
+-
+assert.h
+-
+algorithm
+-
+vector
+-
+iostream
+-
+SMMIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week7/SMMIterator.h
+SortedMultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week7/SortedMultiMap.h
+ExtendedTest.h
+F:/IT/University/1st year/SDA/Assignments/Week7/ExtendedTest.h
+
+F:/IT/University/1st year/SDA/Assignments/Week7/ExtendedTest.h
+
+F:/IT/University/1st year/SDA/Assignments/Week7/SMMIterator.h
+SortedMultiMap.h
+F:/IT/University/1st year/SDA/Assignments/Week7/SortedMultiMap.h
+
+F:/IT/University/1st year/SDA/Assignments/Week7/SortedMultiMap.h
+vector
+-
+utility
+-
+
