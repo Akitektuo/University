@@ -10,7 +10,7 @@ void Add_NoFileGiven_ReturnsFalse()
 void Add_ValidTrenchCoat_ReturnsTrue()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	assert(repository.add({ "abc", "def", 100, "ghi" }));
 
@@ -20,7 +20,7 @@ void Add_ValidTrenchCoat_ReturnsTrue()
 void Add_DuplicateTrenchCoat_ReturnsFalse()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	repository.add({ "abc", "def", 100, "ghi" });
 
@@ -39,7 +39,7 @@ void Update_NoFileGiven_ReturnsFalse()
 void Update_ValidTrenchCoat_ReturnsTrue()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	repository.add({ "abc", "def", 100, "ghi" });
 
@@ -51,7 +51,7 @@ void Update_ValidTrenchCoat_ReturnsTrue()
 void Update_NotExistingTrenchCoat_ReturnsFalse()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	assert(!repository.update({ "abc", "jkl", 200, "mno" }));
 
@@ -68,7 +68,7 @@ void Remove_NoFileGiven_ReturnsFalse()
 void Remove_ValidTrenchCoat_ReturnsTrue()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	repository.add({ "abc", "def", 100, "ghi" });
 
@@ -80,7 +80,7 @@ void Remove_ValidTrenchCoat_ReturnsTrue()
 void Remove_NotExistingTrenchCoat_ReturnsFalse()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	assert(!repository.remove("abc"));
 
@@ -97,7 +97,7 @@ void GetTrenchCoatsAsArrayList_NoFileGiven_ReturnsEmptyList()
 void GetTrenchCoatsAsArrayList_EmptyRepository_ReturnsEmptyArrayList()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	assert(repository.getTrenchCoatsAsArrayList().isEmpty());
 
@@ -107,7 +107,7 @@ void GetTrenchCoatsAsArrayList_EmptyRepository_ReturnsEmptyArrayList()
 void GetTrenchCoatsAsArrayList_RepositoryWithSomeTrenchCoats_ReturnsArrayListOfTrenchCoats()
 {
 	FileRepository repository;
-	repository.setFilePath(REPOSITORY_TEST_FILE_NAME);
+	repository.filePath = REPOSITORY_TEST_FILE_NAME;
 
 	repository.add({ "abc", "def", 100, "ghi" });
 	repository.add({ "jkl", "mno", 200, "pqr" });

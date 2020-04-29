@@ -15,6 +15,11 @@ int main() {
 //    for (auto r : res) {
 //        std::cout << r << " ";
 //    }
+    auto res = map.removeKey(80);
+    for (auto r: res) {
+        cout << r << " ";
+    }
+    cout << "\n";
     for (auto it = map.iterator(); it.valid(); it.next()) {
         cout << it.getCurrent().first << " -> " << it.getCurrent().second << "\n";
     }

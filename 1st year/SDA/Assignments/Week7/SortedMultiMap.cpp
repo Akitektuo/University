@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <exception>
+
 using namespace std;
 
 /// T(1)
@@ -13,13 +14,15 @@ int SortedMultiMap::hashElement(TKey key) const {
 /// T(1)
 SortedMultiMap::Node *SortedMultiMap::createNode(TKey key = 0, TValue value = 0, Node *nextNode = nullptr) {
     auto node = new Node;
+
     node->key = key;
     node->value = value;
     node->next = nextNode;
+
     return node;
 }
 
-/// O(n)
+/// T(n)
 SortedMultiMap::SortedMultiMap(Relation r) {
     totalSize = 0;
     relation = r;
@@ -97,6 +100,34 @@ bool SortedMultiMap::remove(TKey c, TValue v) {
     return false;
 }
 
+/// O(m)
+vector<TValue> SortedMultiMap::removeKey(TKey key) {
+    vector<TValue> removed;
+
+    auto hash = hashElement(key);
+    auto currentNode = addresses[hash];
+
+    while (currentNode->next != nullptr) {
+        auto nextNode = currentNode->next;
+
+        if (!relation(nextNode->key, key)) {
+            break;
+        }
+
+        if (nextNode->key != key) {
+            currentNode = nextNode;
+            continue;
+        }
+
+        removed.push_back(nextNode->value);
+        currentNode->next = nextNode->next;
+        delete nextNode;
+        totalSize--;
+    }
+
+    return removed;
+}
+
 /// T(1)
 int SortedMultiMap::size() const {
     return totalSize;
@@ -112,7 +143,7 @@ SMMIterator SortedMultiMap::iterator() const {
     return SMMIterator(*this);
 }
 
-/// O(n + m) where: n - number of addresses; m - number of nodes/address
+/// T(n + m) where: n - number of addresses; m - number of nodes/address
 SortedMultiMap::~SortedMultiMap() {
     for (auto node : addresses) {
         while (node->next != nullptr) {

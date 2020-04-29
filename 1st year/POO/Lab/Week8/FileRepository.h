@@ -2,6 +2,7 @@
 
 #include "ArrayList.h"
 #include "TrenchCoat.h"
+#include "Exceptions.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,6 +11,11 @@
 class FileRepository
 {
 private:
+	const int POSITION_NAME = 0;
+	const int POSITION_SIZE = 1;
+	const int POSITION_PRICE = 2;
+	const int POSITION_IMAGE = 3;
+
 	const std::string FILE_TYPE_TXT = ".txt";
 	const std::string FILE_TYPE_CSV = ".csv";
 	const std::string FILE_TYPE_HTML = ".html";
@@ -17,8 +23,6 @@ private:
 	const std::string DELIMITER_TXT = "_;_";
 	const std::string DELIMITER_CSV = ",";
 	const std::string DELIMITER_HTML = "</td><td>";
-
-	std::string fileName;
 
 	bool endsWith(std::string string, std::string withString) const;
 	ArrayList<std::string> splitData(std::string line, std::string delimiter) const;
@@ -40,7 +44,7 @@ private:
 	void saveTrenchCoatArrayListToFile(ArrayList<TrenchCoat> trenchCoats) const;
 
 public:
-	void setFilePath(std::string path);
+	std::string filePath;
 
 	bool add(const TrenchCoat& trenchCoat);
 	bool update(const TrenchCoat& trenchCoat);

@@ -84,9 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week7/App.cpp">
-			<Option target="Week7"/>
-		</Unit>
 		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week7/ExtendedTest.cpp">
 			<Option target="Week7"/>
 		</Unit>
@@ -109,6 +106,9 @@
 			<Option target="Week7"/>
 		</Unit>
 		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week7/SortedMultiMap.h">
+			<Option target="Week7"/>
+		</Unit>
+		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week7/main.cpp">
 			<Option target="Week7"/>
 		</Unit>
 		<Unit filename="F:/IT/University/1st year/SDA/Assignments/Week7/CMakeLists.txt">

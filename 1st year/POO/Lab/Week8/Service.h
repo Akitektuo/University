@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FileRepository.h"
+#include <shlobj.h>
 
 class Service
 {
@@ -9,6 +10,8 @@ private:
 	int currentTrenchCoatIndex;
 	FileRepository repository;
 	FileRepository shoppingCart;
+
+	void openFile(const FileRepository& fromRepository);
 
 public:
 	Service();

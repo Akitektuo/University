@@ -1,6 +1,7 @@
 #include "SMMIterator.h"
 #include "SortedMultiMap.h"
 
+/// T(n)
 SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
     indexed = 0;
     currentHash = 0;
@@ -14,6 +15,7 @@ SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
     }
 }
 
+/// O(n)
 void SMMIterator::first() {
     indexed = 0;
     currentHash = 0;
@@ -27,6 +29,7 @@ void SMMIterator::first() {
     }
 }
 
+/// O(n)
 void SMMIterator::next() {
     if (!valid()) {
         throw exception {};
@@ -48,10 +51,12 @@ void SMMIterator::next() {
     currentNode = map.addresses[currentHash]->next;
 }
 
+/// T(1)
 bool SMMIterator::valid() const {
     return indexed < map.size();
 }
 
+/// T(1)
 TElem SMMIterator::getCurrent() const {
     if (indexed >= map.size() || currentNode == nullptr) {
         throw exception {};

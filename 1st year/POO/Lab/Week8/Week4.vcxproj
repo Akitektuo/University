@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="ConsoleUI.h" />
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="FileRepository.h" />
     <ClInclude Include="RepositoryTest.h" />
     <ClInclude Include="Service.h" />

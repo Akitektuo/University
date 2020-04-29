@@ -31,42 +31,43 @@ ArrayList<std::string> FileRepository::splitData(std::string line, std::string d
 
 std::string FileRepository::getFileType() const
 {
-	if (fileName.size() > 4)
+	if (filePath.size() > 4)
 	{
-		if (endsWith(fileName, FILE_TYPE_TXT))
+		if (endsWith(filePath, FILE_TYPE_TXT))
 		{
 			return FILE_TYPE_TXT;
 		}
-		if (endsWith(fileName, FILE_TYPE_CSV))
+		if (endsWith(filePath, FILE_TYPE_CSV))
 		{
 			return FILE_TYPE_CSV;
 		}
 	}
-	if (fileName.size() > 5 && endsWith(fileName, FILE_TYPE_HTML)) {
+	if (filePath.size() > 5 && endsWith(filePath, FILE_TYPE_HTML)) {
 		return FILE_TYPE_HTML;
 	}
-	return {};
+	throw FileRepositoryException();
 }
 
 ArrayList<TrenchCoat> FileRepository::decodeFileWithDelimiter(std::string delimiter) const
 {
-	std::ifstream file(fileName);
+	std::ifstream file(filePath);
 	ArrayList<TrenchCoat> trenchCoats;
 
 	std::string line;
 	while (std::getline(file, line))
 	{
 		auto data = splitData(line, delimiter);
-		trenchCoats.add({ data.get(0), data.get(1), std::stoi(data.get(2)), data.get(3) });
+		trenchCoats.add({ data.get(POSITION_NAME), data.get(POSITION_SIZE), std::stoi(data.get(POSITION_PRICE)), data.get(POSITION_IMAGE) });
 	}
 
 	file.close();
+
 	return trenchCoats;
 }
 
 void FileRepository::encodeFileWithDelimiter(ArrayList<TrenchCoat> trenchCoats, std::string delimiter) const
 {
-	std::ofstream file(fileName);
+	std::ofstream file(filePath);
 	trenchCoats.forEach([&](const TrenchCoat& trenchCoat) {
 		file << trenchCoat.getName() << delimiter
 			<< trenchCoat.size << delimiter
@@ -99,7 +100,7 @@ void FileRepository::encodeCsvFile(ArrayList<TrenchCoat> trenchCoats) const
 
 ArrayList<TrenchCoat> FileRepository::decodeHtmlFile() const
 {
-	std::ifstream file(fileName);
+	std::ifstream file(filePath);
 	ArrayList<TrenchCoat> trenchCoats;
 
 	std::string line;
@@ -111,7 +112,7 @@ ArrayList<TrenchCoat> FileRepository::decodeHtmlFile() const
 			break;
 		}
 		auto data = splitData(line, DELIMITER_HTML);
-		trenchCoats.add({ data.get(0), data.get(1), std::stoi(data.get(2)), data.get(3) });
+		trenchCoats.add({ data.get(POSITION_NAME), data.get(POSITION_SIZE), std::stoi(data.get(POSITION_PRICE)), data.get(POSITION_IMAGE) });
 	}
 
 	file.close();
@@ -120,9 +121,9 @@ ArrayList<TrenchCoat> FileRepository::decodeHtmlFile() const
 
 void FileRepository::encodeHtmlFile(ArrayList<TrenchCoat> trenchCoats) const
 {
-	std::ofstream file(fileName);
+	std::ofstream file(filePath);
 
-	file << "<table><tr><th>Name</th><th>Size</th><th>Price</th><th>Image</th></tr><tr><td>\n";
+	file << "<table border=\"1\"><tr><th>Name</th><th>Size</th><th>Price</th><th>Image</th></tr><tr><td>\n";
 	trenchCoats.forEach([&](const TrenchCoat& trenchCoat) {
 		file << trenchCoat.getName() << DELIMITER_HTML
 			<< trenchCoat.size << DELIMITER_HTML
@@ -136,7 +137,7 @@ void FileRepository::encodeHtmlFile(ArrayList<TrenchCoat> trenchCoats) const
 
 ArrayList<TrenchCoat> FileRepository::getTrenchCoatArrayListFromFile() const
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return {};
 	}
@@ -160,7 +161,7 @@ ArrayList<TrenchCoat> FileRepository::getTrenchCoatArrayListFromFile() const
 
 void FileRepository::saveTrenchCoatArrayListToFile(ArrayList<TrenchCoat> trenchCoats) const
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return;
 	}
@@ -181,14 +182,9 @@ void FileRepository::saveTrenchCoatArrayListToFile(ArrayList<TrenchCoat> trenchC
 	}
 }
 
-void FileRepository::setFilePath(std::string path)
-{
-	fileName = path;
-}
-
 bool FileRepository::add(const TrenchCoat& trenchCoat)
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return false;
 	}
@@ -211,7 +207,7 @@ bool FileRepository::add(const TrenchCoat& trenchCoat)
 
 bool FileRepository::update(const TrenchCoat& trenchCoat)
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return false;
 	}
@@ -236,7 +232,7 @@ bool FileRepository::update(const TrenchCoat& trenchCoat)
 
 bool FileRepository::remove(std::string trenchCoatName)
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return false;
 	}
@@ -261,7 +257,7 @@ bool FileRepository::remove(std::string trenchCoatName)
 
 ArrayList<TrenchCoat> FileRepository::getTrenchCoatsAsArrayList() const
 {
-	if (fileName.empty())
+	if (filePath.empty())
 	{
 		return {};
 	}

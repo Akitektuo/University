@@ -112,7 +112,14 @@ void ConsoleUI::start()
 				displayError("Incorrect number of parameters!");
 				continue;
 			}
-			std::cout << service.getNextTrenchCoat().toString() << "\n";
+			try
+			{
+				std::cout << service.getNextTrenchCoat().toString() << "\n";
+			}
+			catch (const NoTrenchCoatException& exception)
+			{
+				displayError("No trench coats found!");
+			}
 		}
 		else if (commandType == "save")
 		{

@@ -1,5 +1,22 @@
 #include "Service.h"
 
+void Service::openFile(const FileRepository& fromRepository)
+{
+	if (fromRepository.filePath.empty())
+	{
+		return;
+	}
+	try
+	{
+		auto path = fromRepository.filePath;
+		ShellExecute(0, 0, std::wstring(path.begin(), path.end()).c_str(), 0, 0, SW_SHOW);
+	}
+	catch (...)
+	{
+		return;
+	}
+}
+
 Service::Service()
 {
 	isAdmin = false;
@@ -27,7 +44,15 @@ bool Service::addTrenchCoat(std::string trenchCoatName, std::string trenchCoatSi
 	}
 
 	TrenchCoat trenchCoat { trenchCoatName, trenchCoatSize, trenchCoatPrice, trenchCoatImage };
-	return repository.add(trenchCoat);
+
+	try
+	{
+		return repository.add(trenchCoat);
+	}
+	catch (const FileRepositoryException& exception)
+	{
+		return false;
+	}
 }
 
 bool Service::updateTrenchCoat(std::string oldTrenchCoatName, std::string newTrenchCoatSize, int newTrenchCoatPrice, std::string newTrenchCoatImage)
@@ -38,7 +63,15 @@ bool Service::updateTrenchCoat(std::string oldTrenchCoatName, std::string newTre
 	}
 
 	TrenchCoat trenchCoat { oldTrenchCoatName, newTrenchCoatSize, newTrenchCoatPrice, newTrenchCoatImage };
-	return repository.update(trenchCoat);
+
+	try
+	{
+		return repository.update(trenchCoat);
+	}
+	catch (const FileRepositoryException& exception)
+	{
+		return false;
+	}
 }
 
 bool Service::deleteTrenchCoat(std::string trenchCoatName)
@@ -48,12 +81,28 @@ bool Service::deleteTrenchCoat(std::string trenchCoatName)
 		return false;
 	}
 
-	return repository.remove(trenchCoatName);
+	try
+	{
+		return repository.remove(trenchCoatName);
+	}
+	catch (const FileRepositoryException& exception)
+	{
+		return false;
+	}
 }
 
 ArrayList<TrenchCoat> Service::getListOfTrenchCoats()
 {
-	return repository.getTrenchCoatsAsArrayList();
+	openFile(repository);
+
+	try
+	{
+		return repository.getTrenchCoatsAsArrayList();
+	}
+	catch (const FileRepositoryException& exception)
+	{
+		return {};
+	}
 }
 
 TrenchCoat Service::getNextTrenchCoat()
@@ -64,8 +113,14 @@ TrenchCoat Service::getNextTrenchCoat()
 	{
 		currentTrenchCoatIndex = 0;
 	}
-
-	return trenchCoats.get(currentTrenchCoatIndex++);
+	try
+	{
+		return trenchCoats.get(currentTrenchCoatIndex++);
+	}
+	catch (...)
+	{
+		throw NoTrenchCoatException();
+	}
 }
 
 bool Service::saveTrenchCoat(std::string trenchCoatName)
@@ -95,15 +150,16 @@ ArrayList<TrenchCoat> Service::getListOfTrenchCoatsBySizeAndPrice(std::string tr
 
 ArrayList<TrenchCoat> Service::getShoppingListOfTrenchCoats()
 {
+	openFile(shoppingCart);
 	return shoppingCart.getTrenchCoatsAsArrayList();
 }
 
 void Service::setFileLocation(std::string fileLocation)
 {
-	repository.setFilePath(fileLocation);
+	repository.filePath = fileLocation;
 }
 
 void Service::setShoppingCartLocation(std::string fileLocation)
 {
-	shoppingCart.setFilePath(fileLocation);
+	shoppingCart.filePath = fileLocation;
 }
