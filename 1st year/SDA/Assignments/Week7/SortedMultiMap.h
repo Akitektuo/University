@@ -30,10 +30,17 @@ private:
     };
 
     int totalSize;
+    int maxSize;
     Relation relation;
     Node *addresses[HASH_KEY];
 
     Node *createNode(TKey key, TValue value, Node* nextNode);
+
+    bool isNumberPrime(int number);
+
+    void resizeIfNeeded();
+
+    void computeNextSize();
 
     int hashElement(TKey key) const;
 

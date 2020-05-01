@@ -31,7 +31,7 @@ ArrayList<std::string> FileRepository::splitData(std::string line, std::string d
 
 std::string FileRepository::getFileType() const
 {
-	if (filePath.size() > 4)
+	if (filePath.size() > FILE_TYPE_TXT.size())
 	{
 		if (endsWith(filePath, FILE_TYPE_TXT))
 		{
@@ -42,7 +42,7 @@ std::string FileRepository::getFileType() const
 			return FILE_TYPE_CSV;
 		}
 	}
-	if (filePath.size() > 5 && endsWith(filePath, FILE_TYPE_HTML)) {
+	if (filePath.size() > FILE_TYPE_HTML.size() && endsWith(filePath, FILE_TYPE_HTML)) {
 		return FILE_TYPE_HTML;
 	}
 	throw FileRepositoryException();

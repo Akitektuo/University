@@ -6,9 +6,55 @@
 
 using namespace std;
 
+/// O(log2(n))
+bool SortedMultiMap::isNumberPrime(int number) {
+    if (number < 2) {
+        return false;
+    }
+    if (number < 4) {
+        return true;
+    }
+    if (number % 2 == 0 || number % 3 == 0) {
+        return false;
+    }
+    for (auto i = 5; i * i <= number; i += 6) {
+        if (number % i == 0 || number % (i + 2) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void SortedMultiMap::resizeIfNeeded() {
+    if (totalSize * 1.0 / maxSize < 0.7) {
+        return;
+    }
+    computeNextSize();
+    auto tempAddresses = new Node *[maxSize];
+    for (auto i = 0; i < maxSize; i++) {
+
+//        while (node->next != nullptr) {
+//            auto next = node->next;
+//            delete node;
+//            node = next;
+//        }
+//
+//        delete node;
+    }
+    /// Do magic
+}
+
+/// T(1)
+void SortedMultiMap::computeNextSize() {
+    maxSize *= 2;
+    while (!isNumberPrime(maxSize)) {
+        maxSize++;
+    }
+}
+
 /// T(1)
 int SortedMultiMap::hashElement(TKey key) const {
-    return abs(key) % HASH_KEY;
+    return abs(key) % maxSize;
 }
 
 /// T(1)
