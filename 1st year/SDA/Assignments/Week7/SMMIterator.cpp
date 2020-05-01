@@ -5,7 +5,8 @@
 SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
     indexed = 0;
     currentHash = 0;
-    for (auto node : map.addresses) {
+    for (auto i = 0; i < map.maxSize; i++) {
+        auto node = map.addresses[i];
         if (node->next == nullptr) {
             currentHash++;
             continue;
@@ -19,7 +20,8 @@ SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
 void SMMIterator::first() {
     indexed = 0;
     currentHash = 0;
-    for (auto node : map.addresses) {
+    for (auto i = 0; i < map.maxSize; i++) {
+        auto node = map.addresses[i];
         if (node->next == nullptr) {
             currentHash++;
             continue;

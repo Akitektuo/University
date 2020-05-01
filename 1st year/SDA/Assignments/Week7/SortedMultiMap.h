@@ -32,7 +32,7 @@ private:
     int totalSize;
     int maxSize;
     Relation relation;
-    Node *addresses[HASH_KEY];
+    Node **addresses;
 
     Node *createNode(TKey key, TValue value, Node* nextNode);
 

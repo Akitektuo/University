@@ -25,25 +25,6 @@ bool SortedMultiMap::isNumberPrime(int number) {
     return true;
 }
 
-void SortedMultiMap::resizeIfNeeded() {
-    if (totalSize * 1.0 / maxSize < 0.7) {
-        return;
-    }
-    computeNextSize();
-    auto tempAddresses = new Node *[maxSize];
-    for (auto i = 0; i < maxSize; i++) {
-
-//        while (node->next != nullptr) {
-//            auto next = node->next;
-//            delete node;
-//            node = next;
-//        }
-//
-//        delete node;
-    }
-    /// Do magic
-}
-
 /// T(1)
 void SortedMultiMap::computeNextSize() {
     maxSize *= 2;
@@ -68,17 +49,77 @@ SortedMultiMap::Node *SortedMultiMap::createNode(TKey key = 0, TValue value = 0,
     return node;
 }
 
+/// O(n)
+void SortedMultiMap::resizeIfNeeded() {
+    if (totalSize * 1.0 / maxSize < 0.7) {
+        return;
+    }
+    computeNextSize();
+
+    vector<Node *> nodesToAdd;
+    auto tempAddresses = new Node *[maxSize];
+    for (auto i = 0; i < maxSize; i++) {
+        if (i < totalSize) {
+            auto currentNode = addresses[i];
+            tempAddresses[i] = currentNode;
+
+            while (currentNode->next != nullptr) {
+                auto nextNode = currentNode->next;
+
+                if (hashElement(nextNode->key) == i) {
+                    currentNode = nextNode;
+                    continue;
+                }
+
+                currentNode->next = nextNode->next;
+                nextNode->next = nullptr;
+                nodesToAdd.push_back(nextNode);
+            }
+        } else {
+            tempAddresses[i] = createNode();
+        }
+    }
+
+    delete[] addresses;
+    addresses = tempAddresses;
+    for (auto node : nodesToAdd) {
+        auto hash = hashElement(node->key);
+        auto currentNode = addresses[hash];
+
+        while (currentNode->next != nullptr) {
+            auto nextNode = currentNode->next;
+
+            if (!relation(nextNode->key, node->key)) {
+                node->next = nextNode;
+                currentNode->next = node;
+                break;
+            }
+
+            currentNode = currentNode->next;
+        }
+
+        if (currentNode->next == nullptr) {
+            currentNode->next = node;
+        }
+    }
+}
+
 /// T(n)
 SortedMultiMap::SortedMultiMap(Relation r) {
     totalSize = 0;
     relation = r;
-    for (auto &address : addresses) {
-        address = createNode();
+    maxSize = HASH_KEY;
+    addresses = new Node *[maxSize];
+    for (auto i = 0; i < maxSize; i++) {
+        addresses[i] = createNode();
     }
 }
 
 /// O(m)
 void SortedMultiMap::add(TKey c, TValue v) {
+    resizeIfNeeded();
+    totalSize++;
+
     auto hash = hashElement(c);
     auto currentNode = addresses[hash];
 
@@ -87,7 +128,6 @@ void SortedMultiMap::add(TKey c, TValue v) {
 
         if (!relation(nextNode->key, c)) {
             currentNode->next = createNode(c, v, nextNode);
-            totalSize++;
             return;
         }
 
@@ -95,7 +135,6 @@ void SortedMultiMap::add(TKey c, TValue v) {
     }
 
     currentNode->next = createNode(c, v);
-    totalSize++;
 }
 
 /// O(m)
@@ -191,7 +230,9 @@ SMMIterator SortedMultiMap::iterator() const {
 
 /// T(n + m) where: n - number of addresses; m - number of nodes/address
 SortedMultiMap::~SortedMultiMap() {
-    for (auto node : addresses) {
+    for (auto i = 0; i < maxSize; i++) {
+        auto node = addresses[i];
+
         while (node->next != nullptr) {
             auto next = node->next;
             delete node;
@@ -200,4 +241,5 @@ SortedMultiMap::~SortedMultiMap() {
 
         delete node;
     }
+    delete[] addresses;
 }
