@@ -78,7 +78,7 @@ void testRelation(Relation r) {
 	while (smit.valid()) {
 		TKey current = smit.getCurrent().first;
 		assert(current == smit.getCurrent().second || current == smit.getCurrent().second / 2);
-//		assert(r(first, current));
+		assert(r(first, current));
 		first = current;
 		smit.next();
 	}	
@@ -238,7 +238,7 @@ void testIterator(Relation r) {
     itsmm.next();
 	while (itsmm.valid()) {
 		TKey k = itsmm.getCurrent().first;
-//		assert(r(kPrev, k));
+		assert(r(kPrev, k));
 		kPrev = k;
 		itsmm.next();
 	}

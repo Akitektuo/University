@@ -22,6 +22,7 @@ class SortedMultiMap {
 
 private:
     static constexpr auto HASH_KEY = 79;
+//    static constexpr auto HASH_KEY = 7;
 
     struct Node {
         TKey key{};
@@ -38,9 +39,11 @@ private:
 
     bool isNumberPrime(int number);
 
-    void resizeIfNeeded();
-
     void computeNextSize();
+
+    void addNodeBack(Node* node);
+
+    void resizeIfNeeded();
 
     int hashElement(TKey key) const;
 

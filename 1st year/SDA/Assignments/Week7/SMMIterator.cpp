@@ -1,69 +1,48 @@
 #include "SMMIterator.h"
 #include "SortedMultiMap.h"
 
-/// T(n)
+/// O(n log^2 n)
 SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
-    indexed = 0;
-    currentHash = 0;
     for (auto i = 0; i < map.maxSize; i++) {
         auto node = map.addresses[i];
-        if (node->next == nullptr) {
-            currentHash++;
-            continue;
+
+        while (node->next != nullptr) {
+            auto next = node->next;
+            elements.emplace_back(next->key, next->value);
+            node = next;
         }
-        currentNode = node->next;
-        return;
     }
+    sort(elements.begin(), elements.end(), [&](const TElem& pair1, const TElem& pair2) {
+        return !map.relation(pair1.first, pair2.first);
+    });
+    iterator = elements.begin();
+
 }
 
-/// O(n)
+/// T(1)
 void SMMIterator::first() {
-    indexed = 0;
-    currentHash = 0;
-    for (auto i = 0; i < map.maxSize; i++) {
-        auto node = map.addresses[i];
-        if (node->next == nullptr) {
-            currentHash++;
-            continue;
-        }
-        currentNode = node->next;
-        return;
-    }
+    iterator = elements.begin();
 }
 
-/// O(n)
+/// T(1)
 void SMMIterator::next() {
-    if (!valid()) {
+    if (iterator == elements.end()) {
         throw exception {};
     }
-
-    if (++indexed >= map.size()) {
-        return;
-    }
-
-    if (currentNode->next != nullptr) {
-        currentNode = currentNode->next;
-        return;
-    }
-
-    currentHash++;
-    while (map.addresses[currentHash]->next == nullptr) {
-        currentHash++;
-    }
-    currentNode = map.addresses[currentHash]->next;
+    iterator++;
 }
 
 /// T(1)
 bool SMMIterator::valid() const {
-    return indexed < map.size();
+    return iterator != elements.end();
 }
 
 /// T(1)
 TElem SMMIterator::getCurrent() const {
-    if (indexed >= map.size() || currentNode == nullptr) {
+    if (iterator == elements.end()) {
         throw exception {};
     }
-    return { currentNode->key, currentNode->value };
+    return *iterator;
 }
 
 

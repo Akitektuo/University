@@ -49,17 +49,38 @@ SortedMultiMap::Node *SortedMultiMap::createNode(TKey key = 0, TValue value = 0,
     return node;
 }
 
+/// O(1)
+void SortedMultiMap::addNodeBack(Node* node) {
+    auto hash = hashElement(node->key);
+    auto currentNode = addresses[hash];
+
+    while (currentNode->next != nullptr) {
+        auto nextNode = currentNode->next;
+
+        if (!relation(nextNode->key, node->key)) {
+            node->next = nextNode;
+            currentNode->next = node;
+            return;
+        }
+
+        currentNode = currentNode->next;
+    }
+
+    currentNode->next = node;
+}
+
 /// O(n)
 void SortedMultiMap::resizeIfNeeded() {
     if (totalSize * 1.0 / maxSize < 0.7) {
         return;
     }
+    auto oldMaxSize = maxSize;
     computeNextSize();
 
     vector<Node *> nodesToAdd;
     auto tempAddresses = new Node *[maxSize];
     for (auto i = 0; i < maxSize; i++) {
-        if (i < totalSize) {
+        if (i < oldMaxSize) {
             auto currentNode = addresses[i];
             tempAddresses[i] = currentNode;
 
@@ -83,24 +104,7 @@ void SortedMultiMap::resizeIfNeeded() {
     delete[] addresses;
     addresses = tempAddresses;
     for (auto node : nodesToAdd) {
-        auto hash = hashElement(node->key);
-        auto currentNode = addresses[hash];
-
-        while (currentNode->next != nullptr) {
-            auto nextNode = currentNode->next;
-
-            if (!relation(nextNode->key, node->key)) {
-                node->next = nextNode;
-                currentNode->next = node;
-                break;
-            }
-
-            currentNode = currentNode->next;
-        }
-
-        if (currentNode->next == nullptr) {
-            currentNode->next = node;
-        }
+        addNodeBack(node);
     }
 }
 
@@ -115,7 +119,7 @@ SortedMultiMap::SortedMultiMap(Relation r) {
     }
 }
 
-/// O(m)
+/// O(1)
 void SortedMultiMap::add(TKey c, TValue v) {
     resizeIfNeeded();
     totalSize++;
@@ -137,7 +141,7 @@ void SortedMultiMap::add(TKey c, TValue v) {
     currentNode->next = createNode(c, v);
 }
 
-/// O(m)
+/// O(1)
 vector<TValue> SortedMultiMap::search(TKey c) const {
     vector<TValue> result;
     auto hash = hashElement(c);
@@ -160,7 +164,7 @@ vector<TValue> SortedMultiMap::search(TKey c) const {
     return result;
 }
 
-/// O(m)
+/// O(1)
 bool SortedMultiMap::remove(TKey c, TValue v) {
     auto hash = hashElement(c);
     auto currentNode = addresses[hash];
@@ -185,7 +189,7 @@ bool SortedMultiMap::remove(TKey c, TValue v) {
     return false;
 }
 
-/// O(m)
+/// O(1)
 vector<TValue> SortedMultiMap::removeKey(TKey key) {
     vector<TValue> removed;
 

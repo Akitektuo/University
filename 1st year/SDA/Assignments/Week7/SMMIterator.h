@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SortedMultiMap.h"
-
+#include <algorithm>
 
 class SMMIterator {
     friend class SortedMultiMap;
@@ -12,9 +12,12 @@ private:
 
     SMMIterator(const SortedMultiMap &map);
 
-    SortedMultiMap::Node *currentNode;
-    int currentHash;
-    int indexed = 0;
+//    SortedMultiMap::Node *currentNode;
+//    int currentHash;
+//    int indexed = 0;
+
+    vector<TElem> elements;
+    vector<TElem>::iterator iterator;
 
 public:
     void first();
