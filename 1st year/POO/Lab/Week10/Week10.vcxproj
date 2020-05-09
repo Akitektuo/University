@@ -80,17 +80,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleUI.cpp" />
+    <ClCompile Include="FileRepository.cpp" />
+    <ClCompile Include="GraphicalUI.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Week10.cpp" />
+    <ClCompile Include="Service.cpp" />
+    <ClCompile Include="TrenchCoat.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Week10.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="Week10.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="Week10.qrc" />
+    <ClInclude Include="ArrayList.h" />
+    <ClInclude Include="ConsoleUI.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="FileRepository.h" />
+    <QtMoc Include="GraphicalUI.h" />
+    <ClInclude Include="Service.h" />
+    <ClInclude Include="TrenchCoat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
