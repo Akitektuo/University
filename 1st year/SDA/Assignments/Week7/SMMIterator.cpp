@@ -1,7 +1,7 @@
 #include "SMMIterator.h"
 #include "SortedMultiMap.h"
 
-/// Tn)
+/// T(n)
 SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
 //    for (auto i = 0; i < map.maxSize; i++) {
 //        auto node = map.addresses[i];
@@ -39,7 +39,7 @@ SMMIterator::SMMIterator(const SortedMultiMap &d) : map(d) {
     }
 }
 
-/// T(1)
+/// T(n)
 void SMMIterator::first() {
 //    iterator = elements.begin();
     if (size == map.size()) {
@@ -68,7 +68,7 @@ void SMMIterator::first() {
     }
 }
 
-/// T(1)
+/// T(n)
 void SMMIterator::next() {
     if (!valid()) {
         throw exception{};
@@ -107,6 +107,7 @@ TElem SMMIterator::getCurrent() const {
     return {addresses[currentPosition].next->key, addresses[currentPosition].next->value};
 }
 
+/// T(1)
 SMMIterator::~SMMIterator() {
     delete[] addresses;
 }
