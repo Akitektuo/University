@@ -16,8 +16,11 @@ private:
 //    int currentHash;
 //    int indexed = 0;
 
-    vector<TElem> elements;
-    vector<TElem>::iterator iterator;
+//    vector<TElem> elements;
+//    vector<TElem>::iterator iterator;
+    int size;
+    SortedMultiMap::Node *addresses;
+    int currentPosition;
 
 public:
     void first();
@@ -27,5 +30,7 @@ public:
     bool valid() const;
 
     TElem getCurrent() const;
+
+    ~SMMIterator();
 };
 
