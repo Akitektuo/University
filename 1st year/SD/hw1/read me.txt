@@ -1,0 +1,4 @@
+8 minute
+
+Used this for merging images into pdf file: https://smallpdf.com/jpg-to-pdf
+Used this for merging pdf files: https://smallpdf.com/merge-pdf

@@ -1,0 +1,2 @@
+fileLocation=test.html
+mylistLocation=testCart.html

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-/// O(log2(n))
+/// O(sqrt(n))
 bool SortedMultiMap::isNumberPrime(int number) {
     if (number < 2) {
         return false;
@@ -25,7 +25,7 @@ bool SortedMultiMap::isNumberPrime(int number) {
     return true;
 }
 
-/// T(1)
+/// O(sqrt(n))
 void SortedMultiMap::computeNextSize() {
     maxSize *= 2;
     while (!isNumberPrime(maxSize)) {
@@ -49,7 +49,7 @@ SortedMultiMap::Node *SortedMultiMap::createNode(TKey key = 0, TValue value = 0,
     return node;
 }
 
-/// O(1)
+/// O(m)
 void SortedMultiMap::addNodeBack(Node* node) {
     auto hash = hashElement(node->key);
     auto currentNode = addresses[hash];
@@ -69,7 +69,7 @@ void SortedMultiMap::addNodeBack(Node* node) {
     currentNode->next = node;
 }
 
-/// O(n)
+/// O(n sqrt(n))
 void SortedMultiMap::resizeIfNeeded() {
     if (totalSize * 1.0 / maxSize < 0.7) {
         return;
@@ -119,7 +119,7 @@ SortedMultiMap::SortedMultiMap(Relation r) {
     }
 }
 
-/// O(1)
+/// O(n * sqrt(n))
 void SortedMultiMap::add(TKey c, TValue v) {
     resizeIfNeeded();
     totalSize++;
@@ -141,7 +141,7 @@ void SortedMultiMap::add(TKey c, TValue v) {
     currentNode->next = createNode(c, v);
 }
 
-/// O(1)
+/// T(1)
 vector<TValue> SortedMultiMap::search(TKey c) const {
     vector<TValue> result;
     auto hash = hashElement(c);
@@ -164,7 +164,7 @@ vector<TValue> SortedMultiMap::search(TKey c) const {
     return result;
 }
 
-/// O(1)
+/// T(1)
 bool SortedMultiMap::remove(TKey c, TValue v) {
     auto hash = hashElement(c);
     auto currentNode = addresses[hash];
