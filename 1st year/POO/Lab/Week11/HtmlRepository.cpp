@@ -20,7 +20,7 @@ ArrayList<TrenchCoat> HtmlRepository::getTrenchCoatArrayListFromFile() const
 		}
 		auto data = split(line.substr(START_OF_DATA, line.size() - END_OF_DATA), DELIMITER);
 		auto imageTag = data.get(POSITION_IMAGE);
-		trenchCoats.add({ data.get(POSITION_NAME), data.get(POSITION_SIZE), std::stoi(data.get(POSITION_PRICE)), imageTag.substr(10, imageTag.size() - 12) });
+		trenchCoats.add({ data.get(POSITION_NAME), data.get(POSITION_SIZE), std::stoi(data.get(POSITION_PRICE)), imageTag.substr(START_OF_IMAGE_DATA, imageTag.size() - END_OF_IMAGE_DATA) });
 	}
 
 	file.close();
@@ -36,7 +36,7 @@ void HtmlRepository::saveTrenchCoatArrayListToFile(ArrayList<TrenchCoat> trenchC
 		file << START_OF_LINE << trenchCoat.getName() << DELIMITER
 			<< trenchCoat.size << DELIMITER
 			<< trenchCoat.price << DELIMITER
-			<< "<img src=\"" << trenchCoat.image << END_OF_LINE;
+			<< START_OF_IMAGE << trenchCoat.image << END_OF_LINE;
 	});
 	file << END_OF_HTML;
 
