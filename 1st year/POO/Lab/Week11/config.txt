@@ -1,2 +1,2 @@
-fileLocation=test.html
-mylistLocation=testCart.html
+fileLocation=
+mylistLocation=testCart.csv

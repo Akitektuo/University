@@ -1,0 +1,27 @@
+/// O(1)
+function removeKey(key) is:
+    removed: TValue[]
+
+    hash: Integer <- hashElement(key)
+    currentNode: ^Node <- addresses[hash]
+
+    while not [currentNode].next = NIL execute
+        nextNode: ^Node <- [currentNode].next
+
+        if not relation([nextNode].key, key) then
+            @break
+        end-if
+
+        if not [nextNode].key = key then
+            currentNode <- nextNode
+            @continue
+        end-if
+
+        removed.add([nextNode].value)
+        [currentNode].next <- [nextNode].next
+        free(nextNode)
+        totalSize <- totalSize - 1
+    end-while
+
+    removeKey <- removed
+end-function
