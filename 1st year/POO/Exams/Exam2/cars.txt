@@ -1,0 +1,8 @@
+Mercedes-Benz | SUV | 2013 | blue
+Fiat | Bravo | 2007 | red
+Ford | Focus | 2016 | red
+Volkswagen | Beetle | 2017 | green
+Tesla | Model 3 | 2019 | red
+Tesla | Model S | 2017 | black
+Tesla | Model X | 2018 | white
+Tesla | Model Y | 2020 | blue
