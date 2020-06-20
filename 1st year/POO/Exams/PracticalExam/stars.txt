@@ -1,0 +1,5 @@
+Another Star, constellation1, 10, 11, 12
+Star1, constellation1, 1, 2, 3
+Star2, constellation1, 4, 5, 6
+Star3, constellation2, 7, 8, 9
+New star, constellation2, 123, 456, 100
