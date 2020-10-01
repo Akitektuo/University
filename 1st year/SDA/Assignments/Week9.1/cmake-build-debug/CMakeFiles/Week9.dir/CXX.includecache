@@ -6,22 +6,6 @@
 
 #IncludeRegexTransform: 
 
-F:/IT/University/1st year/SDA/Assignments/Week9.1/App.cpp
-SortedBag.h
-F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBag.h
-SortedBagIterator.h
-F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBagIterator.h
-iostream
--
-ShortTest.h
-F:/IT/University/1st year/SDA/Assignments/Week9.1/ShortTest.h
-ExtendedTest.h
-F:/IT/University/1st year/SDA/Assignments/Week9.1/ExtendedTest.h
-
-F:/IT/University/1st year/SDA/Assignments/Week9.1/ExtendedTest.h
-
-F:/IT/University/1st year/SDA/Assignments/Week9.1/ShortTest.h
-
 F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBag.h
 functional
 -
@@ -29,4 +13,20 @@ functional
 F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBagIterator.h
 SortedBag.h
 F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBag.h
+
+F:/IT/University/1st year/SDA/Assignments/Week9.1/Test.h
+vector
+-
+stdexcept
+-
+
+F:/IT/University/1st year/SDA/Assignments/Week9.1/main.cpp
+iostream
+-
+SortedBag.h
+F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBag.h
+SortedBagIterator.h
+F:/IT/University/1st year/SDA/Assignments/Week9.1/SortedBagIterator.h
+Test.h
+F:/IT/University/1st year/SDA/Assignments/Week9.1/Test.h
 
