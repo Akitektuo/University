@@ -1,0 +1,3 @@
+F:/IT/University/2nd year/CN/Labs/Server1/cmake-build-debug/CMakeFiles/Server1.dir
+F:/IT/University/2nd year/CN/Labs/Server1/cmake-build-debug/CMakeFiles/edit_cache.dir
+F:/IT/University/2nd year/CN/Labs/Server1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
