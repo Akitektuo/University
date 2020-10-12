@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Asus ROG/University/2nd year/CN/Labs/Server1/main.cpp
+stdio.h
+-
+iostream
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+netinet/ip.h
+-
+string.h
+-
+unistd.h
+-
+errno.h
+-
+WinSock2.h
+-
+cstdint
+-
+

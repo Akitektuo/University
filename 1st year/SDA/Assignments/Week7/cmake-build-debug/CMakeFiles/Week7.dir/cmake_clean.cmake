@@ -6,8 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Week7.dir/SortedMultiMap.cpp.obj"
   "Week7.exe"
   "Week7.exe.manifest"
-  "Week7.lib"
   "Week7.pdb"
+  "libWeek7.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

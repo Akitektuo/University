@@ -2,6 +2,7 @@
 
 // exists on all platforms
 #include <stdio.h>
+#include <iostream>
 
 // this section will only be compiled on NON Windows platforms
 #ifndef WIN32
@@ -61,7 +62,6 @@ int main() {
     memset(&client, 0, sizeof(client));
 
     while (1) {
-        uint16_t a, b, suma;
         printf("Listening for incomming connections\n");
         c = accept(s, (struct sockaddr *) &client, &l);
         err = errno;
@@ -72,21 +72,18 @@ int main() {
             printf("accept error: %d", err);
             continue;
         }
-        printf("Incomming connected client from: %s:%d", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
+        printf("Incomming connected client from: %s:%d\n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
         // serving the connected client
-        int res = recv(c, (char *) &a, sizeof(a), 0);
-        //check we got an unsigned short value
-        if (res != sizeof(a)) printf("Error receiving operand\n");
-        res = recv(c, (char *) &b, sizeof(b), 0);
-        if (res != sizeof(b)) printf("Error receiving operand\n");
+        char a;
+        std::string message;
+        while (recv(c, &a, sizeof(a), 0)) {
+            message += a;
+        }
+        std::cout << '\'' << message << "'\n";
 
         //decode the value to the local representation
-        a = ntohs(a);
-        b = ntohs(b);
-        suma = a + b;
-        suma = htons(suma);
-        res = send(c, (char *) &suma, sizeof(suma), 0);
-        if (res != sizeof(suma)) printf("Error sending result\n");
+        //res = send(c, (char *) &suma, sizeof(suma), 0);
+        //if (res != sizeof(suma)) printf("Error sending result\n");
         //on Linux closesocket does not exist but was defined above as a define to close
         closesocket(c);
     }

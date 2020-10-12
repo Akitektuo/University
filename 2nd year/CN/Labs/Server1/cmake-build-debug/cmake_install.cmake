@@ -1,4 +1,4 @@
-# Install script for directory: F:/IT/University/2nd year/CN/Labs/Server1
+# Install script for directory: C:/Asus ROG/University/2nd year/CN/Labs/Server1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "F:/IT/University/2nd year/CN/Labs/Server1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Asus ROG/University/2nd year/CN/Labs/Server1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
