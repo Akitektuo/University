@@ -45,7 +45,8 @@ GO
 INSERT INTO [dbo].[Lists]
            ([Id], [Name])
      VALUES
-           (1, 'Launch, 13 Oct 2020')
+           (1, 'Launch, 13 Oct 2020'),
+           (2, 'Some list')
 GO
 
 INSERT INTO [dbo].[ListProducts]
@@ -61,7 +62,8 @@ INSERT INTO [dbo].[UserLists]
            ,[Owner]
            ,[Write])
      VALUES
-           (1, 1, 1, 1)
+           (1, 1, 1, 1),
+           (2, 2, 1, 1)
 GO
 
 INSERT INTO [dbo].[Logs]
@@ -170,3 +172,26 @@ where exists (
 )
 
 select top(5) * from [UserConnections]
+
+select [Products].[Price] from (
+	select avg([Products].[Price]) as [AveragePrice] from [Products]
+) as [Prices], [Products] where [Products].[Price] > [Prices].[AveragePrice]
+
+select count(*) as [NumberOfHighestQuantityProducts] from (
+	select max([ListProducts].[Quantity]) as [Maximum] from [ListProducts]
+) as [Quantity], [ListProducts] where [ListProducts].[Quantity] = [Quantity].[Maximum]
+
+select [Id], [Name] from [Currencies]
+group by [Name], [Id]
+
+select [Id], [Name] from [Lists]
+group by [Name], [Id]
+having lower([Name]) like '%list%'
+
+select [Name], [Price] from [Products]
+group by [Name], [Price]
+having [Price] > (select avg([Price]) from [Products])
+
+select [Timestamp], [Quantity], [ProductId] from [ListProducts]
+group by [Timestamp], [Quantity], [ProductId]
+having [Quantity] = (select min([Quantity]) from [ListProducts])
