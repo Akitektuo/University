@@ -8,9 +8,9 @@ CREATE TABLE Currencies
 	Name VARCHAR(3))
 
 CREATE TABLE CurrencyHistory
-	(Id int primary key,
-	CurrencyId INT REFERENCES Currencies(Id),
+	(CurrencyId INT REFERENCES Currencies(Id),
 	Date DATETIME,
+	primary key(CurrencyId, Date),
 	Value SMALLMONEY)
 
 CREATE TABLE Categories
@@ -45,9 +45,11 @@ CREATE TABLE UserLists
 create table UserConnections
 	(UserAId INT REFERENCES Users(Id),
 	UserBId INT REFERENCES Users(Id),
-	PRIMARY KEY(UserAId, UserBId))
+	PRIMARY KEY(UserAId, UserBId),
+	check (UserAId < UserBId))
 
 Create Table Logs
 	(Id int primary key,
+	UserId int references Users(Id),
 	Message varchar(256),
 	Timestamp DATETIME)
