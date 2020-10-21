@@ -105,6 +105,7 @@ order by [UserId]
 select [Id] from [dbo].[Lists]
 union all
 select [Id] from [dbo].[Products] where [CurrencyId] = 1 or [CurrencyId] = 2
+order by [Id]
 
 select [UserId] from [dbo].[UserLists]
 intersect
@@ -117,6 +118,7 @@ select [Id] as [UserId] from [dbo].[Users] where [Id] in (1, 3, 5, 7, 9)
 select [Id] as [ProductId] from [dbo].[Products]
 except
 select [ProductId] from [dbo].[ListProducts]
+order by [ProductId]
 
 select [Id] as [UserId] from [dbo].[Users]
 except
@@ -125,7 +127,7 @@ select [UserId] from [dbo].[Logs] where [UserId] not in (2, 5, 10)
 select
 	[Products].[Name] as [Product],
 	[Categories].[Name] as [Category],
-	[Products].[Price],
+	[Products].[Price] * 2 as [DoubledPrice],
 	[Currencies].[Name] as [Currency]
 from (([Products]
 inner join [Categories] on [Products].[CategoryId] = [Categories].[Id])
@@ -157,7 +159,7 @@ where [Id] in (
 	select [UserId] from [UserLists]
 )
 
-select [Name], [Price] from [Products]
+select DISTINCT [Name], [Price] from [Products]
 where exists (
 	select [ProductId] from [ListProducts]
 	where [ListProducts].[ProductId] = [Products].[Id] and [Quantity] > 1
@@ -173,25 +175,49 @@ where exists (
 
 select top(5) * from [UserConnections]
 
-select [Products].[Price] from (
+select DISTINCT [Products].[Price] from (
 	select avg([Products].[Price]) as [AveragePrice] from [Products]
 ) as [Prices], [Products] where [Products].[Price] > [Prices].[AveragePrice]
 
 select count(*) as [NumberOfHighestQuantityProducts] from (
-	select max([ListProducts].[Quantity]) as [Maximum] from [ListProducts]
+	select max([ListProducts].[Quantity] * 10) as [Maximum] from [ListProducts]
 ) as [Quantity], [ListProducts] where [ListProducts].[Quantity] = [Quantity].[Maximum]
 
 select [Id], [Name] from [Currencies]
 group by [Name], [Id]
 
-select [Id], [Name] from [Lists]
+select top(10) [Id], [Name] from [Lists]
 group by [Name], [Id]
 having lower([Name]) like '%list%'
 
-select [Name], [Price] from [Products]
+select [Name], [Price]/2 as [HalfPrice] from [Products]
 group by [Name], [Price]
 having [Price] > (select avg([Price]) from [Products])
 
 select [Timestamp], [Quantity], [ProductId] from [ListProducts]
 group by [Timestamp], [Quantity], [ProductId]
 having [Quantity] = (select min([Quantity]) from [ListProducts])
+
+select [Name], [Price] from [Products]
+where [Price] = any (select [Price] from [Products] where [Price] < 10)
+
+select [Name], [Email] from [Users]
+where [Id] = any (select [UserId] from [Logs] where [Id] = [UserId])
+
+select [ProductId], [Quantity] from [ListProducts]
+where [Quantity] = all (select [Price] from [Products] where [Price] < 5 and [ProductId] = [Price])
+
+select DISTINCT [Name] from [Lists]
+where [Id] = all (select [ListId] from [UserLists] where [Owner] = 1)
+
+select [Name], [Price] from [Products]
+where (select count([Price]) from [Products] where [Price] < 10) > 0
+
+select [Name], [Email] from [Users]
+where (select count([UserId]) from [Logs] where [Id] = [UserId]) > 0
+
+select [ProductId], [Quantity] from [ListProducts]
+where [Quantity] in (select [Price] from [Products] where [Price] < 5 and [ProductId] = [Price])
+
+select [Name] from [Lists]
+where [Id] not in (select [ListId] from [UserLists] where [Owner] = 0)
