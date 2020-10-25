@@ -14,4 +14,6 @@ public interface ListInterface<T> {
     boolean remove(int index);
 
     boolean remove(T value);
+
+    T getLast();
 }

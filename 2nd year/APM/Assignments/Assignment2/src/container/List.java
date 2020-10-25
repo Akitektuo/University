@@ -49,4 +49,17 @@ public class List<T> implements ListInterface<T> {
     public boolean remove(T value) {
         return list.remove(value);
     }
+
+    @Override
+    public T getLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        return get(getSize() - 1);
+    }
+
+    @Override
+    public String toString() {
+        return list.toString();
+    }
 }

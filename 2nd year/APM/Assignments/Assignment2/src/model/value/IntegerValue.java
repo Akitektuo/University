@@ -8,7 +8,7 @@ public class IntegerValue implements ValueInterface {
     private final NumberType type = new NumberType();
 
     public IntegerValue() {
-        setValue(type.getDefaultValue());
+        setValue(type.getDefaultValue().getValue());
     }
 
     public IntegerValue(int value) {
@@ -20,8 +20,14 @@ public class IntegerValue implements ValueInterface {
         return type;
     }
 
-    public int getValue() {
+    @Override
+    public Integer getValue() {
         return value;
+    }
+
+    @Override
+    public String getValueAsString() {
+        return String.valueOf(value);
     }
 
     public void setValue(int value) {

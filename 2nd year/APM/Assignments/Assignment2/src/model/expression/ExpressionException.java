@@ -30,6 +30,7 @@ public class ExpressionException extends Exception {
         return errorType;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

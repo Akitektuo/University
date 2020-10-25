@@ -1,7 +1,9 @@
 package model.type;
 
-public interface TypeInterface {
-    String get();
+import model.value.ValueInterface;
 
-    Object getDefaultValue();
+public interface TypeInterface {
+    Types get();
+
+    ValueInterface getDefaultValue();
 }

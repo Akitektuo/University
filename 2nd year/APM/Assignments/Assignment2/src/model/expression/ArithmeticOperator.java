@@ -4,5 +4,9 @@ public enum ArithmeticOperator {
     ADDITION,
     SUBTRACTION,
     MULTIPLICATION,
-    DIVISION
+    DIVISION,
+    GREATER,
+    SMALLER,
+    GREATER_OR_EQUAL,
+    SMALLER_OR_EQUAL
 }

@@ -11,7 +11,7 @@ public class ValueExpression implements ExpressionInterface {
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> variableTable) {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) {
         return value;
     }
 }

@@ -8,7 +8,7 @@ public class BooleanValue implements ValueInterface {
     private final BooleanType type = new BooleanType();
 
     public BooleanValue() {
-        setValue(type.getDefaultValue());
+        setValue(type.getDefaultValue().getValue());
     }
 
     public BooleanValue(boolean value) {
@@ -20,8 +20,14 @@ public class BooleanValue implements ValueInterface {
         return type;
     }
 
-    public boolean getValue() {
+    @Override
+    public Boolean getValue() {
         return value;
+    }
+
+    @Override
+    public String getValueAsString() {
+        return String.valueOf(value);
     }
 
     public void setValue(boolean value) {
