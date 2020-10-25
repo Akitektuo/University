@@ -1,32 +1,32 @@
 package model.expression;
 
-import static model.expression.ErrorType.Unknown;
+import static model.expression.ExpressionErrorType.UNKNOWN;
 
 public class ExpressionException extends Exception {
     private final String message;
-    private final ErrorType errorType;
+    private final ExpressionErrorType errorType;
 
     public ExpressionException() {
-        errorType = Unknown;
+        errorType = UNKNOWN;
         message = setMessageForErrorType(this.errorType);
     }
 
-    public ExpressionException(ErrorType errorType) {
+    public ExpressionException(ExpressionErrorType errorType) {
         this.errorType = errorType;
         message = setMessageForErrorType(errorType);
     }
 
     public ExpressionException(String message) {
-        errorType = Unknown;
+        errorType = UNKNOWN;
         this.message = message;
     }
 
-    public ExpressionException(ErrorType errorType, String message) {
+    public ExpressionException(ExpressionErrorType errorType, String message) {
         this.errorType = errorType;
         this.message = message;
     }
 
-    public ErrorType getErrorType() {
+    public ExpressionErrorType getErrorType() {
         return errorType;
     }
 
@@ -34,12 +34,12 @@ public class ExpressionException extends Exception {
         return message;
     }
 
-    private String setMessageForErrorType(ErrorType errorType) {
+    private String setMessageForErrorType(ExpressionErrorType errorType) {
         return switch (errorType) {
-            case LeftOperandWrongType -> "The left operand is not the expected value!";
-            case RightOperandWrongType -> "The right operand is not the expected value!";
-            case DivisionByZero -> "Division by zero not allowed!";
-            case Unknown -> "Unknown error has occurred in expression!";
+            case LEFT_OPERAND_WRONG_TYPE -> "The left operand is not the expected value!";
+            case RIGHT_OPERAND_WRONG_TYPE -> "The right operand is not the expected value!";
+            case DIVISION_BY_ZERO -> "Division by zero not allowed!";
+            case UNKNOWN -> "Unknown error has occurred in expression!";
         };
     }
 }
