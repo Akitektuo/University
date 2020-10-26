@@ -14,4 +14,9 @@ public class ValueExpression implements ExpressionInterface {
     public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

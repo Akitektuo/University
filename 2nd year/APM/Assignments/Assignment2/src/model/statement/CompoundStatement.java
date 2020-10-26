@@ -31,4 +31,9 @@ public class CompoundStatement implements StatementInterface {
         return programState.pushStatement(end)
                 .pushStatement(start);
     }
+
+    @Override
+    public String toString() {
+        return String.format("CompoundStatement(%s, %s)", start, end);
+    }
 }

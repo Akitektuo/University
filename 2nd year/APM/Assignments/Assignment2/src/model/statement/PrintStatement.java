@@ -17,4 +17,9 @@ public class PrintStatement implements StatementInterface {
 
         return programState.addOutput(valueToOutput.getValueAsString());
     }
+
+    @Override
+    public String toString() {
+        return String.format("print %s", expression);
+    }
 }

@@ -16,4 +16,9 @@ public class DeclarationStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) {
         return programState.setVariable(variableName, variableType.getDefaultValue());
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", variableType, variableName);
+    }
 }

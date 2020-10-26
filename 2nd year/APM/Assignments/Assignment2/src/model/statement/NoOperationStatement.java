@@ -7,4 +7,9 @@ public class NoOperationStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) {
         return programState;
     }
+
+    @Override
+    public String toString() {
+        return "NoOp";
+    }
 }

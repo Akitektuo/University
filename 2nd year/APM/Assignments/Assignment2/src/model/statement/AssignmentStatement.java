@@ -26,4 +26,9 @@ public class AssignmentStatement implements StatementInterface {
 
         return programState.setVariable(variableName, newVariableValue);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s = %s", variableName, expression);
+    }
 }

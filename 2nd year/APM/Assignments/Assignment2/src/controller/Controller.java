@@ -30,6 +30,7 @@ public class Controller {
 
     public ListInterface<String> executeAllSteps() throws StatementException, ExpressionException {
         var currentProgramState = repository.getCurrentProgramState();
+        System.out.println("I N I T I A L\n" + currentProgramState);
 
         while (currentProgramState.canExecute()) {
             var executedProgramState = executeOneStep(currentProgramState);

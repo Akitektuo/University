@@ -24,4 +24,9 @@ public class IfStatement implements StatementInterface {
 
         return programState.pushStatement((boolean) conditionResultValue.getValue() ? trueBlock : falseBlock);
     }
+
+    @Override
+    public String toString() {
+        return String.format("if (%s) %s else %s", conditionExpression, trueBlock, falseBlock);
+    }
 }

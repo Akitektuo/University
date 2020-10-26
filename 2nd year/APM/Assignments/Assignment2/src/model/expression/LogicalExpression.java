@@ -31,6 +31,16 @@ public class LogicalExpression implements ExpressionInterface {
         };
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", leftExpression, switch (operator) {
+            case EQUALITY -> "==";
+            case INEQUALITY -> "!=";
+            case AND -> "&&";
+            case OR -> "||";
+        }, rightExpression);
+    }
+
     private BooleanValue getValue(
             ExpressionInterface expression,
             DictionaryInterface<String, ValueInterface> systemTable,

@@ -42,6 +42,20 @@ public class ArithmeticExpression implements ExpressionInterface {
         };
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", leftExpression, switch (operator) {
+            case ADDITION -> "+";
+            case SUBTRACTION -> "-";
+            case MULTIPLICATION -> "*";
+            case DIVISION -> "/";
+            case GREATER -> ">";
+            case SMALLER -> "<";
+            case GREATER_OR_EQUAL -> ">=";
+            case SMALLER_OR_EQUAL -> "<=";
+        }, rightExpression);
+    }
+
     private IntegerValue getValue(
             ExpressionInterface expression,
             DictionaryInterface<String, ValueInterface> systemTable,

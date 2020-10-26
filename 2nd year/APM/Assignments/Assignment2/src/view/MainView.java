@@ -26,7 +26,7 @@ public class MainView {
                     new AssignmentStatement("n", new ValueExpression(new IntegerValue(2))),
                     new PrintStatement(new VariableExpression("n"))
             )));
-            System.out.println(controller.executeAllSteps());
+            System.out.println("Final output: " + controller.executeAllSteps());
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
