@@ -41,6 +41,11 @@ public class MainView {
             } catch (Exception exception) {
                 System.out.println(exception.getMessage());
             }
+
+            System.out.print("Press enter to continue...");
+            input.nextLine();
+            input.nextLine();
+            System.out.println();
         }
 
         System.out.println("Closing program...");
