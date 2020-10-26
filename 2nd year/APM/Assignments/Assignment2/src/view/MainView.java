@@ -16,7 +16,7 @@ public class MainView {
     private final Controller controller;
 
     public MainView(Repository repository) {
-        controller = new Controller(repository);
+        controller = new Controller(repository, true);
     }
 
     public void start() {

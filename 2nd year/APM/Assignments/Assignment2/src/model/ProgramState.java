@@ -48,4 +48,14 @@ public class ProgramState {
     public ListInterface<String> getOutput() {
         return output;
     }
+
+    @Override
+    public String toString() {
+        var splitter = "--------------------------------";
+
+        return String.format("\nEXECUTION STACK\n" + splitter +
+                "\n%s\n\nSYSTEM TABLE\n" + splitter +
+                "\n%s\n\nOUTPUT\n" + splitter + "\n%s\n",
+                executionStack, systemTable, output);
+    }
 }

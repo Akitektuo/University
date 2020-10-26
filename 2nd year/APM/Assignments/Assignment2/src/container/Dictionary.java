@@ -24,4 +24,9 @@ public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     public boolean hasKey(K key) {
         return map.containsKey(key);
     }
+
+    @Override
+    public String toString() {
+        return map.toString();
+    }
 }

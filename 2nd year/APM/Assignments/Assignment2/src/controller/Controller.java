@@ -7,10 +7,17 @@ import model.statement.StatementException;
 import repository.RepositoryInterface;
 
 public class Controller {
-    RepositoryInterface repository;
+    private final RepositoryInterface repository;
+    private final boolean displaySteps;
 
     public Controller(RepositoryInterface repository) {
         this.repository = repository;
+        this.displaySteps = false;
+    }
+
+    public Controller(RepositoryInterface repository, boolean displaySteps) {
+        this.repository = repository;
+        this.displaySteps = displaySteps;
     }
 
     public void addProgramState(ProgramState programState) {
@@ -25,7 +32,11 @@ public class Controller {
         var currentProgramState = repository.getCurrentProgramState();
 
         while (currentProgramState.canExecute()) {
-            executeOneStep(currentProgramState);
+            var executedProgramState = executeOneStep(currentProgramState);
+
+            if (displaySteps) {
+                System.out.println(executedProgramState);
+            }
         }
 
         return currentProgramState.getOutput();

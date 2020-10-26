@@ -21,4 +21,9 @@ public class Stack<T> implements StackInterface<T> {
     public T pop() throws NoSuchElementException {
         return stack.pop();
     }
+
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
 }
