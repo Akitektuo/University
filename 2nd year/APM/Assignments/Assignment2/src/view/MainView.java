@@ -4,6 +4,7 @@ import controller.Controller;
 import model.expression.ExpressionException;
 import model.statement.StatementException;
 import repository.Repository;
+import repository.RepositoryInterface;
 import utils.CodeFormatter;
 
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class MainView {
     private final Controller controller;
     private final Scanner input = new Scanner(System.in);
 
-    public MainView(Repository repository) {
+    public MainView(RepositoryInterface repository) {
         controller = new Controller(repository, true);
     }
 

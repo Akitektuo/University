@@ -1,6 +1,6 @@
 package model.statement;
 
-public class StatementException extends Exception {
+public class StatementException extends RuntimeException {
     private final String message;
 
     public StatementException(String message) {

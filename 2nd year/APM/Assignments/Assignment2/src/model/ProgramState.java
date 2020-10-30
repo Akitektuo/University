@@ -35,7 +35,7 @@ public class ProgramState {
 
     public ProgramState executeNext() throws StatementException, ExpressionException {
         return executionStack.pop().execute(this);
-    }
+}
 
     public boolean canExecute() {
         return !executionStack.isEmpty();

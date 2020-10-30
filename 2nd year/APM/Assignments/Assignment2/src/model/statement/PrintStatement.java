@@ -15,7 +15,7 @@ public class PrintStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) throws ExpressionException {
         var valueToOutput = expression.evaluate(programState.getSystemTable());
 
-        return programState.addOutput(valueToOutput.getValueAsString());
+        return programState.addOutput(valueToOutput.toString());
     }
 
     @Override

@@ -2,7 +2,7 @@ package model.expression;
 
 import static model.expression.ExpressionErrorType.UNKNOWN;
 
-public class ExpressionException extends Exception {
+public class ExpressionException extends RuntimeException {
     private final String message;
     private final ExpressionErrorType errorType;
 
