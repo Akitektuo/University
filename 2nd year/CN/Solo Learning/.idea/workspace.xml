@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="331b081a-fd10-4780-bec2-efcadf367d7a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DB/Assignments/Assignment2/CRUD_QUERY.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DB/Assignments/Assignment2/CRUD_QUERY.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../FLP/Labs/Assignments/Assignment2/2.pl" beforeDir="false" afterPath="$PROJECT_DIR$/../../FLP/Labs/Assignments/Assignment2/2.pl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/networking/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/networking/advanced_socket.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/networking/client_socket.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/networking/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/networking/server_socket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +38,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\IT\University\2nd year\CN\Solo Learning\networking" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.client">
     <configuration name="client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -98,6 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604776477081</updated>
       <workItem from="1604776492417" duration="3414000" />
+      <workItem from="1604839371622" duration="11429000" />
     </task>
     <servers />
   </component>
@@ -105,25 +116,56 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2517" height="404" key="GridCell.Tab.0.bottom" timestamp="1604790474472">
+    <state width="926" height="466" key="DebuggerActiveHint" timestamp="1604845210225">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="2517" height="404" key="GridCell.Tab.0.bottom/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604790474472" />
-    <state width="2517" height="404" key="GridCell.Tab.0.center" timestamp="1604790474472">
+    <state width="926" height="466" key="DebuggerActiveHint/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604845210225" />
+    <state width="2517" height="409" key="GridCell.Tab.0.bottom" timestamp="1604847038539">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="2517" height="404" key="GridCell.Tab.0.center/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604790474472" />
-    <state width="2517" height="404" key="GridCell.Tab.0.left" timestamp="1604790474472">
+    <state width="2517" height="409" key="GridCell.Tab.0.bottom/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604847038539" />
+    <state width="2517" height="409" key="GridCell.Tab.0.center" timestamp="1604847038539">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="2517" height="404" key="GridCell.Tab.0.left/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604790474472" />
-    <state width="2517" height="404" key="GridCell.Tab.0.right" timestamp="1604790474472">
+    <state width="2517" height="409" key="GridCell.Tab.0.center/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604847038539" />
+    <state width="2517" height="409" key="GridCell.Tab.0.left" timestamp="1604847038539">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="2517" height="404" key="GridCell.Tab.0.right/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604790474472" />
+    <state width="2517" height="409" key="GridCell.Tab.0.left/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604847038539" />
+    <state width="2517" height="409" key="GridCell.Tab.0.right" timestamp="1604847038539">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="409" key="GridCell.Tab.0.right/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604847038539" />
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom" timestamp="1604845323476">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604845323476" />
+    <state width="2517" height="496" key="GridCell.Tab.1.center" timestamp="1604845323476">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.center/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604845323476" />
+    <state width="2517" height="496" key="GridCell.Tab.1.left" timestamp="1604845323476">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.left/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604845323476" />
+    <state width="2517" height="496" key="GridCell.Tab.1.right" timestamp="1604845323476">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.right/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@0.0.2560.1410" timestamp="1604845323476" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Solo_Learning$client.coverage" NAME="client Coverage Results" MODIFIED="1604777267873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Solo_Learning$server.coverage" NAME="server Coverage Results" MODIFIED="1604777120718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Solo_Learning$client.coverage" NAME="client Coverage Results" MODIFIED="1604847033776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Solo_Learning$server.coverage" NAME="server Coverage Results" MODIFIED="1604847032536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

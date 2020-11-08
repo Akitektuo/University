@@ -1,11 +1,20 @@
-import socket
+import time
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind((socket.gethostname(), 1234))
-server_socket.listen(5)
+from networking.advanced_socket import AdvancedSocket
 
-while True:
-    client_socket, address = server_socket.accept()
-    print(f"Connection from {address} has been established!")
-    client_socket.send("Welcome to the server!".encode("utf-8"))
-    client_socket.close()
+if __name__ == '__main__':
+    socket = AdvancedSocket(False)
+    socket.host()
+    while True:
+        client_socket = socket.accept()
+        client_address = client_socket.get_address()
+        print(f"Connection from {client_address} has been established!")
+        client_socket.send("Welcome to the server!")
+
+        while True:
+            time.sleep(3)
+            try:
+                client_socket.send(f"The time is {time.time()}!")
+            except ConnectionResetError:
+                print(f"Connection to {client_address} has been lost!")
+                break

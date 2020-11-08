@@ -1,0 +1,2 @@
+HEADER_SIZE = 10
+ENCODING = "utf-8"
