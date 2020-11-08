@@ -7,9 +7,7 @@
 %deterministic
 
 append([], List, List) :- !.
-append([Head | Tail], List, [Head | Result]) :-
-	!,
-	append(Tail, List, Result).
+append([Head | Tail], List, [Head | Result]) :- append(Tail, List, Result).
 
 
 %invertList(l1...ln) {
@@ -21,7 +19,6 @@ append([Head | Tail], List, [Head | Result]) :-
 %deterministic
 invertList([], []) :- !.
 invertList([Head | Tail], Result):-
-	!,
     invertList(Tail, Output),
     append(Output, [Head], Result).
 
@@ -34,6 +31,7 @@ invertList([Head | Tail], Result):-
 %}
 %sumInvertedLists(ListA: list, ListB: list, Carry: integer, Output: list)
 %(I,I,I,O)
+%deterministic
 sumInvertedLists([], [], _, []) :- !.
 sumInvertedLists([], [Head | Tail], Carry, Output):-
 	!,
@@ -48,7 +46,6 @@ sumInvertedLists([Head | Tail], [], Carry, Output):-
     Result is (Carry + Head) mod 10,
     Output = [Result|NewOutput].
 sumInvertedLists([Head1 | Tail1], [Head2 | Tail2], Carry, Output):-
-	!,
     NewCarry is (Carry + Head1 + Head2) // 10,
     sumInvertedLists(Tail1, Tail2, NewCarry, NewOutput),
     Result is (Carry + Head1 + Head2) mod 10,
@@ -60,12 +57,13 @@ sumInvertedLists([Head1 | Tail1], [Head2 | Tail2], Carry, Output):-
 %}
 %sumLists(ListA: list, ListB: list, Result: list)
 %(I,I,O)
-sumLists(ListA, listB, Result):-
-	!,
+%deterministic
+sumLists(ListA, ListB, Result):-
     invertList(ListA, InvertedA),
-    invertList(listB, InvertedB),
+    invertList(ListB, InvertedB),
     sumInvertedLists(InvertedA, InvertedB, 0, Output),
     invertList(Output, Result).
+%sumLists([1, 2, 4], [9, 2], Result).
 
 
 %sublistsSum(l1...ln) {
@@ -75,9 +73,11 @@ sumLists(ListA, listB, Result):-
 %}
 %sublistsSum(List: list, Result: list)
 %(I,O)
+%deterministic
 sublistsSum([], [0]) :- !.
 sublistsSum([[SubHead | SubTail] | Tail], Result) :-
 	!,
 	sublistsSum(Tail, PreviousResult),
 	sumLists(PreviousResult, [SubHead | SubTail], Result).
 sublistsSum([_ | Tail], Result) :- sublistsSum(Tail, Result).
+%sublistsSum([1, [2, 3], 4, 5, [6, 7, 9], 10, 11, [1, 2, 0], 6], Result).

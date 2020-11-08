@@ -192,11 +192,11 @@ having lower([Name]) like '%list%'
 
 select [Name], [Price]/2 as [HalfPrice], avg([Price]) from [Products]
 group by [Name], [Price]
-having [Price] > avg([Price])
+having avg([Price]) > (select min([Price]) from [Products])
 
-select [Timestamp], [Quantity], [ProductId], min([Quantity]) from [ListProducts]
+select [Timestamp], [Quantity], [ProductId], min([Quantity]) from [ListProducts] as LP
 group by [Timestamp], [Quantity], [ProductId]
-having [Quantity] = min([Quantity])
+having min([Quantity]) = (select avg([Quantity]) from [ListProducts] where [ListProducts].[Timestamp] > '2020.10.12' )
 
 select [Name], [Price] from [Products]
 where [Price] = any (select [Price] from [Products] where [Price] < 10)
