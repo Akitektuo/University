@@ -22,6 +22,7 @@ public class PredefinedProgramStates {
             .newLine()
             .addLine("print(v);")
             .build();
+    
     public static final String VISUAL_PROGRAM_2 = new CodeFormatter("number a;")
             .addLine("number b;")
             .newLine()

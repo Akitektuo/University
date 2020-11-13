@@ -133,6 +133,14 @@ from (([Products]
 inner join [Categories] on [Products].[CategoryId] = [Categories].[Id])
 inner join [Currencies] on [Products].[CurrencyId] = [Currencies].[Id]);
 
+select
+	[Lists].[Name] as [ListName],
+	[ListProducts].[ProductId],
+	[UserLists].[UserId]
+from (([Lists]
+inner join [ListProducts] on [ListProducts].[ListId] = [Lists].[Id])
+inner join [UserLists] on [UserLists].[ListId] = [Lists].[Id]);
+
 select [ListProducts].[Quantity], [ListProducts].[Timestamp], [Products].[Name]
 from [ListProducts]
 right join [Products] on [ListProducts].[ProductId] = [Products].Id

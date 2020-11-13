@@ -21,7 +21,8 @@ class AdvancedSocket:
 
     def host(self):
         self.socket.bind((self.ip, self.port))
-        self.socket.listen(5)
+        if not self.using_udp:
+            self.socket.listen(5)
 
     def connect(self):
         self.socket.connect((self.ip, self.port))
