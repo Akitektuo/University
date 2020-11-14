@@ -1,8 +1,7 @@
-import socket
+from networking.advanced_socket import AdvancedSocket
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((socket.gethostname(), 1234))
-
-while True:
-    message = client_socket.recv(1024)
-    print(message.decode("utf-8"))
+if __name__ == '__main__':
+    socket = AdvancedSocket(False)
+    socket.connect()
+    while message := socket.receive():
+        print(message)
