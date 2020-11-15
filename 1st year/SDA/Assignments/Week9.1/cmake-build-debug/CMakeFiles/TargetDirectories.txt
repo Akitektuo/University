@@ -1,3 +1,0 @@
-F:/IT/University/1st year/SDA/Assignments/Week9.1/cmake-build-debug/CMakeFiles/Week9.dir
-F:/IT/University/1st year/SDA/Assignments/Week9.1/cmake-build-debug/CMakeFiles/edit_cache.dir
-F:/IT/University/1st year/SDA/Assignments/Week9.1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

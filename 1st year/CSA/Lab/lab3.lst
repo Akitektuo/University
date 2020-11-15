@@ -1,0 +1,61 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit
+     6                                  import exit msvcrt.dll
+     7                                  
+     8                                  segment data use32 class=data
+     9 00000000 0A000000                    a dd 10
+    10 00000004 08                          b db 8
+    11 00000005 0400                        c dw 4
+    12 00000007 01                          d db 1
+    13 00000008 0500000000000000            e dq 5
+    14                                  
+    15                                  segment code use32 class=code
+    16                                  start:
+    17                                      ; a + b / c - d * 2 - e
+    18                                  
+    19                                      ; without sign
+    20 00000000 A0[04000000]                mov al, [b]
+    21 00000005 B400                        mov ah, 0
+    22 00000007 66BA0000                    mov dx, 0
+    23 0000000B 66F735[05000000]            div word [c] ; ax = b / c
+    24 00000012 6689C3                      mov bx, ax
+    25 00000015 B002                        mov al, 2
+    26 00000017 F625[07000000]              mul byte [d] ; ax = d * 2
+    27 0000001D 6629C3                      sub bx, ax
+    28 00000020 66B80000                    mov ax, 0 ; ax:bx = a + b / c - d * 2
+    29 00000024 66031D[00000000]            add bx, word [a]
+    30 0000002B 660305[02000000]            add ax, word [a + 2]
+    31 00000032 6689C2                      mov dx, ax
+    32 00000035 6689D8                      mov ax, bx
+    33 00000038 6652                        push dx
+    34 0000003A 6650                        push ax
+    35 0000003C 58                          pop eax
+    36 0000003D BA00000000                  mov edx, 0
+    37 00000042 2B05[08000000]              sub eax, dword [e]
+    38 00000048 1B15[0C000000]              sbb edx, dword [e + 4] ; 4 bytes pana la partea superioara din qw
+    39                                      
+    40                                      ;with sign
+    41 0000004E A0[04000000]                mov al, [b]
+    42 00000053 6698                        cbw
+    43 00000055 6699                        cwd
+    44 00000057 66F73D[05000000]            idiv word [c]
+    45 0000005E 6689C3                      mov bx, ax
+    46 00000061 B002                        mov al, 2
+    47 00000063 F62D[07000000]              imul byte [d] ; ax = d * 2
+    48 00000069 6629C3                      sub bx, ax
+    49 0000006C 6689D8                      mov ax, bx
+    50 0000006F 6699                        cwd
+    51 00000071 660305[00000000]            add ax, word [a]
+    52 00000078 660315[02000000]            add dx, word [a + 2]
+    53 0000007F 6652                        push dx
+    54 00000081 6650                        push ax
+    55 00000083 58                          pop eax
+    56 00000084 99                          cdq
+    57 00000085 2B05[08000000]              sub eax, dword [e]
+    58 0000008B 1B15[0C000000]              sbb edx, dword [e + 4] ; 4 bytes pana la partea superioara din qw
+    59                                      
+    60 00000091 6A00                        push dword 0
+    61 00000093 FF15[00000000]              call [exit]

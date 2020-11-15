@@ -1,5 +1,0 @@
-1,Theodor Mihali,0,0
-2000,Dorobantilor,50,100
-1200,Alexandru Vaida Voevod,100,200
-100,Motilor,20,100
-1750,Aurel Vlaicu,150,75

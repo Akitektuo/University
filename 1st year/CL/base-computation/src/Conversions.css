@@ -1,0 +1,14 @@
+div.Conversions {
+    margin: 8px;
+}
+
+div.Conversions div.title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #fafafa;
+}
+
+div.Conversions div.results {
+    display: flex;
+    flex-direction: row;
+}

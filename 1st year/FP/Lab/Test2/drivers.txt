@@ -1,5 +1,0 @@
-Ion,10,21
-Vasile,50,102
-Popa,1,4
-Marin,100,100
-Gigel,1,2

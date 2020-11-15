@@ -1,0 +1,70 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit, printf, scanf
+     6                                  import exit msvcrt.dll
+     7                                  import printf msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 00000000                    a dd 0
+    12 00000004 00000000                    b dd 0
+    13 00000008 02000000                    k dd 2
+    14 0000000C 256400                      format_d db "%d", 0
+    15 0000000F 257300                      format_s db "%s", 0
+    16 00000012 2D                          result db "-"
+    17                                      
+    18                                  segment code use32 class=code
+    19                                  start:
+    20                                  
+    21                                      ; citire a
+    22 00000000 68[00000000]                push dword a
+    23 00000005 68[0C000000]                push dword format_d
+    24 0000000A FF15[00000000]              call [scanf]
+    25 00000010 83C408                      add esp, 4 * 2
+    26                                  
+    27                                      ; citire b
+    28 00000013 68[04000000]                push dword b
+    29 00000018 68[0C000000]                push dword format_d
+    30 0000001D FF15[00000000]              call [scanf]
+    31 00000023 83C408                      add esp, 4 * 2
+    32                                  
+    33 00000026 BA00000000                  mov edx, 0 ; edx = 0
+    34 0000002B A1[00000000]                mov eax, [a] ; edx:eax = a
+    35 00000030 F735[04000000]              div dword [b] ; eax = edx:eax / b = a / b
+    36 00000036 F725[08000000]              mul dword [k] ; edx:eax = a / b * k
+    37                                  
+    38 0000003C BF[12000000]                mov edi, result ; result[]
+    39 00000041 B120                        mov cl, 32 ; cl = 32
+    40 00000043 89C2                        mov edx, eax ; edx = a / b * k
+    41                                  
+    42                                      build:
+    43 00000045 80F900                      cmp cl, 0 ; cl ? 0
+    44 00000048 7413                        jz end ; cl == 0 -> 'end'
+    45 0000004A FEC9                        dec cl ; cl--
+    46                                  
+    47 0000004C D1E2                        shl edx, 1 ; edx << 1
+    48 0000004E 7205                        jc add_bit ; CF == 1 -> 'add_bit'
+    49                                  
+    50 00000050 B030                        mov al, "0" ; al = "0"
+    51 00000052 AA                          stosb ; result[i++] = "0"
+    52 00000053 EBF0                        jmp build ; -> 'build'
+    53                                  
+    54                                      add_bit:
+    55 00000055 B031                        mov al, "1" ; al = "1"
+    56 00000057 AA                          stosb ; result[i++] = "1"
+    57 00000058 EBEB                        jmp build ; -> 'build'
+    58                                  
+    59                                      ; mark end of array
+    60 0000005A B000                        mov al, 0 ; al = 0
+    61 0000005C AA                          stosb ; result[i++] = 0
+    62                                  
+    63                                      end: ; afisare rezultat
+    64 0000005D 68[12000000]                push dword result
+    65 00000062 68[0F000000]                push dword format_s
+    66 00000067 FF15[00000000]              call [printf]
+    67 0000006D 83C408                      add esp, 4 * 2
+    68                                      
+    69 00000070 6A00                        push dword 0
+    70 00000072 FF15[00000000]              call [exit]

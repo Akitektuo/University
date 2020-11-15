@@ -1,0 +1,64 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fprintf, fclose
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 6E6F5F646967697473-         file_name db "no_digits.txt", 0
+    12 00000009 2E74787400         
+    13 0000000E 7700                        acces_mode db "w", 0    
+    14 00000010 416E61206172652035-         text db "Ana are 5 mere si 6 cai frumosi.", 0
+    14 00000019 206D65726520736920-
+    14 00000022 362063616920667275-
+    14 0000002B 6D6F73692E00       
+    15                                      len equ $ - text
+    16 00000031 <res 00000021>              result resb len     
+    17 00000052 FFFFFFFF                    descriptor dd -1
+    18                                      
+    19                                  segment code use32 class=code
+    20                                  start:
+    21 00000000 BE[10000000]                mov esi, text
+    22 00000005 BF[31000000]                mov edi, result
+    23 0000000A B921000000                  mov ecx, len
+    24                                  
+    25                                      replace:
+    26 0000000F AC                              lodsb
+    27 00000010 3C30                            cmp al, "0"
+    28 00000012 7206                            jb nothing_to_replace
+    29                                  
+    30 00000014 3C39                            cmp al, "9"
+    31 00000016 7702                            ja nothing_to_replace
+    32                                  
+    33 00000018 B043                            mov al, "C"
+    34                                  
+    35                                          nothing_to_replace:
+    36 0000001A AA                              stosb
+    37 0000001B E2F2                            loop replace
+    38                                  
+    39 0000001D 68[0E000000]                push dword acces_mode     
+    40 00000022 68[00000000]                push dword file_name
+    41 00000027 FF15[00000000]              call [fopen]
+    42 0000002D 83C408                      add esp, 4 * 2
+    43                                  
+    44 00000030 A3[52000000]                mov [descriptor], eax
+    45                                  
+    46 00000035 83F800                      cmp eax, 0
+    47 00000038 7423                        je final
+    48                                      
+    49 0000003A 68[31000000]                push dword result
+    50 0000003F FF35[52000000]              push dword [descriptor]
+    51 00000045 FF15[00000000]              call [fprintf]
+    52 0000004B 83C408                      add esp, 4 * 2
+    53                                      
+    54 0000004E FF35[52000000]              push dword [descriptor]
+    55 00000054 FF15[00000000]              call [fclose]
+    56 0000005A 83C404                      add esp, 4
+    57                                      
+    58                                      final:
+    59 0000005D 6A00                        push dword 0
+    60 0000005F FF15[00000000]              call [exit]
