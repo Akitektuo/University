@@ -13,7 +13,7 @@ public class PrintStatement implements StatementInterface {
 
     @Override
     public ProgramState execute(ProgramState programState) throws ExpressionException {
-        var valueToOutput = expression.evaluate(programState.getSystemTable());
+        var valueToOutput = expression.evaluate(programState);
 
         return programState.addOutput(valueToOutput.toString());
     }

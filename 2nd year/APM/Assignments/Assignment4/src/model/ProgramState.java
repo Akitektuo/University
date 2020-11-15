@@ -4,6 +4,7 @@ import container.*;
 import model.expression.ExpressionException;
 import model.statement.StatementException;
 import model.statement.StatementInterface;
+import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ public class ProgramState {
     private final DictionaryInterface<String, ValueInterface> systemTable = new Dictionary<>();
     private final ListInterface<String> output = new List<>();
     private final DictionaryInterface<String, BufferedReader> fileTable = new Dictionary<>();
+    private final MemoryHeap<ValueInterface> memoryHeap = new MemoryHeap<>();
 
     public ProgramState(StatementInterface initialStatement) {
         executionStack.push(initialStatement);
@@ -39,6 +41,10 @@ public class ProgramState {
         return this;
     }
 
+    public ValueInterface getVariable(String variableName) {
+        return systemTable.get(variableName);
+    }
+
     public ProgramState openFile(String fileName) throws FileNotFoundException {
         fileTable.set(fileName, new BufferedReader(new FileReader(fileName)));
 
@@ -51,8 +57,38 @@ public class ProgramState {
         return this;
     }
 
+    public int allocateInMemory(ValueInterface value) {
+        return memoryHeap.set(value);
+    }
+
+    public ValueInterface getFromMemory(int address) {
+        return memoryHeap.get(address);
+    }
+
+    public ProgramState setInMemory(int address, ValueInterface value) {
+        memoryHeap.set(address, value);
+
+        return this;
+    }
+
     public boolean isFileOpened(String fileName) {
         return fileTable.hasKey(fileName);
+    }
+
+    private ListInterface<Integer> getUsedAddresses() {
+        var addresses = new List<Integer>();
+
+        systemTable.getValues()
+                .filter(value -> value instanceof ReferenceValue)
+                .forEach(value -> addresses.add(((ReferenceValue) value).getRelatedAddresses(memoryHeap)));
+
+        return addresses;
+    }
+
+    public void collectGarbage() {
+        var addressesInUse = getUsedAddresses();
+
+        memoryHeap.filtered((key, value) -> addressesInUse.contains(key));
     }
 
     public ProgramState executeNext() throws StatementException, ExpressionException {
@@ -61,10 +97,6 @@ public class ProgramState {
 
     public boolean canExecute() {
         return !executionStack.isEmpty();
-    }
-
-    public DictionaryInterface<String, ValueInterface> getSystemTable() {
-        return systemTable;
     }
 
     public ListInterface<String> getOutput() {
@@ -80,9 +112,9 @@ public class ProgramState {
         var splitter = "--------------------------------";
 
         return String.format("\nEXECUTION STACK\n" + splitter +
-                "\n%s\n\nSYSTEM TABLE\n" + splitter +
-                "\n%s\n\nFILE TABLE\n" + splitter +
-                "\n%s\n\nOUTPUT\n" + splitter + "\n%s\n",
+                        "\n%s\n\nSYSTEM TABLE\n" + splitter +
+                        "\n%s\n\nFILE TABLE\n" + splitter +
+                        "\n%s\n\nOUTPUT\n" + splitter + "\n%s\n",
                 executionStack, systemTable, fileTable, output);
     }
 }

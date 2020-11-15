@@ -17,7 +17,7 @@ public class IfStatement implements StatementInterface {
 
     @Override
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
-        var conditionResultValue = conditionExpression.evaluate(programState.getSystemTable());
+        var conditionResultValue = conditionExpression.evaluate(programState);
         if (conditionResultValue.getType().get() != Types.BOOLEAN) {
             throw new StatementException("Condition result is not of type boolean!");
         }

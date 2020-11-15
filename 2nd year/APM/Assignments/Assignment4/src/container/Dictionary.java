@@ -1,10 +1,15 @@
 package container;
 
+import kotlin.jvm.functions.Function2;
+
 import java.util.HashMap;
-import java.util.function.Consumer;
 
 public class Dictionary<K, V> implements DictionaryInterface<K, V> {
-    HashMap<K, V> map = new HashMap<>();
+    private final HashMap<K, V> map;
+
+    public Dictionary() {
+        map = new HashMap<>();
+    }
 
     @Override
     public boolean isEmpty() {
@@ -32,10 +37,35 @@ public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     }
 
     @Override
-    public Dictionary<K, V> forEachValue(Consumer<V> action) {
-        map.values().forEach(action);
+    public ListInterface<K> getKeys() {
+        return new List<>(map.keySet());
+    }
 
-        return this;
+    @Override
+    public ListInterface<V> getValues() {
+        return new List<>(map.values());
+    }
+
+    @Override
+    public void filtered(Function2<K, V, Boolean> selection) {
+        map.forEach((key, value) -> {
+            if (!selection.invoke(key, value)) {
+                map.remove(key);
+            }
+        });
+    }
+
+    @Override
+    public DictionaryInterface<K, V> filter(Function2<K, V, Boolean> selection) {
+        var filteredMap = new Dictionary<K, V>();
+
+        map.forEach((key, value) -> {
+            if (selection.invoke(key, value)) {
+                filteredMap.set(key, value);
+            }
+        });
+
+        return filteredMap;
     }
 
     @Override

@@ -14,8 +14,7 @@ public class AddBinaryExpression extends BinaryExpression {
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) throws ExpressionException {
-        super.evaluate(systemTable);
+    public ValueInterface evaluate() throws ExpressionException {
         var leftValue = getIntegerValue(leftExpression, ExpressionErrorType.LEFT_OPERAND_WRONG_TYPE);
         var rightValue = getIntegerValue(rightExpression, ExpressionErrorType.RIGHT_OPERAND_WRONG_TYPE);
 

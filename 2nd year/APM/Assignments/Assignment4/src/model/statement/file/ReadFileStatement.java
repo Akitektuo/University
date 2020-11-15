@@ -1,8 +1,10 @@
-package model.statement;
+package model.statement.file;
 
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.statement.StatementException;
+import model.statement.StatementInterface;
 import model.type.Types;
 import model.value.IntegerValue;
 
@@ -19,10 +21,9 @@ public class ReadFileStatement implements StatementInterface {
 
     @Override
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
-        var systemTable = programState.getSystemTable();
         var fileTable = programState.getFileTable();
 
-        var fileNameValue = fileNameExpression.evaluate(systemTable);
+        var fileNameValue = fileNameExpression.evaluate(programState);
         if (fileNameValue.getType().get() != Types.STRING) {
             throw new StatementException("File name is not of type string!");
         }
@@ -32,12 +33,12 @@ public class ReadFileStatement implements StatementInterface {
             throw new StatementException(String.format("File '%s' is not opened!", fileName));
         }
 
-        if (!systemTable.hasKey(variableName)) {
+        var variable = programState.getVariable(variableName);
+        if (variable == null) {
             throw new StatementException(String.format("Variable '%s' has not been declared!", variableName));
         }
 
-        var variableType = systemTable.get(variableName).getType();
-        if (variableType.get() != Types.NUMBER) {
+        if (variable.getType().get() != Types.NUMBER) {
             throw new StatementException(String.format("Variable '%s' is not of type number!", variableName));
         }
 

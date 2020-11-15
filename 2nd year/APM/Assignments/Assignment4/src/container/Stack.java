@@ -5,7 +5,7 @@ import java.util.Deque;
 import java.util.NoSuchElementException;
 
 public class Stack<T> implements StackInterface<T> {
-    Deque<T> stack = new ArrayDeque<>();
+    private final Deque<T> stack = new ArrayDeque<>();
 
     @Override
     public boolean isEmpty() {

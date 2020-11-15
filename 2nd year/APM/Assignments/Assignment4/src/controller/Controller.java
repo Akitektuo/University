@@ -41,6 +41,10 @@ public class Controller {
             if (logSteps) {
                 repository.logProgramState(executedProgramState);
             }
+            executedProgramState.collectGarbage();
+            if (logSteps) {
+                repository.logProgramState(executedProgramState);
+            }
         }
 
         return currentProgramState.getOutput();

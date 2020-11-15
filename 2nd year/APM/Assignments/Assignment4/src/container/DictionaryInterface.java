@@ -1,6 +1,6 @@
 package container;
 
-import java.util.function.Consumer;
+import kotlin.jvm.functions.Function2;
 
 public interface DictionaryInterface<K, V> {
     boolean isEmpty();
@@ -13,5 +13,11 @@ public interface DictionaryInterface<K, V> {
 
     V remove(K key);
 
-    DictionaryInterface forEachValue(Consumer<V> action);
+    ListInterface<K> getKeys();
+
+    ListInterface<V> getValues();
+
+    DictionaryInterface<K, V> filter(Function2<K, V, Boolean> selection);
+
+    void filtered(Function2<K, V, Boolean> selection);
 }

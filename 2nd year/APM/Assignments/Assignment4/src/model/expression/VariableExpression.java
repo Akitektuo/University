@@ -1,6 +1,7 @@
 package model.expression;
 
 import container.DictionaryInterface;
+import model.ProgramState;
 import model.value.ValueInterface;
 
 public class VariableExpression implements ExpressionInterface {
@@ -11,12 +12,12 @@ public class VariableExpression implements ExpressionInterface {
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) {
-        return systemTable.get(variableName);
+    public String toString() {
+        return variableName;
     }
 
     @Override
-    public String toString() {
-        return variableName;
+    public ValueInterface evaluate(ProgramState programState) throws ExpressionException {
+        return programState.getVariable(variableName);
     }
 }

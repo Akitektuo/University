@@ -15,12 +15,13 @@ public class AssignmentStatement implements StatementInterface {
 
     @Override
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
-        var systemTable = programState.getSystemTable();
+        var expectedVariable = programState.getVariable(variableName);
+        if (expectedVariable == null) {
+            throw new StatementException(String.format("Variable '%s' has not been declared!", variableName));
+        }
 
-        var expectedVariableType = systemTable.get(variableName).getType();
-        var newVariableValue = expression.evaluate(systemTable);
-
-        if (!newVariableValue.getType().equals(expectedVariableType)) {
+        var newVariableValue = expression.evaluate(programState);
+        if (!newVariableValue.getType().equals(expectedVariable.getType())) {
             throw new StatementException("Types do not match in assignment!");
         }
 

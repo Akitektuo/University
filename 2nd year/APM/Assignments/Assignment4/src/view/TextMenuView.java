@@ -30,7 +30,7 @@ public class TextMenuView {
 
     private void printMenu() {
         System.out.println("Choose an option from below:");
-        commands.forEachValue(command -> System.out.printf("\n%s. %s\n", command.getKey(), command.getDescription()));
+        commands.getValues().forEach(command -> System.out.printf("\n%s. %s\n", command.getKey(), command.getDescription()));
     }
 
     private String readOption() {

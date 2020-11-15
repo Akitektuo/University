@@ -1,9 +1,22 @@
 package container;
 
+import kotlin.jvm.functions.Function1;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class List<T> implements ListInterface<T> {
-    java.util.List<T> list = new ArrayList<>();
+    private final java.util.List<T> list;
+
+    public List() {
+        list = new ArrayList<>();
+    }
+
+    public List(Collection<T> fromCollection) {
+        list = new ArrayList<>(fromCollection);
+    }
 
     @Override
     public boolean isEmpty() {
@@ -18,6 +31,11 @@ public class List<T> implements ListInterface<T> {
     @Override
     public void add(T value) {
         list.add(value);
+    }
+
+    @Override
+    public void add(ListInterface<T> another) {
+        list.addAll(another.toCollection());
     }
 
     @Override
@@ -56,6 +74,28 @@ public class List<T> implements ListInterface<T> {
             return null;
         }
         return get(getSize() - 1);
+    }
+
+    @Override
+    public ListInterface<T> filter(Function1<T, Boolean> selector) {
+        return new List<>(list.stream()
+                .filter(selector::invoke)
+                .collect(Collectors.toList()));
+    }
+
+    @Override
+    public void forEach(Consumer<T> action) {
+        list.forEach(action);
+    }
+
+    @Override
+    public Collection<T> toCollection() {
+        return list;
+    }
+
+    @Override
+    public boolean contains(T item) {
+        return list.contains(item);
     }
 
     @Override

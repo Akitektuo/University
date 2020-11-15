@@ -1,8 +1,8 @@
 package model.expression;
 
-import container.DictionaryInterface;
+import model.ProgramState;
 import model.value.ValueInterface;
 
 public interface ExpressionInterface {
-    ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) throws ExpressionException;
+    ValueInterface evaluate(ProgramState programState) throws ExpressionException;
 }

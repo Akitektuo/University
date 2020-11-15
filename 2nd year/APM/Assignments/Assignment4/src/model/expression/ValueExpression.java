@@ -1,6 +1,6 @@
 package model.expression;
 
-import container.DictionaryInterface;
+import model.ProgramState;
 import model.value.ValueInterface;
 
 public class ValueExpression implements ExpressionInterface {
@@ -11,12 +11,12 @@ public class ValueExpression implements ExpressionInterface {
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> systemTable) {
-        return value;
+    public String toString() {
+        return value.toString();
     }
 
     @Override
-    public String toString() {
-        return value.toString();
+    public ValueInterface evaluate(ProgramState programState) throws ExpressionException {
+        return value;
     }
 }
