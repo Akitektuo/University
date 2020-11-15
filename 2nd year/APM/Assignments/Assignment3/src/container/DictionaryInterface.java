@@ -1,5 +1,7 @@
 package container;
 
+import java.util.function.Consumer;
+
 public interface DictionaryInterface<K, V> {
     boolean isEmpty();
 
@@ -10,4 +12,6 @@ public interface DictionaryInterface<K, V> {
     boolean hasKey(K key);
 
     V remove(K key);
+
+    DictionaryInterface forEachValue(Consumer<V> action);
 }

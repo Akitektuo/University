@@ -1,6 +1,7 @@
 package container;
 
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     HashMap<K, V> map = new HashMap<>();
@@ -28,6 +29,13 @@ public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     @Override
     public V remove(K key) {
         return map.remove(key);
+    }
+
+    @Override
+    public Dictionary<K, V> forEachValue(Consumer<V> action) {
+        map.values().forEach(action);
+
+        return this;
     }
 
     @Override
