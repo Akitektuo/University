@@ -79,6 +79,45 @@ public class PredefinedProgramStates {
             .addLine("print(a);")
             .build();
 
+    public static final String VISUAL_PROGRAM_6 = new CodeFormatter("reference<number> v;")
+            .addLine("new(v, 20);")
+            .newLine()
+            .addLine("reference<reference<number>> a;")
+            .addLine("new(a, v);")
+            .newLine()
+            .addLine("print(readHeap(v));")
+            .addLine("print(readHeap(readHeap(a)) + 5);")
+            .build();
+
+    public static final String VISUAL_PROGRAM_7 = new CodeFormatter("reference<number> v;")
+            .addLine("new(v, 20);")
+            .newLine()
+            .addLine("reference<reference<number>> a;")
+            .addLine("new(a, v);")
+            .newLine()
+            .addLine("new(v, 30);")
+            .newLine()
+            .addLine("print(readHeap(readHeap(a)) + 5);")
+            .build();
+
+    public static final String VISUAL_PROGRAM_8 = new CodeFormatter("reference<number> v;")
+            .addLine("new(v, 20);")
+            .newLine()
+            .addLine("reference<reference<number>> a;")
+            .addLine("new(a, v);")
+            .newLine()
+            .addLine("print(readHeap(v));")
+            .addLine("print(readHeap(readHeap(a)));")
+            .build();
+
+    public static final String VISUAL_PROGRAM_9 = new CodeFormatter("reference<number> v;")
+            .addLine("new(v, 20);")
+            .addLine("print(readHeap(v));")
+            .newLine()
+            .addLine("new(v, 30);")
+            .addLine("print(readHeap(v));")
+            .build();
+
     static {
         try {
             PROGRAM_1 = new ProgramState(new CompoundStatement(
