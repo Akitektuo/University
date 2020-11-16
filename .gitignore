@@ -1326,7 +1326,8 @@ MigrationBackup/
 # Android studio 3.1+ serialized cache file
 **/.idea/caches/build_file_checksums.ser
 
-**/venv/
+**/venv/Include
+**/venv/Lib/
 **/.idea/vcs.xml
 **/__pycache__/
 **/Debug/

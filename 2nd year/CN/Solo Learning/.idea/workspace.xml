@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="331b081a-fd10-4780-bec2-efcadf367d7a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/Exam1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Exams/Exam1/server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/Lab6.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/student.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Labs/Lab6/teacher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networking/advanced_socket.py" beforeDir="false" afterPath="$PROJECT_DIR$/networking/advanced_socket.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DB/Assignments/Assignment2/CRUD_QUERY.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DB/Assignments/Assignment2/CRUD_QUERY.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DB/Assignments/Assignment3.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DB/Assignments/Assignment3.sql" afterDir="false" />
-    </list>
+    <list default="true" id="331b081a-fd10-4780-bec2-efcadf367d7a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,6 +104,7 @@
       <workItem from="1604925395437" duration="1699000" />
       <workItem from="1604954552946" duration="891000" />
       <workItem from="1605075037421" duration="694000" />
+      <workItem from="1605529330478" duration="14000" />
     </task>
     <servers />
   </component>
