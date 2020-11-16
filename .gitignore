@@ -1330,3 +1330,4 @@ MigrationBackup/
 **/.idea/vcs.xml
 **/__pycache__/
 **/Debug/
+**/.idea/workspace.xml
