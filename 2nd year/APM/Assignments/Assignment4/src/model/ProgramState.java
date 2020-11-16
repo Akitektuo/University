@@ -114,7 +114,8 @@ public class ProgramState {
         return String.format("\nEXECUTION STACK\n" + splitter +
                         "\n%s\n\nSYSTEM TABLE\n" + splitter +
                         "\n%s\n\nFILE TABLE\n" + splitter +
+                        "\n%s\n\nMEMORY HEAP\n" + splitter +
                         "\n%s\n\nOUTPUT\n" + splitter + "\n%s\n",
-                executionStack, systemTable, fileTable, output);
+                executionStack, systemTable, fileTable, memoryHeap, output);
     }
 }

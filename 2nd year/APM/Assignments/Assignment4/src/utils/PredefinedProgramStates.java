@@ -1,5 +1,6 @@
 package utils;
 
+import com.sun.jdi.IntegerType;
 import model.ProgramState;
 import model.expression.ValueExpression;
 import model.expression.VariableExpression;
@@ -9,8 +10,10 @@ import model.statement.*;
 import model.statement.file.CloseReadFileStatement;
 import model.statement.file.OpenReadFileStatement;
 import model.statement.file.ReadFileStatement;
+import model.statement.heap.AllocateHeapStatement;
 import model.type.BooleanType;
 import model.type.NumberType;
+import model.type.ReferenceType;
 import model.type.StringType;
 import model.value.BooleanValue;
 import model.value.IntegerValue;
@@ -21,6 +24,7 @@ public class PredefinedProgramStates {
     public static ProgramState PROGRAM_2;
     public static ProgramState PROGRAM_3;
     public static ProgramState PROGRAM_4;
+    public static ProgramState PROGRAM_5;
 
     public static final String VISUAL_PROGRAM_1 = new CodeFormatter("number v;")
             .newLine()
@@ -63,6 +67,16 @@ public class PredefinedProgramStates {
             .addLine("print(varc);")
             .newLine()
             .addLine("closeReadFile(varf);")
+            .build();
+
+    public static final String VISUAL_PROGRAM_5 = new CodeFormatter("reference<number> v;")
+            .addLine("new(v, 20);")
+            .newLine()
+            .addLine("reference<reference<number>> a;")
+            .addLine("new(a, v);")
+            .newLine()
+            .addLine("print(v);")
+            .addLine("print(a);")
             .build();
 
     static {
@@ -112,6 +126,17 @@ public class PredefinedProgramStates {
                     new ReadFileStatement(new VariableExpression("varf"), "varc"),
                     new PrintStatement(new VariableExpression("varc")),
                     new CloseReadFileStatement(new VariableExpression("varf"))
+            ));
+
+            PROGRAM_5 = new ProgramState(new CompoundStatement(
+                    new DeclarationStatement("v", new ReferenceType(new NumberType())),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
+                    new DeclarationStatement("a", new ReferenceType(
+                            new ReferenceType(new NumberType())
+                    )),
+                    new AllocateHeapStatement("a", new VariableExpression("v")),
+                    new PrintStatement(new VariableExpression("v")),
+                    new PrintStatement(new VariableExpression("a"))
             ));
         } catch (Exception e) {
             e.printStackTrace();

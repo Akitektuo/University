@@ -3,6 +3,7 @@ package container;
 import kotlin.jvm.functions.Function1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -12,6 +13,10 @@ public class List<T> implements ListInterface<T> {
 
     public List() {
         list = new ArrayList<>();
+    }
+
+    public List(T... initialValues) {
+        list = new ArrayList<>(Arrays.asList(initialValues));
     }
 
     public List(Collection<T> fromCollection) {

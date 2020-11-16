@@ -23,6 +23,8 @@ public class MainView {
                 "3", VISUAL_PROGRAM_3, controller, () -> controller.addProgramState(PROGRAM_3)));
         textMenuView.addCommand(new RunExampleCommand(
                 "4", VISUAL_PROGRAM_4, controller, () -> controller.addProgramState(PROGRAM_4)));
+        textMenuView.addCommand(new RunExampleCommand(
+                "5", VISUAL_PROGRAM_5, controller, () -> controller.addProgramState(PROGRAM_5)));
     }
 
     public void start() {

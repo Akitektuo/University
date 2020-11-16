@@ -55,12 +55,20 @@ public class ReferenceValue implements ValueInterface {
     }
 
     public ListInterface<Integer> getRelatedAddresses(MemoryHeap<ValueInterface> memoryHeap) {
-        if (genericType.get() != Types.REFERENCE || isAddressVerified) {
+        if (isAddressVerified) {
+            return new List<>();
+        }
+        if (genericType.get() != Types.REFERENCE) {
+            return new List<>(getValue());
+        }
+
+        var referenceValue = (ReferenceValue) memoryHeap.get(getValue());
+        if (referenceValue == null) {
             return new List<>();
         }
 
         isAddressVerified = true;
-        var addresses = ((ReferenceValue) memoryHeap.get(getValue())).getRelatedAddresses(memoryHeap);
+        var addresses = referenceValue.getRelatedAddresses(memoryHeap);
         addresses.add(getValue());
         isAddressVerified = false;
 
