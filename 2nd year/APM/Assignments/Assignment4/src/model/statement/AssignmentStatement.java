@@ -17,7 +17,7 @@ public class AssignmentStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
         var expectedVariable = programState.getVariable(variableName);
         if (expectedVariable == null) {
-            throw new StatementException(String.format("Variable '%s' has not been declared!", variableName));
+            throw new StatementException("Variable '%s' has not been declared!", variableName);
         }
 
         var newVariableValue = expression.evaluate(programState);

@@ -20,15 +20,15 @@ public class WriteHeapStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
         var variable = programState.getVariable(variableName);
         if (variable == null) {
-            throw new StatementException(String.format("Variable '%s' has not been declared!", variableName));
+            throw new StatementException("Variable '%s' has not been declared!", variableName);
         }
         if (variable.getType().get() != Types.REFERENCE) {
-            throw new StatementException(String.format("Variable '%s' is not of type reference!", variableName));
+            throw new StatementException("Variable '%s' is not of type reference!", variableName);
         }
 
         var value = expression.evaluate(programState);
         if (!variable.getType().equals(value.getType())) {
-            throw new StatementException(String.format("The reference of variable '%s' does not match the given value's type", variableName));
+            throw new StatementException("The reference of variable '%s' does not match the given value's type", variableName);
         }
 
         return programState.setInMemory((Integer) variable.getValue(), value);

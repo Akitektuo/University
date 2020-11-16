@@ -7,6 +7,10 @@ public class StatementException extends RuntimeException {
         this.message = message;
     }
 
+    public StatementException(String format, Object... arguments) {
+        this.message = String.format(format, arguments);
+    }
+
     @Override
     public String getMessage() {
         return message;

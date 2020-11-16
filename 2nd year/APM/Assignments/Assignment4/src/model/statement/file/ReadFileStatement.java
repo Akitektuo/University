@@ -30,16 +30,16 @@ public class ReadFileStatement implements StatementInterface {
 
         var fileName = (String) fileNameValue.getValue();
         if (!fileTable.hasKey(fileName)) {
-            throw new StatementException(String.format("File '%s' is not opened!", fileName));
+            throw new StatementException("File '%s' is not opened!", fileName);
         }
 
         var variable = programState.getVariable(variableName);
         if (variable == null) {
-            throw new StatementException(String.format("Variable '%s' has not been declared!", variableName));
+            throw new StatementException("Variable '%s' has not been declared!", variableName);
         }
 
         if (variable.getType().get() != Types.NUMBER) {
-            throw new StatementException(String.format("Variable '%s' is not of type number!", variableName));
+            throw new StatementException("Variable '%s' is not of type number!", variableName);
         }
 
         var buffer = fileTable.get(fileName);

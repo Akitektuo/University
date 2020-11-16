@@ -25,7 +25,7 @@ public class CloseReadFileStatement implements StatementInterface {
 
         var fileName = (String) fileNameValue.getValue();
         if (!programState.isFileOpened(fileName)) {
-            throw new StatementException(String.format("File '%s' is not opened!", fileName));
+            throw new StatementException("File '%s' is not opened!", fileName);
         }
 
         try {
