@@ -19,4 +19,9 @@ public class LessOrEqualBinaryExpression extends BinaryExpression {
 
         return new BooleanValue(leftValue <= rightValue);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s <= %s", leftExpression, rightExpression);
+    }
 }

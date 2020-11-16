@@ -2,10 +2,13 @@ package utils;
 
 import com.sun.jdi.IntegerType;
 import model.ProgramState;
+import model.expression.ReadHeapExpression;
 import model.expression.ValueExpression;
 import model.expression.VariableExpression;
 import model.expression.binary.AddBinaryExpression;
+import model.expression.binary.GreaterBinaryExpression;
 import model.expression.binary.MultiplyBinaryExpression;
+import model.expression.binary.SubtractBinaryExpression;
 import model.statement.*;
 import model.statement.file.CloseReadFileStatement;
 import model.statement.file.OpenReadFileStatement;
@@ -25,6 +28,10 @@ public class PredefinedProgramStates {
     public static ProgramState PROGRAM_3;
     public static ProgramState PROGRAM_4;
     public static ProgramState PROGRAM_5;
+    public static ProgramState PROGRAM_6;
+    public static ProgramState PROGRAM_7;
+    public static ProgramState PROGRAM_8;
+    public static ProgramState PROGRAM_9;
 
     public static final String VISUAL_PROGRAM_1 = new CodeFormatter("number v;")
             .newLine()
@@ -95,27 +102,27 @@ public class PredefinedProgramStates {
             .addLine("reference<reference<number>> a;")
             .addLine("new(a, v);")
             .newLine()
-            .addLine("new(v, 30);")
-            .newLine()
-            .addLine("print(readHeap(readHeap(a)) + 5);")
-            .build();
-
-    public static final String VISUAL_PROGRAM_8 = new CodeFormatter("reference<number> v;")
             .addLine("new(v, 20);")
-            .newLine()
-            .addLine("reference<reference<number>> a;")
-            .addLine("new(a, v);")
-            .newLine()
-            .addLine("print(readHeap(v));")
             .addLine("print(readHeap(readHeap(a)));")
             .build();
 
-    public static final String VISUAL_PROGRAM_9 = new CodeFormatter("reference<number> v;")
+
+    public static final String VISUAL_PROGRAM_8 = new CodeFormatter("reference<number> v;")
             .addLine("new(v, 20);")
             .addLine("print(readHeap(v));")
             .newLine()
             .addLine("new(v, 30);")
             .addLine("print(readHeap(v));")
+            .build();
+
+    public static final String VISUAL_PROGRAM_9 = new CodeFormatter("number v;")
+            .addLine("v = 4;")
+            .newLine()
+            .addLine("while (v > 0) do")
+            .addLine("print(v)", 2)
+            .addLine("v = v - 1", 2)
+            .newLine()
+            .addLine("print(v);")
             .build();
 
     static {
@@ -170,12 +177,60 @@ public class PredefinedProgramStates {
             PROGRAM_5 = new ProgramState(new CompoundStatement(
                     new DeclarationStatement("v", new ReferenceType(new NumberType())),
                     new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
-                    new DeclarationStatement("a", new ReferenceType(
-                            new ReferenceType(new NumberType())
-                    )),
+                    new DeclarationStatement("a", new ReferenceType(new ReferenceType(new NumberType()))),
                     new AllocateHeapStatement("a", new VariableExpression("v")),
                     new PrintStatement(new VariableExpression("v")),
                     new PrintStatement(new VariableExpression("a"))
+            ));
+
+            PROGRAM_6 = new ProgramState(new CompoundStatement(
+                    new DeclarationStatement("v", new ReferenceType(new NumberType())),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
+                    new DeclarationStatement("a", new ReferenceType(new ReferenceType(new NumberType()))),
+                    new AllocateHeapStatement("a", new VariableExpression("v")),
+                    new PrintStatement(new ReadHeapExpression(new VariableExpression("v"))),
+                    new PrintStatement(new AddBinaryExpression(
+                            new ReadHeapExpression(new ReadHeapExpression(new VariableExpression("a"))),
+                            new ValueExpression(new IntegerValue(5))
+                    ))
+            ));
+
+            PROGRAM_7 = new ProgramState(new CompoundStatement(
+                    new DeclarationStatement("v", new ReferenceType(new NumberType())),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
+                    new DeclarationStatement("a", new ReferenceType(new ReferenceType(new NumberType()))),
+                    new AllocateHeapStatement("a", new VariableExpression("v")),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(30))),
+                    new PrintStatement(
+                            new ReadHeapExpression(new ReadHeapExpression(new VariableExpression("a")))
+                    )
+            ));
+
+            PROGRAM_8 = new ProgramState(new CompoundStatement(
+                    new DeclarationStatement("v", new ReferenceType(new NumberType())),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
+                    new PrintStatement(new ReadHeapExpression(new VariableExpression("v"))),
+                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(30))),
+                    new PrintStatement(new ReadHeapExpression(new VariableExpression("v")))
+            ));
+
+            PROGRAM_9 = new ProgramState(new CompoundStatement(
+                    new DeclarationStatement("v", new NumberType()),
+                    new AssignmentStatement("v", new ValueExpression(new IntegerValue(4))),
+                    new WhileStatement(
+                            new GreaterBinaryExpression(
+                                    new VariableExpression("v"),
+                                    new ValueExpression(new IntegerValue(0))
+                            ),
+                            new CompoundStatement(
+                                    new PrintStatement(new VariableExpression("v")),
+                                    new AssignmentStatement("v", new SubtractBinaryExpression(
+                                            new VariableExpression("v"),
+                                            new ValueExpression(new IntegerValue(1))
+                                    ))
+                            )
+                    ),
+                    new PrintStatement(new VariableExpression("v"))
             ));
         } catch (Exception e) {
             e.printStackTrace();

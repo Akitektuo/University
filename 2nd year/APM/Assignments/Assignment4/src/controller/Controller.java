@@ -41,8 +41,10 @@ public class Controller {
             if (logSteps) {
                 repository.logProgramState(executedProgramState);
             }
-            executedProgramState.collectGarbage();
-            if (logSteps) {
+
+            var wasMemoryHeapModified = executedProgramState.collectGarbage();
+
+            if (logSteps && wasMemoryHeapModified) {
                 repository.logProgramState(executedProgramState);
             }
         }

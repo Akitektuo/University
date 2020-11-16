@@ -25,6 +25,14 @@ public class MainView {
                 "4", VISUAL_PROGRAM_4, controller, () -> controller.addProgramState(PROGRAM_4)));
         textMenuView.addCommand(new RunExampleCommand(
                 "5", VISUAL_PROGRAM_5, controller, () -> controller.addProgramState(PROGRAM_5)));
+        textMenuView.addCommand(new RunExampleCommand(
+                "6", VISUAL_PROGRAM_6, controller, () -> controller.addProgramState(PROGRAM_6)));
+        textMenuView.addCommand(new RunExampleCommand(
+                "7", VISUAL_PROGRAM_7, controller, () -> controller.addProgramState(PROGRAM_7)));
+        textMenuView.addCommand(new RunExampleCommand(
+                "8", VISUAL_PROGRAM_8, controller, () -> controller.addProgramState(PROGRAM_8)));
+        textMenuView.addCommand(new RunExampleCommand(
+                "9", VISUAL_PROGRAM_9, controller, () -> controller.addProgramState(PROGRAM_9)));
     }
 
     public void start() {

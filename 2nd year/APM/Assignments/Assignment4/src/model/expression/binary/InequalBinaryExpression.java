@@ -24,4 +24,9 @@ public class InequalBinaryExpression extends BinaryExpression {
 
         return new BooleanValue(!leftValue.equals(rightValue));
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s != %s", leftExpression, rightExpression);
+    }
 }

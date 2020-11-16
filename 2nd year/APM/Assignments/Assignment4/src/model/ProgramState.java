@@ -85,10 +85,10 @@ public class ProgramState {
         return addresses;
     }
 
-    public void collectGarbage() {
+    public boolean collectGarbage() {
         var addressesInUse = getUsedAddresses();
 
-        memoryHeap.filtered((key, value) -> addressesInUse.contains(key));
+        return memoryHeap.filtered((key, value) -> addressesInUse.contains(key));
     }
 
     public ProgramState executeNext() throws StatementException, ExpressionException {

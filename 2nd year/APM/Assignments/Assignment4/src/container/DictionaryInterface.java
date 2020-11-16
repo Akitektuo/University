@@ -19,5 +19,5 @@ public interface DictionaryInterface<K, V> {
 
     DictionaryInterface<K, V> filter(Function2<K, V, Boolean> selection);
 
-    void filtered(Function2<K, V, Boolean> selection);
+    boolean filtered(Function2<K, V, Boolean> selection);
 }

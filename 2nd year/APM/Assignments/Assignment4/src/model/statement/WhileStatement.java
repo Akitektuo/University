@@ -22,10 +22,10 @@ public class WhileStatement implements StatementInterface {
         }
 
         if ((boolean)conditionValue.getValue()) {
-            programState.pushStatement(this);
-            programState.pushStatement(blockStatement);
+            programState.pushStatement(this).pushStatement(blockStatement);
         }
-        return null;
+
+        return programState;
     }
 
     @Override

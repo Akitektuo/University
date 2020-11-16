@@ -3,6 +3,7 @@ package container;
 import kotlin.jvm.functions.Function2;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     private final HashMap<K, V> map;
@@ -47,12 +48,17 @@ public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     }
 
     @Override
-    public void filtered(Function2<K, V, Boolean> selection) {
-        map.forEach((key, value) -> {
+    public boolean filtered(Function2<K, V, Boolean> selection) {
+        var modified = new AtomicBoolean(false);
+
+        new HashMap<>(map).forEach((key, value) -> {
             if (!selection.invoke(key, value)) {
                 map.remove(key);
+                modified.set(true);
             }
         });
+
+        return modified.get();
     }
 
     @Override

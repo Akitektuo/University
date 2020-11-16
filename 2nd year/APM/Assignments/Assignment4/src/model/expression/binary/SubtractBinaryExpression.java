@@ -19,4 +19,9 @@ public class SubtractBinaryExpression extends BinaryExpression {
 
         return new IntegerValue(leftValue - rightValue);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s", leftExpression, rightExpression);
+    }
 }
