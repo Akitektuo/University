@@ -42,6 +42,4 @@ public class Repository implements RepositoryInterface {
             System.out.printf("Error: %s%n", exception.getMessage());
         }
     }
-
-
 }

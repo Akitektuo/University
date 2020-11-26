@@ -198,13 +198,15 @@ select top(10) [Id], [Name] from [Lists]
 group by [Name], [Id]
 having lower([Name]) like '%list%'
 
-select [Name], [Price]/2 as [HalfPrice], avg([Price]) from [Products]
-group by [Name], [Price]
-having avg([Price]) > (select min([Price]) from [Products])
+/* Product IDs used more than once */
+select [ProductId], sum([Quantity]) from [ListProducts]
+group by [ProductId]
+having sum([Quantity]) > 2
 
-select [Timestamp], [Quantity], [ProductId], min([Quantity]) from [ListProducts] as LP
-group by [Timestamp], [Quantity], [ProductId]
-having min([Quantity]) = (select avg([Quantity]) from [ListProducts] where [ListProducts].[Timestamp] > '2020.10.12' )
+/* The average price per categories that have the name composed from at least 5 characters */
+select [CategoryId], avg(Price) from [Products]
+group by [CategoryId]
+having [CategoryId] = (select Id from [Categories] where len([Categories].[Name]) > 5)
 
 select [Name], [Price] from [Products]
 where [Price] = any (select [Price] from [Products] where [Price] < 10)

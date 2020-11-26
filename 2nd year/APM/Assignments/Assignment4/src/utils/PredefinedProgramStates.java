@@ -14,6 +14,7 @@ import model.statement.file.CloseReadFileStatement;
 import model.statement.file.OpenReadFileStatement;
 import model.statement.file.ReadFileStatement;
 import model.statement.heap.AllocateHeapStatement;
+import model.statement.heap.WriteHeapStatement;
 import model.type.BooleanType;
 import model.type.NumberType;
 import model.type.ReferenceType;
@@ -102,7 +103,7 @@ public class PredefinedProgramStates {
             .addLine("reference<reference<number>> a;")
             .addLine("new(a, v);")
             .newLine()
-            .addLine("new(v, 20);")
+            .addLine("writeHeap(v, 30);")
             .addLine("print(readHeap(readHeap(a)));")
             .build();
 
@@ -200,7 +201,7 @@ public class PredefinedProgramStates {
                     new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(20))),
                     new DeclarationStatement("a", new ReferenceType(new ReferenceType(new NumberType()))),
                     new AllocateHeapStatement("a", new VariableExpression("v")),
-                    new AllocateHeapStatement("v", new ValueExpression(new IntegerValue(30))),
+                    new WriteHeapStatement("v", new ValueExpression(new IntegerValue(30))),
                     new PrintStatement(
                             new ReadHeapExpression(new ReadHeapExpression(new VariableExpression("a")))
                     )

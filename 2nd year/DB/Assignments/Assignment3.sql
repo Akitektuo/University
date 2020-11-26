@@ -44,7 +44,7 @@ create procedure RevertAddDefaultToUserLists as
 	drop constraint [OwnerDefault]
 go
 
-create procedure AddPrimaryKeyToUsers as
+create procedure AddPrimaryKeyToUsers as 
 	alter table [Users]
 	add constraint [PK_Users] primary key ([Id], [Email])
 go

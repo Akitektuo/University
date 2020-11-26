@@ -6,6 +6,7 @@ import model.expression.ExpressionInterface;
 import model.statement.StatementException;
 import model.statement.StatementInterface;
 import model.type.Types;
+import model.value.ReferenceValue;
 
 public class WriteHeapStatement implements StatementInterface {
     private final String variableName;
@@ -27,7 +28,7 @@ public class WriteHeapStatement implements StatementInterface {
         }
 
         var value = expression.evaluate(programState);
-        if (!variable.getType().equals(value.getType())) {
+        if (!((ReferenceValue) variable).getGenericType().equals(value.getType())) {
             throw new StatementException("The reference of variable '%s' does not match the given value's type", variableName);
         }
 
