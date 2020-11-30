@@ -2,6 +2,9 @@ package view.command;
 
 import controller.Controller;
 
+import static utils.PredefinedProgramStates.PROGRAMS;
+import static utils.PredefinedProgramStates.VISUAL_PROGRAMS;
+
 public class RunExampleCommand extends BaseCommand {
     private final Controller controller;
     private final Runnable beforeExecution;
@@ -16,6 +19,12 @@ public class RunExampleCommand extends BaseCommand {
         super(key, description);
         this.controller = controller;
         this.beforeExecution = beforeExecution;
+    }
+
+    public RunExampleCommand(Controller controller, final int index) {
+        super(String.valueOf(index + 1), VISUAL_PROGRAMS.get(index));
+        this.controller = controller;
+        this.beforeExecution = () -> controller.addProgramState(PROGRAMS.get(index));
     }
 
     @Override
