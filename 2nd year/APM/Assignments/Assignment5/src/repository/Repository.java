@@ -26,7 +26,7 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public ListInterface<ProgramState> addProgramStates(ListInterface<ProgramState> programStates) {
-        return programStates.add(programStates);
+        return this.programStates.add(programStates);
     }
 
     @Override

@@ -43,19 +43,15 @@ public class Controller {
                 throw new StatementException(e.getMessage());
             }
             collectGarbage(programStates);
-            programStates = getUncompletedProgramStates(programStates); // TODO something is not working right here
+            programStates = getUncompletedProgramStates();
         }
 
         executor.shutdownNow();
         repository.clear();
     }
 
-    private ListInterface<ProgramState> getUncompletedProgramStates(ListInterface<ProgramState> programStates) {
-        return programStates.filter(programState -> !programState.isCompleted());
-    }
-
     private ListInterface<ProgramState> getUncompletedProgramStates() {
-        return getUncompletedProgramStates(repository.getAllProgramStates());
+        return repository.getAllProgramStates().filter(programState -> !programState.isCompleted());
     }
 
     private void executeOneStepForEachProgram(ListInterface<ProgramState> programStates) throws InterruptedException {
@@ -76,7 +72,11 @@ public class Controller {
                 }).filter(Objects::nonNull);
 
         if (logSteps) {
-            repository.addProgramStates(newProgramStates).forEach(repository::logProgramState);
+            programStates.forEach(repository::logProgramState);
+        }
+
+        if (!newProgramStates.isEmpty()) {
+            repository.addProgramStates(newProgramStates);
         }
     }
 
