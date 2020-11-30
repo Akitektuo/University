@@ -1,5 +1,4 @@
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -1278,7 +1277,6 @@ MigrationBackup/
 
 # Gradle
 **/.idea/**/gradle.xml
-**/.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -1287,7 +1285,6 @@ MigrationBackup/
 **/.idea/artifacts
 **/.idea/compiler.xml
 **/.idea/jarRepositories.xml
-**/.idea/modules.xml
 **/.idea/*.iml
 **/.idea/modules
 **/*.ipr
@@ -1327,7 +1324,5 @@ MigrationBackup/
 
 **/venv/Include
 **/venv/Lib/
-**/.idea/vcs.xml
 **/__pycache__/
 **/Debug/
-**/.idea/workspace.xml

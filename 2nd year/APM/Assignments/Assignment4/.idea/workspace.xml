@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8128434d-d2da-4888-9924-694f13b0c18e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1ks9SHdWQLe4ZAvFFAvTrYmV2eS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Assignment4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8128434d-d2da-4888-9924-694f13b0c18e" name="Default Changelist" comment="" />
+      <created>1606478432928</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606478432928</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="3325" y="578" key="#com.intellij.ide.util.MemberChooser" timestamp="1606664251252">
+      <screen x="2560" y="347" width="1920" height="1050" />
+    </state>
+    <state x="3325" y="578" key="#com.intellij.ide.util.MemberChooser/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@2560.347.1920.1050" timestamp="1606664251252" />
+    <state width="1877" height="421" key="GridCell.Tab.0.bottom" timestamp="1606494734796">
+      <screen x="-1920" y="347" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="421" key="GridCell.Tab.0.bottom/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@-1920.347.1920.1050" timestamp="1606494734796" />
+    <state width="1877" height="421" key="GridCell.Tab.0.center" timestamp="1606494734796">
+      <screen x="-1920" y="347" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="421" key="GridCell.Tab.0.center/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@-1920.347.1920.1050" timestamp="1606494734796" />
+    <state width="1877" height="421" key="GridCell.Tab.0.left" timestamp="1606494734795">
+      <screen x="-1920" y="347" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="421" key="GridCell.Tab.0.left/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@-1920.347.1920.1050" timestamp="1606494734795" />
+    <state width="1877" height="421" key="GridCell.Tab.0.right" timestamp="1606494734796">
+      <screen x="-1920" y="347" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="421" key="GridCell.Tab.0.right/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@-1920.347.1920.1050" timestamp="1606494734796" />
+    <state x="996" y="510" key="new project wizard" timestamp="1606662097275">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="996" y="510" key="new project wizard/2560.347.1920.1050/0.0.2560.1410/-1920.347.1920.1050@2560.347.1920.1050" timestamp="1606662097275" />
+  </component>
+</project>
