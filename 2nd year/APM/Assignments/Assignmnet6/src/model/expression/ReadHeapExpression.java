@@ -1,7 +1,10 @@
 package model.expression;
 
+import container.DictionaryInterface;
 import model.ProgramState;
-import model.value.ReferenceValue;
+import model.type.ReferenceType;
+import model.type.TypeInterface;
+import model.type.Types;
 import model.value.ValueInterface;
 
 public class ReadHeapExpression implements ExpressionInterface {
@@ -15,11 +18,18 @@ public class ReadHeapExpression implements ExpressionInterface {
     public ValueInterface evaluate(ProgramState programState) throws ExpressionException {
         ValueInterface value = expression.evaluate(programState);
 
-        if (!(value instanceof ReferenceValue)) {
+        return programState.getFromMemory((int) value.getValue());
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws ExpressionException {
+        var type = expression.typeCheck(typeTable);
+
+        if (type.get() != Types.REFERENCE) {
             throw new ExpressionException(String.format("Expression '%s' does not represent a reference type!", expression));
         }
 
-        return programState.getFromMemory((int) value.getValue());
+        return ((ReferenceType) type).getGenericType();
     }
 
     @Override

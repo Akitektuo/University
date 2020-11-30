@@ -1,6 +1,8 @@
 package model.expression;
 
+import container.DictionaryInterface;
 import model.ProgramState;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class ValueExpression implements ExpressionInterface {
@@ -18,5 +20,10 @@ public class ValueExpression implements ExpressionInterface {
     @Override
     public ValueInterface evaluate(ProgramState programState) throws ExpressionException {
         return value;
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws ExpressionException {
+        return value.getType();
     }
 }

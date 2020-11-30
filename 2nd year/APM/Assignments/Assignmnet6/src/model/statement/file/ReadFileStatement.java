@@ -1,10 +1,12 @@
 package model.statement.file;
 
+import container.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
 import model.statement.StatementException;
 import model.statement.StatementInterface;
+import model.type.TypeInterface;
 import model.type.Types;
 import model.value.IntegerValue;
 
@@ -23,12 +25,7 @@ public class ReadFileStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
         var fileTable = programState.getFileTable();
 
-        var fileNameValue = fileNameExpression.evaluate(programState);
-        if (fileNameValue.getType().get() != Types.STRING) {
-            throw new StatementException("File name is not of type string!");
-        }
-
-        var fileName = (String) fileNameValue.getValue();
+        var fileName = (String) fileNameExpression.evaluate(programState).getValue();
         if (!fileTable.hasKey(fileName)) {
             throw new StatementException("File '%s' is not opened!", fileName);
         }
@@ -36,10 +33,6 @@ public class ReadFileStatement implements StatementInterface {
         var variable = programState.getVariable(variableName);
         if (variable == null) {
             throw new StatementException("Variable '%s' has not been declared!", variableName);
-        }
-
-        if (variable.getType().get() != Types.NUMBER) {
-            throw new StatementException("Variable '%s' is not of type number!", variableName);
         }
 
         var buffer = fileTable.get(fileName);
@@ -54,6 +47,21 @@ public class ReadFileStatement implements StatementInterface {
             throw new StatementException(exception.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws StatementException, ExpressionException {
+        var fileNameType = fileNameExpression.typeCheck(typeTable);
+        if (fileNameType.get() != Types.STRING) {
+            throw new StatementException("File name is not of type string!");
+        }
+
+        var variableType = typeTable.get(variableName);
+        if (variableType.get() != Types.NUMBER) {
+            throw new StatementException("Variable '%s' is not of type number!", variableName);
+        }
+
+        return typeTable;
     }
 
     @Override

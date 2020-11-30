@@ -1,8 +1,10 @@
 package model.statement;
 
+import container.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.TypeInterface;
 
 public class PrintStatement implements StatementInterface {
     private final ExpressionInterface expression;
@@ -17,6 +19,13 @@ public class PrintStatement implements StatementInterface {
 
         programState.addOutput(valueToOutput.toString());
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws StatementException, ExpressionException {
+        expression.typeCheck(typeTable);
+
+        return typeTable;
     }
 
     @Override

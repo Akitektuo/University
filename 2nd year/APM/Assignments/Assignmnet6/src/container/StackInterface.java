@@ -8,4 +8,6 @@ public interface StackInterface<T> {
     void push(T value);
 
     T pop() throws NoSuchElementException;
+
+    T first();
 }

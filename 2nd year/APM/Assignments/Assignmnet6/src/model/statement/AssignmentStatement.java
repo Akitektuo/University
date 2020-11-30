@@ -1,8 +1,10 @@
 package model.statement;
 
+import container.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.TypeInterface;
 
 public class AssignmentStatement implements StatementInterface {
     private final String variableName;
@@ -20,13 +22,20 @@ public class AssignmentStatement implements StatementInterface {
             throw new StatementException("Variable '%s' has not been declared!", variableName);
         }
 
-        var newVariableValue = expression.evaluate(programState);
-        if (!newVariableValue.getType().equals(expectedVariable.getType())) {
+        programState.setVariable(variableName, expression.evaluate(programState));
+        return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws StatementException, ExpressionException {
+        var expectedType = typeTable.get(variableName);
+        var type = expression.typeCheck(typeTable);
+
+        if (!expectedType.equals(type)) {
             throw new StatementException("Types do not match in assignment!");
         }
 
-        programState.setVariable(variableName, newVariableValue);
-        return null;
+        return typeTable;
     }
 
     @Override

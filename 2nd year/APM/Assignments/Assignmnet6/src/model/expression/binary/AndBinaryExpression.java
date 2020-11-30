@@ -1,8 +1,8 @@
 package model.expression.binary;
 
-import model.expression.ExpressionErrorType;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.Types;
 import model.value.BooleanValue;
 import model.value.ValueInterface;
 
@@ -14,10 +14,15 @@ public class AndBinaryExpression extends BinaryExpression {
 
     @Override
     public ValueInterface evaluate() throws ExpressionException {
-        var leftValue = getBooleanValue(leftExpression, ExpressionErrorType.LEFT_OPERAND_WRONG_TYPE);
-        var rightValue = getBooleanValue(rightExpression, ExpressionErrorType.RIGHT_OPERAND_WRONG_TYPE);
+        var leftValue = getBooleanValue(leftExpression);
+        var rightValue = getBooleanValue(rightExpression);
 
         return new BooleanValue(leftValue && rightValue);
+    }
+
+    @Override
+    public Types getExpectedType() {
+        return Types.BOOLEAN;
     }
 
     @Override

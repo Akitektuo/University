@@ -122,6 +122,10 @@ public class ProgramState {
         return executeNext();
     }
 
+    public void checkTypes() {
+        executionStack.first().typeCheck(new Dictionary<>());
+    }
+
     private int generateNewId() {
         var randomGenerator = new Random();
 

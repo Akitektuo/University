@@ -3,6 +3,7 @@ package model.expression.binary;
 import model.expression.ExpressionErrorType;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.Types;
 import model.value.IntegerValue;
 import model.value.ValueInterface;
 
@@ -14,13 +15,18 @@ public class DivideBinaryExpression extends BinaryExpression {
 
     @Override
     public ValueInterface evaluate() throws ExpressionException {
-        var leftValue = getIntegerValue(leftExpression, ExpressionErrorType.LEFT_OPERAND_WRONG_TYPE);
-        var rightValue = getIntegerValue(rightExpression, ExpressionErrorType.RIGHT_OPERAND_WRONG_TYPE);
+        var leftValue = getIntegerValue(leftExpression);
+        var rightValue = getIntegerValue(rightExpression);
 
         if (rightValue == 0) {
             throw new ExpressionException(ExpressionErrorType.DIVISION_BY_ZERO);
         }
         return new IntegerValue(leftValue / rightValue);
+    }
+
+    @Override
+    public Types getExpectedType() {
+        return Types.NUMBER;
     }
 
     @Override

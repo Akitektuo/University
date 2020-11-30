@@ -1,10 +1,13 @@
 package model.statement.heap;
 
+import container.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
 import model.statement.StatementException;
 import model.statement.StatementInterface;
+import model.type.ReferenceType;
+import model.type.TypeInterface;
 import model.type.Types;
 import model.value.ReferenceValue;
 
@@ -23,18 +26,27 @@ public class AllocateHeapStatement implements StatementInterface {
         if (variable == null) {
             throw new StatementException("Variable '%s' has not been declared!", variableName);
         }
-        if (variable.getType().get() != Types.REFERENCE) {
+
+        var value = expression.evaluate(programState);
+        var address = programState.allocateInMemory(value);
+
+        programState.setVariable(variableName, new ReferenceValue(address, value.getType()));
+        return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws StatementException, ExpressionException {
+        var variableType = typeTable.get(variableName);
+        if (variableType.get() != Types.REFERENCE) {
             throw new StatementException("Variable '%s' is not of type reference!", variableName);
         }
 
-        var value = expression.evaluate(programState);
-        if (!((ReferenceValue) variable).getGenericType().equals(value.getType())) {
+        var expressionType = expression.typeCheck(typeTable);
+        if (!((ReferenceType) variableType).getGenericType().equals(expressionType)) {
             throw new StatementException("The reference of variable '%s' does not match the given value's type", variableName);
         }
 
-        var address = programState.allocateInMemory(value);
-        programState.setVariable(variableName, new ReferenceValue(address, value.getType()));
-        return null;
+        return typeTable;
     }
 
     @Override

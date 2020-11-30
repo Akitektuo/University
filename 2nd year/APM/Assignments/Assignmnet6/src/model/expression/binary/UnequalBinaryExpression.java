@@ -3,17 +3,23 @@ package model.expression.binary;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.Types;
 import model.value.BooleanValue;
 import model.value.ValueInterface;
 
-public class InequalBinaryExpression extends BinaryExpression {
+public class UnequalBinaryExpression extends BinaryExpression {
 
-    public InequalBinaryExpression(ExpressionInterface leftExpression, ExpressionInterface rightExpression) {
+    public UnequalBinaryExpression(ExpressionInterface leftExpression, ExpressionInterface rightExpression) {
         super(leftExpression, rightExpression);
     }
 
     @Override
     public ValueInterface evaluate() throws ExpressionException {
+        return null;
+    }
+
+    @Override
+    public Types getExpectedType() {
         return null;
     }
 

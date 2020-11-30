@@ -1,6 +1,8 @@
 package model.statement;
 
+import container.DictionaryInterface;
 import model.ProgramState;
+import model.expression.ExpressionException;
 import model.type.TypeInterface;
 
 public class DeclarationStatement implements StatementInterface {
@@ -17,6 +19,13 @@ public class DeclarationStatement implements StatementInterface {
         programState.setVariable(variableName, variableType.getDefaultValue());
 
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws StatementException, ExpressionException {
+        typeTable.set(variableName, variableType);
+
+        return typeTable;
     }
 
     @Override

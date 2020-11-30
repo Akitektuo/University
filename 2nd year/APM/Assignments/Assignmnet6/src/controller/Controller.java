@@ -31,11 +31,13 @@ public class Controller {
     }
 
     public void addProgramState(ProgramState programState) {
+        programState.checkTypes();
         repository.addProgramState(programState);
     }
 
     public void executeAllSteps() {
         var programStates = getUncompletedProgramStates();
+
         while (!programStates.isEmpty()) {
             try {
                 executeOneStepForEachProgram(programStates);

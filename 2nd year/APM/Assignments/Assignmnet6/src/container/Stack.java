@@ -29,6 +29,11 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     @Override
+    public T first() {
+        return stack.peekFirst();
+    }
+
+    @Override
     public String toString() {
         return stack.toString();
     }

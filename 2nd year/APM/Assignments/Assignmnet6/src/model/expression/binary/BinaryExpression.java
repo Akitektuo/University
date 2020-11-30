@@ -1,9 +1,12 @@
 package model.expression.binary;
 
+import container.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionErrorType;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.BooleanType;
+import model.type.TypeInterface;
 import model.type.Types;
 import model.value.BooleanValue;
 import model.value.IntegerValue;
@@ -20,26 +23,16 @@ public abstract class BinaryExpression implements ExpressionInterface {
 
     public abstract ValueInterface evaluate() throws ExpressionException;
 
-    protected final int getIntegerValue(
-            ExpressionInterface expression,
-            ExpressionErrorType errorType) throws ExpressionException {
-        var value = expression.evaluate(programState);
+    public abstract Types getExpectedType();
 
-        if (value.getType().get() != Types.NUMBER) {
-            throw new ExpressionException(errorType);
-        }
+    protected final int getIntegerValue(ExpressionInterface expression) {
+        var value = expression.evaluate(programState);
 
         return ((IntegerValue) value).getValue();
     }
 
-    protected final boolean getBooleanValue(
-            ExpressionInterface expression,
-            ExpressionErrorType errorType) throws ExpressionException {
+    protected final boolean getBooleanValue(ExpressionInterface expression) {
         var value = expression.evaluate(programState);
-
-        if (value.getType().get() != Types.BOOLEAN) {
-            throw new ExpressionException(errorType);
-        }
 
         return ((BooleanValue) value).getValue();
     }
@@ -48,5 +41,25 @@ public abstract class BinaryExpression implements ExpressionInterface {
     public ValueInterface evaluate(ProgramState programState) throws ExpressionException {
         this.programState = programState;
         return evaluate();
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeTable) throws ExpressionException {
+        var leftType = leftExpression.typeCheck(typeTable);
+        var rightType = rightExpression.typeCheck(typeTable);
+
+        var expectedType = getExpectedType();
+        if (expectedType == null) {
+            return new BooleanType();
+        }
+
+        if (leftType.get() != expectedType) {
+            throw new ExpressionException(ExpressionErrorType.LEFT_OPERAND_WRONG_TYPE);
+        }
+        if (rightType.get() != expectedType) {
+            throw new ExpressionException(ExpressionErrorType.RIGHT_OPERAND_WRONG_TYPE);
+        }
+
+        return leftType;
     }
 }

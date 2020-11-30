@@ -3,6 +3,7 @@ package model.expression.binary;
 import model.ProgramState;
 import model.expression.ExpressionException;
 import model.expression.ExpressionInterface;
+import model.type.Types;
 import model.value.BooleanValue;
 import model.value.ValueInterface;
 
@@ -14,6 +15,11 @@ public class EqualBinaryExpression extends BinaryExpression {
 
     @Override
     public ValueInterface evaluate() throws ExpressionException {
+        return null;
+    }
+
+    @Override
+    public Types getExpectedType() {
         return null;
     }
 
