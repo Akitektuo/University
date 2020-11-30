@@ -5,7 +5,7 @@ import repository.RepositoryInterface;
 import view.command.ExitCommand;
 import view.command.RunExampleCommand;
 
-import static utils.PredefinedProgramStates.*;
+import static utils.PredefinedProgramStates.PROGRAMS;
 
 public class MainView {
     private final TextMenuView textMenuView = new TextMenuView();
