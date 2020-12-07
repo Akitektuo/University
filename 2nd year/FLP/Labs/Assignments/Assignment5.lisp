@@ -29,7 +29,7 @@ computePath(t1..tn, targetNode) = {
 	[[targetNode], []], t1 = targetNode
 	[[], t3..tn], t2 = 0
 	s1..sm := computePath(t3..tn, targetNode), addPath(t1, s1, s2), t2 = 1
-	l1..lm := computePath(t3..tn, targetNode), r1..rk := computePath(l2, targetNode), addPath(t1, getPathToTarget(l1, r1), []), otherwise
+	l1..lm := computePath(t3..tn, targetNode), r1..rk := computePath(l2, targetNode), addPath(t1, getPathToTarget(l1, r1), r2), otherwise
 }
 computePath(binaryTree: list, targetNode: atom): list
 (Returns pair of 'found path' and 'rest of tree to be evaluated' as a list)
@@ -48,7 +48,7 @@ computePath(binaryTree: list, targetNode: atom): list
 		((equal (cadr binary-tree) 2)
 			(let ((left-result (compute-path (cddr binary-tree) target-node)))
 				(let ((right-result (compute-path (cadr left-result) target-node)))
-					(add-path (car binary-tree) (get-path-to-target (car left-result) (car right-result)) '()))))))
+					(add-path (car binary-tree) (get-path-to-target (car left-result) (car right-result)) (cadr right-result)))))))
 			
 #||
 getPath(t1..tn, targetNode) = {
