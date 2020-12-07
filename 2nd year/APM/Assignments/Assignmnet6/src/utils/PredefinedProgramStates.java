@@ -140,7 +140,7 @@ public class PredefinedProgramStates {
             new ProgramState(new CompoundStatement(
                     new DeclarationStatement("v", new NumberType()),
                     new AssignmentStatement("v", new ValueExpression(new IntegerValue(2))),
-                    new PrintStatement(new VariableExpression("v"))
+                    new PrintStatement(new AddBinaryExpression(new ValueExpression(new IntegerValue(2)), new ValueExpression(new StringValue("something"))))
             )),
             // 2.
             new ProgramState(new CompoundStatement(

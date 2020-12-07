@@ -1,3 +1,5 @@
+; Write a function to sort a linear list with keeping the double values.
+
 #||
 insert(l1..ln, element) =
 	[element], n = 0
@@ -10,7 +12,7 @@ insert(list: List, element: Integer): List
 	(cond
 		((null list-param) (list element))
 		((or
-			(eq (car list-param) element)
+			(equal (car list-param) element)
 			(< element (car list-param))) (cons element list-param))
 		((cons
 			(car list-param)

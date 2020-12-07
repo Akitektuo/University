@@ -1,3 +1,5 @@
+; Write a function to return the product of all numerical atoms in a list, at any level.
+
 #||
 deepProduct(l1..ln) =
 	1, n = 0

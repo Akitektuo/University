@@ -1,8 +1,10 @@
+; Build a list which contains positions of a minimum numeric element from a given linear list.
+
 #||
 minPositions(l1..ln, minNum, index, k1..km) =
 	k1..km, n = 0
-	minPositions(l2..ln, l1, index + 1, [index]), l1 < minNum
-	minPositions(l2..ln, minNum, index + 1, index (+) k1..km), l1 = minNum
+	minPositions(l2..ln, l1, index + 1, [index]), l1 is number and l1 < minNum
+	minPositions(l2..ln, minNum, index + 1, index (+) k1..km), l1 is number and l1 = minNum
 	minPositions(l2..ln, minNum, index + 1, k1..km), otherwise
 
 minPositions(list: List, minimumNumber: Integer, index: Integer, minimumNumberIndexes: List): List
@@ -10,9 +12,13 @@ minPositions(list: List, minimumNumber: Integer, index: Integer, minimumNumberIn
 (defun min-positions (list-param min-num index indexes)
 	(cond
 		((null list-param) indexes)
-		((< (car list-param) min-num)
+		((and
+			(numberp (car list-param))
+			(< (car list-param) min-num))
 			(min-positions (cdr list-param) (car list-param) (+ index 1) (list index)))
-		((= (car list-param) min-num)
+		((and
+			(numberp (car list-param))
+			(= (car list-param) min-num))
 			(min-positions (cdr list-param) min-num (+ index 1) (cons index indexes)))
 		((min-positions (cdr list-param) min-num (+ index 1) indexes))))
 

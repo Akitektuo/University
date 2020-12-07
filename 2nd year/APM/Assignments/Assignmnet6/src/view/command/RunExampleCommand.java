@@ -29,12 +29,16 @@ public class RunExampleCommand extends BaseCommand {
 
     @Override
     public void execute() {
-        beforeExecution.run();
+        try {
+            beforeExecution.run();
+        } catch (Exception exception) {
+            System.out.printf("Type error: %s\n", exception.getMessage());
+        }
         try {
             controller.executeAllSteps();
             System.out.println("Executed successfully!");
         } catch (Exception exception) {
-            System.out.printf("Error: %s%n", exception.getMessage());
+            System.out.printf("Error: %s\n", exception.getMessage());
         }
     }
 }

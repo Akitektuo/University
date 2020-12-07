@@ -1,3 +1,5 @@
+; Write a function to return the union of two sets.
+
 #||
 isElementInList(element, l1..ln) =
 	false, n = 0
@@ -9,7 +11,7 @@ isElementInList(element: Integer, inList: List): Boolean
 (defun is-element-in-list (element in-list)
 	(cond
 		((null in-list) nil)
-		((eq element (car in-list)) T)
+		((equal element (car in-list)) T)
 		((is-element-in-list element (cdr in-list)))))
 
 #||
