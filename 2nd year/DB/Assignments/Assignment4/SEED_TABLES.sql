@@ -24,13 +24,21 @@ end
 create procedure seedCurrencyHistoryTable @entry int
 as
 begin
-	insert into [CurrencyHistory]([CurrencyId], [Date], [Value]) values
-	(
-		@entry,
-		dateadd(day, (abs(checksum(newid())) % 65530), 0),
-		round(rand(checksum(newid())) * (100), 2)
-	)
+	begin try
+		insert into [CurrencyHistory]([CurrencyId], [Date], [Value]) values
+		(
+			@entry % 3 + 1,
+			dateadd(day, (abs(checksum(newid())) % 65530), 0),
+			round(rand(checksum(newid())) * (100), 2)
+		)
+	end try  
+	begin catch
+		exec seedCurrencyHistoryTable @entry
+	end catch 
+	
 end
+
+drop procedure seedCurrencyHistoryTable
 
 create procedure populateTable
 	@tableName varchar(32),

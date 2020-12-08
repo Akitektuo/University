@@ -145,6 +145,7 @@ begin
 		(@testId, @viewId)
 end
 
+drop procedure runTest
 create procedure runTest @testName varchar(64)
 as
 begin
@@ -188,7 +189,12 @@ begin
 	into @tableId, @table, @numberOfRows
 	while @@fetch_status = 0
 	begin
-		exec('delete from ' + @table)
+		begin try
+			exec('delete from ' + @table)
+		end try
+		begin catch
+			exec('delete from ' + @table + ' where Id > 99')
+		end catch
 		fetch next from TablesCursor
 		into @tableId, @table, @numberOfRows	
 	end
@@ -287,6 +293,8 @@ exec addConnectionBetweenViewsAndTests 'ProductNamesForEachCategory', 'test1'
 select * from [TestViews]
 select * from [Views]
 
+delete from [TestTables]
+
 exec addConnectionBetweenTablesAndTests 'Categories', 'test1', 5000, 1
 exec addConnectionBetweenTablesAndTests 'Products', 'test1', 5000, 2
 exec addConnectionBetweenTablesAndTests 'CurrencyHistory', 'test1', 2000, 3
@@ -298,8 +306,13 @@ select * from [Tables]
 select * from [Categories]
 select * from [Products]
 select * from [CurrencyHistory]
+select * from [Currencies]
+delete from [Categories] where [Id] > 99
+delete from [Products] where [Id] > 99
+delete from [CurrencyHistory]
 
 exec runTest 'test1'
+exec getResultsForTest 'test1'
 
 delete from [TestRuns]
 delete from [TestRunTables]
@@ -316,4 +329,4 @@ exec addConnectionBetweenViewsAndTests 'ProductNamesForEachCategory', 'test2'
 
 exec runTest 'test2'
 
-exec getResultsForTest'test2'
+exec getResultsForTest 'test2'
