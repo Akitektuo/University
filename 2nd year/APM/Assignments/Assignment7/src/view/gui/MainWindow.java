@@ -1,2 +1,7 @@
-package view.gui;public class MainWindow {
+package view.gui;
+
+import javafx.application.Application;
+
+public class MainWindow extends Application {
+
 }
