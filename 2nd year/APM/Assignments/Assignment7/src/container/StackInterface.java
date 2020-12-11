@@ -10,4 +10,6 @@ public interface StackInterface<T> {
     T pop() throws NoSuchElementException;
 
     T first();
+
+    ListInterface<T> toList();
 }

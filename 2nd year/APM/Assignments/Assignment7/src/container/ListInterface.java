@@ -1,6 +1,7 @@
 package container;
 
 import kotlin.jvm.functions.Function1;
+import kotlin.jvm.functions.Function2;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -27,6 +28,8 @@ public interface ListInterface<T> {
 
     ListInterface<T> filter(Function1<T, Boolean> selector);
 
+    T find(Function1<T, Boolean> selector);
+
     void forEach(Consumer<T> action);
 
     Collection<T> toCollection();
@@ -36,6 +39,8 @@ public interface ListInterface<T> {
     ListInterface<T> clone();
 
     <R> ListInterface<R> map(Function<T, R> mapper);
+
+    <R> ListInterface<R> mapIndexed(Function2<T, Integer, R> mapper);
 
     void clear();
 

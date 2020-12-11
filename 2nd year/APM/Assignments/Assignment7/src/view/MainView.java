@@ -4,6 +4,7 @@ import controller.Controller;
 import repository.RepositoryInterface;
 import view.command.ExitCommand;
 import view.command.RunExampleCommand;
+import view.gui.MainWindow;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class MainView {
 
     public void start() {
         if (isGuiChosen()) {
-            initializeGui();
+            initializeGui().show();
         } else {
             initializeTextMenu().show();
         }
@@ -32,8 +33,14 @@ public class MainView {
         return decision.isBlank() || decision.toLowerCase().contains("y");
     }
 
-    public void initializeGui() {
+    public MainWindow initializeGui() {
+        var guiView = new MainWindow();
 
+        for (var i = 0; i < PROGRAMS.getSize(); i++) {
+            guiView.addCommand(new RunExampleCommand(controller, i));
+        }
+
+        return guiView;
     }
 
     public TextMenuView initializeTextMenu() {

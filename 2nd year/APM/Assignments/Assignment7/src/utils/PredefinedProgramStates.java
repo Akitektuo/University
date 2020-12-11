@@ -118,7 +118,7 @@ public class PredefinedProgramStates {
                     .addLine("print(v);")
                     .build(),
             // 10.
-            new CodeFormatter("number v;", 0)
+            new CodeFormatter("number v;")
                     .addLine("reference<number> a;")
                     .addLine("v = 10;")
                     .addLine("new(a, 22);")

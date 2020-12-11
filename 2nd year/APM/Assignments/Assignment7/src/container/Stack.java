@@ -34,6 +34,11 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     @Override
+    public ListInterface<T> toList() {
+        return new List<>(stack);
+    }
+
+    @Override
     public String toString() {
         return stack.toString();
     }

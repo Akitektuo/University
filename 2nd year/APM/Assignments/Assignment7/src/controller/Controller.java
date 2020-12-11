@@ -3,7 +3,6 @@ package controller;
 import container.List;
 import container.ListInterface;
 import model.ProgramState;
-import model.expression.ExpressionException;
 import model.statement.StatementException;
 import model.value.ReferenceValue;
 import repository.RepositoryInterface;
@@ -13,7 +12,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 public class Controller {
     private final RepositoryInterface repository;
@@ -52,11 +50,11 @@ public class Controller {
         repository.clear();
     }
 
-    private ListInterface<ProgramState> getUncompletedProgramStates() {
+    public ListInterface<ProgramState> getUncompletedProgramStates() {
         return repository.getAllProgramStates().filter(programState -> !programState.isCompleted());
     }
 
-    private void executeOneStepForEachProgram(ListInterface<ProgramState> programStates) throws InterruptedException {
+    public void executeOneStepForEachProgram(ListInterface<ProgramState> programStates) throws InterruptedException {
         if (logSteps) {
             programStates.forEach(repository::logProgramState);
         }

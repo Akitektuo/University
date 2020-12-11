@@ -41,4 +41,14 @@ public class RunExampleCommand extends BaseCommand {
             System.out.printf("Error: %s\n", exception.getMessage());
         }
     }
+
+    public Controller getInitializedController() {
+        try {
+            beforeExecution.run();
+        } catch (Exception exception) {
+            System.out.printf("Type error: %s\n", exception.getMessage());
+            return null;
+        }
+        return controller;
+    }
 }

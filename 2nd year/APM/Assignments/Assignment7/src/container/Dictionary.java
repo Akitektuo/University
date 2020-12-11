@@ -3,6 +3,7 @@ package container;
 import kotlin.jvm.functions.Function2;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -50,6 +51,11 @@ public class Dictionary<K, V> implements DictionaryInterface<K, V> {
     @Override
     public ListInterface<V> getValues() {
         return new List<>(map.values());
+    }
+
+    @Override
+    public ListInterface<Map.Entry<K, V>> getEntries() {
+        return new List<>(map.entrySet());
     }
 
     @Override

@@ -1,11 +1,13 @@
 package container;
 
 import kotlin.jvm.functions.Function1;
+import kotlin.jvm.functions.Function2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -99,6 +101,17 @@ public class List<T> implements ListInterface<T> {
     }
 
     @Override
+    public T find(Function1<T, Boolean> selector) {
+        for (var element : list) {
+            if (selector.invoke(element)) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
     public void forEach(Consumer<T> action) {
         list.forEach(action);
     }
@@ -121,6 +134,15 @@ public class List<T> implements ListInterface<T> {
     @Override
     public <R> ListInterface<R> map(Function<T, R> mapper) {
         return new List<>(list.stream().map(mapper).collect(Collectors.toList()));
+    }
+
+    @Override
+    public <R> ListInterface<R> mapIndexed(Function2<T, Integer, R> mapper) {
+        var index = new AtomicInteger();
+
+        return new List<>(list.stream()
+                .map(element -> mapper.invoke(element, index.getAndIncrement()))
+                .collect(Collectors.toList()));
     }
 
     @Override

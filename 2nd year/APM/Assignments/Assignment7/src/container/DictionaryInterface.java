@@ -2,6 +2,8 @@ package container;
 
 import kotlin.jvm.functions.Function2;
 
+import java.util.Map;
+
 public interface DictionaryInterface<K, V> {
     boolean isEmpty();
 
@@ -16,6 +18,8 @@ public interface DictionaryInterface<K, V> {
     ListInterface<K> getKeys();
 
     ListInterface<V> getValues();
+
+    ListInterface<Map.Entry<K, V>> getEntries();
 
     DictionaryInterface<K, V> filter(Function2<K, V, Boolean> selection);
 

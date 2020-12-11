@@ -4,7 +4,6 @@ import container.*;
 import model.expression.ExpressionException;
 import model.statement.StatementException;
 import model.statement.StatementInterface;
-import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
@@ -35,7 +34,7 @@ public class ProgramState {
         executionStack = new Stack<>(initialStatement);
         systemTable = programStateToCopy.systemTable.clone();
         output = programStateToCopy.output;
-        fileTable = programStateToCopy.fileTable;
+        fileTable = programStateToCopy.fileTable.clone();
         memoryHeap = programStateToCopy.memoryHeap;
     }
 
@@ -99,8 +98,16 @@ public class ProgramState {
         return executionStack.isEmpty();
     }
 
+    public DictionaryInterface<String, ValueInterface> getSystemTable() {
+        return systemTable;
+    }
+
     public ListInterface<ValueInterface> getSystemTableValues() {
         return systemTable.getValues();
+    }
+
+    public StackInterface<StatementInterface> getExecutionStack() {
+        return executionStack;
     }
 
     public MemoryHeap<ValueInterface> getMemoryHeap() {
@@ -124,6 +131,10 @@ public class ProgramState {
 
     public void checkTypes() {
         executionStack.first().typeCheck(new Dictionary<>());
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     private int generateNewId() {
