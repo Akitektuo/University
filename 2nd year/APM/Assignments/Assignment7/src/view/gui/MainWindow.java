@@ -14,7 +14,7 @@ public class MainWindow extends Application {
     private static final ListInterface<RunExampleCommand> commands = new List<>();
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         stage.setTitle("Toy Language Interpreter");
         stage.setOnCloseRequest(e -> System.exit(0));
 

@@ -10,8 +10,6 @@ public class ObservableProgramStates {
     private final ListInterface<Consumer<ListInterface<ProgramState>>> listeners = new List<>();
     private ListInterface<ProgramState> programStates;
 
-
-
     public void addListener(Consumer<ListInterface<ProgramState>> onChange) {
         listeners.add(onChange);
     }

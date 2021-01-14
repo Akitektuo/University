@@ -17,20 +17,20 @@ create table [Tc] (
 )
 
 --a)
---clustered index scan
+--clustered scan
 select [aid] from [Ta]
 
---clustered index seek
-select [aid] from [Ta] where [aid] > 5
+--clustered seek
+select [aid] from [Ta] where [aid] > 5000
 
---nonclustered index scan
+--nonclustered scan
 select [a2] from [Ta]
 
---nonclustered index seek
-select [a2] from [Ta] where [a2] > 1
+--nonclustered seek
+select [a2] from [Ta] where [a2] > 1000
 
 --key lookup
-select * from [Ta]
+select * from [Ta] where [a2] = 100
 
 --b)
 select [b2] from [Tb] where [b2] = 5
@@ -46,7 +46,7 @@ drop view [View_TaTC]
 create view [View_TaTc] as
     select [Tc].[cid], [Tc].[aid]
     from [Tc] inner join [Ta] on [Ta].[aid] = [Tc].[aid]
-    where [Tc].[aid] between 1 and 100
+    where [Tc].[aid] between 1 and 1000
 go
 
 select * from [View_TaTc]
@@ -56,3 +56,16 @@ if exists(select * from sys.indexes where [name] = 'index_aid')
 create nonclustered index [index_aid] on [Tc]([aid])
 
 select * from [View_TaTc]
+
+-- seed
+declare @times int
+set @times = 0
+while @times < 10000
+begin
+	insert into [Tc]([aid], [bid]) values
+		(@times + 1, 10000 - @times)
+	set @times = @times + 1
+end
+
+select * from [Tc]
+delete from [Tc]

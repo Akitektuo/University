@@ -28,8 +28,8 @@ computePath(t1..tn, targetNode) = {
 	[[], []], n = 0
 	[[targetNode], []], t1 = targetNode
 	[[], t3..tn], t2 = 0
-	s1..sm := computePath(t3..tn, targetNode), addPath(t1, s1, s2), t2 = 1
-	l1..lm := computePath(t3..tn, targetNode), r1..rk := computePath(l2, targetNode), addPath(t1, getPathToTarget(l1, r1), r2), otherwise
+	s1s2 := computePath(t3..tn, targetNode), addPath(t1, s1, s2), t2 = 1
+	l1l2 := computePath(t3..tn, targetNode), r1r2 := computePath(l2, targetNode), addPath(t1, getPathToTarget(l1, r1), r2), otherwise
 }
 computePath(binaryTree: list, targetNode: atom): list
 (Returns pair of 'found path' and 'rest of tree to be evaluated' as a list)
