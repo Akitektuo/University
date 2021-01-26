@@ -27,13 +27,14 @@ public class ForStatement implements StatementInterface {
     public ProgramState execute(ProgramState programState) throws StatementException, ExpressionException {
         if (programState.getVariable(variableName) == null) {
             programState.setVariable(variableName, initialExpression.evaluate(programState));
+        } else {
+            programState.setVariable(variableName, incrementExpression.evaluate(programState));
         }
 
         var conditionResult = (int) conditionExpression.evaluate(programState).getValue();
 
         if ((int) programState.getVariable(variableName).getValue() < conditionResult) {
             programState.pushStatement(this).pushStatement(blockStatement);
-            programState.setVariable(variableName, incrementExpression.evaluate(programState));
         }
 
         return null;
