@@ -27,11 +27,16 @@ import model.value.StringValue;
 public class PredefinedProgramStates {
     public static final ListInterface<String> VISUAL_PROGRAMS = new List<>(
             // 1.
-            new CodeFormatter("number v;")
+            new CodeFormatter("reference<number> a;")
+                    .addLine("new(a, 20);")
                     .newLine()
-                    .addLine("v = 2;")
+                    .addLine("for (v = 0; v < 3; v = v + 1)")
+                    .addLine("fork {", 2)
+                    .addLine("print(v);", 3)
+                    .addLine("v = v * readHeap(a);", 3)
+                    .addLine("}", 2)
                     .newLine()
-                    .addLine("print(v);")
+                    .addLine("print(readHeap(a));")
                     .build(),
             // 2.
             new CodeFormatter("number a;")
@@ -138,9 +143,19 @@ public class PredefinedProgramStates {
     public static ListInterface<ProgramState> PROGRAMS = new List<>(
             // 1.
             new ProgramState(new CompoundStatement(
-                    new DeclarationStatement("v", new NumberType()),
-                    new AssignmentStatement("v", new ValueExpression(new IntegerValue(2))),
-                    new PrintStatement(new AddBinaryExpression(new ValueExpression(new IntegerValue(2)), new ValueExpression(new StringValue("something"))))
+                    new DeclarationStatement("a", new ReferenceType(new NumberType())),
+                    new AllocateHeapStatement("a", new ValueExpression(new IntegerValue(20))),
+                    new ForStatement("v",
+                            new ValueExpression(new IntegerValue(0)),
+                            new ValueExpression(new IntegerValue(3)),
+                            new AddBinaryExpression(new VariableExpression("v"), new ValueExpression(new IntegerValue(1))),
+                            new ForkStatement(new CompoundStatement(
+                                    new PrintStatement(new VariableExpression("v")),
+                                    new AssignmentStatement("v", new MultiplyBinaryExpression(
+                                            new VariableExpression("v"),
+                                            new ReadHeapExpression(new VariableExpression("a"))))
+                            ))),
+                    new PrintStatement(new ReadHeapExpression(new VariableExpression("a")))
             )),
             // 2.
             new ProgramState(new CompoundStatement(
