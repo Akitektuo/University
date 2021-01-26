@@ -64,4 +64,13 @@ public class ForStatement implements StatementInterface {
 
         return typeTable;
     }
+
+    @Override
+    public String toString() {
+        return String.format("for (%s = %s; %s < %s; %s = %s) do %s",
+                variableName, initialExpression,
+                variableName, conditionExpression,
+                variableName, incrementExpression,
+                blockStatement);
+    }
 }
