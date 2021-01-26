@@ -33,6 +33,7 @@ public class RunExampleCommand extends BaseCommand {
             beforeExecution.run();
         } catch (Exception exception) {
             System.out.printf("Type error: %s\n", exception.getMessage());
+            return;
         }
         try {
             controller.executeAllSteps();

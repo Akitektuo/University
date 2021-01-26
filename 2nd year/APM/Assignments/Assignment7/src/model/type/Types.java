@@ -4,5 +4,6 @@ public enum Types {
     NUMBER,
     BOOLEAN,
     STRING,
-    REFERENCE
+    REFERENCE,
+    NUMBER_TO_BOOLEAN
 }

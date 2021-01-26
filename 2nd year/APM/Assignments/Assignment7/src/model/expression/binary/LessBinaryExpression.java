@@ -22,7 +22,7 @@ public class LessBinaryExpression extends BinaryExpression {
 
     @Override
     public Types getExpectedType() {
-        return Types.BOOLEAN;
+        return Types.NUMBER_TO_BOOLEAN;
     }
 
     @Override

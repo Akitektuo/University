@@ -109,8 +109,7 @@ public class ProgramExecutionWindow {
     }
 
     private void handleException(Exception exception) {
-        System.out.printf("Error: %s\n", exception.getMessage());
-        AlertBox.show("Error", "The program encountered an error, check the console for more details");
+        AlertBox.show("Error", exception.getMessage());
         window.close();
     }
 }

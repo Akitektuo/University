@@ -46,7 +46,6 @@ public class Controller {
             programStates = getUncompletedProgramStates();
         }
 
-        executor.shutdownNow();
         repository.clear();
     }
 

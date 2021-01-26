@@ -20,7 +20,7 @@ public class List<T> implements ListInterface<T> {
     }
 
     public List(T... initialValues) {
-        list = Collections.synchronizedList(Arrays.asList(initialValues));
+        list = Collections.synchronizedList(new ArrayList<>(Arrays.asList(initialValues)));
     }
 
     public List(Collection<T> fromCollection) {

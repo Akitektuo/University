@@ -49,6 +49,11 @@ public abstract class BinaryExpression implements ExpressionInterface {
         var rightType = rightExpression.typeCheck(typeTable);
 
         var expectedType = getExpectedType();
+        var returnsBoolean = expectedType == Types.NUMBER_TO_BOOLEAN;
+        if (returnsBoolean) {
+            expectedType = Types.NUMBER;
+        }
+
         if (expectedType == null) {
             return new BooleanType();
         }
@@ -60,6 +65,6 @@ public abstract class BinaryExpression implements ExpressionInterface {
             throw new ExpressionException(ExpressionErrorType.RIGHT_OPERAND_WRONG_TYPE);
         }
 
-        return leftType;
+        return returnsBoolean ? new BooleanType() : leftType;
     }
 }
