@@ -10,7 +10,7 @@ from constants import Color
 
 class Environment:
     def __init__(self):
-        self.__n = 20
+        self.__n = 25
         self.__m = 20
         self.__surface = np.zeros((self.__n, self.__m))
 
@@ -98,35 +98,35 @@ class DMap:
         # mark on this map the walls that you detect
         walls = e.read_udm_sensors(x, y)
         i = x - 1
-        if walls[UP] > 0:
-            while ((i >= 0) and (i >= x - walls[UP])):
+        if walls[Direction.UP] > 0:
+            while i >= 0 and i >= x - walls[Direction.UP]:
                 self.surface[i][y] = 0
                 i = i - 1
-        if (i >= 0):
+        if i >= 0:
             self.surface[i][y] = 1
 
         i = x + 1
-        if walls[DOWN] > 0:
-            while ((i < self.__n) and (i <= x + walls[DOWN])):
+        if walls[Direction.DOWN] > 0:
+            while i < self.__n and i <= x + walls[Direction.DOWN]:
                 self.surface[i][y] = 0
                 i = i + 1
-        if (i < self.__n):
+        if i < self.__n:
             self.surface[i][y] = 1
 
         j = y + 1
-        if walls[LEFT] > 0:
-            while ((j < self.__m) and (j <= y + walls[LEFT])):
+        if walls[Direction.LEFT] > 0:
+            while j < self.__m and j <= y + walls[Direction.LEFT]:
                 self.surface[x][j] = 0
                 j = j + 1
-        if (j < self.__m):
+        if j < self.__m:
             self.surface[x][j] = 1
 
         j = y - 1
-        if walls[RIGHT] > 0:
-            while ((j >= 0) and (j >= y - walls[RIGHT])):
+        if walls[Direction.RIGHT] > 0:
+            while j >= 0 and j >= y - walls[Direction.RIGHT]:
                 self.surface[x][j] = 0
                 j = j - 1
-        if (j >= 0):
+        if j >= 0:
             self.surface[x][j] = 1
 
         return None
@@ -136,15 +136,15 @@ class DMap:
         imagine = pygame.Surface((420, 420))
         brick = pygame.Surface((20, 20))
         empty = pygame.Surface((20, 20))
-        empty.fill(WHITE)
-        brick.fill(BLACK)
-        imagine.fill(GRAYBLUE)
+        empty.fill(Color.WHITE)
+        brick.fill(Color.BLACK)
+        imagine.fill(Color.GRAY_BLUE)
 
         for i in range(self.__n):
             for j in range(self.__m):
-                if (self.surface[i][j] == 1):
+                if self.surface[i][j] == 1:
                     imagine.blit(brick, (j * 20, i * 20))
-                elif (self.surface[i][j] == 0):
+                elif self.surface[i][j] == 0:
                     imagine.blit(empty, (j * 20, i * 20))
 
         drona = pygame.image.load("assets/drona.png")
@@ -152,28 +152,28 @@ class DMap:
         return imagine
 
 
-class Drone():
+class Drone:
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-    def move(self, detectedMap):
+    def move(self, detected_map):
         pressed_keys = pygame.key.get_pressed()
         if self.x > 0:
-            if pressed_keys[K_UP] and detectedMap.surface[self.x - 1][self.y] == 0:
+            if pressed_keys[K_UP] and detected_map.surface[self.x - 1][self.y] == 0:
                 self.x = self.x - 1
         if self.x < 19:
-            if pressed_keys[K_DOWN] and detectedMap.surface[self.x + 1][self.y] == 0:
+            if pressed_keys[K_DOWN] and detected_map.surface[self.x + 1][self.y] == 0:
                 self.x = self.x + 1
 
         if self.y > 0:
-            if pressed_keys[K_LEFT] and detectedMap.surface[self.x][self.y - 1] == 0:
+            if pressed_keys[K_LEFT] and detected_map.surface[self.x][self.y - 1] == 0:
                 self.y = self.y - 1
         if self.y < 19:
-            if pressed_keys[K_RIGHT] and detectedMap.surface[self.x][self.y + 1] == 0:
+            if pressed_keys[K_RIGHT] and detected_map.surface[self.x][self.y + 1] == 0:
                 self.y = self.y + 1
 
-    def moveDSF(self, detectedMap):
+    def move_dsf(self, detected_map):
         pass
         # TO DO!
         # rewrite this function in such a way that you perform an automatic
@@ -184,7 +184,7 @@ class Drone():
 def main():
     # we create the environment
     e = Environment()
-    e.loadEnvironment("assets/test2.map")
+    e.load_environment("assets/test2.map")
     # print(str(e))
 
     # we create the map
@@ -206,7 +206,7 @@ def main():
 
     # create a surface on screen that has the size of 800 x 480
     screen = pygame.display.set_mode((800, 400))
-    screen.fill(WHITE)
+    screen.fill(Color.WHITE)
     screen.blit(e.image(), (0, 0))
 
     # define a variable to control the main loop

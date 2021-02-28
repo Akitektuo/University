@@ -13,3 +13,9 @@ class Direction:
     DOWN = 2
     RIGHT = 3
     DIRECTIONS = [[-1, 0], [1, 0], [0, 1], [0, -1]]
+
+
+class Status:
+    UNKNOWN = -1
+    EMPTY = 0
+    WALL = 1
