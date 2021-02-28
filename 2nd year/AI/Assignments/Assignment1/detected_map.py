@@ -11,7 +11,9 @@ class DetectedMap:
         self.surface = numpy.full((self.__height, self.__width), Status.UNKNOWN)
 
     def mark_detected_walls(self, environment, row, column):
-        # Todo mark on this map the walls that you detect
+        if row is None or column is None:
+            return
+
         readings = environment.read_udm_sensors(row, column)
 
         self.__mark_direction(readings[Direction.UP], -1, row, lambda index: index >= 0,
@@ -61,10 +63,16 @@ class DetectedMap:
                 elif self.surface[i][j] == Status.EMPTY:
                     canvas.blit(empty, (j * brick_size, i * brick_size))
 
-        drone = pygame.image.load("assets/drona.png")
-        canvas.blit(drone, (column * brick_size, row * brick_size))
+        if row is not None and column is not None:
+            drone = pygame.image.load("assets/drona.png")
+            canvas.blit(drone, (column * brick_size, row * brick_size))
 
         return canvas
 
     def is_empty(self, row, column):
         return self.surface[row][column] == Status.EMPTY
+
+    def is_empty_tuple(self, coordinates):
+        row, column = coordinates
+
+        return self.is_empty(row, column)

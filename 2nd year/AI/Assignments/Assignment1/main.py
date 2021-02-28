@@ -17,7 +17,7 @@ def create_objects():
     row = randint(0, 19)
     column = randint(0, 19)
 
-    drone = Drone(row, column)
+    drone = Drone(row, column, detected_map)
 
     return environment, detected_map, drone
 
@@ -42,13 +42,22 @@ def create_screen(image):
 
 
 def run(environment, detected_map, drone, screen):
+    detected_map.mark_detected_walls(environment, drone.row, drone.column)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            return False
-        if event.type == pygame.KEYDOWN:
-            drone.move(detected_map)
+            return
+        # if event.type == pygame.KEYDOWN:
+        #     drone.move()
 
-    detected_map.mark_detected_walls(environment, drone.row, drone.column)
+    drone.move_dfs()
+    pygame.time.delay(50)
+    if drone.is_done():
+        pygame.display.flip()
+        screen.blit(detected_map.get_image(drone.row, drone.column), (400, 0))
+        pygame.time.wait(2000)
+        return
+
     screen.blit(detected_map.get_image(drone.row, drone.column), (400, 0))
     pygame.display.flip()
 
