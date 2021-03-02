@@ -6,9 +6,9 @@ from constants import Status, Color, Direction
 
 class DetectedMap:
     def __init__(self):
-        self.__height = 20  # = n
-        self.__width = 20  # = m
-        self.surface = numpy.full((self.__height, self.__width), Status.UNKNOWN)
+        self.height = 20  # = n
+        self.width = 20  # = m
+        self.surface = numpy.full((self.height, self.width), Status.UNKNOWN)
 
     def mark_detected_walls(self, environment, row, column):
         if row is None or column is None:
@@ -20,11 +20,11 @@ class DetectedMap:
                               lambda index, reading: index >= row - reading,
                               lambda index, status: self.surface[index].__setitem__(column, status))
 
-        self.__mark_direction(readings[Direction.DOWN], 1, row, lambda index: index < self.__height,
+        self.__mark_direction(readings[Direction.DOWN], 1, row, lambda index: index < self.height,
                               lambda index, reading: index <= row + reading,
                               lambda index, status: self.surface[index].__setitem__(column, status))
 
-        self.__mark_direction(readings[Direction.RIGHT], 1, column, lambda index: index < self.__width,
+        self.__mark_direction(readings[Direction.RIGHT], 1, column, lambda index: index < self.width,
                               lambda index, reading: index <= column + reading,
                               lambda index, status: self.surface[row].__setitem__(index, status))
 
@@ -56,8 +56,8 @@ class DetectedMap:
         empty = pygame.Surface((brick_size, brick_size))
         empty.fill(Color.WHITE)
 
-        for i in range(self.__height):
-            for j in range(self.__width):
+        for i in range(self.height):
+            for j in range(self.width):
                 if self.surface[i][j] == Status.WALL:
                     canvas.blit(brick, (j * brick_size, i * brick_size))
                 elif self.surface[i][j] == Status.EMPTY:

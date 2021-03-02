@@ -17,14 +17,15 @@ class Drone:
         if self.row > 0 and pressed_key[constants.K_UP] and self.detected_map.is_empty(self.row - 1, self.column):
             self.row -= 1
 
-        if self.row < 19 and pressed_key[constants.K_DOWN] and self.detected_map.is_empty(self.row + 1, self.column):
+        if self.row < self.detected_map.height - 1 and pressed_key[constants.K_DOWN] and (
+                self.detected_map.is_empty(self.row + 1, self.column)):
             self.row += 1
 
         if self.column > 0 and pressed_key[constants.K_LEFT] and self.detected_map.is_empty(self.row, self.column - 1):
             self.column -= 1
 
-        if self.column < 19 and pressed_key[constants.K_RIGHT] and self.detected_map.is_empty(self.row,
-                                                                                              self.column + 1):
+        if self.column < self.detected_map.width - 1 and pressed_key[constants.K_RIGHT] and (
+                self.detected_map.is_empty(self.row, self.column + 1)):
             self.column += 1
 
     def check_unvisited(self, unvisited, coordinates, condition):
@@ -35,15 +36,14 @@ class Drone:
         unvisited = []
 
         self.check_unvisited(unvisited, (self.row - 1, self.column), lambda: self.row > 0)
-        self.check_unvisited(unvisited, (self.row + 1, self.column), lambda: self.row < 19)
+        self.check_unvisited(unvisited, (self.row + 1, self.column), lambda: self.row < self.detected_map.height - 1)
         self.check_unvisited(unvisited, (self.row, self.column - 1), lambda: self.column > 0)
-        self.check_unvisited(unvisited, (self.row, self.column + 1), lambda: self.column < 19)
+        self.check_unvisited(unvisited, (self.row, self.column + 1), lambda: self.column < self.detected_map.width - 1)
 
         return unvisited
 
     def move_dfs(self):
         unvisited = self.get_unvisited()
-        print(unvisited)
 
         if len(unvisited) == 0:
             if len(self.__stack) == 0:
@@ -53,9 +53,7 @@ class Drone:
             return
 
         self.__stack.append(self.get_tuple())
-        print(self.__stack)
         self.__visited.add(self.set_tuple(unvisited.pop()))
-        print(self.__visited)
 
     def get_tuple(self):
         return self.row, self.column
