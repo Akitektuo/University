@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    justify-content: center;
+    font-size: 1.25em;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: silver 2px solid;
+    text-align: center;
+}
+
+.person-container {
+    position: relative;
+}
+
+.person-container > img {
+    width: 512px;
+    height: 384px;
+    object-fit: cover;
+    background-color: black;
+}
+
+.person-container .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.person-container .overlay:hover {
+    opacity: 0.7;
+}
+
+.person-container .overlay div:first-child {
+    font-weight: bold;
+    padding: 8px;
+}

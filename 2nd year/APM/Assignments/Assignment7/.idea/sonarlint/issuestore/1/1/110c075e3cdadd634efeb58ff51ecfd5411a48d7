@@ -1,0 +1,23 @@
+
+J
+java:S1444Š".Make this "public static PROGRAMS" field final(ÉÀ±€ÿÿÿÿÿ
+a
+java:S1192M"KDefine a constant instead of duplicating this literal "new(a, v);" 3 times.(­€™
+g
+java:S1192J"LDefine a constant instead of duplicating this literal "new(v, 20);" 4 times.(øë£ªûÿÿÿÿ
+o
+java:S1192Y"TDefine a constant instead of duplicating this literal "print(readHeap(v));" 3 times.(Éâ§Àúÿÿÿÿ
+`
+java:S1192"JDefine a constant instead of duplicating this literal "number v;" 4 times.(øìÎ­
+p
+java:S1192I"UDefine a constant instead of duplicating this literal "reference<number> v;" 4 times.(‹ÒÊÜùÿÿÿÿ
+v
+java:S1192L"`Define a constant instead of duplicating this literal "reference<reference<number>> a;" 3 times.(µĞá€
+e
+java:S1192""JDefine a constant instead of duplicating this literal "print(v);" 6 times.(ú¦ùÊúÿÿÿÿ
+p
+java:S1104Š"TMake PROGRAMS a static final constant or non-public and provide accessors if needed.(ÉÀ±€ÿÿÿÿÿ
+o
+java:S3008Š"SRename this field "PROGRAMS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÀ±€ÿÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(ÌÂà“
