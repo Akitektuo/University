@@ -21,7 +21,8 @@ namespace WindowsForm
         private SqlConnection dbConnection;
 
         private SqlDataAdapter dataAdapterUsers, dataAdapterLogs;
-        private BindingSource bindingUsers, bindingLogs = new BindingSource();
+        private BindingSource bindingUsers = new BindingSource();
+        private BindingSource bindingLogs = new BindingSource();
 
         private void InitializeDatabase()
         {
