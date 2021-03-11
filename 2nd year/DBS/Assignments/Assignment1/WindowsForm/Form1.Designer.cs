@@ -61,9 +61,9 @@ namespace WindowsForm
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 177);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.Size = new System.Drawing.Size(32, 15);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Pirates";
+            this.label1.Text = "Logs";
             // 
             // label2
             // 
@@ -72,7 +72,7 @@ namespace WindowsForm
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Ships";
+            this.label2.Text = "Users";
             // 
             // buttonUpdateDB
             // 
@@ -82,6 +82,7 @@ namespace WindowsForm
             this.buttonUpdateDB.TabIndex = 4;
             this.buttonUpdateDB.Text = "Update DB";
             this.buttonUpdateDB.UseVisualStyleBackColor = true;
+            this.buttonUpdateDB.Click += new System.EventHandler(this.buttonUpdateDB_Click);
             // 
             // Form1
             // 
