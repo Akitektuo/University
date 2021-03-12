@@ -1,0 +1,392 @@
+html {
+    overflow: overlay;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Verdana, sans-serif;
+}
+
+.top-bar {
+    background: #93d3eb url(https://www.ucla.edu/img/audience-nav-bg.jpg) repeat-y center;
+    border-bottom: 1px solid #17244c;
+    padding: 0 10px;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #1e4b87;
+}
+
+.top-bar .weather-container {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.top-bar .navigation-audience {
+    display: flex;
+    align-items: center;
+    font-size: 8px;
+}
+
+.top-bar .navigation-audience span {
+    padding: 6px;
+    font-size: 11px;
+}
+
+.top-bar .navigation-callout {
+    display: flex;
+    margin-bottom: -12px;
+    border-bottom: none;
+}
+
+.top-bar .navigation-callout .callout-item {
+    background-color: #ffe800;
+    border-top: 4px solid #ffb300;
+    box-shadow: 0 1px 1px #666;
+    font-size: 13px;
+    height: 38px;
+    width: 75px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 38px;
+    margin-right: 1px;
+    z-index: 2;
+}
+
+.header {
+    background: #2c5e91 url(https://www.ucla.edu/img/header-bg.jpg) repeat-x top;
+    padding: 0 10px;
+    min-height: 130px;
+    width: 100%;
+    border-bottom: 1px solid #17244c;
+    z-index: 1;
+}
+
+.header .header-container {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 20px 0;
+}
+
+.header .header-container div:first-child {
+    background: url(https://www.ucla.edu/img/sprites.png) 0 0 no-repeat;
+    color: transparent;
+    width: 144px;
+    height: 47px;
+    margin-bottom: 16px;
+}
+
+.header .header-container .navigation-main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: 8px;
+    position: relative;
+}
+
+.header .header-container .navigation-main > span {
+    padding: 6px;
+    font-size: 12.5px;
+}
+
+.header .header-container .navigation-main img {
+    position: absolute;
+    margin: 8px 2px;
+    bottom: 100%;
+}
+
+.main-content {
+    width: 100%;
+    margin-top: -4px;
+    background: #b7d7ee url(https://www.ucla.edu/img/bg-optimists-takeover.png) repeat-x top center;
+}
+
+.main-content .container {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.main-content .container .cover-photo {
+    position: relative;
+    margin-bottom: -80px;
+}
+
+.main-content .container .cover-photo .important-update {
+    background-color: #FFBF00;
+    padding: 16px;
+    font-size: 12.5px;
+}
+
+.main-content .container .cover-photo img {
+    max-width: 100%;
+}
+
+.main-content .container .cover-photo .inspirational-message-container {
+    background: #ffe800;
+    width: 37%;
+    position: absolute;
+    bottom: 32px;
+    right: -24px;
+    color: #1e4b87;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .title {
+    padding: 24px 24px 16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .message {
+    font-size: 10.5px;
+    padding: 0 24px;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 16px 24px 24px;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .controls :is(.left-control, .right-control) {
+    background: url(https://www.ucla.edu/img/flexslider-direction-nav.png) no-repeat;
+    height: 52px;
+    width: 52px;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .controls .right-control {
+    background-position-x: -52px;
+}
+
+.main-content .container .cover-photo .inspirational-message-container .controls span {
+    font-style: italic;
+    text-transform: none;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+.main-content .container .content {
+    background-color: white;
+    z-index: 1;
+    margin-left: 32px;
+    width: calc(100% - 152px);
+    position: relative;
+    padding: 64px 60px 54px;
+}
+
+.main-content .container .content .features-stories {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #347bad;
+    font-size: 24px;
+}
+
+.main-content .container .content .story {
+    width: 216px;
+}
+
+.main-content .container .content .stories {
+    margin: 24px 0 80px;
+}
+
+.main-content .container .content .stories .story .title {
+    color: #1e4b87;
+    padding: 24px 0 5px;
+    font-size: 15.4px;
+}
+
+.main-content .container .content .stories .story .overview {
+    color: #333;
+    font-size: 12.5px;
+}
+
+.main-content .container .content .other-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-content .container .content .other-content .story .title {
+    color: #347bad;
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.main-content .container .content .other-content .story .link {
+    color: #1e4b87;
+    font-size: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.main-content .container .content .other-content .story .link span {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    background: url(https://www.ucla.edu/img/sprites.png) no-repeat;
+    display: inline-block;
+}
+
+.main-content .container .content .other-content .story .link .facebook {
+    background-position: -24px -84px;
+}
+
+.main-content .container .content .other-content .story .link .twitter {
+    background-position: -56px -84px;
+}
+
+.main-content .container .content .other-content .story .link .instagram {
+    background-position: -184px -84px;
+}
+
+.main-content .container .content .other-content .story .link .snapchat {
+    background-position: 0 -288px;
+}
+
+.main-content .container .content .other-content .story .link .linked-in {
+    background-position: -32px -288px;
+}
+
+.main-content .container .content .other-content .story .link .youtube {
+    background-position: -120px -84px;
+}
+
+.main-content .container .content .other-content .enter {
+    background: url(https://www.ucla.edu/img/sprites.png) no-repeat -1px -245px;
+    padding-left: 15px;
+    border-top: 1px solid #e4e4e4;
+    padding-top: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    color: #1e4b87;
+}
+
+.social-media {
+    background: #2b4886;
+    padding: 42px 0 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.social-media span {
+    background: url(https://www.ucla.edu/img/sprites.png) no-repeat;
+    display: inline-block;
+    height: 34px;
+    margin: 0 8px;
+    width: 34px;
+}
+
+.social-media .facebook {
+    background-position: -3px -365px;
+}
+
+.social-media .twitter {
+    background-position: -54px -365px;
+}
+
+.social-media .instagram {
+    background-position: -157px -365px;
+}
+
+.social-media .snapchat {
+    background-position: -209px -365px;
+}
+
+.social-media .linked-in {
+    background-position: -260px -365px;
+}
+
+.social-media .youtube {
+    background-position: -105px -365px;
+}
+
+.footer-container {
+    width: 100%;
+    background: #2b4886;
+    padding-bottom: 40px;
+}
+
+.footer-container .footer-content {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.footer-container .footer-content .other-links {
+    margin-left: 32px;
+    display: flex;
+}
+
+.footer-container .footer-content .other-links .row {
+    width: 24%;
+}
+
+.footer-container .footer-content .other-links .row .logo {
+    color: transparent;
+    width: 62px;
+    height: 20px;
+    background: transparent url(https://www.ucla.edu/img/sprites.png) -2px -328px no-repeat;
+}
+
+.footer-container .footer-content .other-links .row .title {
+    color: #acc1e5;
+    text-transform: uppercase;
+    font-size: 12.5px;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+.footer-container .footer-content .other-links .row .link {
+    color: #ffe800;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.footer-container .footer-content .legal {
+    color: white;
+    font-size: 12px;
+    margin: 48px 32px 0;
+}
+
+.footer-container .footer-content .legal .links {
+    font-size: 10px;
+}
+
+.footer-container .footer-content .legal .links span {
+    font-size: 12px;
+    color: #ffe800;
+    padding: 0 4px;
+}
+
+.footer-container .footer-content .legal .links span:first-child {
+    padding-left: 0;
+}
+
+.feedback {
+    position: fixed;
+    top: 36%;
+    transform: rotate(-90deg);
+    right: -6px;
+    box-shadow: -3px 0px 6px 0px #666666;
+    color: white;
+    font-size: 12px;
+    background-color: #1b4f85;
+    outline: solid 1px #1b4f85;
+    padding: 4px 8px;
+}
