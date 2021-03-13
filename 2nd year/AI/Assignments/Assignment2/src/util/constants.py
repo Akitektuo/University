@@ -12,7 +12,7 @@ class Direction:
     RIGHT = 1
     DOWN = 2
     LEFT = 3
-    DIRECTIONS = [[-1, 0], [1, 0], [0, 1], [0, -1]]
+    DIRECTIONS = ((-1, 0), (0, 1), (1, 0), (0, -1))
 
 
 class Status:
@@ -32,3 +32,11 @@ class Property:
     WIDTH = "width"
     HEIGHT = "height"
     MAP_FILE = "map_file"
+    FINISH_IMAGE = "finish_image"
+    START_IMAGE = "start_image"
+
+
+class Time:
+    SECOND_IN_MILLISECONDS = 1000
+    SLEEP_MILLISECONDS = 100
+    TREE_SECONDS = 3000

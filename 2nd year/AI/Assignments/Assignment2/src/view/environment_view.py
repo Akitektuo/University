@@ -1,7 +1,7 @@
 from pygame import Surface
 
 from src.controller.environment_controller import EnvironmentController
-from src.util.constants import Dimension, Color, Status
+from src.util.constants import Dimension, Color
 from src.util.preferences import read_preferences
 
 

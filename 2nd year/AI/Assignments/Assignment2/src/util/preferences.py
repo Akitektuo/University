@@ -32,6 +32,12 @@ class Preferences:
     def get_map_file(self) -> str:
         return self.__preferences[Property.MAP_FILE]
 
+    def get_finish_image(self) -> str:
+        return self.__preferences[Property.FINISH_IMAGE]
+
+    def get_start_image(self) -> str:
+        return self.__preferences[Property.START_IMAGE]
+
     def __str__(self):
         return str(self.__preferences)
 

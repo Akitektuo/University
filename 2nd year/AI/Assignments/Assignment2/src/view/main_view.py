@@ -1,10 +1,8 @@
-from threading import Thread
-
 import pygame
-from pygame import time, init, display, image, event
+from pygame import init, display, image, event, time
 from pygame.surface import Surface
 
-from src.util.constants import Color, Dimension
+from src.util.constants import Color, Dimension, Time
 from src.util.preferences import read_preferences
 from src.view.drone_view import DroneView
 
@@ -38,21 +36,22 @@ class MainView:
         self.screen.fill(Color.WHITE)
 
     def run(self):
-        Thread(target=self.__run_async).start()
-
-    def __run_async(self):
         self.__draw_empty_screen()
         self.running = True
 
         while self.running:
-            self.running = not any(e.type == pygame.QUIT for e in event.get())
-            self.drone_view.render_drone()
+            sleep(Time.SLEEP_MILLISECONDS)
+            scene, keep_running = self.drone_view.render_drone()
+            self.__set_screen(scene)
+            self.running = keep_running and not any(e.type == pygame.QUIT for e in event.get())
 
         self.__show_result()
         self.__quit()
 
     def __show_result(self):
-        print("Time taken: %s seconds" % self.drone_view.render_path())
+        scene, timer = self.drone_view.render_path()
+        self.__set_screen(scene)
+        print(f"Time taken: {timer} seconds")
 
     def __set_screen(self, surface: Surface):
         self.screen.blit(surface, (0, 0))
@@ -60,5 +59,5 @@ class MainView:
 
     def __quit(self):
         self.running = False
-        sleep(5000)
+        sleep(Time.TREE_SECONDS)
         pygame.quit()

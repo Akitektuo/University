@@ -34,5 +34,8 @@ class EnvironmentController:
     def get_height(self) -> int:
         return self.__environment_model.height
 
+    def get_surface(self):
+        return self.__environment_model.surface
+
     def is_wall(self, x: int, y: int) -> int:
-        return self.__environment_model.surface[x][y] == Status.WALL
+        return self.get_surface()[x][y] == Status.WALL
