@@ -3,7 +3,7 @@ from threading import Thread
 import pygame
 from pygame.surface import Surface
 
-from src.util.constants import Color, Dimensions
+from src.util.constants import Color, Dimension
 from src.util.preferences import read_preferences
 
 
@@ -28,8 +28,8 @@ class MainView:
             read_preferences().get_title())
 
     def __draw_empty_screen(self):
-        width = read_preferences().get_height() * Dimensions.BRICK_SIZE
-        height = read_preferences().get_width() * Dimensions.BRICK_SIZE
+        width = read_preferences().get_height() * Dimension.BRICK_SIZE
+        height = read_preferences().get_width() * Dimension.BRICK_SIZE
 
         self.screen = pygame.display.set_mode((width, height))
         self.screen.fill(Color.WHITE)

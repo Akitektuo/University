@@ -1,4 +1,4 @@
-from src.util.constants import Properties
+from src.util.constants import Property
 
 
 class Preferences:
@@ -15,22 +15,22 @@ class Preferences:
             self._loaded = True
 
     def get_logo_image(self) -> str:
-        return self.__preferences[Properties.LOGO_IMAGE]
+        return self.__preferences[Property.LOGO_IMAGE]
 
     def get_drone_image(self) -> str:
-        return self.__preferences[Properties.DRONE_IMAGE]
+        return self.__preferences[Property.DRONE_IMAGE]
 
     def get_title(self) -> str:
-        return self.__preferences[Properties.TITLE]
+        return self.__preferences[Property.TITLE]
 
     def get_width(self) -> int:
-        return int(self.__preferences[Properties.WIDTH])
+        return int(self.__preferences[Property.WIDTH])
 
     def get_height(self) -> int:
-        return int(self.__preferences[Properties.HEIGHT])
+        return int(self.__preferences[Property.HEIGHT])
 
     def get_map_file(self) -> str:
-        return self.__preferences[Properties.MAP_FILE]
+        return self.__preferences[Property.MAP_FILE]
 
     def __str__(self):
         return str(self.__preferences)

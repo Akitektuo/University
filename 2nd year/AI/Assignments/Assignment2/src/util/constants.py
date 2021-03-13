@@ -21,11 +21,11 @@ class Status:
     WALL = 1
 
 
-class Dimensions:
+class Dimension:
     BRICK_SIZE = 20
 
 
-class Properties:
+class Property:
     LOGO_IMAGE = "logo_image"
     DRONE_IMAGE = "drone_image"
     TITLE = "title"
