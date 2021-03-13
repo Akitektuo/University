@@ -16,15 +16,13 @@ class EnvironmentView:
 
         surface = Surface((width, height))
         surface.fill(background)
-        
+
         brick = Surface((Dimension.BRICK_SIZE, Dimension.BRICK_SIZE))
         brick.fill(color)
 
-        environment = self.controller.environment_model
-
-        for i in range(environment.height):
-            for j in range(environment.width):
-                if environment.surface[i][j] == Status.WALL:
+        for i in range(self.controller.get_height()):
+            for j in range(self.controller.get_width()):
+                if self.controller.is_wall(i, j):
                     surface.blit(brick, (j * Dimension.BRICK_SIZE, i * Dimension.BRICK_SIZE))
 
         return surface

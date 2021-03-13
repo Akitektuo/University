@@ -18,9 +18,10 @@ class DroneView:
         surface = self.environment_view.render()
 
         drone_image = image.load(read_preferences().get_drone_image())
-        drone = self.drone_controller.drone
+        x = self.drone_controller.get_drone_x()
+        y = self.drone_controller.get_drone_x()
 
-        surface.blit(drone_image, (drone.y * Dimension.BRICK_SIZE, drone.x * Dimension.BRICK_SIZE))
+        surface.blit(drone_image, (y * Dimension.BRICK_SIZE, x * Dimension.BRICK_SIZE))
 
         return surface
 
@@ -30,7 +31,7 @@ class DroneView:
         mark = Surface((Dimension.BRICK_SIZE, Dimension.BRICK_SIZE))
         mark.fill(Color.GREEN)
 
-        for move in self.drone_controller.path:
+        for move in self.drone_controller.get_path():
             surface.blit(mark, (move[1] * Dimension.BRICK_SIZE, move[0] * Dimension.BRICK_SIZE))
 
-        return self.drone_controller.computed_time
+        return self.drone_controller.get_computed_time()
