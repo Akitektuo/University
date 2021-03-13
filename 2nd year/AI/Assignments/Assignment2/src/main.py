@@ -3,6 +3,7 @@ from random import randint
 import pygame
 
 from src.controller.environment_controller import EnvironmentController
+from src.old_file import Map
 from src.util.constants import Color
 from detected_map import DetectedMap
 from drone import Drone
@@ -68,14 +69,7 @@ def run(environment, detected_map, drone, screen):
 
 
 def main():
-    env1 = Environment()
-    data = env1.load_environment("assets/test2.map")
-    env2 = EnvironmentController()
-    env2.environment_model.width = data.width
-    env2.environment_model.height = data.height
-    env2.environment_model.surface = data.surface
-    env2.save_environment()
-    # MainView().run()
+    MainView().run()
 
 
 if __name__ == '__main__':

@@ -26,3 +26,4 @@ class EnvironmentController:
     def load_environment(self):
         with open(read_preferences().get_map_file(), "rb") as file:
             self.environment_model = pickle.load(file)
+            return self.environment_model
