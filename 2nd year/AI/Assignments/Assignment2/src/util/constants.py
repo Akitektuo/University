@@ -45,3 +45,4 @@ class Time:
 class Algorithm:
     A_STAR = "A*"
     GREEDY = "Greedy"
+    HILL_CLIMBING = "Hill climbing"

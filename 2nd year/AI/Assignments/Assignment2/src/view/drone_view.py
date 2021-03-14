@@ -51,4 +51,9 @@ class DroneView:
         render_image(surface, finish, read_preferences().get_finish_image())
 
     def __choose_algorithm(self, algorithm: Algorithm):
-        return (self.drone_controller.search_a_star, self.drone_controller.search_greedy)[algorithm == Algorithm.GREEDY]
+        if algorithm == Algorithm.A_STAR:
+            return self.drone_controller.search_a_star
+        if algorithm == Algorithm.GREEDY:
+            return self.drone_controller.search_greedy
+        if algorithm == Algorithm.HILL_CLIMBING:
+            return self.drone_controller.search_hill_climbing

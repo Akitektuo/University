@@ -6,6 +6,7 @@ from numpy import ndarray
 
 from src.algorithm.a_star import execute_a_star
 from src.algorithm.greedy import execute_greedy
+from src.algorithm.hill_climbing import execute_hill_climbing
 from src.controller.environment_controller import EnvironmentController
 from src.model.drone_model import DroneModel
 from src.util.constants import Time
@@ -39,6 +40,9 @@ class DroneController:
 
     def search_greedy(self, start: tuple[int, int] = None, end: tuple[int, int] = None) -> bool:
         return self.__run_algorithm(execute_greedy, start, end)
+
+    def search_hill_climbing(self, start: tuple[int, int] = None, end: tuple[int, int] = None) -> bool:
+        return self.__run_algorithm(execute_hill_climbing, start, end)
 
     def __run_algorithm(self,
                         algorithm_function: Callable[

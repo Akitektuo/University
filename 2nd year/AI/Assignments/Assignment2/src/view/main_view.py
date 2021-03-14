@@ -38,6 +38,7 @@ class MainView:
     def run(self):
         self.__run_with_algorithm(Algorithm.A_STAR)
         self.__run_with_algorithm(Algorithm.GREEDY)
+        self.__run_with_algorithm(Algorithm.HILL_CLIMBING)
         self.__quit()
 
     def __run_with_algorithm(self, algorithm: Algorithm):
