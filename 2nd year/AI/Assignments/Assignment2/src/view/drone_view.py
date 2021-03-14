@@ -1,7 +1,7 @@
 from pygame import Surface, image
 
 from src.controller.drone_controller import DroneController
-from src.util.constants import Dimension, Color
+from src.util.constants import Dimension, Color, Algorithm
 from src.util.preferences import read_preferences
 from src.view.environment_view import EnvironmentView
 
@@ -29,9 +29,8 @@ class DroneView:
 
         return surface, self.drone_controller.get_computed_time()
 
-    def render_drone(self) -> tuple[Surface, float]:
-        should_continue = self.drone_controller.search_a_star()
-        # self.drone_controller.search_greedy()
+    def render_drone(self, algorithm: Algorithm) -> tuple[Surface, float]:
+        should_continue = self.__choose_algorithm(algorithm)()
 
         surface, _ = self.render_path()
 
@@ -50,3 +49,6 @@ class DroneView:
 
         render_image(surface, start, read_preferences().get_start_image())
         render_image(surface, finish, read_preferences().get_finish_image())
+
+    def __choose_algorithm(self, algorithm: Algorithm):
+        return (self.drone_controller.search_a_star, self.drone_controller.search_greedy)[algorithm == Algorithm.GREEDY]

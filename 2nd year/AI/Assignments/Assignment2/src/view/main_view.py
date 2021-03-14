@@ -2,7 +2,7 @@ import pygame
 from pygame import init, display, image, event, time
 from pygame.surface import Surface
 
-from src.util.constants import Color, Dimension, Time
+from src.util.constants import Color, Dimension, Time, Algorithm
 from src.util.preferences import read_preferences
 from src.view.drone_view import DroneView
 
@@ -36,22 +36,27 @@ class MainView:
         self.screen.fill(Color.WHITE)
 
     def run(self):
+        self.__run_with_algorithm(Algorithm.A_STAR)
+        self.__run_with_algorithm(Algorithm.GREEDY)
+        self.__quit()
+
+    def __run_with_algorithm(self, algorithm: Algorithm):
         self.__draw_empty_screen()
         self.running = True
 
         while self.running:
             sleep(Time.SLEEP_MILLISECONDS)
-            scene, keep_running = self.drone_view.render_drone()
+            scene, keep_running = self.drone_view.render_drone(algorithm)
             self.__set_screen(scene)
             self.running = keep_running and not any(e.type == pygame.QUIT for e in event.get())
 
-        self.__show_result()
-        self.__quit()
+        self.__show_result(algorithm)
 
-    def __show_result(self):
+    def __show_result(self, algorithm: Algorithm):
         scene, timer = self.drone_view.render_path()
         self.__set_screen(scene)
-        print(f"Time taken: {timer} seconds")
+        print(f"Time taken with {algorithm}: {timer} seconds")
+        sleep(Time.TREE_SECONDS)
 
     def __set_screen(self, surface: Surface):
         self.screen.blit(surface, (0, 0))
@@ -59,5 +64,4 @@ class MainView:
 
     def __quit(self):
         self.running = False
-        sleep(Time.TREE_SECONDS)
         pygame.quit()

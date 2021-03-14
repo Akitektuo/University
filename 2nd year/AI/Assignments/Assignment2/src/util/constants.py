@@ -40,3 +40,8 @@ class Time:
     SECOND_IN_MILLISECONDS = 1000
     SLEEP_MILLISECONDS = 100
     TREE_SECONDS = 3000
+
+
+class Algorithm:
+    A_STAR = "A*"
+    GREEDY = "Greedy"

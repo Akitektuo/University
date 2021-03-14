@@ -1,6 +1,11 @@
+from collections import Callable
 from time import time
+from typing import Optional
+
+from numpy import ndarray
 
 from src.algorithm.a_star import execute_a_star
+from src.algorithm.greedy import execute_greedy
 from src.controller.environment_controller import EnvironmentController
 from src.model.drone_model import DroneModel
 from src.util.constants import Time
@@ -30,6 +35,17 @@ class DroneController:
         self.__timer_start = 0
 
     def search_a_star(self, start: tuple[int, int] = None, end: tuple[int, int] = None) -> bool:
+        return self.__run_algorithm(execute_a_star, start, end)
+
+    def search_greedy(self, start: tuple[int, int] = None, end: tuple[int, int] = None) -> bool:
+        return self.__run_algorithm(execute_greedy, start, end)
+
+    def __run_algorithm(self,
+                        algorithm_function: Callable[
+                            [ndarray, tuple[int, int], tuple[int, int]],
+                            Optional[tuple[int, int]]],
+                        start: tuple[int, int] = None,
+                        end: tuple[int, int] = None) -> bool:
         if not self.__timer_start:
             self.__start = (start, (self.__initial_x, self.__initial_y))[start is None]
             self.__end = (end, get_random_range_tuple())[end is None]
@@ -37,7 +53,7 @@ class DroneController:
 
         self.__start_timer_if_not_running()
 
-        new_position = execute_a_star(self.__environment_controller.get_surface(), self.__start, self.__end)
+        new_position = algorithm_function(self.__environment_controller.get_surface(), self.__start, self.__end)
         self.__drone.set_coordinates(new_position)
 
         if new_position:
@@ -46,12 +62,6 @@ class DroneController:
             self.__compute_execution_time()
 
         return new_position is not None
-
-    def search_greedy(self, start: tuple[int, int], end: tuple[int, int]) -> [tuple[int, int]]:
-        start_time = time()
-        # TODO write algorithm
-        self.__computed_time = time() - start_time
-        return self.__path
 
     def get_drone_x(self) -> int:
         return self.__drone.x
@@ -67,6 +77,3 @@ class DroneController:
 
     def get_computed_time(self) -> float:
         return self.__computed_time
-
-    def is_finished(self):
-        return
