@@ -47,21 +47,30 @@ class DroneController:
                         start: tuple[int, int] = None,
                         end: tuple[int, int] = None) -> bool:
         if not self.__timer_start:
-            self.__start = (start, (self.__initial_x, self.__initial_y))[start is None]
-            self.__end = (end, get_random_range_tuple())[end is None]
-            self.__path = []
+            self.__before_algorithm_execution(start, end)
 
         self.__start_timer_if_not_running()
 
         new_position = algorithm_function(self.__environment_controller.get_surface(), self.__start, self.__end)
-        self.__drone.set_coordinates(new_position)
 
         if new_position:
-            self.__path.append(new_position)
+            self.__while_algorithm_executing(new_position)
         else:
-            self.__compute_execution_time()
+            self.__after_algorithm_execution()
 
         return new_position is not None
+
+    def __before_algorithm_execution(self, start: tuple[int, int] = None, end: tuple[int, int] = None):
+        self.__start = (start, (self.__initial_x, self.__initial_y))[start is None]
+        self.__end = (end, get_random_range_tuple())[end is None]
+        self.__path = []
+
+    def __while_algorithm_executing(self, new_position: tuple[int, int]):
+        self.__drone.set_coordinates(new_position)
+        self.__path.append(new_position)
+
+    def __after_algorithm_execution(self, ):
+        self.__compute_execution_time()
 
     def get_drone_x(self) -> int:
         return self.__drone.x
