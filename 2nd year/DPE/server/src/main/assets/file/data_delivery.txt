@@ -1,0 +1,2 @@
+1_;_Cluj-Napoca_;_Bucuresti_;_458_;_true_;_cars_;_1_;_1
+2_;_Cluj-Napoca_;_Deva_;_192_;_true_;_drinks_;_1_;_1

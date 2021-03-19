@@ -1,0 +1,11 @@
+<users>
+    <user>
+        <id>2</id>
+        <firstName>TI</firstName>
+        <lastName>BI</lastName>
+        <email>22Asd@gmail.com</email>
+        <password>aADASD1232!@@</password>
+        <dateOfBirth>1990-01-01</dateOfBirth>
+        <truckId>4</truckId>
+    </user>
+</users>

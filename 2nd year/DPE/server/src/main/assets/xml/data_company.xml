@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<companies>
+    <company>
+        <id>1</id>
+        <name>Cluj</name>
+    </company>
+    <company>
+        <id>2</id>
+        <name>AS</name>
+    </company>
+    <company>
+        <id>3</id>
+        <name>Maia</name>
+    </company>
+    <company>
+        <id>4</id>
+        <name>ATAR</name>
+    </company>
+</companies>

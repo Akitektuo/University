@@ -1,0 +1,5 @@
+rootProject.name = 'truckers'
+include 'server'
+include 'client'
+include 'shared'
+

@@ -1,0 +1,11 @@
+ro.ubb.truckers
+ro.ubb.truckers.controller
+ro.ubb.truckers.domain
+ro.ubb.truckers.domain.entity
+ro.ubb.truckers.domain.validator
+ro.ubb.truckers.repository
+ro.ubb.truckers.repository.mapper.file
+ro.ubb.truckers.service
+ro.ubb.truckers.console
+ro.ubb.truckers.console.command
+ro.ubb.truckers.util

@@ -1,0 +1,280 @@
+@startuml
+
+title __Entity Class Diagram__\n
+
+
+namespace domain {
+      namespace entity {
+        class domain.entity.BaseEntity <ID> {
+            - id: ID
+            + BaseEntity(id: ID)
+            + getId(): ID
+            + setId(id: ID): void
+            + toString(): String
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.Company {
+            - name: String
+            + Company(id: int, name: String)
+            + getName(): String
+            + setName(name: String)): String
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.Delivery {
+            - origin: String
+            - destination: String.
+            - distance: int
+            - delivered: boolean
+            - load: String
+            - truckId: int
+            - companyId: int
+
+            + Delivery(id: int, origin: String, destination: String, distance: int,
+            delivered: boolean, load: String, truckId: int, companyId: int)
+            + getOrigin(): String
+            + getDestination(): String
+            + getDistance(): int
+            + isDelivered(): boolean
+            + getLoad(): String
+            + getTruckId(): int
+            + getCompanyId(): int
+            + setOrigin(origin: String): void
+            + setDestination(destination: String): void
+            + setDistance(distance: int): void
+            + setDelivered(delivered: boolean): void
+            + setLoad(load: String): void
+            + setTruckId(truckId: int): void
+            + setCompanyId(companyId: int): void
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.Garage {
+            - location: String
+            - capacity: int
+            - allocatedTrucks: int
+            - companyId: int
+
+            + Garage(id: int, location: String, capacity: int, allocatedTrucks: int, companyId: int)
+            + getLocation(): String
+            + getCapacity(): int
+            + getAllocatedTrucks(): int
+            + getCompanyId(): int
+            + setLocation(location: String): void
+            + setCapacity(capacity: int): void
+            + setAllocatedTrucks(allocatedTrucks: int): void
+            + setCompanyId(companyId: int): void
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.Truck {
+            - model: String
+            - licensePlate: String
+            - mileage: int
+            - driverId: int
+            - garageId: int
+
+            + Truck(id: int, model: String, licensePlate: String, driverId: int, garageId: int)
+            + getModel(): String
+            + getLicensePlate(): String
+            + getMileage(): int
+            + getDriverId(): int
+            + getGarageId(): int
+            + setModel(model: String): void
+            + setLicensePlate(licensePlate: String): void
+            + setMileage(mileage: int): void
+            + setDriverId(driverId: int): void
+            + setGarageId(garageId: int): void
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.User {
+            - firstName: String
+            - lastName: String
+            - email: String
+            - password: String
+            - dateOfBirth: LocalDate
+            - truckId: int
+            + User(id: int, firstName: String, lastName: String, email: String, password: String, dateOfBirth: LocalDate, truckId: int)
+            + getFirstName(): String
+            + getLastName(): String
+            + getEmail(): String
+            + getPassword(): String
+            + getDateOfBirth(): LocalDate
+            + getTruckId(): int
+            + setFirstName(firstName: String): void
+            + setLastName(lastName: String): void
+            + setEmail(email: String): void
+            + setPassword(password: String): void
+            + setDateOfBirth(dateOfBirth: LocalDate)): void
+            + setTruckId(truckId: int): void
+            + getFullName(): String
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace entity {
+        class domain.entity.UserCompany {
+            - manager: boolean
+            + UserCompany(compositeId: Pair<Integer, Integer>, manager: boolean)
+            + UserCompany(userId: int, companyId: int, manager: boolean)
+            + isManager(): boolean
+            + getUserId(): int
+            + getCompanyId(): int
+            + setManager(manager: boolean): void
+            + setUserId(userId: int): void
+            + setCompanyId(companyId: int): void
+        }
+      }
+    }
+
+
+
+  domain.entity.Company -up-|> domain.entity.BaseEntity: Integer
+  domain.entity.Delivery -up-|> domain.entity.BaseEntity: Integer
+  domain.entity.Garage -up-|> domain.entity.BaseEntity: Integer
+  domain.entity.Truck -up-|> domain.entity.BaseEntity: Integer
+  domain.entity.User -up-|> domain.entity.BaseEntity: Integer
+  domain.entity.UserCompany -up-|> domain.entity.BaseEntity: Pair<Integer,Integer>
+
+    namespace domain {
+      namespace validator {
+        interface domain.validator.Validator <T> {
+            {abstract} + validate(entity: T): void
+        }
+      }
+    }
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.CompanyValidator {
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.DeliveryValidator {
+            - validateId(entity: Delivery)
+            - validateDistance(entity: Delivery)
+            - validateLoad(entity: Delivery)
+            - validateOrigin(entity: Delivery)
+            - validateDestination(entity: Delivery)
+            - validateTruckId(entity: Delivery)
+            - validateCompanyId(entity: Delivery)
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.GarageValidator {
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.TruckValidator {
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.UserCompanyValidator {
+        }
+      }
+    }
+
+
+
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.UserValidator {
+            {static} + EMAIL_REGEX: String
+        }
+      }
+    }
+
+    namespace domain {
+      namespace validator {
+        class domain.validator.ValidatorException {
+            + ValidatorException(message: String)
+            + ValidatorException(message: String, cause: Throwable)
+            + ValidatorException(cause: Throwable)
+        }
+      }
+    }
+
+
+
+  domain.validator.CompanyValidator .up.|> domain.validator.Validator: Company
+  domain.validator.DeliveryValidator .up.|> domain.validator.Validator :Delivery
+  domain.validator.GarageValidator .up.|> domain.validator.Validator: Garage
+  domain.validator.TruckValidator .up.|> domain.validator.Validator: Truck
+  domain.validator.UserCompanyValidator .up.|> domain.validator.Validator: UserCompany
+  domain.validator.UserValidator .up.|> domain.validator.Validator: User
+  domain.validator.ValidatorException -up-|> domain.TruckersException
+
+
+namespace domain {
+  class domain.TruckersException {
+      + TruckersException(message: String)
+      + TruckersException(message: String, parameters: Object[1..*])
+      + TruckersException(message: String, cause: Throwable)
+      + TruckersException(cause: Throwable)
+  }
+}
+
+
+
+@enduml

@@ -1,0 +1,12 @@
+<deliveries>
+    <delivery>
+        <id>1</id>
+        <origin>Cluj</origin>
+        <destination>Suceava</destination>
+        <distance>3000</distance>
+        <delivered>true</delivered>
+        <load>cartofiori</load>
+        <truckId>1</truckId>
+        <companyId>1</companyId>
+    </delivery>
+</deliveries>

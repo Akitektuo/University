@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<userCompanies>
+    <userCompany>
+        <userId>1</userId>
+        <companyId>3</companyId>
+        <manager>true</manager>
+    </userCompany>
+</userCompanies>
