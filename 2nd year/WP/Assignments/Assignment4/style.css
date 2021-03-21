@@ -1,0 +1,97 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.combo-box {
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 8px;
+    min-width: 185px;
+}
+
+.label {
+    position: absolute;
+    top: 0;
+    left: 16px;
+    background-color: white;
+    color: slategray;
+    font-size: 13px;
+    padding: 0 2px;
+    transition: color 0.3s;
+    z-index: 1;
+}
+
+.selected-option {
+    border: 1px solid silver;
+    color: gray;
+    border-radius: 4px;
+    padding: 6px 8px 4px;
+    transition: border 0.3s;
+}
+
+.selected-option.selected {
+    font-weight: 500;
+    color: black;
+}
+
+.options-container {
+    position: absolute;
+    top: 8px;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: white;
+    display: none;
+}
+
+.options-container input {
+    border: none;
+    outline: none;
+    padding: 8px 8px 4px;
+}
+
+.option-list {
+    padding: 0 4px;
+    max-height: 256px;
+    overflow-y: auto;
+}
+
+.option {
+    padding: 4px;
+    border-top: 1px solid silver;
+    transition: background-color 0.3s,
+        padding 0.2s,
+        margin 0.2s;
+}
+
+.option:hover {
+    background-color: rgba(0, 81, 255, 0.2);
+    padding: 4px 8px;
+    margin: 0 -4px;
+}
+
+.focused .label {
+    color: dodgerblue;
+}
+
+.focused .selected-option {
+    border-color: dodgerblue;
+}
+
+.focused .options-container {
+    display: initial;
+}
+
+.option.selected {
+    background-color: rgba(0, 102, 255, 0.4);
+}
