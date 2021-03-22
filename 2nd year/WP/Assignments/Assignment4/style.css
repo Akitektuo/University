@@ -20,6 +20,22 @@ body {
     min-width: 185px;
 }
 
+.disabled {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    position: absolute;
+    z-index: 1;
+    cursor: not-allowed;
+    background-color: rgba(214, 214, 214, 0.5);
+    display: none;
+}
+
+.disabled.active {
+    display: block;
+}
+
 .label {
     position: absolute;
     top: 0;
@@ -29,7 +45,7 @@ body {
     font-size: 13px;
     padding: 0 2px;
     transition: color 0.3s;
-    z-index: 1;
+    z-index: 2;
 }
 
 .selected-option {
@@ -52,6 +68,7 @@ body {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background: white;
     display: none;
+    z-index: 3;
 }
 
 .options-container input {
@@ -82,6 +99,7 @@ body {
 
 .focused .label {
     color: dodgerblue;
+    z-index: 4;
 }
 
 .focused .selected-option {

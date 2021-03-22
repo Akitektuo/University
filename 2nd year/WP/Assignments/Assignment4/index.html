@@ -2,6 +2,9 @@
 <html>
     <head>
         <link href="style.css" rel="stylesheet" />
+        <script src="extensions.js" defer></script>
+        <script src="accessor.js" defer></script>
+        <script src="combo-box.js" defer></script>
         <script src="script.js" defer></script>
     </head>
     <body>
@@ -12,6 +15,17 @@
                 <input placeholder="Search for county"/>
                 <div class="option-list"></div>
             </div>
+            <div class="disabled active"></div>
         </div>
+        <div class="combo-box cities">
+            <div class="label">City</div>
+            <div class="selected-option">Select a value</div>
+            <div class="options-container">
+                <input placeholder="Search for city"/>
+                <div class="option-list"></div>
+            </div>
+            <div class="disabled active"></div>
+        </div>
+        <div class="selected-options"></div>
     </body>
 </html>
