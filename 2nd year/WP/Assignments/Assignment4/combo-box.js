@@ -60,7 +60,7 @@ const ComboBox = (containerSelector, initialData) => {
         setSelectionInOptions(option);
 
         setFocused(false);
-        selectionListener?.(data[option.attributes.key.value]);
+        selectionListener?.(data[option.getAttribute("key")]);
     });
 
     const setOptionSelectionListeners = () => options?.forEach(setOptionSelectionListener);
