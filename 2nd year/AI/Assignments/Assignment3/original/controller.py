@@ -26,11 +26,12 @@ class Controller:
         fitness_avg = []
         fitness_max = []
         best_solution = None
-        population = self.repository.get_population()
 
         for _ in range(number_of_runs):
             self.iteration(population_size)
-            fitness_avg.append(statistics.mean([individual.fitness for individual in population]))
+            population = self.repository.get_population()
+            mean = statistics.mean([individual.fitness for individual in population])
+            fitness_avg.append(mean)
             fitness_max.append(max([individual.fitness for individual in population]))
 
             for individual in population:

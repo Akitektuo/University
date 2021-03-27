@@ -10,7 +10,7 @@ class Repository:
         self.map = Map()
 
     def create_population(self, battery, population_size, individual_size):
-        self.drone = Drone(battery=battery)
+        self.drone.battery = battery
         self.population = Population(self.drone, self.map, population_size, individual_size)
 
     def set_new_population(self, population_list):

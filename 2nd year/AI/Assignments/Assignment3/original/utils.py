@@ -23,3 +23,7 @@ WALL = 1
 
 def random_list(start, until, size):
     return [randrange(start, until) for _ in range(size)]
+
+
+def fill(value, n, m):
+    return [[value for _ in range(n)] for _ in range(m)]

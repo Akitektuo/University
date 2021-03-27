@@ -40,6 +40,9 @@ def move_drone(current_map, path, speed=0.5, mark_seen=True):
     screen = initialize_gui((current_map.n * 20, current_map.m * 20))
     drona = pygame.image.load("drona.png")
 
+    if not path:
+        return
+
     for i in range(len(path)):
         screen.blit(image(current_map), (0, 0))
 
@@ -50,9 +53,11 @@ def move_drone(current_map, path, speed=0.5, mark_seen=True):
                 for direction in DIRECTIONS:
                     x = path[j][0]
                     y = path[j][1]
-                    drone = Drone(direction[0] + x, direction[1] + y)
+                    drone = Drone(x + direction[0], y + direction[1])
                     while current_map.is_in_bounds(drone) and not current_map.is_wall(drone):
                         screen.blit(brick, (drone.y * 20, drone.x * 20))
+                        drone.x += direction[0]
+                        drone.y += direction[1]
 
         screen.blit(drona, (path[i][1] * 20, path[i][0] * 20))
         pygame.display.flip()

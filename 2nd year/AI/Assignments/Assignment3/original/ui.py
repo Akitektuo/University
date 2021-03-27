@@ -131,7 +131,10 @@ class Command:
         print("\t2e. View the drone")
 
         choice = input("> ")
-        return self.option_handler[choice]
+        try:
+            return self.option_handler[choice]
+        except:
+            return None
 
     def run(self):
         while True:

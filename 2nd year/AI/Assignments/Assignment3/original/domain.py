@@ -1,15 +1,14 @@
 from copy import deepcopy
+from itertools import repeat
 from random import *
 
 import numpy
 
-from original.utils import MAP_SIZE, WALL, random_list, DIRECTIONS
+from original.utils import MAP_SIZE, WALL, random_list, DIRECTIONS, fill
 
 
 class Gene:
     def __init__(self, size):
-        if not size:
-            return
         self.chromosome = random_list(0, 4, size)
         self.size = size
 
@@ -23,8 +22,7 @@ class Gene:
         return self.chromosome[i]
 
     def get_crossover(self, with_gene, cut):
-        gene = Gene(None)
-        gene.size = self.size
+        gene = Gene(self.size)
 
         for i in range(self.size):
             gene.set(i, (with_gene, self)[i < cut].get(i))
@@ -41,7 +39,7 @@ class Individual:
 
     def compute_fitness(self):
         drone = deepcopy(self.drone)
-        marked = numpy.full((self.map.n, self.map.n), False)
+        marked = fill(False, self.map.n, self.map.m)
         moves = 0
 
         for chromosome in self.gene.chromosome:
@@ -49,12 +47,12 @@ class Individual:
 
             for direction in DIRECTIONS:
                 simulation = deepcopy(drone)
-                invalid = True
 
-                while invalid:
+                while True:
                     simulation.x += direction[0]
                     simulation.y += direction[1]
-                    invalid = not self.map.is_in_bounds(simulation) or self.map.is_wall(simulation)
+                    if not self.map.is_in_bounds(simulation) or self.map.is_wall(simulation):
+                        break
                     marked[simulation.x][simulation.y] = True
 
             direction = DIRECTIONS[chromosome]
@@ -63,7 +61,7 @@ class Individual:
                 continue
             moves += 1
             drone = new_drone
-        self.fitness = [row.count(True) for row in marked].count(True)
+        self.fitness = sum([row.count(True) for row in marked])
 
     def mutate(self, probability=0.04):
         if random() >= probability or self.gene.size < 2:
@@ -84,6 +82,9 @@ class Individual:
         cut = randint(0, self.gene.size)
         return (Individual(self.drone, self.map, gene=self.get_crossover_gene(other_individual, cut)),
                 Individual(self.drone, self.map, gene=other_individual.get_crossover_gene(self, cut)))
+
+    def __str__(self):
+        return f"fitness: {self.fitness}"
 
 
 class Population:
