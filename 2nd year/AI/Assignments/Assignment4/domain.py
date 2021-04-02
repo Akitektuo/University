@@ -3,7 +3,7 @@ from random import *
 
 import numpy
 
-from original.utils import MAP_SIZE, WALL, random_list, DIRECTIONS, fill
+from utils import MAP_SIZE, WALL, random_list, DIRECTIONS, fill
 
 
 class Gene:

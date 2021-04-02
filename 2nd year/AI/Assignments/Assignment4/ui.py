@@ -4,8 +4,8 @@ from random import seed
 
 from matplotlib import pyplot
 
-from original.controller import Controller
-from original.gui import move_drone, render_drone
+from controller import Controller
+from gui import move_drone, render_drone
 
 
 class Command:
