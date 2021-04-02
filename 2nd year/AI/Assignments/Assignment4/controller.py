@@ -1,61 +1,74 @@
-import statistics
+from copy import deepcopy
 
-from domain import Drone
-from repository import Repository, deepcopy, DIRECTIONS
+from domain import Drone, Map, Ant
+from utils import DIRECTIONS, MAX_SENSOR_COVERAGE, ternary, PARAM_ANTS, PARAM_ALPHA, PARAM_BETA, PARAM_Q0, PARAM_RHO
 
 
 class Controller:
-    def __init__(self):
-        self.repository = Repository()
+    def __init__(self, drone: Drone, environment: Map):
+        self.drone = drone
+        self.map = environment
 
-    def iteration(self, population_size):
-        new_population = []
+        self.pheromone_matrix = []
+        for i in range(self.map.n):
+            pheromone_row = []
+            self.pheromone_matrix.append(pheromone_row)
 
-        for _ in range(population_size):
-            parent1 = self.repository.population.selection()
-            parent2 = self.repository.population.selection()
+            for j in range(self.map.m):
+                pheromone_square = []
+                pheromone_row.append(pheromone_square)
 
-            offspring, _ = parent1.crossover(parent2)
-            offspring.mutate()
+                for direction in DIRECTIONS:
+                    neighbour = [i + direction[0], j + direction[1]]
 
-            new_population.append(offspring)
+                    if self.map.is_tuple_in_bounds(neighbour) and not self.map.is_tuple_wall(neighbour):
+                        pheromone_square.append(ternary(
+                            self.map.is_tuple_sensor(neighbour),
+                            [1] * (MAX_SENSOR_COVERAGE + 1),
+                            [1, 0, 0, 0, 0, 0]))
+                    else:
+                        pheromone_square.append([0] * (MAX_SENSOR_COVERAGE + 1))
 
-        self.repository.set_new_population(new_population)
+        self.initial_pheromone_matrix = deepcopy(self.pheromone_matrix)
 
-    def run(self, population_size, number_of_runs, battery):
-        fitness_avg = []
-        fitness_max = []
-        best_solution = None
+    def iterate(self) -> Ant:
+        population = []
 
-        for _ in range(number_of_runs):
-            self.iteration(population_size)
-            population = self.repository.get_population()
-            mean = statistics.mean([individual.fitness for individual in population])
-            fitness_avg.append(mean)
-            fitness_max.append(max([individual.fitness for individual in population]))
+        for _ in range(PARAM_ANTS):
+            population.append(Ant(self.drone, self.map))
 
-            for individual in population:
-                if not best_solution or best_solution.fitness < individual.fitness:
-                    best_solution = deepcopy(individual)
+        for _ in range(self.drone.battery):
+            for ant in population:
+                ant.increase_path(self.pheromone_matrix, PARAM_ALPHA, PARAM_BETA, PARAM_Q0)
 
-        drone = self.repository.drone.get_tulip()
-        environment = self.repository.map
-        path = [drone]
-        moves = 0
-        for chromosome in best_solution.gene.chromosome:
-            direction = DIRECTIONS[chromosome]
-            next_drone = Drone(drone[0] + direction[0], drone[1] + direction[1])
+        for i in range(self.map.n):
+            for j in range(self.map.m):
+                for direction_index in range(len(DIRECTIONS)):
+                    for spent_energy in range(MAX_SENSOR_COVERAGE + 1):
+                        self.compute_pheromone_matrix(i, j, direction_index, spent_energy)
 
-            if not environment.is_in_bounds(next_drone) or environment.is_wall(next_drone) or battery < moves + 1:
-                continue
+        best_coverage, best_solution = max([(ant.check_coverage(), ant) for ant in population],
+                                           key=lambda pair: pair[0])
+        for ant in population:
 
-            moves += 1
-            drone = next_drone.get_tulip()
-            path.append(drone)
+            ant_coverage = ant.check_coverage()
+            for i in range(len(ant.path) - 1):
 
-        return path, fitness_avg, fitness_max, best_solution.fitness
+                x = ant.path[i]
+                y = ant.path[i + 1]
+                direction_index = 0
+                for index, direction in enumerate(DIRECTIONS):
+                    if (x[0] + direction[0], x[1] + direction[1]) == (y[0], y[1]):
+                        direction_index = index
+                        break
 
-    def solver(self, population_size, individual_size, number_of_runs, battery):
-        self.repository.create_population(battery, population_size, individual_size)
+                self.pheromone_matrix[x[0]][x[1]][direction_index][y[2]] += (ant_coverage + 1) / (
+                        (best_coverage + 1) * len(ant.path))
 
-        return self.run(population_size, number_of_runs, battery)
+        return best_solution
+
+    def compute_pheromone_matrix(self, i, j, direction_index, spent_energy):
+        pheromone_matrix_for_params = self.pheromone_matrix[i][j][direction_index][spent_energy]
+
+        self.pheromone_matrix[i][j][direction_index][spent_energy] = (1 - PARAM_RHO) * pheromone_matrix_for_params + \
+                                                                     PARAM_RHO * pheromone_matrix_for_params

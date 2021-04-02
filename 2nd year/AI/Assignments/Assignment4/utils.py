@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, random
 
 BLUE = (0, 0, 255)
 GRAY_BLUE = (50, 120, 120)
@@ -19,6 +19,17 @@ MAP_SIZE = 20
 UNKNOWN = -1
 EMPTY = 0
 WALL = 1
+SENSOR = 2
+
+MAX_SENSOR_COVERAGE = 5
+
+PARAM_ANTS = 80
+PARAM_ITERATIONS = 200
+PARAM_ALPHA = 0.8
+PARAM_BETA = 1.5
+PARAM_RHO = 0.1
+PARAM_Q0 = 0.3
+PARAM_BATTERY = 70
 
 
 def random_list(start, until, size):
@@ -27,3 +38,14 @@ def random_list(start, until, size):
 
 def fill(value, n, m):
     return [[value for _ in range(n)] for _ in range(m)]
+
+
+def ternary(condition, true, false):
+    return true if condition else false
+
+
+def selection_with_probabilities(iterable, probabilities):
+    while True:
+        for i in range(len(iterable)):
+            if random() <= probabilities[i]:
+                return iterable[i]
