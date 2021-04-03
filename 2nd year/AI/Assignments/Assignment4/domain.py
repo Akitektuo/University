@@ -49,7 +49,7 @@ class Map:
 
                     readings[k] = squares
 
-    def random_map(self, wall_fill=0.2, sensor_fill=0.05):
+    def random_map(self, wall_fill=0.2, sensor_fill=0.07):
         for i in range(self.n):
             for j in range(self.m):
                 if random() <= wall_fill:
