@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: clamp(256px, 75%, 1024px);
+    padding: 32px;
+}

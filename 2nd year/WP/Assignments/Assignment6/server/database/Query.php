@@ -11,6 +11,12 @@ include_once "utils.php";
 
 class Query
 {
+    public const COUNT_KEY = "COUNT(*)";
+
+    public const FETCH_OBJECT = "object";
+    public const FETCH_ARRAY = "array";
+    public const FETCH_ONCE = "once";
+
     private string $table;
     private string $query = "";
 
@@ -22,6 +28,13 @@ class Query
     public function select(): Query
     {
         $this->query = "SELECT * FROM $this->table";
+
+        return $this;
+    }
+
+    public function count(): Query
+    {
+        $this->query = "SELECT COUNT(*) FROM $this->table";
 
         return $this;
     }
@@ -39,11 +52,25 @@ class Query
         return $this;
     }
 
+    public function andBy(string $column, string $value): Query
+    {
+        $formattedValue = $this->formatString($value);
+        $this->query .= " AND $column = $formattedValue";
+
+        return $this;
+    }
+
     public function insert(...$values): Query
     {
-        $mapped_values = array_map("formatString", $values);
-        $concatenatedValues = implode(", ", $mapped_values);
-        $this->query = "INSERT INTO $this->table VALUES ($concatenatedValues)";
+        $columns = [];
+        $formattedValues = [];
+        for ($i = 0; $i < count($values); $i += 2) {
+            $columns[] = $values[$i];
+            $formattedValues[] = $this->formatString($values[$i + 1]);
+        }
+        $concatenatedColumns = implode(", ", $columns);
+        $concatenatedValues = implode(", ", $formattedValues);
+        $this->query = "INSERT INTO $this->table($concatenatedColumns) VALUES ($concatenatedValues)";
 
         return $this;
     }
@@ -74,11 +101,11 @@ class Query
 
     private function formatString(mixed $string): string
     {
-        $escaped_string = getDatabase()->escapeString($string);
+        $escapedString = getDatabase()->escapeString($string);
 
-        if (is_string($escaped_string)) {
-            return "'$escaped_string'";
+        if (is_string($escapedString)) {
+            return "'$escapedString'";
         }
-        return $escaped_string;
+        return $escapedString;
     }
 }
