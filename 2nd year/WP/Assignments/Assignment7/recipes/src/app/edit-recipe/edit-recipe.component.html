@@ -1,0 +1,29 @@
+<div class="content-container">
+	<div class="form-container">
+		<h1>Edit recipe</h1>
+		<div>
+			<div class="input-group">
+				<span>Title</span>
+				<input class="title" placeholder="Title" [(ngModel)]="recipe.title">
+			</div>
+			<div class="input-group">
+				<span>Username</span>
+				<input class="username" placeholder="Username" [(ngModel)]="recipe.author">
+			</div>
+			<div class="input-group">
+				<span>Recipe type</span>
+				<select class="recipe-types" [(ngModel)]="recipe.typeId">
+					<option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+				</select>
+			</div>
+			<div class="input-group">
+				<span>Description</span>
+				<textarea class="description" [(ngModel)]="recipe.description"></textarea>
+			</div>
+
+			<div class="actions">
+				<button class="save-recipe" (click)="onSave()">Save recipe</button>
+			</div>
+		</div>
+	</div>
+</div>
