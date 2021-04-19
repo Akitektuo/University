@@ -7,9 +7,9 @@
 	<h3>Past category - <i>{{pastCategoryName}}</i></h3>
 	<div class="recipes-container">
 		<div *ngFor="let recipe of recipes" class="recipe-item" [routerLink]="['../../recipe', recipe.id]">
-            <h3>{{recipe.title}}</h3>
-            <sub>By <i>{{recipe.author}}</i></sub>
-            <p>{{recipe.description}}</p>
-        </div>
+			<h3>{{recipe.title}}</h3>
+			<sub>By <i>{{recipe.author}}</i></sub>
+			<p>{{recipe.description}}</p>
+		</div>
 	</div>
 </div>
