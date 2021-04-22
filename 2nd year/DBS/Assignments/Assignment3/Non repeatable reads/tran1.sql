@@ -1,0 +1,6 @@
+BEGIN TRAN
+
+UPDATE Products
+SET Price = 150
+WHERE Id = 1
+COMMIT TRAN

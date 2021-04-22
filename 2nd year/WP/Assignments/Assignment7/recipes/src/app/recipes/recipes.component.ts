@@ -28,7 +28,7 @@ export class RecipesComponent implements OnInit {
 			idParamChange(params["id"]));
 	}
 
-	async getRecipes() {
+	getRecipes() {
 		this.onIdParam(async id => {
 			this.recipes = await this.service.getRecipesByType(id);
 			this.categoryName = this.recipes[0]?.typeName;
