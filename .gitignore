@@ -1326,3 +1326,31 @@ MigrationBackup/
 **/venv/Lib/
 **/__pycache__/
 **/Debug/
+target
+classes
+bin
+*.log
+dist
+node_modules
+
+# Eclipse
+.classpath
+.project
+.settings
+.metadata
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea
+build
+out
+MANIFEST.MF
+
+#gradle
+gradle
+.gradle
+gradlew
+gradlew.bat
+*.orig
