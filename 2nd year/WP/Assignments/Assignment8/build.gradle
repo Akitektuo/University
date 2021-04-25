@@ -32,6 +32,8 @@ compileTestKotlin {
 dependencies {
     implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31')
     compileOnly('javax:javaee-web-api:8.0.1')
+    implementation('mysql:mysql-connector-java:5.1.13')
+
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
