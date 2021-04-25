@@ -8,10 +8,14 @@ import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@WebServlet("/register-servlet")
+@WebServlet("/register")
 class RegisterServlet : HttpServlet() {
 
-    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse) {
+    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        if (req.session.getAttribute("user") != null) {
+            return resp.sendRedirect("/waiting-room")
+        }
+
         resp.renderHtml()
     }
 
@@ -41,7 +45,7 @@ class RegisterServlet : HttpServlet() {
                     $generalStyle
                 </head>
                 <body>
-                    <form class="container" action="register-servlet" method="post">
+                    <form class="container" action="register" method="post">
                         <div class="form-header">
                             <h2>Create account</h2>
                         </div>

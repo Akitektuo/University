@@ -48,3 +48,45 @@ val generalStyle = """
     }
 </style>
 """.trimIndent()
+
+val boardStyle = """
+<style>
+    .boards-container {
+        display: flex;
+    }
+    
+    .board-container:nth-child(2) {
+        margin-left: 32px;
+    }
+
+    .board-container {
+        border: 1px solid silver;
+    }
+    
+    .board-row {
+        display: flex;
+    }
+    
+    .board-cell {
+        height: 24px;
+        width: 24px;
+        border: 1px solid silver;
+    }
+    
+    .state-boat {
+        background-color: black;
+    }
+    
+    .state-miss {
+        background-color: blue;
+    }
+    
+    .state-hit {
+        background-color: red;
+    }
+    
+    .clickable {
+        cursor: pointer;
+    }
+</style>
+""".trimIndent()

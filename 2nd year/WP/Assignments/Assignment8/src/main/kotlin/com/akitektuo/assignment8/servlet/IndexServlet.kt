@@ -57,7 +57,7 @@ class IndexServlet : HttpServlet() {
                         </label>
                         ${renderError(error)}
                         <div class="form-actions">
-                            <button style="margin-right: 8px" onclick="navigateTo('register-servlet')">
+                            <button style="margin-right: 8px" onclick="navigateTo('register')">
                                 Create account
                             </button>
                             <input type="submit" value="Login"/>

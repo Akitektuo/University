@@ -7,3 +7,10 @@ val generalScript = """
     }
 </script>
 """.trimIndent()
+
+fun reloadAfter(milliseconds: Long) = """
+<script>
+    window.addEventListener("load", () =>
+        setTimeout(() => location.reload(), $milliseconds));
+</script>
+""".trimIndent()
