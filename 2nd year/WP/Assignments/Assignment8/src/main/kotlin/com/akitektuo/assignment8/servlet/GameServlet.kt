@@ -2,12 +2,7 @@ package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.game.Player
 import com.akitektuo.assignment8.game.gameHost
-import com.akitektuo.assignment8.resource.boardStyle
-import com.akitektuo.assignment8.resource.generalScript
-import com.akitektuo.assignment8.resource.generalStyle
-import com.akitektuo.assignment8.resource.reloadAfter
-import com.akitektuo.assignment8.util.SECONDS_10
-import com.akitektuo.assignment8.util.SECONDS_3
+import com.akitektuo.assignment8.util.*
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -47,70 +42,54 @@ class GameServlet : HttpServlet() {
         response.renderGame(player, otherPlayer)
     }
 
-    private fun HttpServletResponse.renderWait() {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Matchmaking</title>
-                    $generalStyle
-                    ${reloadAfter(SECONDS_10)}
-                </head>
-                <body>
-                    <form class="container" action="sign-out">
-                        <div class="form-header">
-                            <h2>Matchmaking for a game</h2>
-                        </div>
-                        <div class="form-actions">
-                            <input type="submit" value="Quit" />
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderWait() = html {
+        head {
+            title("Assignment8 - Matchmaking")
+            link("css/styles.css")
+            link("js/reload.js", SECONDS_10)
+        }
+        body {
+            form("container", "sign-out") {
+                div("form-header") {
+                    h2("Matchmaking for a game")
+                }
+                div("form-actions") {
+                    input(type = InputType.SUBMIT, value = "Quit")
+                }
+            }
+        }
     }
 
-    private fun HttpServletResponse.renderGame(player: Player, otherPlayer: Player) {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Game with ${otherPlayer.username}</title>
-                    $generalStyle
-                    $boardStyle
-                    $generalScript
-                    ${reloadAfter(SECONDS_3)}
-                </head>
-                <body>
-                    <form class="container" action="sign-out">
-                        <div class="form-header">
-                            <h2>Game with ${otherPlayer.username} - ${if (player.isTurn) "Your" else "Their"} turn</h2>
-                        </div>
-                        ${renderBoards(player, otherPlayer)}
-                        <h4>Your health: ${player.health}<h4>
-                        <div class="form-actions">
-                            <input type="submit" value="Quit" />
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderGame(player: Player, otherPlayer: Player) = html {
+        head {
+            title("Assignment8 - Game with ${otherPlayer.username}")
+            link("css/styles.css")
+            link("css/board.css")
+            link("js/script.js")
+            link("js/reload.js", SECONDS_3)
+        }
+        body {
+            form("container", "sign-out") {
+                div("form-header") {
+                    h2("Game with ${otherPlayer.username} - ${if (player.isTurn) "Your" else "Their"} turn")
+                }
+                renderBoards(player, otherPlayer)
+                h4("Your health: ${player.health}")
+                div("form-actions") {
+                    input(type = InputType.SUBMIT, value = "Quit")
+                }
+            }
+        }
     }
 
-    private fun renderBoards(player: Player, otherPlayer: Player) = """
-        <div class="boards-container">
-            <div class="board-container">
-                ${renderBoard(player)}
-            </div>
-            <div class="board-container">
-                ${renderEnemyBoard(otherPlayer)}
-            </div>
-        </div>
-    """.trimIndent()
+    private fun HtmlBuilder.renderBoards(player: Player, otherPlayer: Player) = div("boards-container") {
+        div("board-container") {
+            content { renderBoard(player) }
+        }
+        div("board-container") {
+            content { renderEnemyBoard(otherPlayer) }
+        }
+    }
 
     private fun renderBoard(player: Player) = player.mapBoard({ """<div class="board-row">${it}</div>""" }) {
         """<div class="board-cell ${it.cssClass}"></div>"""

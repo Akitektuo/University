@@ -82,6 +82,8 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
 
     fun h2(content: String = "") = hx(2, content)
 
+    fun h4(content: String = "") = hx(4, content)
+
     fun label(content: String = "", cssClass: String? = null, block: HtmlBuilder.() -> Unit = {}) {
         builder.append("<label")
         cssClass?.let { builder.append(" class=\"$cssClass\"") }
