@@ -7,6 +7,6 @@ inline fun <T : AutoCloseable?, R> T.use(block: (T) -> R) = try {
     throw exception
 }
 
-fun renderError(error: String?) = error?.let {
-    """<span class="error">$it</span>"""
-} ?: ""
+fun HtmlBuilder.renderError(error: String?) = error?.let {
+    span(it, "error")
+}

@@ -141,6 +141,17 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
             return
         }
     }
+
+    fun span(content: String = "", cssClass: String? = null, block: HtmlBuilder.() -> Unit = {}) {
+        builder.append("<span")
+        cssClass?.let { builder.append(" class=\"$cssClass\"") }
+        builder.append(">")
+
+        builder.append(content)
+        block(this)
+
+        builder.append("</span>")
+    }
 }
 
 fun HttpServletResponse.html(block: HtmlBuilder.() -> Unit = {}) {

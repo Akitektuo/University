@@ -1,8 +1,6 @@
 package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.authentication.CredentialsManager
-import com.akitektuo.assignment8.resource.generalScript
-import com.akitektuo.assignment8.resource.generalStyle
 import com.akitektuo.assignment8.util.FormMethod
 import com.akitektuo.assignment8.util.InputType
 import com.akitektuo.assignment8.util.html
@@ -52,7 +50,7 @@ class IndexServlet : HttpServlet() {
                 label("Enter password:", "label-with-input") {
                     input("medium-input", true, InputType.PASSWORD, "password")
                 }
-                content { renderError(error) }
+                renderError(error)
                 div("form-actions") {
                     button("Create account", style = "margin-right: 8px", onClick = "navigateTo('register')")
                     input(type = InputType.SUBMIT, value = "Login")
