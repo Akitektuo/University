@@ -1,6 +1,7 @@
 package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.game.Player
+import com.akitektuo.assignment8.game.State
 import com.akitektuo.assignment8.game.gameHost
 import com.akitektuo.assignment8.util.*
 import javax.servlet.annotation.WebServlet
@@ -97,6 +98,9 @@ class GameServlet : HttpServlet() {
 
     private fun renderEnemyBoard(player: Player) =
         player.mapEnemyBoard({ """<div class="board-row">${it}</div>""" }) { state, i, j ->
-            """<div class="board-cell ${state.cssClass} clickable" onClick="navigateTo('game?i=$i&j=$j')"></div>"""
+            """
+                <div class="board-cell ${state.cssClass}${if (state == State.EMPTY) " clickable" else ""}"
+                    ${if (state == State.EMPTY) "onClick=\"navigateTo('game?i=$i&j=$j')\"" else ""}></div>
+            """.trimMargin()
         }
 }

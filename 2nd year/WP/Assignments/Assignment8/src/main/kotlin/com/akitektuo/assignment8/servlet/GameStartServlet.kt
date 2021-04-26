@@ -2,9 +2,6 @@ package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.game.Player
 import com.akitektuo.assignment8.game.gameHost
-import com.akitektuo.assignment8.resource.boardStyle
-import com.akitektuo.assignment8.resource.generalScript
-import com.akitektuo.assignment8.resource.generalStyle
 import com.akitektuo.assignment8.util.InputType
 import com.akitektuo.assignment8.util.html
 import javax.servlet.annotation.WebServlet
