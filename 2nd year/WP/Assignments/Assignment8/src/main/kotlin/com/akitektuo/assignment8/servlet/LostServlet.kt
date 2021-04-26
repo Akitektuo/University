@@ -1,8 +1,8 @@
 package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.game.gameHost
-import com.akitektuo.assignment8.resource.generalScript
-import com.akitektuo.assignment8.resource.generalStyle
+import com.akitektuo.assignment8.util.InputType
+import com.akitektuo.assignment8.util.html
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -18,29 +18,22 @@ class LostServlet : HttpServlet() {
         response.renderHtml()
     }
 
-    private fun HttpServletResponse.renderHtml() {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Lost</title>
-                    $generalStyle
-                    $generalScript
-                </head>
-                <body>
-                    <form class="container" action="sign-out">
-                        <div class="form-header">
-                            <h2>You lost. :(</h2>
-                        </div>
-                        <div class="form-actions">
-                            <input type="submit" style="margin-right: 8px" value="Quit" />
-                            <button type="button" onclick="navigateTo('waiting-room')">Play another game</button>
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderHtml() = html {
+        head {
+            title("Assignment8 - Lost")
+            link("css/styles.css")
+            link("js/script.js")
+        }
+        body {
+            form("container", "sign-out") {
+                div("form-header") {
+                    h2("You lost. :(")
+                }
+                div("form-actions") {
+                    input(type = InputType.SUBMIT, style = "margin-right: 8px", value = "Quit")
+                    button("Play another game", "navigateTo('waiting-room')", type = InputType.BUTTON)
+                }
+            }
+        }
     }
 }

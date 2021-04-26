@@ -2,7 +2,6 @@ package com.akitektuo.assignment8.database
 
 import com.akitektuo.assignment8.game.gameHost
 import com.akitektuo.assignment8.util.MINUTE_1
-import com.akitektuo.assignment8.util.SECONDS_30
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,7 +23,10 @@ class WaitingQueue {
         GlobalScope.launch {
             while (true) {
                 delay(MINUTE_1)
-                cleanExpired()
+                try {
+                    cleanExpired()
+                } catch (_: Exception) {
+                }
             }
         }
     }

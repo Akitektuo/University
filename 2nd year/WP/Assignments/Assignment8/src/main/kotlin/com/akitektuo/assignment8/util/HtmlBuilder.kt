@@ -12,7 +12,8 @@ enum class FormMethod(val value: String) {
 enum class InputType(val value: String) {
     TEXT("text"),
     PASSWORD("password"),
-    SUBMIT("submit")
+    SUBMIT("submit"),
+    BUTTON("button")
 }
 
 class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
@@ -97,7 +98,8 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         required: Boolean = false,
         type: InputType? = null,
         name: String? = null,
-        value: String? = null
+        value: String? = null,
+        style: String? = null
     ) {
         builder.append("<input")
         cssClass?.let { builder.append(" class=\"$cssClass\"") }
@@ -105,6 +107,7 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         type?.let { builder.append(" type=\"${type.value}\"") }
         name?.let { builder.append(" name=\"$name\"") }
         value?.let { builder.append(" value=\"$value\"") }
+        style?.let { builder.append(" style=\"$style\"") }
         builder.append(">")
     }
 
@@ -114,14 +117,16 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
 
     fun button(
         content: String = "",
+        onClick: String? = null,
         cssClass: String? = null,
         style: String? = null,
-        onClick: String? = null
+        type: InputType? = null
     ) {
         builder.append("<button")
         cssClass?.let { builder.append(" class=\"$cssClass\"") }
         style?.let { builder.append(" style=\"$style\"") }
         onClick?.let { builder.append(" onclick=\"$onClick\"") }
+        type?.let { builder.append(" type=\"${type.value}\"") }
         builder.append(">")
 
         builder.append(content)

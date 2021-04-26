@@ -52,7 +52,7 @@ class IndexServlet : HttpServlet() {
                 }
                 renderError(error)
                 div("form-actions") {
-                    button("Create account", style = "margin-right: 8px", onClick = "navigateTo('register')")
+                    button("Create account", "navigateTo('register')", style = "margin-right: 8px")
                     input(type = InputType.SUBMIT, value = "Login")
                 }
             }
