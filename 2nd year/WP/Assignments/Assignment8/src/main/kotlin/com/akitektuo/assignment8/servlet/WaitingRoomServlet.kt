@@ -1,9 +1,9 @@
 package com.akitektuo.assignment8.servlet
 
 import com.akitektuo.assignment8.database.waitingQueue
-import com.akitektuo.assignment8.resource.generalStyle
-import com.akitektuo.assignment8.resource.reloadAfter
+import com.akitektuo.assignment8.util.InputType
 import com.akitektuo.assignment8.util.SECONDS_10
+import com.akitektuo.assignment8.util.html
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -23,28 +23,21 @@ class WaitingRoomServlet : HttpServlet() {
         resp.renderHtml(username, position)
     }
 
-    private fun HttpServletResponse.renderHtml(username: String, position: Int) {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Waiting room</title>
-                    $generalStyle
-                    ${reloadAfter(SECONDS_10)}
-                </head>
-                <body>
-                    <form class="container" action="sign-out" method="get">
-                        <div class="form-header">
-                            <h1>Hello $username, you have the queue position of $position</h1>
-                            <div class="form-actions">
-                                <input type="submit" value="Sign out" />
-                            </div>
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderHtml(username: String, position: Int) = html {
+        head {
+            title("Assignment8 - Waiting room")
+            link("css/styles.css")
+            link("js/reload.js", SECONDS_10)
+        }
+        body {
+            form("container", "sign-out") {
+                div("form-header") {
+                    h1("Hello $username, you have the queue position of $position")
+                    div("form-actions") {
+                        input(type = InputType.SUBMIT, value = "Sign out")
+                    }
+                }
+            }
+        }
     }
 }

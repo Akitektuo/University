@@ -26,6 +26,10 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         Files.readString(File(it.file).toPath())
     }
 
+    private fun hx(x: Int, content: String = "") {
+        builder.append("<h$x>$content</h$x>")
+    }
+
     fun head(block: HtmlBuilder.() -> Unit = {}) {
         builder.append("<head>")
 
@@ -73,9 +77,9 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         builder.append("</div>")
     }
 
-    fun h2(content: String = "") {
-        builder.append("<h2>$content</h2>")
-    }
+    fun h1(content: String = "") = hx(1, content)
+
+    fun h2(content: String = "") = hx(2, content)
 
     fun label(content: String = "", cssClass: String? = null, block: HtmlBuilder.() -> Unit = {}) {
         builder.append("<label")
@@ -125,8 +129,10 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         builder.append("</button>")
     }
 
-    fun link(source: String) {
-        val content = readContents(source) ?: ""
+    fun link(source: String, vararg parameters: Any) {
+        var content = readContents(source) ?: ""
+
+        parameters.forEachIndexed { i, parameter -> content = content.replace("$$i", parameter.toString()) }
 
         if (source.endsWith(".css")) {
             builder.appendLine("<style>")
