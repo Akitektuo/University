@@ -1,7 +1,7 @@
 package com.akitektuo.assignment8.util
 
-import com.akitektuo.assignment8.resource.generalScript
-import com.akitektuo.assignment8.resource.generalStyle
+import java.io.File
+import java.nio.file.Files
 import javax.servlet.http.HttpServletResponse
 
 enum class FormMethod(val value: String) {
@@ -20,20 +20,16 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         fun html(block: HtmlBuilder.() -> Unit = {}) = "<html>${HtmlBuilder().apply { block() }.build()}</html>"
     }
 
-    fun head(content: String = "", block: HtmlBuilder.() -> Unit = {}) {
-        builder.append("<head>")
+    private fun build() = builder.toString()
 
-        builder.append(content)
-        block(this)
-
-        builder.append("</head>")
+    private fun readContents(source: String) = javaClass.classLoader.getResource(source)?.let {
+        Files.readString(File(it.file).toPath())
     }
 
-    fun head(vararg links: String, block: HtmlBuilder.() -> Unit = {}) {
+    fun head(block: HtmlBuilder.() -> Unit = {}) {
         builder.append("<head>")
 
         block(this)
-        links.forEach { builder.append(it) }
 
         builder.append("</head>")
     }
@@ -129,36 +125,25 @@ class HtmlBuilder(private val builder: StringBuilder = StringBuilder()) {
         builder.append("</button>")
     }
 
-    private fun build() = builder.toString()
+    fun link(source: String) {
+        val content = readContents(source) ?: ""
+
+        if (source.endsWith(".css")) {
+            builder.appendLine("<style>")
+            builder.appendLine(content)
+            builder.append("</style>")
+            return
+        }
+        if (source.endsWith(".js")) {
+            builder.appendLine("<script>")
+            builder.appendLine(content)
+            builder.append("</script>")
+            return
+        }
+    }
 }
 
-//fun HttpServletResponse.html(block: HtmlBuilder.() -> Unit = {}) {
-//    contentType = "text/html"
-//    writer.print(HtmlBuilder.html(block))
-//}
-
-fun main() {
-    println(HtmlBuilder.html {
-        head(generalStyle, generalScript) {
-            title("Assignment8 - Login")
-        }
-        body {
-            form("container", method = FormMethod.POST) {
-                div("form-header") {
-                    h2("Login")
-                }
-                label("Enter username:", "label-with-input") {
-                    input("medium-input", true, InputType.TEXT, "username")
-                }
-                label("Enter password:", "label-with-input") {
-                    input("medium-input", true, InputType.PASSWORD, "password")
-                }
-                content { renderError(null) }
-                div("form-actions") {
-                    button("Create account", style = "margin-right: 8px", onClick = "navigateTo('register')")
-                    input(type = InputType.SUBMIT, value = "Login")
-                }
-            }
-        }
-    })
+fun HttpServletResponse.html(block: HtmlBuilder.() -> Unit = {}) {
+    contentType = "text/html"
+    writer.print(HtmlBuilder.html(block))
 }

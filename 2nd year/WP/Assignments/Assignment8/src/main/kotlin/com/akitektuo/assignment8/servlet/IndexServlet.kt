@@ -3,6 +3,9 @@ package com.akitektuo.assignment8.servlet
 import com.akitektuo.assignment8.authentication.CredentialsManager
 import com.akitektuo.assignment8.resource.generalScript
 import com.akitektuo.assignment8.resource.generalStyle
+import com.akitektuo.assignment8.util.FormMethod
+import com.akitektuo.assignment8.util.InputType
+import com.akitektuo.assignment8.util.html
 import com.akitektuo.assignment8.util.renderError
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -32,40 +35,29 @@ class IndexServlet : HttpServlet() {
         resp.sendRedirect("/waiting-room")
     }
 
-    private fun HttpServletResponse.renderHtml(error: String? = null) {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Login</title>
-                    $generalStyle
-                    $generalScript
-                </head>
-                <body>
-                    <form class="container" method="post">
-                        <div class="form-header">
-                            <h2>Login</h2>
-                        </div>
-                        <label class="label-with-input">
-                            Enter username:
-                            <input class="medium-input" required type="text" name="username">
-                        </label>
-                        <label class="label-with-input">
-                            Enter password:
-                            <input class="medium-input" required type="password" name="password">
-                        </label>
-                        ${renderError(error)}
-                        <div class="form-actions">
-                            <button style="margin-right: 8px" onclick="navigateTo('register')">
-                                Create account
-                            </button>
-                            <input type="submit" value="Login"/>
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderHtml(error: String? = null) = html {
+        head {
+            title("Assignment8 - Login")
+            link("css/styles.css")
+            link("js/script.js")
+        }
+        body {
+            form("container", method = FormMethod.POST) {
+                div("form-header") {
+                    h2("Login")
+                }
+                label("Enter username:", "label-with-input") {
+                    input("medium-input", true, InputType.TEXT, "username")
+                }
+                label("Enter password:", "label-with-input") {
+                    input("medium-input", true, InputType.PASSWORD, "password")
+                }
+                content { renderError(error) }
+                div("form-actions") {
+                    button("Create account", style = "margin-right: 8px", onClick = "navigateTo('register')")
+                    input(type = InputType.SUBMIT, value = "Login")
+                }
+            }
+        }
     }
 }
