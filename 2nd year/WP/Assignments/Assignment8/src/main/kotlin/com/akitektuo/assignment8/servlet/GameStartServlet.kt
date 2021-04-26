@@ -5,6 +5,8 @@ import com.akitektuo.assignment8.game.gameHost
 import com.akitektuo.assignment8.resource.boardStyle
 import com.akitektuo.assignment8.resource.generalScript
 import com.akitektuo.assignment8.resource.generalStyle
+import com.akitektuo.assignment8.util.InputType
+import com.akitektuo.assignment8.util.html
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -23,37 +25,33 @@ class GameStartServlet : HttpServlet() {
         resp.renderHtml(username, renderBoard(player))
     }
 
-    private fun HttpServletResponse.renderHtml(username: String, board: String) {
-        contentType = "text/html"
-        writer.print(
-            """
-            <html>
-                <head>
-                    <title>Assignment8 - Game start</title>
-                    $generalStyle
-                    $boardStyle
-                    $generalScript
-                </head>
-                <body>
-                    <form class="container" method="get" action="game-start">
-                        <div class="form-header">
-                            <h1>Your board, $username</h1>
-                        </div>
-                        <div class="board-container">
-                            $board
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" style="margin-right: 8px" onclick="navigateTo('sign-out')">
-                                Sign out
-                            </button>
-                            <input type="submit" value="Regenerate" style="margin-right: 8px" />
-                            <button type="button" onclick="navigateTo('game')">Ready</button>
-                        </div>
-                    </form>
-                </body>
-            </html>
-        """.trimIndent()
-        )
+    private fun HttpServletResponse.renderHtml(username: String, board: String) = html {
+        head {
+            title("Assignment8 - Game start")
+            link("css/styles.css")
+            link("css/board.css")
+            link("js/script.js")
+        }
+        body {
+            form("container", "game-start") {
+                div("form-header") {
+                    h1("Your board, $username")
+                }
+                div("board-container") {
+                    content { board }
+                }
+                div("form-actions") {
+                    button(
+                        "Sign out",
+                        "navigateTo('sign-out')",
+                        type = InputType.BUTTON,
+                        style = "margin-right: 8px"
+                    )
+                    input(type = InputType.SUBMIT, value = "Regenerate", style = "margin-right: 8px")
+                    button("Ready", "navigateTo('game')", type = InputType.BUTTON)
+                }
+            }
+        }
     }
 
     private fun renderBoard(player: Player) = player.mapBoard({ """<div class="board-row">${it}</div>""" }) {
