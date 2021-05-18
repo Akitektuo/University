@@ -1,0 +1,15 @@
+<div class="content-container">
+	<h1>Food recipes</h1>
+	<div class="recipe-header">
+		<div>
+			<h2>Recipe: {{recipe.title}}</h2>
+			<h3>By <i>{{recipe.user}}</i>, from category <i>{{recipe.type}}</i></h3>
+		</div>
+		<div class="actions">
+			<button [routerLink]="['../../recipes', recipe.typeId]">Back</button>
+			<button class="edit-recipe" [routerLink]="['../../edit-recipe', recipe.id]">Edit</button>
+			<button [attr.disabled]="recipe ? null : ''" class="delete-recipe" (click)="onDelete()">Delete</button>
+		</div>
+	</div>
+	<p>{{recipe.description}}</p>
+</div>

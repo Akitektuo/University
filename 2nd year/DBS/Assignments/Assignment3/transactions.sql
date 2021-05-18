@@ -26,27 +26,6 @@ AS
 	COMMIT TRAN
 GO
 
--- c) dirty read --
-CREATE OR ALTER PROCEDURE dirtyReadSelect
-AS
-	BEGIN TRAN
-	SELECT * FROM [Logs] 
-
-	SELECT * FROM [Logs]
-	COMMIT
-GO
-
-CREATE OR ALTER PROCEDURE dirtyReadUpdate
-AS
-	BEGIN TRAN
-    UPDATE [Logs]
-    SET [Message] = 'I am dirty'  
-    WHERE [Id] = 4
-
-	ROLLBACK
-	SELECT * FROM [Logs] 
-GO
-
 SELECT * FROM [Users]
 SELECT * FROM [Lists]
 SELECT * FROM [UserLists]

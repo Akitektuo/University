@@ -1,0 +1,18 @@
+h3 {
+    margin-top: 0;
+}
+
+.recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    margin: 8px;
+}

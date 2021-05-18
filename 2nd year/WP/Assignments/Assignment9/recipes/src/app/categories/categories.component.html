@@ -1,0 +1,13 @@
+<div class="content-container">
+	<div class="header">
+		<h1>Food recipes</h1>
+		<button class="add-recipe" [routerLink]="'../add-recipe'">Add recipe</button>
+	</div>
+	<h3>Categories</h3>
+	<div class="categories-container">
+		<div *ngFor="let category of categories" class="category-element" [routerLink]="['../recipes', category.id]">
+			<img src="{{category.image}}">
+			<span>{{category.name}}</span>
+		</div>
+	</div>
+</div>
