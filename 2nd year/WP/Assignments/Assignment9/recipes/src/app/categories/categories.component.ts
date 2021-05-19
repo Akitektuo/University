@@ -1,23 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Type } from "../recipes.models";
-import { RecipesService } from "../recipes.service";
+import { RequireAuthenticationComponent } from "../require-authentication.component";
 
 @Component({
 	selector: "app-categories",
 	templateUrl: "./categories.component.html",
-	styleUrls: ["./categories.component.scss"],
-	providers: [RecipesService]
+	styleUrls: ["./categories.component.scss"]
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent extends RequireAuthenticationComponent {
 	categories: Type[] = [];
 
-	constructor(private service: RecipesService) { }
-
-	ngOnInit(): void {
+	onInit(): void {
 		this.fetchTypes();
 	}
 
 	async fetchTypes() {
 		this.categories = await this.service.getTypes();
+	}
+
+	onSignOut() {
+		this.cookies.clearUserId();
+		this.router.navigate(["login"]);
 	}
 }

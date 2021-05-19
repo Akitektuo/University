@@ -1,30 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Recipe, Type } from "../recipes.models";
-import { RecipesService } from "../recipes.service";
+import { Component } from "@angular/core";
+import { EMPTY_RECIPE, Recipe, Type } from "../recipes.models";
+import { RequireAuthenticationComponent } from "../require-authentication.component";
 
 @Component({
 	selector: "app-edit-recipe",
 	templateUrl: "./edit-recipe.component.html",
-	styleUrls: ["./edit-recipe.component.scss"],
-	providers: [RecipesService]
+	styleUrls: ["./edit-recipe.component.scss"]
 })
-export class EditRecipeComponent implements OnInit {
-	recipe: Recipe;
+export class EditRecipeComponent extends RequireAuthenticationComponent {
+	recipe: Recipe = EMPTY_RECIPE;
 	types: Type[] = [];
 
-	constructor(private router: Router,
-		private route: ActivatedRoute,
-		private service: RecipesService) { }
-
-	ngOnInit(): void {
+	onInit(): void {
 		this.fetchTypes();
 		this.getRecipe();
-	}
-
-	onIdParam(idParamChange: (number) => void) {
-		this.route.params.subscribe(params =>
-			idParamChange(params["id"]));
 	}
 
 	async fetchTypes() {
@@ -32,11 +21,21 @@ export class EditRecipeComponent implements OnInit {
 	}
 
 	async getRecipe() {
-		this.onIdParam(async id => this.recipe = await this.service.getRecipe(id));
+		this.onIdParam(async id => {
+			this.recipe = await this.service.getRecipe(id);
+			
+			if (this.recipe.userId !== this.cookies.getUserId()) {
+				this.navigateToRecipe();
+			}
+		});
 	}
 
 	async onSave() {
 		await this.service.updateRecipe(this.recipe);
+		this.navigateToRecipe();
+	}
+
+	navigateToRecipe() {
 		this.router.navigate(["../../recipe", this.recipe.id]);
 	}
 }

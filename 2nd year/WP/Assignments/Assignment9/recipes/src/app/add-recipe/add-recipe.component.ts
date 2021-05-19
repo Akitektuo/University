@@ -1,22 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 import { EMPTY_RECIPE, Recipe, Type } from "../recipes.models";
-import { RecipesService } from "../recipes.service";
+import { RequireAuthenticationComponent } from "../require-authentication.component";
 
 @Component({
 	selector: "app-add-recipe",
 	templateUrl: "./add-recipe.component.html",
-	styleUrls: ["./add-recipe.component.scss"],
-	providers: [RecipesService]
+	styleUrls: ["./add-recipe.component.scss"]
 })
-export class AddRecipeComponent implements OnInit {
-	recipe: Recipe;
+export class AddRecipeComponent extends RequireAuthenticationComponent {
+	recipe: Recipe = EMPTY_RECIPE;
 	types: Type[] = [];
 
-	constructor(private router: Router, private service: RecipesService) { }
-
-	ngOnInit(): void {
-		this.recipe = EMPTY_RECIPE;
+	onInit(): void {
 		this.fetchTypes();
 	}
 

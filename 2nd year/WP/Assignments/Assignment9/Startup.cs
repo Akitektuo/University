@@ -24,6 +24,12 @@ namespace Assignment9
         {
             ConfigureDatabase(services);
 
+            services.AddCors(options =>
+                options.AddDefaultPolicy(builder =>
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,6 +54,8 @@ namespace Assignment9
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

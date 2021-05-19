@@ -7,8 +7,19 @@
 		</div>
 		<div class="actions">
 			<button [routerLink]="['../../recipes', recipe.typeId]">Back</button>
-			<button class="edit-recipe" [routerLink]="['../../edit-recipe', recipe.id]">Edit</button>
-			<button [attr.disabled]="recipe ? null : ''" class="delete-recipe" (click)="onDelete()">Delete</button>
+			<button
+				*ngIf="isCurrentUser"
+				class="edit-recipe"
+				[routerLink]="['../../edit-recipe', recipe.id]">
+				Edit
+			</button>
+			<button
+				*ngIf="isCurrentUser"
+				[attr.disabled]="recipe ? null : ''"
+				class="delete-recipe"
+				(click)="onDelete()">
+				Delete
+			</button>
 		</div>
 	</div>
 	<p>{{recipe.description}}</p>

@@ -1,4 +1,5 @@
 ﻿using Assignment9.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment9.Controllers

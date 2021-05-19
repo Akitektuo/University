@@ -1,7 +1,10 @@
 <div class="content-container">
 	<div class="header">
 		<h1>Food recipes</h1>
-		<button class="add-recipe" [routerLink]="'../add-recipe'">Add recipe</button>
+		<div>
+			<button class="sign-out" (click)="onSignOut()">Sign out</button>
+			<button class="add-recipe" [routerLink]="'../add-recipe'">Add recipe</button>
+		</div>
 	</div>
 	<h3>Categories</h3>
 	<div class="categories-container">

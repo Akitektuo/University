@@ -1,0 +1,16 @@
+<div class="content-container">
+    <div class="signup-container">
+        <h2>Create account</h2>
+        <div class="input-group">
+            <span>Username</span>
+            <input class="username" placeholder="Username" [(ngModel)]="user.username">
+        </div>
+        <div class="input-group">
+            <span>Password</span>
+            <input class="password" type="password" placeholder="Password" [(ngModel)]="user.password">
+        </div>
+        <div class="buttons">
+            <button class="create-account" (click)="createAccount()">Create account</button>
+        </div>
+    </div>
+</div>

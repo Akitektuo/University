@@ -1,32 +1,25 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { RecipeWithData } from "../recipes.models";
-import { RecipesService } from "../recipes.service";
+import { Component } from "@angular/core";
+import { EMPTY_RECIPE_WITH_DATA, RecipeWithData } from "../recipes.models";
+import { RequireAuthenticationComponent } from "../require-authentication.component";
 
 @Component({
 	selector: "app-recipe",
 	templateUrl: "./recipe.component.html",
-	styleUrls: ["./recipe.component.scss"],
-	providers: [RecipesService]
+	styleUrls: ["./recipe.component.scss"]
 })
-export class RecipeComponent implements OnInit {
-	recipe: RecipeWithData;
+export class RecipeComponent extends RequireAuthenticationComponent {
+	recipe: RecipeWithData = EMPTY_RECIPE_WITH_DATA;
+	isCurrentUser: boolean = false;
 
-	constructor(private router: Router,
-		private route: ActivatedRoute,
-		private service: RecipesService) { }
-
-	ngOnInit(): void {
+	onInit(): void {
 		this.getRecipe();
 	}
 
-	onIdParam(idParamChange: (number) => void) {
-		this.route.params.subscribe(params =>
-			idParamChange(params["id"]));
-	}
-
 	async getRecipe() {
-		this.onIdParam(async id => this.recipe = await this.service.getRecipe(id));
+		this.onIdParam(async id => {
+			this.recipe = await this.service.getRecipeWithData(id);
+			this.isCurrentUser = this.recipe.userId === this.cookies.getUserId();
+		});
 	}
 
 	async onDelete() {

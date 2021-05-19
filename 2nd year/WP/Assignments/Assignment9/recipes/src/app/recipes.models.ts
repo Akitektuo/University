@@ -23,3 +23,19 @@ export const EMPTY_RECIPE: Recipe = {
     title: "",
     description: "",
 }
+
+export const EMPTY_RECIPE_WITH_DATA: RecipeWithData = {
+    user: "",
+    type: "",
+    ...EMPTY_RECIPE
+}
+
+export interface User {
+    username: string;
+    password: string;
+}
+
+export const EMPTY_USER: User = {
+    username: "",
+    password: "",
+}

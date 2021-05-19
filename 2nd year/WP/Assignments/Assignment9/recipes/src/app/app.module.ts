@@ -4,8 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule, RoutingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CookieService } from "ngx-cookie-service";
+import { CookieService as CookieManager } from "ngx-cookie-service";
 import { FormsModule } from '@angular/forms';
+import { CookieService } from './cookie.service';
+import { RecipesService } from './recipes.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,11 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieManager,
+    CookieService,
+    RecipesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

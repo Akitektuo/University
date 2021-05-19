@@ -49,6 +49,8 @@ namespace Assignment9.Services
                 .Include(recipe => recipe.User)
                 .FirstOrDefault(recipe => recipe.Id == id);
 
+            if (recipe == null) return null;
+
             return new RecipeAggregate(recipe);
         }
 
@@ -63,9 +65,7 @@ namespace Assignment9.Services
 
         public Recipe Update(Recipe recipe)
         {
-            var existingRecipe = context.Recipes.Find(recipe.Id);
-
-            if (existingRecipe == null) return null;
+            if (!context.Recipes.Any(r => r.Id == recipe.Id)) return null;
 
             context.Recipes.Update(recipe);
             context.SaveChanges();

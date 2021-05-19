@@ -2,6 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .sign-out {
+        margin-right: 16px;
+    }
 }
 
 .categories-container {

@@ -7,10 +7,6 @@
 				<input class="title" placeholder="Title" [(ngModel)]="recipe.title">
 			</div>
 			<div class="input-group">
-				<span>Username</span>
-				<input class="username" placeholder="Username" [(ngModel)]="recipe.author">
-			</div>
-			<div class="input-group">
 				<span>Recipe type</span>
 				<select class="recipe-types" [(ngModel)]="recipe.typeId">
 					<option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>

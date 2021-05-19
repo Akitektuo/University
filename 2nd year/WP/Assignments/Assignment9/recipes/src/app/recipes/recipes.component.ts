@@ -1,39 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
+import { Component } from "@angular/core";
 import { RecipeWithData } from "../recipes.models";
-import { RecipesService } from "../recipes.service";
+import { RequireAuthenticationComponent } from "../require-authentication.component";
 
 @Component({
 	selector: "app-recipes",
 	templateUrl: "./recipes.component.html",
-	styleUrls: ["./recipes.component.scss"],
-	providers: [RecipesService]
+	styleUrls: ["./recipes.component.scss"]
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent extends RequireAuthenticationComponent {
 	recipes: RecipeWithData[] = [];
 	categoryName = "";
 	pastCategoryName = "";
 
-	constructor(private route: ActivatedRoute,
-		private service: RecipesService,
-		private cookies: CookieService) { }
-
-	ngOnInit(): void {
+	onInit(): void {
 		this.getRecipes();
-	}
-
-	onIdParam(idParamChange: (number) => void) {
-		this.route.params.subscribe(params =>
-			idParamChange(params["id"]));
 	}
 
 	getRecipes() {
 		this.onIdParam(async id => {
 			this.recipes = await this.service.getRecipesByType(id);
 			this.categoryName = this.recipes[0]?.type;
-			this.pastCategoryName = this.cookies.get("categoryName");
-			this.cookies.set("categoryName", this.categoryName);
+			this.pastCategoryName = this.cookies.getCategoryName();
+			this.cookies.setCategoryName(this.categoryName);
 		});
 	}
 }

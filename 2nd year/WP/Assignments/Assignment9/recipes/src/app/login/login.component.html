@@ -1,0 +1,17 @@
+<div class="content-container">
+    <div class="login-container">
+        <h2>Login</h2>
+        <div class="input-group">
+            <span>Username</span>
+            <input class="username" placeholder="Username" [(ngModel)]="user.username">
+        </div>
+        <div class="input-group">
+            <span>Password</span>
+            <input class="password" type="password" placeholder="Password" [(ngModel)]="user.password">
+        </div>
+        <div class="buttons">
+            <button class="create-account" [routerLink]="['../signup']">Create account</button>
+            <button class="login" (click)="onLogin()">Login</button>
+        </div>
+    </div>
+</div>
