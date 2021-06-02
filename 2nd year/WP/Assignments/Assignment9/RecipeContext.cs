@@ -14,13 +14,5 @@ namespace Assignment9
         public DbSet<Type> Types { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Recipe>()
-        //        .HasOne(recipe => recipe.Type)
-        //        .WithMany(type => type.Recipes)
-        //        .HasForeignKey(recipe => recipe.TypeId);
-        //}
     }
 }
