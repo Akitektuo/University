@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'ro.ubb'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.7.1'
+}
+
+sourceCompatibility = 15
+targetCompatibility = 15
+
+dependencies {
+    compileOnly('javax:javaee-web-api:8.0.1')
+
+    implementation('mysql:mysql-connector-java:5.1.13')
+    implementation('com.google.code.gson:gson:2.8.7')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}

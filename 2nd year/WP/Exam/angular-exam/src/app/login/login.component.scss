@@ -1,0 +1,37 @@
+html {
+    overflow: hidden;
+}
+
+.content-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.login-container {
+    padding: 16px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+input {
+    margin-top: 4px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    width: 100%;
+}

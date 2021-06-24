@@ -23,7 +23,7 @@ namespace WindowsForm
 
         private void InitializeDatabase()
         {
-            dbConnection = new SqlConnection("Data Source = DESKTOP-K0E4MHB\\SQLEXPRESS; " +
+            dbConnection = new SqlConnection("Data Source = localhost\\SQLEXPRESS; " +
                 "Initial Catalog = Expenses; Integrated Security = SSPI;");
 
             dataAdapterparent = new SqlDataAdapter($"SELECT * FROM {PARENT_TABLE}", dbConnection);

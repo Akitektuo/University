@@ -1,0 +1,26 @@
+.notification-wrapper {
+    padding: 16px;
+    right: 32px;
+    bottom: 32px;
+    position: fixed;
+    z-index: 10;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 6px;
+    min-width: 256px;
+
+    .title {
+        font-size: 1.125rem;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    .row {
+        display: flex;
+        margin-top: 8px;
+
+        .label {
+            font-weight: bold;
+            margin-right: 4px;
+        }
+    }
+}
