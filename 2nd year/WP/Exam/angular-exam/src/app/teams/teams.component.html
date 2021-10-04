@@ -1,0 +1,32 @@
+<div class="content-container">
+    <h1>Teams</h1>
+    <div class="teams-container">
+        <div class="pane">
+            <h2>All teams</h2>
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>CapitanId</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Members</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let team of allTeams">
+                        <td>{{team.id}}</td>
+                        <td>{{team.capitan_id}}</td>
+                        <td>{{team.name}}</td>
+                        <td>{{team.description}}</td>
+                        <td>{{team.members}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pane">
+            <h2>Your teams</h2>
+            <ul *ngFor="let team of userTeams">
+                <li>{{team.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

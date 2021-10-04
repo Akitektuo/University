@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.cookies.isUserName()) {
-            this.router.navigate(["/home"]);
+            this.router.navigate(["/teams"]);
             return;
         }
 
@@ -24,6 +24,6 @@ export class LoginComponent implements OnInit {
 
     async onLogin() {
         this.cookies.setUserName(this.username);
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/teams"]);
     }
 }

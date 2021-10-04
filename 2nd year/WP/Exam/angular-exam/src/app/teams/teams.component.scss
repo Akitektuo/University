@@ -1,0 +1,21 @@
+.teams-container {
+    display: flex;
+    justify-content: space-evenly;
+
+    .pane {
+        padding: 32px;
+        min-width: 128px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
