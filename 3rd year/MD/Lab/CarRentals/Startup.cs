@@ -33,12 +33,10 @@ namespace CarRentals
             services.AddSignalR();
 
             services.AddCors(config =>
-            {
-                config.AddPolicy("AllowOrigin", options =>
+                config.AddDefaultPolicy(options =>
                     options.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
+                        .AllowAnyHeader()));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,30 +1,38 @@
 import { createContext } from "react";
-import { action, observable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { EMPTY_LOGIN_USER, LoginUser } from "../../../accessors/types";
 import { login } from "../../../accessors/account-accessor";
+import { isString } from "../../../shared/type-helpers";
+import { AuthorizedStore } from "../../../infrastructure/authorized/authorized-store";
 
 export class LoginStore {
-    @observable public user: LoginUser = EMPTY_LOGIN_USER;
-    @observable public isLoading = false;
-    @observable public errorMessage = "";
+    public user: LoginUser = EMPTY_LOGIN_USER;
+    public isLoading = false;
+    public errorMessage = "";
 
-    @action
+    constructor() {
+        makeAutoObservable(this);
+    }
+
     public setEmail = (email: string) => this.user.email = email;
 
-    @action
     public setPassword = (password: string) => this.user.password = password;
 
-    @action
-    public login = async () => {
+    public login = async (authorizedStore: AuthorizedStore) => {
         this.isLoading = true;
         let error = "";
         
         try {
             await login(this.user);
         } catch (exception: any) {
-            error = exception.message;
+            if (isString(exception)) {
+                error = exception;
+            } else {
+                error = "Email or password is incorrect, try again!";
+            }
         } finally {
             runInAction(() => {
+                authorizedStore.checkAuthorization();
                 this.errorMessage = error;
                 this.isLoading = false;
             });
