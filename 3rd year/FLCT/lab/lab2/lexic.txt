@@ -1,0 +1,33 @@
+Alphabet:
+	a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+	b. Underline character '_';
+	c. Decimal digits (0-9);
+1. Lexic:
+	a. Special symbols representing:
+		operators: = + ++ += - -- -= * *= / /= == != < <= > >= ! & | &= |=
+		separators: \n ( ) { } [ ] space "
+		reserved words:
+			int, bool, string, input, print, when, otherwise, in, while, each
+	b. identifiers:
+		- a sequence of letters, digits and underscores, such that the identifier starts with a letter:
+			identifier = letter | letter{letterDigitOrUnderscore}
+			letterDigitOrUnderscore = lowerOrUpperLetter | digit | "_"
+			digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+			lowerOrUpperLetter = lowerLetter | upperLetter
+			lowerLetter = "a" | "b" | ... | "z"
+			upperLetter = "A" | "B" | ... | "Z"
+	c. constants:
+		1. int
+			intConst = "0" | ["+" | "-"]digit{digitOrZero}
+			digitOrZero = "0" | digit
+			digit = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+		2. bool
+			boolConst = "false" | "true"
+		3. string
+			stringConst = """" | """{character}"""
+			character = lowerOrUpperLetter | symbol
+			symbol = "\n" | " " | "." | "!" | "?" | "\"" | "'" | ":" | ";" | "|" | "/" | "\" | "=" | "+" | "(" | ")" | "&" | "*" | "-" | "_" | "=" | "+" | "[" | "]"
+				| "{" | "}" | "<" | ">" | "\t"
+			lowerOrUpperLetter = lowerLetter | upperLetter 
+			lowerLetter = "a" | "b" | ... | "z"
+			upperLetter = "A" | "B" | ... | "Z"
