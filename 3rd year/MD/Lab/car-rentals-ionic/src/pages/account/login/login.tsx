@@ -3,8 +3,14 @@ import styles from "./login.module.scss";
 import carGif from "../../../assets/car.gif";
 import classNames from "classnames";
 import { Button, TextField } from "@mui/material";
+import { useContext } from "react";
+import { LoginContext } from "./login-store";
+import { LoadingOverlay } from "../../../components";
+import { observer } from "mobx-react";
 
 const Login = () => {
+    const { user, setEmail, setPassword, isLoading } = useContext(LoginContext);
+
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -19,11 +25,15 @@ const Login = () => {
                     <TextField
                         label="Email"
                         type="email"
-                        className={styles.inputEmail} />
+                        className={styles.inputEmail}
+                        value={user.email}
+                        onChange={e => setEmail(e.target.value)} />
                     <TextField
                         label="Password"
                         type="password"
-                        className={styles.inputPassword} />
+                        className={styles.inputPassword}
+                        value={user.password}
+                        onChange={e => setPassword(e.target.value)} />
                     <div className={classNames(styles.row)}>
                         <Button className={styles.registerButton}>Register</Button>
                         <Button
@@ -33,9 +43,10 @@ const Login = () => {
                         </Button>
                     </div>
                 </div>
+                <LoadingOverlay show={isLoading} />
             </IonContent>
         </IonPage>
     );
 }
 
-export default Login;
+export default observer(Login);
