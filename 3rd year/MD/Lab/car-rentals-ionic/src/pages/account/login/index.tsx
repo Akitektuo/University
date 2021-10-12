@@ -1,14 +1,40 @@
-import { IonContent, IonPage, IonTitle } from "@ionic/react";
-import { Alert, AlertTitle, Button, TextField } from "@mui/material";
+import { IonContent, IonImg, IonPage, IonTitle } from "@ionic/react";
+import styles from "./login.module.scss";
+import carGif from "../../../assets/car.gif";
 import classNames from "classnames";
+import { Alert, AlertTitle, Button, TextField } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { LoginContext } from "./login-store";
+import { LoadingOverlay } from "../../../components";
 import { observer } from "mobx-react";
-import styles from "./register.module.scss";
+import { AuthorizedContext } from "../../../infrastructure";
+import { useHistory } from "react-router";
 
-const Register = () => {
+const Login = () => {
+    const { push } = useHistory();
+    const authorizedStore = useContext(AuthorizedContext);
+    const {
+        user,
+        setEmail,
+        setPassword,
+        isLoading,
+        errorMessage,
+        login,
+        reset
+    } = useContext(LoginContext);
+
+    useEffect(() => {
+        return reset;
+    }, []);
+
     return (
         <IonPage>
             <IonContent fullscreen>
                 <div className={styles.centeredContainer}>
+                    <div className={classNames(styles.row, styles.largeText)}>
+                        <IonImg src={carGif} className={styles.carGif} />
+                        <IonTitle className={styles.applicationTitle}>Car Rentals</IonTitle>
+                    </div>
                     <IonTitle className={classNames(styles.logInText, styles.largeText)}>
                         Log in
                     </IonTitle>
@@ -24,12 +50,6 @@ const Register = () => {
                         className={styles.inputPassword}
                         value={user.password}
                         onChange={e => setPassword(e.target.value)} />
-                    <TextField
-                        label="Confirm password"
-                        type="password"
-                        className={styles.inputPassword}
-                        value={user.password}
-                        onChange={e => setPassword(e.target.value)} />
                     {errorMessage && (
                         <Alert
                             severity="error"
@@ -39,7 +59,11 @@ const Register = () => {
                         </Alert>
                     )}
                     <div className={classNames(styles.row)}>
-                        <Button className={styles.registerButton}>Register</Button>
+                        <Button
+                            className={styles.registerButton}
+                            onClick={() => push("/register")}>
+                            Register
+                        </Button>
                         <Button
                             variant="contained"
                             color="secondary"
@@ -49,9 +73,10 @@ const Register = () => {
                         </Button>
                     </div>
                 </div>
+                <LoadingOverlay show={isLoading} />
             </IonContent>
         </IonPage>
     );
 }
 
-export default observer(Register);
+export default observer(Login);

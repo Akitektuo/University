@@ -48,6 +48,10 @@ namespace CarRentals.Controllers
         [HttpGet]
         public IActionResult GetAllCars()
         {
+            broadcastHandler.Broadcast(new Car
+            {
+                Model = "Test"
+            });
             return Ok(carService.GetAll());
         }
 

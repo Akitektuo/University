@@ -1,12 +1,11 @@
 import { createContext } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
-import { EMPTY_LOGIN_USER, LoginUser } from "../../../accessors/types";
-import { login } from "../../../accessors/account-accessor";
+import { EMPTY_REGISTER_USER, RegisterUser } from "../../../accessors/types";
+import { register } from "../../../accessors/account-accessor";
 import { isString } from "../../../shared/type-helpers";
-import { AuthorizedStore } from "../../../infrastructure/authorized/authorized-store";
 
-export class LoginStore {
-    public user: LoginUser = EMPTY_LOGIN_USER;
+export class RegisterStore {
+    public user: RegisterUser = EMPTY_REGISTER_USER;
     public isLoading = false;
     public errorMessage = "";
 
@@ -18,21 +17,25 @@ export class LoginStore {
 
     public setPassword = (password: string) => this.user.password = password;
 
-    public login = async (authorizedStore: AuthorizedStore) => {
+    public setConfirmPassword = (confirmPassword: string) =>
+        this.user.confirmPassword = confirmPassword;
+
+    public register = async () => {
         this.isLoading = true;
         let error = "";
         
         try {
-            await login(this.user);
+            await register(this.user);
         } catch (exception: any) {
             if (isString(exception)) {
                 error = exception;
             } else {
-                error = "Email or password is incorrect, try again!";
+                error = exception === 409 ?
+                    "The email is already used by another user!" :
+                    "The email is not valid or the password does not meet the requirements, try again!";
             }
         } finally {
             runInAction(() => {
-                authorizedStore.checkAuthorization();
                 this.errorMessage = error;
                 this.isLoading = false;
             });
@@ -40,11 +43,11 @@ export class LoginStore {
     }
 
     public reset = () => {
-        this.user = EMPTY_LOGIN_USER;
+        this.user = EMPTY_REGISTER_USER;
         this.isLoading = false;
         this.errorMessage = "";
     }
 }
 
-export const loginStore = new LoginStore();
-export const LoginContext = createContext(loginStore);
+export const registerStore = new RegisterStore();
+export const RegisterContext = createContext(registerStore);

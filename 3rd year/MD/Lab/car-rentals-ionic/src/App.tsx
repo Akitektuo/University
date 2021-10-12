@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
@@ -21,7 +21,8 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Login from "./pages/account/login/login";
+import Login from "./pages/account/login";
+import Register from "./pages/account/register";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const App: React.FC = () => {
@@ -44,15 +45,17 @@ const App: React.FC = () => {
 			<ThemeProvider theme={theme}>
 				<IonReactRouter>
 					<IonRouterOutlet>
-						<Route exact path="/login">
-							<Login />
-						</Route>
-						<Route exact path="/register">
-							<Login />
-						</Route>
-						<Route path="/">
-							<Redirect to="/login" />
-						</Route>
+						<Switch>
+							<Route exact path="/login">
+								<Login />
+							</Route>
+							<Route exact path="/register">
+								<Register />
+							</Route>
+							<Route path="*">
+								<Redirect to="/login" />
+							</Route>
+						</Switch>
 					</IonRouterOutlet>
 				</IonReactRouter>
 			</ThemeProvider>

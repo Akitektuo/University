@@ -16,9 +16,9 @@ export const post = <T>(url: string, body?: any) => new Promise<T>(async (resolv
         });
         if (response.status / 100 === 2) {
             resolve(await response.json());
-        } else {
-            reject(response.status)
+            return;
         }
+        reject(response.status);
     } catch (exception) {
         reject("Could not connect to the server!");
     }
