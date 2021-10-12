@@ -44,5 +44,18 @@ namespace CarRentals.Services
 
             return car;
         }
+
+        public Car Delete(int id)
+        {
+            var car = context.Cars.Find(id);
+
+            if (car != null)
+            {
+                context.Remove(car);
+                context.SaveChanges();
+            }
+
+            return car;
+        }
     }
 }

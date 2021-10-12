@@ -1,6 +1,5 @@
 using CarRentals.Authentication;
 using CarRentals.CarUpdates;
-using CarRentals.Models;
 using CarRentals.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +42,7 @@ namespace CarRentals
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRentals", Version = "v1" });
             });
 
-            services.AddSingleton<IBroadcastHandler<Car>, BroadcastHandler<Car>>();
+            services.AddSingleton<IBroadcastHandler, BroadcastHandler>();
             services.AddScoped<ICarService, CarService>();
         }
 

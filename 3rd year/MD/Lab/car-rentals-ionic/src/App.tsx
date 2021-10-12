@@ -1,7 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/Home";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -24,6 +23,8 @@ import "./theme/variables.css";
 import Login from "./pages/account/login";
 import Register from "./pages/account/register";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { Authorized, NotAuthorized } from "./infrastructure";
+import MainPage from "./pages/cars/main-page";
 
 const App: React.FC = () => {
 	const theme = createTheme({
@@ -46,15 +47,25 @@ const App: React.FC = () => {
 				<IonReactRouter>
 					<IonRouterOutlet>
 						<Switch>
-							<Route exact path="/login">
-								<Login />
-							</Route>
-							<Route exact path="/register">
-								<Register />
-							</Route>
-							<Route path="*">
-								<Redirect to="/login" />
-							</Route>
+							<NotAuthorized>
+								<Route exact path="/login">
+									<Login />
+								</Route>
+								<Route exact path="/register">
+									<Register />
+								</Route>
+								<Route path="*">
+									<Redirect to="/login" />
+								</Route>
+							</NotAuthorized>
+							<Authorized>
+								<Route exact path="/">
+									<MainPage />
+								</Route>
+								<Route path="*">
+									<Redirect to="/" />
+								</Route>
+							</Authorized>
 						</Switch>
 					</IonRouterOutlet>
 				</IonReactRouter>

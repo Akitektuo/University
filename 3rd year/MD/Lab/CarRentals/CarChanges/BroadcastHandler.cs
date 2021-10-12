@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using CarRentals.CarChanges;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace CarRentals.CarUpdates
 {
-    public class BroadcastHandler<T> : IBroadcastHandler<T>
+    public class BroadcastHandler : IBroadcastHandler
     {
         private const int CONNECTION_TIMEOUT_MILLISECONDS = 5000;
 
@@ -20,13 +21,19 @@ namespace CarRentals.CarUpdates
             return handler.WaitUntilClosed();
         }
 
-        public Task Broadcast(T obj)
+        public Task Broadcast<T>(ChangeType type, T payload)
         {
+            var change = new Change<T>
+            {
+                Type = type,
+                Payload = payload
+            };
+
             return Task.WhenAll(socketConnections.Select(socket =>
-                HandleBroadcastForSocket(obj, socket)));
+                HandleBroadcastForSocket(change, socket)));
         }
 
-        private async Task HandleBroadcastForSocket(T obj, SocketConnectionHandler socket)
+        private async Task HandleBroadcastForSocket<T>(T obj, SocketConnectionHandler socket)
         {
             await socket.Send(obj);
 

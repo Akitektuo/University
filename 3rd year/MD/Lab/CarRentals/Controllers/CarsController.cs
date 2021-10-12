@@ -1,4 +1,5 @@
-﻿using CarRentals.CarUpdates;
+﻿using CarRentals.CarChanges;
+using CarRentals.CarUpdates;
 using CarRentals.Models;
 using CarRentals.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,9 +16,9 @@ namespace CarRentals.Controllers
         private const int BAD_REQUEST_STATUS_CODE = 400;
 
         private readonly ICarService carService;
-        private readonly IBroadcastHandler<Car> broadcastHandler;
+        private readonly IBroadcastHandler broadcastHandler;
 
-        public CarsController(ICarService carService, IBroadcastHandler<Car> broadcastHandler)
+        public CarsController(ICarService carService, IBroadcastHandler broadcastHandler)
         {
             this.carService = carService;
             this.broadcastHandler = broadcastHandler;
@@ -30,7 +31,7 @@ namespace CarRentals.Controllers
 
             if (createdCar == null) return BadRequest();
 
-            broadcastHandler.Broadcast(createdCar);
+            broadcastHandler.Broadcast(ChangeType.Create, createdCar);
 
             return Ok(createdCar);
         }
@@ -42,20 +43,31 @@ namespace CarRentals.Controllers
 
             if (updatedCar == null) return NotFound();
 
+            broadcastHandler.Broadcast(ChangeType.Update, updatedCar);
+
             return Ok(updatedCar);
         }
 
         [HttpGet]
         public IActionResult GetAllCars()
         {
-            broadcastHandler.Broadcast(new Car
-            {
-                Model = "Test"
-            });
             return Ok(carService.GetAll());
         }
 
-        [HttpGet("updates")]
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteCar(int id)
+        {
+            var deletedCar = carService.Delete(id);
+
+            if (deletedCar == null) return NotFound();
+
+            broadcastHandler.Broadcast(ChangeType.Delete, deletedCar);
+
+            return Ok(deletedCar);
+        }
+
+        [HttpGet("changes")]
         public async Task GetUpdatesAsync()
         {
             if (!HttpContext.WebSockets.IsWebSocketRequest)

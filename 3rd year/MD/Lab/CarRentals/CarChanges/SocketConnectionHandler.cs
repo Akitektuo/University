@@ -14,7 +14,9 @@ namespace CarRentals.CarUpdates
         private readonly WebSocket webSocket;
         private int? connectionTimeoutMilliseconds;
 
-        public SocketConnectionHandler(WebSocket webSocket, int? connectionTimeoutMilliseconds = null)
+        public SocketConnectionHandler(
+            WebSocket webSocket,
+            int? connectionTimeoutMilliseconds = null)
         {
             IsConnected = true;
             this.webSocket = webSocket;
@@ -37,7 +39,9 @@ namespace CarRentals.CarUpdates
 
             try
             {
-                return await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
+                return await webSocket.ReceiveAsync(
+                    new ArraySegment<byte>(buffer),
+                    cancellationToken);
             }
             catch (Exception)
             {
@@ -49,7 +53,11 @@ namespace CarRentals.CarUpdates
 
         public async Task Send(object obj)
         {
-            var encodedObject = new ArraySegment<byte>(JsonSerializer.SerializeToUtf8Bytes(obj));
+            var encodedObject = new ArraySegment<byte>(JsonSerializer.SerializeToUtf8Bytes(obj,
+                new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                }));
 
             try
             {

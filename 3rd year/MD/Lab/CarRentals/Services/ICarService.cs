@@ -10,5 +10,7 @@ namespace CarRentals.Services
         Car Create(Car car);
 
         Car Update(Car car);
+
+        Car Delete(int id);
     }
 }
