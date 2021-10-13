@@ -28,7 +28,7 @@ export interface Car {
     model: string;
     fabricationYear: number;
     color: string;
-    image: Uint8Array;
+    image: string;
     isAutomatic: boolean;
 }
 
@@ -38,6 +38,6 @@ export const EMPTY_CAR: Car = {
     model: "",
     fabricationYear: 0,
     color: "",
-    image: new Uint8Array(),
+    image: "",
     isAutomatic: false
 }

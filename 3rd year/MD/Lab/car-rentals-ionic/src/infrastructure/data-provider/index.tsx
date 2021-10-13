@@ -7,6 +7,7 @@ type CarParameterFunction = (car: Car) => Promise<void>;
 
 export interface WithDataProvider {
     availableCars: Car[];
+    relatedCars: Car[];
     addCar: CarParameterFunction;
     updateCar: CarParameterFunction;
     deleteCar: CarParameterFunction;
