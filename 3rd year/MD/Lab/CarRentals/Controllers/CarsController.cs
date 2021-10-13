@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarRentals.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CarsController : ControllerBase

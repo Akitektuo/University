@@ -29,7 +29,7 @@ namespace CarRentals.CarUpdates
                 Payload = payload
             };
 
-            return Task.WhenAll(socketConnections.Select(socket =>
+            return Task.WhenAll(socketConnections.ToList().Select(socket =>
                 HandleBroadcastForSocket(change, socket)));
         }
 

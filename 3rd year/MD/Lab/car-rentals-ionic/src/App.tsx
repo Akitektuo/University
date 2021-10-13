@@ -45,9 +45,9 @@ const App: React.FC = () => {
 		<IonApp>
 			<ThemeProvider theme={theme}>
 				<IonReactRouter>
-					<IonRouterOutlet>
-						<Switch>
-							<NotAuthorized>
+					<NotAuthorized>
+						<IonRouterOutlet>
+							<Switch>
 								<Route exact path="/login">
 									<Login />
 								</Route>
@@ -56,18 +56,22 @@ const App: React.FC = () => {
 								</Route>
 								<Route path="*">
 									<Redirect to="/login" />
-								</Route>
-							</NotAuthorized>
-							<Authorized>
+								</Route>	
+							</Switch>
+						</IonRouterOutlet>
+					</NotAuthorized>
+					<Authorized>
+						<IonRouterOutlet>
+							<Switch>
 								<Route exact path="/">
 									<MainPage />
 								</Route>
 								<Route path="*">
 									<Redirect to="/" />
 								</Route>
-							</Authorized>
-						</Switch>
-					</IonRouterOutlet>
+							</Switch>
+						</IonRouterOutlet>
+					</Authorized>
 				</IonReactRouter>
 			</ThemeProvider>
 		</IonApp>

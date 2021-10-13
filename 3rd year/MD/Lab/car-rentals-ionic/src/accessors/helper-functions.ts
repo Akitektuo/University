@@ -1,3 +1,5 @@
+import { BASE_URL, PORT, WEB_SOCKET_PROTOCOL } from "./constants";
+
 let token = "";
 
 export const setToken = (tokenValue: string) => token = tokenValue;
@@ -34,3 +36,6 @@ export const httpPost = <T>(url: string, body?: any) => genericFetch<T>("POST", 
 export const httpPut = <T>(url: string, body?: any) => genericFetch<T>("PUT", url, body);
 
 export const httpDelete = <T>(url: string, body?: any) => genericFetch<T>("DELETE", url, body);
+
+export const getWebSocketUrl = () =>
+    `${WEB_SOCKET_PROTOCOL}://${token}@${BASE_URL}:${PORT}/api/cars/changes`;
