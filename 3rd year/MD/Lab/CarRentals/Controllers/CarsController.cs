@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarRentals.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CarsController : ControllerBase
@@ -76,7 +76,7 @@ namespace CarRentals.Controllers
                 return;
             }
 
-            using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+            using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync("access_token");
 
             await broadcastHandler.AddConnection(webSocket);
         }
