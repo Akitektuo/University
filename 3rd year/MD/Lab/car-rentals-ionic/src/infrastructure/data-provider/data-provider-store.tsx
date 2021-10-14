@@ -23,7 +23,7 @@ export class DataProviderStore {
         if (this.isInitialized) {
             return () => {};
         }
-        // this.isInitialized = true;
+        this.isInitialized = true;
         return this.getCars();
     }
 
@@ -73,8 +73,7 @@ export class DataProviderStore {
         }
 
         toastServiceStore.showInfo(<>
-            The car&nbsp;<strong>{carToUpdate.brand} {carToUpdate.model}</strong>&nbsp;
-            was updated{newBrandOrModel}
+            The car&nbsp;<strong>{carToUpdate.brand} {carToUpdate.model}</strong>&nbsp;was updated{newBrandOrModel}
         </>);
     }
 

@@ -1,15 +1,26 @@
 import { IonContent, IonPage, IonTitle } from "@ionic/react";
 import { Fab, Tab, Tabs } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useContext } from "react";
 import SwipeableViews from "react-swipeable-views";
 import AddIcon from '@mui/icons-material/AddSharp';
 import styles from "./main-page.module.scss";
 import { ToastService, WithDataProvider, withDataProvider } from "../../infrastructure";
 import CarList from "./components/car-list";
+import { MainPageContext } from "./main-page-store";
+import CarEdit from "./components/car-edit";
+import { observer } from "mobx-react";
 
 const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
-    const [selectedTab, setSelectedTab] = useState(0);
+    const {
+        selectedTab,
+        carToEdit,
+
+        setSelectedTab,
+        showAddDialog,
+        showEditDialog,
+        closeDialog
+    } = useContext(MainPageContext);
 
     return (
         <IonPage>
@@ -33,23 +44,32 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
                             className={styles.tabPanel}
                             role="tabpanel"
                             hidden={selectedTab !== 0}>
-                            <CarList cars={availableCars} />
+                            <CarList 
+                                cars={availableCars}
+                                onClick={showEditDialog} />
                         </div>
                         <div
                             className={styles.tabPanel}
                             role="tabpanel"
                             hidden={selectedTab !== 1}>
-                            <CarList cars={relatedCars} />
+                            <CarList
+                                cars={relatedCars}
+                                onClick={showEditDialog} />
                         </div>
                     </SwipeableViews>
-                    <Fab className={styles.addButton}>
+                    <Fab
+                        className={styles.addButton}
+                        onClick={() => showAddDialog()}>
                         <AddIcon color="primary" />
                     </Fab>
                     <ToastService />
+                    <CarEdit
+                        initialCar={carToEdit}
+                        onClose={closeDialog} />
                 </div>
             </IonContent>
         </IonPage>
     );
 }
 
-export default withDataProvider(MainPage);
+export default withDataProvider(observer(MainPage));

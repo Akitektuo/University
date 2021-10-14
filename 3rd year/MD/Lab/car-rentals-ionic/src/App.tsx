@@ -29,12 +29,8 @@ import MainPage from "./pages/cars/main-page";
 const App: React.FC = () => {
 	const theme = createTheme({
 		palette: {
-			primary: {
-			  main: "#111",
-			},
-			secondary: {
-			  main: '#82b1ff',
-			},
+			primary: { main: "#111" },
+			secondary: { main: "#82b1ff" },
 		},
 		typography: {
 			fontFamily: "Poppins, sans-serif"
