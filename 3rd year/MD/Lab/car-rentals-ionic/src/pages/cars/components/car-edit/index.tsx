@@ -96,7 +96,7 @@ const CarEdit = ({ initialCar, onClose }: Props) => {
                         variant="h6"
                         color="black"
                         component="div">
-                        Add new car
+                        {isAdd ? "Add new car" : `Edit ${initialCar?.brand} ${initialCar?.model}`}
                     </Typography>
                     <IconButton
                         onClick={handleSave}
