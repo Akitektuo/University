@@ -23,10 +23,31 @@ import "./theme/variables.css";
 import Login from "./pages/account/login";
 import Register from "./pages/account/register";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { Authorized, NotAuthorized } from "./infrastructure";
+import { AuthorizedView } from "./infrastructure";
 import MainPage from "./pages/cars/main-page";
 
-const App: React.FC = () => {
+const authorizedRoutes = <>
+	<Route exact path="/">
+		<MainPage />
+	</Route>
+	<Route path="*">
+		<Redirect to="/" />
+	</Route>
+</>;
+
+const notAuthorizedRoutes = <>
+	<Route exact path="/login">
+		<Login />
+	</Route>
+	<Route exact path="/register">
+		<Register />
+	</Route>
+	<Route path="*">
+		<Redirect to="/login" />
+	</Route>
+</>;
+
+const App = () => {
 	const theme = createTheme({
 		palette: {
 			primary: { main: "#111" },
@@ -41,33 +62,13 @@ const App: React.FC = () => {
 		<IonApp>
 			<ThemeProvider theme={theme}>
 				<IonReactRouter>
-					<NotAuthorized>
-						<IonRouterOutlet>
-							<Switch>
-								<Route exact path="/login">
-									<Login />
-								</Route>
-								<Route exact path="/register">
-									<Register />
-								</Route>
-								<Route path="*">
-									<Redirect to="/login" />
-								</Route>	
-							</Switch>
-						</IonRouterOutlet>
-					</NotAuthorized>
-					<Authorized>
-						<IonRouterOutlet>
-							<Switch>
-								<Route exact path="/">
-									<MainPage />
-								</Route>
-								<Route path="*">
-									<Redirect to="/" />
-								</Route>
-							</Switch>
-						</IonRouterOutlet>
-					</Authorized>
+					<IonRouterOutlet>
+						<Switch>
+							<AuthorizedView
+								authorized={authorizedRoutes}
+								notAuthorized={notAuthorizedRoutes} />
+						</Switch>
+					</IonRouterOutlet>
 				</IonReactRouter>
 			</ThemeProvider>
 		</IonApp>

@@ -1,6 +1,7 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
 import { Car, EMPTY_CAR } from "../../accessors/types";
+import { authorizedStore, LocalStorage } from "../../infrastructure";
 
 export class MainPageStore {
     public selectedTab: number = 0;
@@ -17,6 +18,11 @@ export class MainPageStore {
     public closeDialog = () => this.carToEdit = null;
 
     public showEditDialog = (car: Car) => this.carToEdit = car;
+
+    public signOut = async () => {
+        await LocalStorage.clearToken();
+        await authorizedStore.checkAuthorization();
+    }
 }
 
 export const mainPageStore = new MainPageStore();

@@ -8,6 +8,7 @@ export class DataProviderStore {
     public availableCars: Car[] = []
     public relatedCars: Car[] = []
     private isInitialized = false
+    private unsubscribe = () => {};
 
     constructor() {
         makeAutoObservable(this);
@@ -33,11 +34,21 @@ export class DataProviderStore {
         return this.subscribeToChanges();
     }
 
-    private subscribeToChanges = () => BuildWebSocket()
-        .onCreate(this.handleCreateChange)
-        .onUpdate(this.handleUpdateChange)
-        .onDelete(this.handleDeleteChange)
-        .connect();
+    private subscribeToChanges = async () => {
+        const unsubscribe = await BuildWebSocket()
+            .onCreate(this.handleCreateChange)
+            .onUpdate(this.handleUpdateChange)
+            .onDelete(this.handleDeleteChange)
+            .connect();
+
+        runInAction(() => this.unsubscribe = unsubscribe);
+    }
+
+    public unsubscribeToChanges = () => {
+        try {
+            this.unsubscribe();
+        } catch {}
+    }
 
     private getAvailableCars = async () => {
         const availableCars = await getAvailableCars();

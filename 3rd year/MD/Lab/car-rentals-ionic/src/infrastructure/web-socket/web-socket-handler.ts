@@ -2,12 +2,12 @@ import { BASE_WS_URL } from "../../accessors/constants";
 import { getProtocol } from "../../accessors/helper-functions";
 import { Change, ChangeType, WebSocketListener } from "./types";
 
-const WebSocketHandler = (
+const WebSocketHandler = async (
     createListener: WebSocketListener,
     updateListener: WebSocketListener,
     deleteListener: WebSocketListener
-): () => void => {
-    const webSocket = new WebSocket(`${BASE_WS_URL}cars/changes`, getProtocol()); 
+): Promise<() => void> => {
+    const webSocket = new WebSocket(`${BASE_WS_URL}cars/changes`, await getProtocol()); 
 
     const keepAlive = () => webSocket.send("");
 

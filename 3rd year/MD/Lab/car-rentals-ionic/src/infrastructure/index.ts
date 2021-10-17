@@ -1,17 +1,18 @@
-import { Authorized, NotAuthorized } from "./authorized";
+import AuthorizedView from "./authorized";
 import { authorizedStore } from "./authorized/authorized-store";
 import withDataProvider, { WithDataProvider } from "./data-provider";
 import ToastService from "./toast-service";
 import { toastServiceStore } from "./toast-service/toast-service-store";
 import BuildWebSocket from "./web-socket/web-socket-builder";
+import * as LocalStorage from "./local-storage";
 
 export {
-    Authorized,
-    NotAuthorized,
+    AuthorizedView,
     authorizedStore,
     BuildWebSocket,
     withDataProvider,
     ToastService,
-    toastServiceStore
+    toastServiceStore,
+    LocalStorage
 };
 export type { WithDataProvider };

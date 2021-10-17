@@ -1,5 +1,5 @@
-import { IonContent, IonPage, IonTitle } from "@ionic/react";
-import { Fab, Tab, Tabs } from "@mui/material";
+import { IonContent, IonImg, IonPage, IonTitle } from "@ionic/react";
+import { Fab, IconButton, Tab, Tabs } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import SwipeableViews from "react-swipeable-views";
@@ -10,6 +10,8 @@ import CarList from "./components/car-list";
 import { MainPageContext } from "./main-page-store";
 import CarEdit from "./components/car-edit";
 import { observer } from "mobx-react";
+import SignOutIcon from '@mui/icons-material/NoAccountsSharp';
+import InfoIcon from '@mui/icons-material/InfoSharp';
 
 const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
     const {
@@ -19,7 +21,8 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
         setSelectedTab,
         showAddDialog,
         showEditDialog,
-        closeDialog
+        closeDialog,
+        signOut
     } = useContext(MainPageContext);
 
     return (
@@ -27,7 +30,15 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
             <IonContent fullscreen>
                 <div className={styles.pageContainer}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider"}}>
-                        <IonTitle className={styles.applicationTitle}>Car Rentals</IonTitle>
+                        <div className={styles.header}>
+                            <IconButton>
+                                <InfoIcon color="primary" />
+                            </IconButton>
+                            <IonTitle className={styles.applicationTitle}>Car Rentals</IonTitle>
+                            <IconButton onClick={signOut}>
+                                <SignOutIcon color="primary" />
+                            </IconButton>
+                        </div>
                         <Tabs
                             variant="fullWidth"
                             value={selectedTab}

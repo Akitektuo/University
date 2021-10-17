@@ -24,7 +24,7 @@ Alphabet:
 		2. bool
 			boolConst = "false" | "true"
 		3. string
-			stringConst = """" | """{character}"""
+			stringConst = """{character}"""
 			character = lowerOrUpperLetter | symbol
 			symbol = "\n" | " " | "." | "!" | "?" | "\"" | "'" | ":" | ";" | "|" | "/" | "\" | "=" | "+" | "(" | ")" | "&" | "*" | "-" | "_" | "=" | "+" | "[" | "]"
 				| "{" | "}" | "<" | ">" | "\t"

@@ -18,7 +18,9 @@ function withDataProvider<T extends WithDataProvider>(WrappedComponent: FC<T>) {
         const dataProviderStore = useContext(DataProviderContext);
 
         useEffect(() => {
-            return dataProviderStore.initialize();
+            dataProviderStore.initialize();
+            
+            return dataProviderStore.unsubscribeToChanges();
         }, [dataProviderStore]);
 
         return <WrappedComponent {...(props as T)} {...dataProviderStore} />

@@ -24,6 +24,7 @@ export class LoginStore {
         
         try {
             await login(this.user);
+            await authorizedStore.checkAuthorization();
         } catch (exception: any) {
             if (isString(exception)) {
                 error = exception;
@@ -32,7 +33,6 @@ export class LoginStore {
             }
         } finally {
             runInAction(() => {
-                authorizedStore.checkAuthorization();
                 this.errorMessage = error;
                 this.isLoading = false;
             });

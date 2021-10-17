@@ -1,15 +1,11 @@
-import { BASE_URL, PORT, WEB_SOCKET_PROTOCOL } from "./constants";
-
-let token = "";
-
-export const setToken = (tokenValue: string) => token = tokenValue;
-
-export const hasToken = () => !!token;
+import { getAuthenticationToken } from "../infrastructure/local-storage";
 
 type httpMethod = "GET" | "POST" | "PUT" | "DELETE"; 
 
 const genericFetch = <T>(method: httpMethod, url: string, body?: any) =>
     new Promise<T>(async (resolve, reject) => {
+        const token = await getAuthenticationToken();
+
         try {
             const response = await fetch(url, {
                 method,
@@ -37,4 +33,8 @@ export const httpPut = <T>(url: string, body?: any) => genericFetch<T>("PUT", ur
 
 export const httpDelete = <T>(url: string, body?: any) => genericFetch<T>("DELETE", url, body);
 
-export const getProtocol = () => ["access_token", token];
+export const getProtocol = async () => {
+    const token = await getAuthenticationToken();
+
+    return ["access_token", token];
+}
