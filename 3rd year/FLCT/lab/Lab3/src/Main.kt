@@ -1,7 +1,17 @@
 fun main() {
     val table = SymbolTable()
 
-    table.add("test")
+    val tokens = listOf(
+        "someVar",
+        "\"string constant\"",
+        "true",
+        "false",
+        "0",
+        "36542",
+        "-7654",
+    )
 
-    println(table.find("test"))
+    tokens.forEach { table.add(it) }
+
+    tokens.forEach { println("Token '$it' stored at ${table.find(it)}") }
 }
