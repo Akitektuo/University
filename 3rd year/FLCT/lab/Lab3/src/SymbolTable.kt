@@ -1,6 +1,6 @@
 class SymbolTable(private var capacity: Int = 17, private val loadFactor: Float = .75f) {
     private var map = getTableOfCapacity()
-    private var size = 0;
+    private var size = 0
 
     fun add(token: String) {
         growIfLoadFactorExceeded()
