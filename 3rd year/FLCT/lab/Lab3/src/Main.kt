@@ -9,9 +9,10 @@ fun main() {
         "0",
         "36542",
         "-7654",
+        "someVar"
     )
 
-    tokens.forEach { table.add(it) }
+    tokens.forEach { println(table.add(it))  }
 
     tokens.forEach { println("Token '$it' stored at ${table.find(it)}") }
 }
