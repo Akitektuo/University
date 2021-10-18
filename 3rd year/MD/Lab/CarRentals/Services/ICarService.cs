@@ -7,6 +7,10 @@ namespace CarRentals.Services
     {
         List<Car> GetAll();
 
+        List<Car> GetAvailable();
+
+        List<Car> GetRelated();
+
         Car Create(Car car);
 
         Car Update(Car car);

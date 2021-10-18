@@ -8,6 +8,7 @@ export interface RegisterUser extends LoginUser {
 }
 
 export interface LoginResponse {
+    id: string;
     token: string;
     expiration: string;
 }
@@ -30,6 +31,7 @@ export interface Car {
     color: string;
     image: string;
     isAutomatic: boolean;
+    userId?: string;
 }
 
 export const EMPTY_CAR: Car = {

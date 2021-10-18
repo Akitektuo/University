@@ -45,6 +45,7 @@ namespace CarRentals
             ConfigureDatabase(services);
             ConfigureAuthentication(services);
             services.AddSignalR();
+            services.AddHttpContextAccessor();
 
             services.AddCors(config =>
                 config.AddDefaultPolicy(options =>

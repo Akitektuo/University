@@ -5,7 +5,7 @@ import styles from "./car-list.module.scss";
 
 interface Props {
     cars: Car[]
-    onClick: (car: Car) => void;
+    onClick?: (car: Car) => void;
 }
 
 const CarList = ({ cars, onClick }: Props) => {
@@ -14,7 +14,7 @@ const CarList = ({ cars, onClick }: Props) => {
             <IonCard
                 key={car.id}
                 className={styles.itemContainer}
-                onClick={() => onClick(car)}>
+                onClick={() => onClick && onClick(car)}>
                 <ByteImage byteSrc={car.image} />
                 <div className={styles.itemDetails}>
                     <div className={styles.row}>

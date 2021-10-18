@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRentals.Models
 {
@@ -24,5 +25,7 @@ namespace CarRentals.Models
 
         [Required]
         public bool IsAutomatic { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using CarRentals.Models;
+﻿using CarRentals.Extensions;
+using CarRentals.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +10,13 @@ namespace CarRentals.Services
 {
     public class CarService : ICarService
     {
-        private CarRentalsContext context;
+        private readonly CarRentalsContext context;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public CarService(CarRentalsContext context)
+        public CarService(CarRentalsContext context, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public Car Create(Car car)
@@ -34,27 +39,47 @@ namespace CarRentals.Services
             return context.Cars.ToList();
         }
 
-        public Car Update(Car car)
+        public List<Car> GetAvailable()
         {
-            if (!context.Cars.Any(car => car.Id == car.Id))
+            var userId = httpContextAccessor.GetUserId();
+
+            return context.Cars.Where(car => car.UserId != userId).ToList();
+        }
+
+        public List<Car> GetRelated()
+        {
+            var userId = httpContextAccessor.GetUserId();
+
+            return context.Cars.Where(car => car.UserId == userId).ToList();
+        }
+
+        public Car Update(Car carUpdate)
+        {
+            var initialCar = context.Cars
+                .Where(car => car.Id == carUpdate.Id)
+                .AsNoTracking()
+                .FirstOrDefault();
+
+            if (initialCar == null || initialCar.UserId != carUpdate.UserId)
                 return null;
 
-            context.Cars.Update(car);
+            context.Cars.Update(carUpdate);
             context.SaveChanges();
 
-            return car;
+            return carUpdate;
         }
 
         public Car Delete(int id)
         {
             var car = context.Cars.Find(id);
+            var userId = httpContextAccessor.GetUserId();
 
-            if (car != null)
-            {
-                context.Remove(car);
-                context.SaveChanges();
-            }
-
+            if (car == null || car.UserId != userId)
+                return null;
+            
+            context.Remove(car);
+            context.SaveChanges();
+            
             return car;
         }
     }

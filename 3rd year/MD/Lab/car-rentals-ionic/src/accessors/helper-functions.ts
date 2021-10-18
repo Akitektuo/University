@@ -1,17 +1,17 @@
-import { getAuthenticationToken } from "../infrastructure/local-storage";
+import { AuthenticationStorage } from "../infrastructure";
 
 type httpMethod = "GET" | "POST" | "PUT" | "DELETE"; 
 
 const genericFetch = <T>(method: httpMethod, url: string, body?: any) =>
     new Promise<T>(async (resolve, reject) => {
-        const token = await getAuthenticationToken();
+        const storedValues = await AuthenticationStorage.get();
 
         try {
             const response = await fetch(url, {
                 method,
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}` 
+                    "Authorization": `Bearer ${storedValues?.token}` 
                 },
                 body: JSON.stringify(body)
             });
@@ -34,7 +34,7 @@ export const httpPut = <T>(url: string, body?: any) => genericFetch<T>("PUT", ur
 export const httpDelete = <T>(url: string, body?: any) => genericFetch<T>("DELETE", url, body);
 
 export const getProtocol = async () => {
-    const token = await getAuthenticationToken();
+    const storedValues = await AuthenticationStorage.get();
 
-    return ["access_token", token];
+    return ["access_token", storedValues?.token || ""];
 }

@@ -56,8 +56,7 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
                             role="tabpanel"
                             hidden={selectedTab !== 0}>
                             <CarList 
-                                cars={availableCars}
-                                onClick={showEditDialog} />
+                                cars={availableCars} />
                         </div>
                         <div
                             className={styles.tabPanel}

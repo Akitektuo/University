@@ -1,7 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { createContext } from "react";
-import { BuildWebSocket, toastServiceStore } from "..";
-import { addCar, deleteCar, getAvailableCars, updateCar } from "../../accessors/car-accessor";
+import { authorizedStore, BuildWebSocket, toastServiceStore } from "..";
+import {
+    addCar,
+    deleteCar,
+    getAvailableCars,
+    getRelatedCars,
+    updateCar
+} from "../../accessors/car-accessor";
 import { Car } from "../../accessors/types";
 import { addToList, removeFromList, updateInList } from "../../shared/array-helpers";
 
@@ -59,12 +65,19 @@ export class DataProviderStore {
         });
     }
 
-    private getRelatedCars = () => {
-        
+    private getRelatedCars = async () => {
+        const relatedCars = await getRelatedCars();
+        runInAction(() => {
+            this.relatedCars = relatedCars;
+        });
     }
 
     private handleCreateChange = (car: Car) => {
-        this.availableCars = addToList(this.availableCars, car);
+        if (car.userId === authorizedStore.userId) {
+            this.relatedCars = addToList(this.relatedCars, car);
+        } else {
+            this.availableCars = addToList(this.availableCars, car);
+        }
 
         toastServiceStore.showInfo(<>
             New car (<strong>{car.brand} {car.model}</strong>) added to the list
@@ -72,13 +85,21 @@ export class DataProviderStore {
     }
 
     private handleUpdateChange = (car: Car) => {
-        const [updatedList, carToUpdate] =
-            updateInList(this.availableCars, car, ({ id }) => car.id === id);
+        const isRelated = car.userId === authorizedStore.userId;
+        console.log(isRelated, car.userId, authorizedStore.userId);
+        const [updatedList, carToUpdate] = updateInList(
+            isRelated ? this.relatedCars : this.availableCars,
+            car,
+            ({ id }) => car.id === id);
         if (!carToUpdate) {
             return;
         }
 
-        this.availableCars = updatedList;
+        if (isRelated) {
+            this.relatedCars = updatedList;
+        } else {
+            this.availableCars = updatedList;
+        }
 
         let newBrandOrModel = <></>;
         if (carToUpdate.brand !== car.brand || carToUpdate.model !== car.model) {
@@ -91,7 +112,11 @@ export class DataProviderStore {
     }
 
     private handleDeleteChange = (car: Car) => {
-        this.availableCars = removeFromList(this.availableCars, ({ id }) => car.id === id);
+        if (car.userId === authorizedStore.userId) {
+            this.relatedCars = removeFromList(this.relatedCars, ({ id }) => car.id === id);
+        } else {
+            this.availableCars = removeFromList(this.availableCars, ({ id }) => car.id === id);
+        }
 
         toastServiceStore.showInfo(<>
             The car&nbsp;<strong>{car.brand} {car.model}</strong>&nbsp;was removed from the list

@@ -4,7 +4,9 @@ import { Car } from "./types";
 
 const BASE_CAR_URL = BASE_HTTP_URL + API_PATH_CARS;
 
-export const getAvailableCars = () => httpGet<Car[]>(BASE_CAR_URL);
+export const getAvailableCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/available`);
+
+export const getRelatedCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/related`);
 
 export const addCar = (car: Car) => httpPost(BASE_CAR_URL, car);
 

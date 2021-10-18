@@ -1,5 +1,6 @@
 ﻿using CarRentals.CarChanges;
 using CarRentals.CarUpdates;
+using CarRentals.Extensions;
 using CarRentals.Models;
 using CarRentals.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +28,7 @@ namespace CarRentals.Controllers
         [HttpPost]
         public IActionResult CreateCar(Car car)
         {
-            var createdCar = carService.Create(car);
+            var createdCar = carService.Create(car.AttachUserId(this));
 
             if (createdCar == null) return BadRequest();
 
@@ -39,7 +40,7 @@ namespace CarRentals.Controllers
         [HttpPut]
         public IActionResult UpdateCar(Car car)
         {
-            var updatedCar = carService.Update(car);
+            var updatedCar = carService.Update(car.AttachUserId(this));
 
             if (updatedCar == null) return NotFound();
 
@@ -54,8 +55,19 @@ namespace CarRentals.Controllers
             return Ok(carService.GetAll());
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpGet("available")]
+        public IActionResult GetAvailableCars()
+        {
+            return Ok(carService.GetAvailable());
+        }
+
+        [HttpGet("related")]
+        public IActionResult GetRelatedCars()
+        {
+            return Ok(carService.GetRelated());
+        }
+
+        [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {
             var deletedCar = carService.Delete(id);
