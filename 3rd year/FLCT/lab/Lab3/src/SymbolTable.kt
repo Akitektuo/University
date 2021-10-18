@@ -17,9 +17,9 @@ class SymbolTable(private var capacity: Int = 17, private val loadFactor: Float 
     }
 
     fun find(token: String): Pair<Int, Int>? {
-        val position = token.hash()
+        val hashKey = token.hash()
 
-        return map[position].indexOf(token).let { if (it == -1) null else position to it }
+        return map[hashKey].indexOf(token).let { if (it == -1) null else hashKey to it }
     }
 
     private fun growIfLoadFactorExceeded() {
@@ -29,7 +29,7 @@ class SymbolTable(private var capacity: Int = 17, private val loadFactor: Float 
         val mapToRehash = map
         capacity *= 2
         map = getTableOfCapacity()
-        mapToRehash.forEach { tokens -> tokens.forEach { add(it) } }
+        mapToRehash.flatMap { it }.forEach { add(it) }
     }
 
     private fun getTableOfCapacity() = Array(capacity) { ArrayList<String>() }
