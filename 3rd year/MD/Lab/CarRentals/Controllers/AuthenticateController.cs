@@ -79,7 +79,7 @@ namespace CarRentals.Controllers
             var token = new JwtSecurityToken(
                 issuer: configuration["JWT:ValidIssuer"],
                 audience: configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(12),
+                expires: DateTime.Now.AddMonths(1),
                 claims: authenticationClaims,
                 signingCredentials: new SigningCredentials(
                     authenticationSigningKey,

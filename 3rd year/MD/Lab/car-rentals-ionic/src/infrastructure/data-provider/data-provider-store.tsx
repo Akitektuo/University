@@ -3,6 +3,7 @@ import { createContext } from "react";
 import { BuildWebSocket, toastServiceStore } from "..";
 import { addCar, deleteCar, getAvailableCars, updateCar } from "../../accessors/car-accessor";
 import { Car } from "../../accessors/types";
+import { addToList, removeFromList, updateInList } from "../../shared/array-helpers";
 
 export class DataProviderStore {
     public availableCars: Car[] = []
@@ -24,6 +25,7 @@ export class DataProviderStore {
         if (this.isInitialized) {
             return () => {};
         }
+
         this.isInitialized = true;
         return this.getCars();
     }
@@ -62,7 +64,7 @@ export class DataProviderStore {
     }
 
     private handleCreateChange = (car: Car) => {
-        this.availableCars.push(car);
+        this.availableCars = addToList(this.availableCars, car);
 
         toastServiceStore.showInfo(<>
             New car (<strong>{car.brand} {car.model}</strong>) added to the list
@@ -70,13 +72,13 @@ export class DataProviderStore {
     }
 
     private handleUpdateChange = (car: Car) => {
-        const indexToUpdate = this.availableCars.findIndex(({ id }) => car.id == id );
-        if (indexToUpdate < 0) {
+        const [updatedList, carToUpdate] =
+            updateInList(this.availableCars, car, ({ id }) => car.id === id);
+        if (!carToUpdate) {
             return;
         }
-        
-        const carToUpdate = this.availableCars[indexToUpdate];
-        this.availableCars.splice(indexToUpdate, 1, car);
+
+        this.availableCars = updatedList;
 
         let newBrandOrModel = <></>;
         if (carToUpdate.brand !== car.brand || carToUpdate.model !== car.model) {
@@ -89,12 +91,12 @@ export class DataProviderStore {
     }
 
     private handleDeleteChange = (car: Car) => {
-        this.availableCars.splice(this.availableCars.indexOf(car));
+        this.availableCars = removeFromList(this.availableCars, ({ id }) => car.id === id);
 
         toastServiceStore.showInfo(<>
             The car&nbsp;<strong>{car.brand} {car.model}</strong>&nbsp;was removed from the list
         </>);
-    } 
+    }
 }
 
 export const dataProviderStore = new DataProviderStore();
