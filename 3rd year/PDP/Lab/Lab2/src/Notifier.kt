@@ -42,7 +42,7 @@ class Notifier<T>(private val withLogs: Boolean = false) {
     private fun readData(): T? {
         val data = this.data
 
-        this.data
+        this.data = null
 
         return data
     }
