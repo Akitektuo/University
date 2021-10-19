@@ -12,6 +12,7 @@ import CarEdit from "./components/car-edit";
 import { observer } from "mobx-react";
 import SignOutIcon from '@mui/icons-material/NoAccountsSharp';
 import InfoIcon from '@mui/icons-material/InfoSharp';
+import NetworkStatusBar from "./components/network-status-bar";
 
 const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
     const {
@@ -47,6 +48,7 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
                                 <Tab label="My renting offers" value={1} />
                         </Tabs>
                     </Box>
+                    <NetworkStatusBar />
                     <SwipeableViews
                         axis="x"
                         index={selectedTab}

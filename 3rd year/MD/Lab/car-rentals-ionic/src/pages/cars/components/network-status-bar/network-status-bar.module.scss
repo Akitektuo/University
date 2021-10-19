@@ -1,0 +1,50 @@
+.barContainer {
+    max-height: 0;
+    opacity: 0;
+    background-color: #f44336;
+
+    .text {
+        margin: 0 auto;
+        color: white;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 0.3em;
+    }
+
+    &.show {
+        animation: expand-bar 5s linear;
+    }
+
+    &.connected {
+        background-color: #66bb6a;
+    }
+
+}
+
+@keyframes expand-bar {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    20% {
+        max-height: 10rem;
+    }
+
+    80% {
+        max-height: 10rem;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        max-height: 0;
+    }
+}

@@ -9,7 +9,7 @@ import {
     updateCar
 } from "../../accessors/car-accessor";
 import { Car } from "../../accessors/types";
-import { addToList, removeFromList, updateInList } from "../../shared/array-helpers";
+import { addToList, removeFromList, updateInList } from "../../shared/helpers/array-helpers";
 
 export class DataProviderStore {
     public availableCars: Car[] = []
@@ -86,7 +86,6 @@ export class DataProviderStore {
 
     private handleUpdateChange = (car: Car) => {
         const isRelated = car.userId === authorizedStore.userId;
-        console.log(isRelated, car.userId, authorizedStore.userId);
         const [updatedList, carToUpdate] = updateInList(
             isRelated ? this.relatedCars : this.availableCars,
             car,

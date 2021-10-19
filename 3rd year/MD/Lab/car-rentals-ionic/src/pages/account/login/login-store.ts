@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import { EMPTY_LOGIN_USER, LoginUser } from "../../../accessors/types";
 import { login } from "../../../accessors/account-accessor";
-import { isString } from "../../../shared/type-helpers";
+import { isString } from "../../../shared/helpers/type-helpers";
 import { authorizedStore } from "../../../infrastructure";
 
 export class LoginStore {

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import { EMPTY_REGISTER_USER, RegisterUser } from "../../../accessors/types";
 import { register } from "../../../accessors/account-accessor";
-import { isString } from "../../../shared/type-helpers";
+import { isString } from "../../../shared/helpers/type-helpers";
 
 export class RegisterStore {
     public user: RegisterUser = EMPTY_REGISTER_USER;

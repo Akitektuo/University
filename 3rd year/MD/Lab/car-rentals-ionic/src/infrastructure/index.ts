@@ -6,6 +6,7 @@ import { toastServiceStore } from "./toast-service/toast-service-store";
 import BuildWebSocket from "./web-socket/web-socket-builder";
 import * as LocalStorage from "./local-storage";
 import * as AuthenticationStorage from "./local-storage/authentication-storage";
+import useNetworkStatus from "./network-status";
 
 export {
     AuthorizedView,
@@ -15,6 +16,7 @@ export {
     ToastService,
     toastServiceStore,
     LocalStorage,
-    AuthenticationStorage
+    AuthenticationStorage,
+    useNetworkStatus
 };
 export type { WithDataProvider };
