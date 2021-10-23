@@ -1,15 +1,50 @@
-import { API_PATH_CARS, BASE_HTTP_URL } from "./constants";
-import { httpDelete, httpGet, httpPost, httpPut } from "./helper-functions";
+import { networkStatusStore } from "../infrastructure/network-status/network-status-store";
+import OfflineCarAccessor from "./offline/car-accessor";
+import OnlineCarAccessor from "./online/car-accessor";
 import { Car } from "./types";
 
-const BASE_CAR_URL = BASE_HTTP_URL + API_PATH_CARS;
+export const getAvailableCars = async () => {
+    if (!isOnline()) {
+        return OfflineCarAccessor.getAvailableCars();
+    }
 
-export const getAvailableCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/available`);
+    const cars = await OnlineCarAccessor.getAvailableCars();
+    await OfflineCarAccessor.setAvailableCars(cars);
+    return cars;
+}
 
-export const getRelatedCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/related`);
+export const getRelatedCars = async () => {
+    if (!isOnline()) {
+        return OfflineCarAccessor.getRelatedCars();
+    }
 
-export const addCar = (car: Car) => httpPost(BASE_CAR_URL, car);
+    const cars = await OnlineCarAccessor.getRelatedCars();
+    await OfflineCarAccessor.setRelatedCars(cars);
+    return cars;
+}
 
-export const updateCar = (car: Car) => httpPut(BASE_CAR_URL, car);
+export const addCar = async (car: Car) => {
+    if (isOnline()) {
+        return OnlineCarAccessor.addCar(car);
+    }
+    // TODO: Register non-server write
+    return OfflineCarAccessor.addCar(car);
+}
 
-export const deleteCar = (carId: number) => httpDelete(`${BASE_CAR_URL}/${carId}`);
+export const updateCar = async (car: Car) => {
+    if (isOnline()) {
+        return OnlineCarAccessor.updateCar(car);
+    }
+    // TODO: Register non-server write
+    return OfflineCarAccessor.updateCar(car);
+}
+
+export const deleteCar = (carId: number) => {
+    if (isOnline()) {
+        return OnlineCarAccessor.deleteCar(carId);
+    }
+    // TODO: Register non-server write
+    return OfflineCarAccessor.deleteCar(carId);
+}
+
+const isOnline = () => networkStatusStore.isConnected;

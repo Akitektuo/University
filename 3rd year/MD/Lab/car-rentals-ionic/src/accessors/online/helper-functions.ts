@@ -1,4 +1,4 @@
-import { AuthenticationStorage } from "../infrastructure";
+import { AuthenticationStorage } from "../../infrastructure";
 
 type httpMethod = "GET" | "POST" | "PUT" | "DELETE"; 
 

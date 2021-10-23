@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { createContext } from "react";
-import { authorizedStore, BuildWebSocket, toastServiceStore } from "..";
+import { authorizedStore, BuildWebSocket, networkStatusStore, toastServiceStore } from "..";
+import OfflineCarAccessor from "../../accessors/offline/car-accessor";
 import {
     addCar,
     deleteCar,
@@ -33,12 +34,7 @@ export class DataProviderStore {
         }
 
         this.isInitialized = true;
-        return this.getCars();
-    }
-
-    private getCars = () => {
-        this.getAvailableCars();
-        this.getRelatedCars();
+        this.getCars();
         return this.subscribeToChanges();
     }
 
@@ -58,6 +54,13 @@ export class DataProviderStore {
         } catch {}
     }
 
+    private getCars = async () => {
+        await networkStatusStore.waitForInitialization();
+
+        this.getAvailableCars();
+        this.getRelatedCars();
+    }
+
     private getAvailableCars = async () => {
         const availableCars = await getAvailableCars();
         runInAction(() => {
@@ -75,8 +78,10 @@ export class DataProviderStore {
     private handleCreateChange = (car: Car) => {
         if (car.userId === authorizedStore.userId) {
             this.relatedCars = addToList(this.relatedCars, car);
+            OfflineCarAccessor.addCar(car);
         } else {
             this.availableCars = addToList(this.availableCars, car);
+            OfflineCarAccessor.setAvailableCars(this.availableCars);
         }
 
         toastServiceStore.showInfo(<>
@@ -96,8 +101,10 @@ export class DataProviderStore {
 
         if (isRelated) {
             this.relatedCars = updatedList;
+            OfflineCarAccessor.updateCar(car);
         } else {
             this.availableCars = updatedList;
+            OfflineCarAccessor.setAvailableCars(this.availableCars);
         }
 
         let newBrandOrModel = <></>;
@@ -113,8 +120,10 @@ export class DataProviderStore {
     private handleDeleteChange = (car: Car) => {
         if (car.userId === authorizedStore.userId) {
             this.relatedCars = removeFromList(this.relatedCars, ({ id }) => car.id === id);
+            OfflineCarAccessor.deleteCar(car.id);
         } else {
             this.availableCars = removeFromList(this.availableCars, ({ id }) => car.id === id);
+            OfflineCarAccessor.setAvailableCars(this.availableCars);
         }
 
         toastServiceStore.showInfo(<>

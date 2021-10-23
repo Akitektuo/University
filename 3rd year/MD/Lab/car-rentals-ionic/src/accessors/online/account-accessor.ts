@@ -1,7 +1,7 @@
-import { AuthenticationStorage } from "../infrastructure";
+import { AuthenticationStorage } from "../../infrastructure";
 import { API_PATH_AUTHENTICATE, BASE_HTTP_URL } from "./constants";
 import { httpPost } from "./helper-functions";
-import { LoginResponse, LoginUser, RegisterUser } from "./types";
+import { LoginResponse, LoginUser, RegisterUser } from "../types";
 
 const BASE_ACCOUNT_URL = BASE_HTTP_URL + API_PATH_AUTHENTICATE; 
 
