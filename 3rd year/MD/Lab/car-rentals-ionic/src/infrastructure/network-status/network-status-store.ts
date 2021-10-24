@@ -24,11 +24,6 @@ export class NetworkStatusStore {
     }
 
     private setIsConnected = (status: ConnectionStatus) => this.isConnected = status.connected;
-
-    public waitForInitialization = () => new Promise<void>(resolve => {
-        while(this.isConnected === undefined);
-        resolve();
-    });
 }
 
 export const networkStatusStore = new NetworkStatusStore();

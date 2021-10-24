@@ -61,12 +61,10 @@ export class DataProviderStore {
         } catch {}
     }
 
-    private getCars = async () => {
-        await networkStatusStore.waitForInitialization();
-
+    private getCars = () => setTimeout(() => {
         this.getAvailableCars();
         this.getRelatedCars();
-    }
+    }, 100);
 
     private getAvailableCars = async () => {
         const availableCars = await getAvailableCars();
