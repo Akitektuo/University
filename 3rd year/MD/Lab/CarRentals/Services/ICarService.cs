@@ -1,4 +1,5 @@
-﻿using CarRentals.Models;
+﻿using CarRentals.CarChanges;
+using CarRentals.Models;
 using System.Collections.Generic;
 
 namespace CarRentals.Services
@@ -16,5 +17,7 @@ namespace CarRentals.Services
         Car Update(Car car);
 
         Car Delete(int id);
+
+        List<IdMap> MapChanges(List<Change<Car>> carChanges);
     }
 }

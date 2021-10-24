@@ -1,3 +1,4 @@
+import { SyncStorage } from "../infrastructure";
 import { networkStatusStore } from "../infrastructure/network-status/network-status-store";
 import OfflineCarAccessor from "./offline/car-accessor";
 import OnlineCarAccessor from "./online/car-accessor";
@@ -27,7 +28,7 @@ export const addCar = async (car: Car) => {
     if (isOnline()) {
         return OnlineCarAccessor.addCar(car);
     }
-    // TODO: Register non-server write
+    await SyncStorage.queueCreate(car);
     return OfflineCarAccessor.addCar(car);
 }
 
@@ -35,16 +36,26 @@ export const updateCar = async (car: Car) => {
     if (isOnline()) {
         return OnlineCarAccessor.updateCar(car);
     }
-    // TODO: Register non-server write
+    await SyncStorage.queueUpdate(car);
     return OfflineCarAccessor.updateCar(car);
 }
 
-export const deleteCar = (carId: number) => {
+export const deleteCar = async (carId: number) => {
     if (isOnline()) {
         return OnlineCarAccessor.deleteCar(carId);
     }
-    // TODO: Register non-server write
+    await SyncStorage.queueDelete(carId);
     return OfflineCarAccessor.deleteCar(carId);
+}
+
+export const syncChanges = async () => {
+    const changes = await SyncStorage.getChanges();
+    if (!changes) {
+        return;
+    }
+
+    const idMapping = await OnlineCarAccessor.syncChanges(changes);
+    await OfflineCarAccessor.updateIds(idMapping);
 }
 
 const isOnline = () => networkStatusStore.isConnected;

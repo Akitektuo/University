@@ -1,10 +1,10 @@
 ﻿using CarRentals.CarChanges;
 using CarRentals.CarUpdates;
-using CarRentals.Extensions;
 using CarRentals.Models;
 using CarRentals.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarRentals.Controllers
@@ -28,7 +28,7 @@ namespace CarRentals.Controllers
         [HttpPost]
         public IActionResult CreateCar(Car car)
         {
-            var createdCar = carService.Create(car.AttachUserId(this));
+            var createdCar = carService.Create(car);
 
             if (createdCar == null) return BadRequest();
 
@@ -40,7 +40,7 @@ namespace CarRentals.Controllers
         [HttpPut]
         public IActionResult UpdateCar(Car car)
         {
-            var updatedCar = carService.Update(car.AttachUserId(this));
+            var updatedCar = carService.Update(car);
 
             if (updatedCar == null) return NotFound();
 
@@ -91,6 +91,12 @@ namespace CarRentals.Controllers
             using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync("access_token");
 
             await broadcastHandler.AddConnection(webSocket);
+        }
+
+        [HttpPost("sync")]
+        public IActionResult SyncCars(List<Change<Car>> changedCars)
+        {
+            return Ok(carService.MapChanges(changedCars));
         }
     }
 }

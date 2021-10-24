@@ -1,5 +1,5 @@
 import { AvailableCarsStorage, RelatedCarsStorage } from "../../infrastructure";
-import { Car } from "../types";
+import { Car, IdMap } from "../types";
 
 const FIRST_TEMPORARY_ID = -1;
 
@@ -44,6 +44,20 @@ export const deleteCar = async (carId: number) => {
     await RelatedCarsStorage.set(cars);
 }
 
+export const updateIds = async (idMapping: IdMap[]) => {
+    const cars = await RelatedCarsStorage.get();
+
+    idMapping.forEach(({ from, to }) => {
+        let carIndexToUpdate = cars.findIndex(({ id }) => from === id);
+        while (carIndexToUpdate > -1) {
+            cars[carIndexToUpdate].id = to;
+            carIndexToUpdate = cars.findIndex(({ id }) => from === id);
+        }
+    });
+
+    await RelatedCarsStorage.set(cars);
+}
+
 const getTemporaryId = (carsAsReference: Car[]) => {
     const carIds = carsAsReference.map(car => car.id);
     const lastId = Math.min(...carIds);
@@ -75,7 +89,8 @@ const OfflineCarAccessor = {
     setRelatedCars,
     addCar,
     updateCar,
-    deleteCar
+    deleteCar,
+    updateIds
 }
 
 export default OfflineCarAccessor;

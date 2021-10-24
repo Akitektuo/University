@@ -9,6 +9,7 @@ import * as AuthenticationStorage from "./local-storage/authentication-storage";
 import useNetworkStatus from "./network-status";
 import { networkStatusStore } from "./network-status/network-status-store";
 import { AvailableCarsStorage, RelatedCarsStorage } from "./local-storage/cars-storage";
+import SyncStorage from "./local-storage/sync-storage";
 
 export {
     AuthorizedView,
@@ -22,6 +23,7 @@ export {
     useNetworkStatus,
     networkStatusStore,
     AvailableCarsStorage,
-    RelatedCarsStorage
+    RelatedCarsStorage,
+    SyncStorage
 };
 export type { WithDataProvider };

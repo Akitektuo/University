@@ -1,10 +1,12 @@
-﻿using CarRentals.Extensions;
+﻿using CarRentals.CarChanges;
+using CarRentals.Extensions;
 using CarRentals.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRentals.Services
 {
@@ -21,6 +23,7 @@ namespace CarRentals.Services
 
         public Car Create(Car car)
         {
+            car.UserId = httpContextAccessor.GetUserId();
             try
             {
                 context.Cars.Add(car);
@@ -60,6 +63,9 @@ namespace CarRentals.Services
                 .AsNoTracking()
                 .FirstOrDefault();
 
+            if (carUpdate.UserId == Guid.Empty)
+                carUpdate.UserId = httpContextAccessor.GetUserId();
+
             if (initialCar == null || initialCar.UserId != carUpdate.UserId)
                 return null;
 
@@ -81,6 +87,73 @@ namespace CarRentals.Services
             context.SaveChanges();
             
             return car;
+        }
+
+        public List<IdMap> MapChanges(List<Change<Car>> carChanges)
+        {
+            var carIdMapping = new List<IdMap>();
+
+            foreach (var carChange in carChanges)
+            {
+                var idMap = MapChange(carChange, carIdMapping);
+                if (idMap != null)
+                    carIdMapping.Add(idMap);
+            }
+
+            return carIdMapping;
+        }
+
+        private IdMap MapChange(Change<Car> carChange, List<IdMap> idMapping)
+        {
+            var car = carChange.Payload;
+
+            return carChange.Type switch
+            {
+                ChangeType.Create => MapCreateChange(car),
+                ChangeType.Update => MapUpdateChange(car, idMapping),
+                ChangeType.Delete => MapDeleteChange(car),
+                _ => null
+            };
+        }
+
+        private IdMap MapCreateChange(Car car)
+        {
+            if (car.Id > 0)
+                return null;
+
+            var initialId = car.Id;
+            car.Id = 0;
+            var addedCar = Create(car);
+
+            return new() {
+                From = initialId,
+                To = addedCar.Id
+            };
+        }
+
+        private IdMap MapUpdateChange(Car car, List<IdMap> idMapping)
+        {
+            if (car.Id > 0)
+            {
+                Update(car);
+                return null;
+            }
+
+            var actualId = idMapping.FirstOrDefault(mapping => mapping.From == car.Id);
+            if (actualId == null)
+                return null;
+
+            car.Id = actualId.To;
+            Update(car);
+            return null;
+        }
+
+        private IdMap MapDeleteChange(Car car)
+        {
+            if (car.Id > 0)
+                Delete(car.Id);
+
+            return null;
         }
     }
 }

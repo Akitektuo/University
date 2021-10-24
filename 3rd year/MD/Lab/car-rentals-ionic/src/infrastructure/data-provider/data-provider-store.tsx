@@ -7,6 +7,7 @@ import {
     deleteCar,
     getAvailableCars,
     getRelatedCars,
+    syncChanges,
     updateCar
 } from "../../accessors/car-accessor";
 import { Car } from "../../accessors/types";
@@ -34,6 +35,12 @@ export class DataProviderStore {
         }
 
         this.isInitialized = true;
+        
+        networkStatusStore.onConnectionChange = connected => {
+            if (connected)
+                syncChanges();
+        }
+
         this.getCars();
         return this.subscribeToChanges();
     }
