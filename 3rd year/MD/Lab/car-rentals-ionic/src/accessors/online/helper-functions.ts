@@ -16,7 +16,11 @@ const genericFetch = <T>(method: httpMethod, url: string, body?: any) =>
                 body: JSON.stringify(body)
             });
             if (response.status / 100 === 2) {
-                resolve(await response.json());
+                try {
+                    resolve(await response.json());
+                } catch {
+                    resolve(undefined as any);
+                }
                 return;
             }
             reject(response.status);

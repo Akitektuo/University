@@ -9,7 +9,7 @@ import { RegisterContext } from "./register-store";
 import { useHistory } from "react-router";
 
 const Register = () => {
-    const { goBack } = useHistory();
+    const { goBack, push } = useHistory();
 
     const {
         user,
@@ -26,6 +26,13 @@ const Register = () => {
     }, []);
 
     const arePasswordsDifferent = user.password !== user.confirmPassword;
+
+    const handleRegister = async () => {
+        await register();
+        if (!errorMessage) {
+            push("/login");
+        }
+    }
 
     return (
         <IonPage>
@@ -72,7 +79,7 @@ const Register = () => {
                             color="secondary"
                             className={styles.registerButton}
                             disabled={!user.email || !user.password || !user.confirmPassword}
-                            onClick={register}>
+                            onClick={handleRegister}>
                             Create account
                         </Button>
                     </div>
