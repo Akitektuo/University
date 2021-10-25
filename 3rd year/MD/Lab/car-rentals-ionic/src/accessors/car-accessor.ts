@@ -26,31 +26,37 @@ export const getRelatedCars = async () => {
 
 export const addCar = async (car: Car) => {
     if (isOnline()) {
-        return OnlineCarAccessor.addCar(car);
+        await OnlineCarAccessor.addCar(car);
+        return true;
     }
     await SyncStorage.queueCreate(car);
-    return OfflineCarAccessor.addCar(car);
+    await OfflineCarAccessor.addCar(car);
+    return false;
 }
 
 export const updateCar = async (car: Car) => {
     if (isOnline()) {
-        return OnlineCarAccessor.updateCar(car);
+        await OnlineCarAccessor.updateCar(car);
+        return true;
     }
     await SyncStorage.queueUpdate(car);
-    return OfflineCarAccessor.updateCar(car);
+    await OfflineCarAccessor.updateCar(car);
+    return false;
 }
 
 export const deleteCar = async (carId: number) => {
     if (isOnline()) {
-        return OnlineCarAccessor.deleteCar(carId);
+        await OnlineCarAccessor.deleteCar(carId);
+        return true;
     }
     await SyncStorage.queueDelete(carId);
-    return OfflineCarAccessor.deleteCar(carId);
+    await OfflineCarAccessor.deleteCar(carId);
+    return false;
 }
 
 export const syncChanges = async () => {
     const changes = await SyncStorage.getChanges();
-    if (!changes) {
+    if (!changes?.length) {
         return;
     }
 

@@ -63,25 +63,33 @@ export class CarEditStore {
         const api = this.isAdd ? addCar : updateCar;
 
         try {
-            await api(this.car);
+            const online = await api(this.car);
+
+            if (online) {
+                toastServiceStore.showSuccess("Operation successful!");
+            } else {
+                toastServiceStore.showWarning("Car saved to local storage!");
+            }
         } catch {
             toastServiceStore.showError("Something went wrong, the server could not save the car, try again!");
             return false;
         }
-        
-        toastServiceStore.showSuccess("Operation successful!");
         return true;
     }
 
     public deleteCar = async () => {
         try {
-            await deleteCar(this.car.id);
+            const online = await deleteCar(this.car.id);
+
+            if (online) {
+                toastServiceStore.showSuccess("Operation successful!");
+            } else {
+                toastServiceStore.showWarning("Car removed from local storage!");
+            }
         } catch {
             toastServiceStore.showError("Something went wrong, the server could not delete the car, try again!");
             return false;
         }
-
-        toastServiceStore.showSuccess("Operation successful!");
         return true;
     }
 
