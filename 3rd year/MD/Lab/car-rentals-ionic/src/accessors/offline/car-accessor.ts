@@ -5,7 +5,22 @@ const FIRST_TEMPORARY_ID = -1;
 
 export const getAvailableCars = () => AvailableCarsStorage.get();
 
-export const getRelatedCars = () => RelatedCarsStorage.get();
+export const getRelatedCars =
+    async (search: string, isAutomatic: boolean | null, start: number, count: number) => {
+        let allCars = await RelatedCarsStorage.get();
+
+        if (search) {
+            allCars = allCars.filter(car =>
+                car.brand.toLowerCase().includes(search.toLowerCase()) ||
+                car.model.toLowerCase().includes(search.toLowerCase()));
+        }
+
+        if (isAutomatic !== null) {
+            allCars = allCars.filter(car => car.isAutomatic === isAutomatic);
+        }
+
+        return allCars.slice(start, start + count);
+    }
 
 export const setAvailableCars = (cars: Car[]) => AvailableCarsStorage.set(cars);
 

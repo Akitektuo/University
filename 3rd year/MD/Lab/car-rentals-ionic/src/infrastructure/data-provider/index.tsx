@@ -8,9 +8,15 @@ type CarParameterFunction = (car: Car) => Promise<void>;
 export interface WithDataProvider {
     availableCars: Car[];
     relatedCars: Car[];
+    disabledScroll: boolean;
+    search: string;
+    automaticFilter: boolean | null;
     addCar: CarParameterFunction;
     updateCar: CarParameterFunction;
     deleteCar: CarParameterFunction;
+    fetchRelatedCars: () => Promise<void>;
+    setSearch: (search: string) => void;
+    setAutomaticFilter: (isAutomatic: boolean | null) => void;
 }
 
 function withDataProvider<T extends WithDataProvider>(WrappedComponent: FC<T>) {

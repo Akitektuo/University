@@ -14,15 +14,16 @@ export const getAvailableCars = async () => {
     return cars;
 }
 
-export const getRelatedCars = async () => {
-    if (!isOnline()) {
-        return OfflineCarAccessor.getRelatedCars();
-    }
+export const getRelatedCars =
+    async (search: string, isAutomatic: boolean | null, start: number, count: number) => {
+        if (!isOnline()) {
+            return OfflineCarAccessor.getRelatedCars(search, isAutomatic, start, count);
+        }
 
-    const cars = await OnlineCarAccessor.getRelatedCars();
-    await OfflineCarAccessor.setRelatedCars(cars);
-    return cars;
-}
+        const cars = await OnlineCarAccessor.getRelatedCars(search, isAutomatic, start, count);
+        await OfflineCarAccessor.setRelatedCars(cars);
+        return cars;
+    }
 
 export const addCar = async (car: Car) => {
     if (isOnline()) {

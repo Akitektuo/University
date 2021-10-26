@@ -62,9 +62,13 @@ namespace CarRentals.Controllers
         }
 
         [HttpGet("related")]
-        public IActionResult GetRelatedCars()
+        public IActionResult GetRelatedCars(
+            string searchKeyword,
+            bool? isAutomatic,
+            int from,
+            int count)
         {
-            return Ok(carService.GetRelated());
+            return Ok(carService.GetRelated(searchKeyword, isAutomatic, from, count));
         }
 
         [HttpDelete("{id}")]

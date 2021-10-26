@@ -13,11 +13,17 @@ import {
 import { Car } from "../../accessors/types";
 import { addToList, removeFromList, updateInList } from "../../shared/helpers/array-helpers";
 
+const PAGINATION_COUNT = 4;
+
 export class DataProviderStore {
-    public availableCars: Car[] = []
-    public relatedCars: Car[] = []
-    private isInitialized = false
+    public availableCars: Car[] = [];
+    public relatedCars: Car[] = [];
+    public disabledScroll: boolean = false;
+    public search: string = "";
+    public automaticFilter: boolean | null = null;
+    private isInitialized = false;
     private unsubscribe = () => {};
+    private start = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -74,10 +80,35 @@ export class DataProviderStore {
     }
 
     private getRelatedCars = async () => {
-        const relatedCars = await getRelatedCars();
+        this.start = 0;
+        this.relatedCars = [];
+        this.disabledScroll = false;
+        await this.fetchRelatedCars();
+    }
+
+    public fetchRelatedCars = async () => {
+        const relatedCars = await getRelatedCars(
+            this.search,
+            this.automaticFilter,
+            this.start,
+            PAGINATION_COUNT);
+
         runInAction(() => {
-            this.relatedCars = relatedCars;
+            this.start += PAGINATION_COUNT;
+            this.disabledScroll = relatedCars.length < PAGINATION_COUNT;
+            this.relatedCars.push(...relatedCars);
+            // this.relatedCars = [...this.relatedCars, ...relatedCars]
         });
+    }
+
+    public setSearch = (search: string) => {
+        this.search = search;
+        this.getRelatedCars();
+    }
+
+    public setAutomaticFilter = (isAutomatic: boolean | null) => {
+        this.automaticFilter = isAutomatic;
+        this.getRelatedCars();
     }
 
     private handleCreateChange = (car: Car) => {

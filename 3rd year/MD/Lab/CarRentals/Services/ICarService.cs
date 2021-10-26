@@ -10,7 +10,7 @@ namespace CarRentals.Services
 
         List<Car> GetAvailable();
 
-        List<Car> GetRelated();
+        List<Car> GetRelated(string searchKeyword, bool? isAutomatic, int from, int count);
 
         Car Create(Car car);
 

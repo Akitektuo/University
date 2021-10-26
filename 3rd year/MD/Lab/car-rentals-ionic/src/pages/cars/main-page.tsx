@@ -1,4 +1,10 @@
-import { IonContent, IonImg, IonPage, IonTitle } from "@ionic/react";
+import {
+    IonContent,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+    IonPage,
+    IonTitle
+} from "@ionic/react";
 import { Fab, IconButton, Tab, Tabs } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
@@ -13,8 +19,9 @@ import { observer } from "mobx-react";
 import SignOutIcon from '@mui/icons-material/NoAccountsSharp';
 import InfoIcon from '@mui/icons-material/InfoSharp';
 import NetworkStatusBar from "./components/network-status-bar";
+import FilterBar from "./components/filter-bar";
 
-const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
+const MainPage = ({ availableCars, relatedCars, disabledScroll, fetchRelatedCars }: WithDataProvider) => {
     const {
         selectedTab,
         carToEdit,
@@ -25,6 +32,13 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
         closeDialog,
         signOut
     } = useContext(MainPageContext);
+
+    const handleOnScroll = async (event: HTMLIonInfiniteScrollElement) => {
+        console.log("scroll");
+        await fetchRelatedCars();
+
+        event.complete();
+    }
 
     return (
         <IonPage>
@@ -40,6 +54,7 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
                                 <SignOutIcon color="primary" />
                             </IconButton>
                         </div>
+                        <FilterBar show={selectedTab === 1} />
                         <Tabs
                             variant="fullWidth"
                             value={selectedTab}
@@ -67,6 +82,11 @@ const MainPage = ({ availableCars, relatedCars }: WithDataProvider) => {
                             <CarList
                                 cars={relatedCars}
                                 onClick={showEditDialog} />
+                            <IonInfiniteScroll
+                                disabled={disabledScroll}
+                                onIonInfinite={e => handleOnScroll(e as any)}>
+                                <IonInfiniteScrollContent />
+                            </IonInfiniteScroll>
                         </div>
                     </SwipeableViews>
                     <Fab

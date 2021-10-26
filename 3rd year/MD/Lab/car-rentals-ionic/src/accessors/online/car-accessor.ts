@@ -6,7 +6,13 @@ const BASE_CAR_URL = BASE_HTTP_URL + API_PATH_CARS;
 
 export const getAvailableCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/available`);
 
-export const getRelatedCars = () => httpGet<Car[]>(`${BASE_CAR_URL}/related`);
+export const getRelatedCars =
+    (search: string, isAutomatic: boolean | null, start: number, count: number) => {
+        const automaticQuery = isAutomatic === null ? "" : `&isAutomatic=${isAutomatic}`;
+
+        return httpGet<Car[]>(`${BASE_CAR_URL}/related?` +
+            `searchKeyword=${search}${automaticQuery}&from=${start}&count=${count}`);
+    } 
 
 export const addCar = (car: Car) => httpPost(BASE_CAR_URL, car);
 

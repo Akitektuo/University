@@ -49,11 +49,26 @@ namespace CarRentals.Services
             return context.Cars.Where(car => car.UserId != userId).ToList();
         }
 
-        public List<Car> GetRelated()
+        public List<Car> GetRelated(string searchKeyword, bool? isAutomatic, int from, int count)
         {
             var userId = httpContextAccessor.GetUserId();
 
-            return context.Cars.Where(car => car.UserId == userId).ToList();
+            var query = context.Cars.Where(car => car.UserId == userId);
+
+            if (!string.IsNullOrWhiteSpace(searchKeyword))
+                query = query.Where(car =>
+                    car.Brand.ToLower().Contains(searchKeyword.ToLower()) ||
+                    car.Model.ToLower().Contains(searchKeyword.ToLower()));
+
+            if (isAutomatic != null)
+                query = query.Where(car => car.IsAutomatic == isAutomatic);
+
+            if (count < 1)
+                return query.ToList();
+
+            return query.Skip(from)
+                .Take(count)
+                .ToList();
         }
 
         public Car Update(Car carUpdate)
