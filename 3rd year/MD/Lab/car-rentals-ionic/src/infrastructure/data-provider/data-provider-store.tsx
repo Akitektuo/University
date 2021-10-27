@@ -114,6 +114,7 @@ export class DataProviderStore {
     private handleCreateChange = (car: Car) => {
         if (car.userId === authorizedStore.userId) {
             this.relatedCars = addToList(this.relatedCars, car);
+            this.addToRelatedCars(car)
             OfflineCarAccessor.addCar(car);
         } else {
             this.availableCars = addToList(this.availableCars, car);
@@ -155,7 +156,7 @@ export class DataProviderStore {
 
     private handleDeleteChange = (car: Car) => {
         if (car.userId === authorizedStore.userId) {
-            this.relatedCars = removeFromList(this.relatedCars, ({ id }) => car.id === id);
+            this.deleteFromRelatedCars(car);
             OfflineCarAccessor.deleteCar(car.id);
         } else {
             this.availableCars = removeFromList(this.availableCars, ({ id }) => car.id === id);
@@ -166,6 +167,21 @@ export class DataProviderStore {
             The car&nbsp;<strong>{car.brand} {car.model}</strong>&nbsp;was removed from the list
         </>);
     }
+
+    public addToRelatedCars = (car: Car) => this.relatedCars = addToList(this.relatedCars, car);
+
+    public updateInRelatedCars = (car: Car) => {
+        const [updatedList, carToUpdate] =
+            updateInList(this.relatedCars, car, ({ id }) => car.id === id);
+        if (!carToUpdate) {
+            return;
+        }
+
+        this.relatedCars = updatedList;
+    }
+
+    public deleteFromRelatedCars = (car: Car) =>
+        this.relatedCars = removeFromList(this.relatedCars, ({ id }) => car.id === id);
 }
 
 export const dataProviderStore = new DataProviderStore();

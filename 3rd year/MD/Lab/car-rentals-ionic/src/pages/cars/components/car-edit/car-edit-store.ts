@@ -8,6 +8,7 @@ import {
   } from "@capacitor/camera";
 import { addCar, deleteCar, updateCar } from "../../../../accessors/car-accessor";
 import { toastServiceStore } from "../../../../infrastructure";
+import { dataProviderStore } from "../../../../infrastructure/data-provider/data-provider-store";
 
 export class CarEditStore {
     public car: Car = EMPTY_CAR;
@@ -68,6 +69,12 @@ export class CarEditStore {
             if (online) {
                 toastServiceStore.showSuccess("Operation successful!");
             } else {
+                const saveMethod = this.isAdd ?
+                    dataProviderStore.addToRelatedCars :
+                    dataProviderStore.updateInRelatedCars;
+                
+                saveMethod(this.car);
+
                 toastServiceStore.showWarning("Car saved to local storage!");
             }
         } catch {
@@ -84,6 +91,7 @@ export class CarEditStore {
             if (online) {
                 toastServiceStore.showSuccess("Operation successful!");
             } else {
+                dataProviderStore.deleteFromRelatedCars(this.car);
                 toastServiceStore.showWarning("Car removed from local storage!");
             }
         } catch {
