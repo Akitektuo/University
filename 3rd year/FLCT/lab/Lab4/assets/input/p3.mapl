@@ -1,0 +1,15 @@
+int[] numbers = []
+
+int count = input()
+int i = 0
+while (i < count) {
+	numbers[i] = input()
+i++
+}
+
+int sum = 0
+each (element in numbers) {
+	sum += element
+}
+
+print(sum)

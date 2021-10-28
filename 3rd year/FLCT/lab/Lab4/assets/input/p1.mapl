@@ -1,0 +1,11 @@
+int a = input()
+int b = input()
+int c = input()
+
+when (a > b & a > c) {
+	print(a)
+} otherwise (b > a & b > c) {
+	print(b)
+} otherwise (c > a & c > b) {
+	print(c)
+}
