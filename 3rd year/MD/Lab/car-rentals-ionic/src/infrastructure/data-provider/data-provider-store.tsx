@@ -13,12 +13,12 @@ import {
 import { Car } from "../../accessors/types";
 import { addToList, removeFromList, updateInList } from "../../shared/helpers/array-helpers";
 
-const PAGINATION_COUNT = 4;
+const PAGINATION_COUNT = 3;
 
 export class DataProviderStore {
     public availableCars: Car[] = [];
     public relatedCars: Car[] = [];
-    public disabledScroll: boolean = false;
+    public hasMore: boolean = true;
     public search: string = "";
     public automaticFilter: boolean | null = null;
     private isInitialized = false;
@@ -82,7 +82,7 @@ export class DataProviderStore {
     private getRelatedCars = async () => {
         this.start = 0;
         this.relatedCars = [];
-        this.disabledScroll = false;
+        this.hasMore = true;
         await this.fetchRelatedCars();
     }
 
@@ -95,9 +95,8 @@ export class DataProviderStore {
 
         runInAction(() => {
             this.start += PAGINATION_COUNT;
-            this.disabledScroll = relatedCars.length < PAGINATION_COUNT;
+            this.hasMore = relatedCars.length === PAGINATION_COUNT;
             this.relatedCars.push(...relatedCars);
-            // this.relatedCars = [...this.relatedCars, ...relatedCars]
         });
     }
 

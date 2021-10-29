@@ -8,7 +8,7 @@ type CarParameterFunction = (car: Car) => Promise<void>;
 export interface WithDataProvider {
     availableCars: Car[];
     relatedCars: Car[];
-    disabledScroll: boolean;
+    hasMore: boolean;
     search: string;
     automaticFilter: boolean | null;
     addCar: CarParameterFunction;

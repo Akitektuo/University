@@ -1,8 +1,7 @@
 import {
     IonContent,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
     IonPage,
+    IonSpinner,
     IonTitle
 } from "@ionic/react";
 import { Fab, IconButton, Tab, Tabs } from "@mui/material";
@@ -20,8 +19,9 @@ import SignOutIcon from '@mui/icons-material/NoAccountsSharp';
 import InfoIcon from '@mui/icons-material/InfoSharp';
 import NetworkStatusBar from "./components/network-status-bar";
 import FilterBar from "./components/filter-bar";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const MainPage = ({ availableCars, relatedCars, disabledScroll, fetchRelatedCars }: WithDataProvider) => {
+const MainPage = ({ availableCars, relatedCars, hasMore, fetchRelatedCars }: WithDataProvider) => {
     const {
         selectedTab,
         carToEdit,
@@ -32,13 +32,6 @@ const MainPage = ({ availableCars, relatedCars, disabledScroll, fetchRelatedCars
         closeDialog,
         signOut
     } = useContext(MainPageContext);
-
-    const handleOnScroll = async (event: HTMLIonInfiniteScrollElement) => {
-        console.log("scroll");
-        await fetchRelatedCars();
-
-        event.complete();
-    }
 
     return (
         <IonPage>
@@ -65,6 +58,7 @@ const MainPage = ({ availableCars, relatedCars, disabledScroll, fetchRelatedCars
                     </Box>
                     <NetworkStatusBar />
                     <SwipeableViews
+                        id="scrollable-div"
                         axis="x"
                         index={selectedTab}
                         onChangeIndex={setSelectedTab}>
@@ -79,14 +73,16 @@ const MainPage = ({ availableCars, relatedCars, disabledScroll, fetchRelatedCars
                             className={styles.tabPanel}
                             role="tabpanel"
                             hidden={selectedTab !== 1}>
-                            <CarList
-                                cars={relatedCars}
-                                onClick={showEditDialog} />
-                            <IonInfiniteScroll
-                                disabled={disabledScroll}
-                                onIonInfinite={e => handleOnScroll(e as any)}>
-                                <IonInfiniteScrollContent />
-                            </IonInfiniteScroll>
+                            <InfiniteScroll
+                                scrollableTarget="scrollable-div"
+                                dataLength={relatedCars.length}
+                                next={fetchRelatedCars}
+                                loader={<div className={styles.center}><IonSpinner /></div>}
+                                hasMore={hasMore}>
+                                <CarList
+                                    cars={relatedCars}
+                                    onClick={showEditDialog} />
+                            </InfiniteScroll>
                         </div>
                     </SwipeableViews>
                     <Fab
