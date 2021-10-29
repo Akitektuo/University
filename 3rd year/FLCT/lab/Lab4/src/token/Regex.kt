@@ -2,7 +2,7 @@ package token
 
 val INT_CONSTANT_REGEX = Regex("\\b(0|([+\\-]?[1-9]\\d*))\\b")
 val BOOL_CONSTANT_REGEX = Regex("\\b(false|true)\\b")
-val STRING_CONSTANT_REGEX = Regex("\\b\".*\"\\b")
+val STRING_CONSTANT_REGEX = Regex("\"(\\\\\"|[^\"])*\"")
 
 val IDENTIFIER_REGEX = Regex("[a-zA-Z]\\w*")
 
