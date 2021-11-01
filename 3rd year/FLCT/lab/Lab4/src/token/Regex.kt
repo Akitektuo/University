@@ -6,7 +6,7 @@ val STRING_CONSTANT_REGEX = Regex("\"(\\\\\"|[^\"])*\"")
 
 val IDENTIFIER_REGEX = Regex("[a-zA-Z]\\w*")
 
-val OPERATOR_REGEX = Regex("=|\\+|\\+\\+|\\+=|-|--|-=|\\*|\\*=|/|/=|%|%=|==|!=|<|<=|>|>=|!|&|\\||&=|\\|=")
+val OPERATOR_REGEX = Regex("==|=|\\+\\+|\\+=|\\+|--|-=|-|\\*=|\\*|/=|/|%=|%|!=|<=|<|>=|>|!|&=|\\|=|&|\\|")
 
 val SEPARATOR_REGEX = Regex("[\\n()}{\\]\\[ \"]")
 
