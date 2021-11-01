@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Lab4.Parser;
 using System.Collections.Generic;
 
-namespace Lab5
+namespace Lab4
 {
     class Program
     {
-        private readonly List<string> URLS = new() {
+        private static readonly List<string> URLS = new() {
             "www.cs.ubbcluj.ro/~motogna/LFTC",
             "www.cs.ubbcluj.ro/~rlupsa/edu/pdp/",
             "www.cs.ubbcluj.ro/~forest"
@@ -13,7 +13,9 @@ namespace Lab5
 
         static void Main()
         {
-
+            new CallbackParser(URLS);
+            new TaskParser(URLS);
+            new AsyncAwaitParser(URLS);
         }
     }
 }
