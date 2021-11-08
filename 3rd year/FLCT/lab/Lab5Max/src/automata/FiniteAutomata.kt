@@ -1,5 +1,8 @@
-import transition.Transition
-import transition.Transitions
+package automata
+
+import readFileIndexed
+import automata.transition.Transition
+import automata.transition.Transitions
 
 class FiniteAutomata(private val fileName: String) {
     val states = ArrayList<String>()

@@ -1,0 +1,35 @@
+start digit zeroDigit
+start
+zeroDigit
+- + 0 1 2 3 4 5 6 7 8 9
+start zeroDigit 0
+start zeroDigit 1
+start zeroDigit 2
+start zeroDigit 3
+start zeroDigit 4
+start zeroDigit 5
+start zeroDigit 6
+start zeroDigit 7
+start zeroDigit 8
+start zeroDigit 9
+start digit +
+start digit -
+digit zeroDigit 1
+digit zeroDigit 2
+digit zeroDigit 3
+digit zeroDigit 4
+digit zeroDigit 5
+digit zeroDigit 6
+digit zeroDigit 7
+digit zeroDigit 8
+digit zeroDigit 9
+zeroDigit zeroDigit 0
+zeroDigit zeroDigit 1
+zeroDigit zeroDigit 2
+zeroDigit zeroDigit 3
+zeroDigit zeroDigit 4
+zeroDigit zeroDigit 5
+zeroDigit zeroDigit 6
+zeroDigit zeroDigit 7
+zeroDigit zeroDigit 8
+zeroDigit zeroDigit 9

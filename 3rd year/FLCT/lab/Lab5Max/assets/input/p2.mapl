@@ -1,0 +1,13 @@
+int number = input()
+int sum = 0
+
+while (number > 0) {
+	sum += number % 10
+	number /= 10
+	when (number == 0 & sum > 9) {
+		number = sum
+		sum = 0
+	}
+}
+
+print(sum)

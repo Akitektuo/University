@@ -1,6 +1,4 @@
-package transition
-
-import java.util.ArrayList
+package automata.transition
 
 class Transitions {
     private val map = HashMap<Pair<String, String>, ArrayList<Transition>>()
