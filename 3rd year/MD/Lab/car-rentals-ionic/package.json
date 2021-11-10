@@ -13,6 +13,7 @@
     "@capacitor/storage": "^1.2.2",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@ionic/pwa-elements": "^3.0.2",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@mui/icons-material": "^5.0.3",

@@ -9,25 +9,9 @@
     &.show {
         max-height: 10rem;
         opacity: 1;
-        animation: expand-bar 1s ease-out;
     }
 
     .input {
         margin-right: 1rem;
-    }
-}
-
-@keyframes expand-bar {
-    0% {
-        max-height: 0;
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        max-height: 10rem;
     }
 }

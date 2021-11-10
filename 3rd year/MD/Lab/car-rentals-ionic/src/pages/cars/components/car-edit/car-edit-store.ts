@@ -50,14 +50,16 @@ export class CarEditStore {
         this.car.fabricationYear && this.car.color && this.car.image;
 
     public takePicture = async () => {
-        const cameraPhoto = await Camera.getPhoto({
-            resultType: CameraResultType.Base64,
-            source: CameraSource.Camera,
-            quality: 100
-        });
-        runInAction(() => {
-            this.car.image = cameraPhoto.base64String ?? "";
-        });
+        try {
+            const cameraPhoto = await Camera.getPhoto({
+                resultType: CameraResultType.Base64,
+                source: CameraSource.Camera,
+                quality: 100
+            });
+            runInAction(() => {
+                this.car.image = cameraPhoto.base64String ?? "";
+            });
+        } catch {}
     }
 
     public saveCar = async () => {
