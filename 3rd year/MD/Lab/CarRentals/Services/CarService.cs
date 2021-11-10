@@ -104,9 +104,9 @@ namespace CarRentals.Services
             return car;
         }
 
-        public List<IdMap> MapChanges(List<Change<Car>> carChanges)
+        public List<IdMapDto> MapChanges(List<Change<Car>> carChanges)
         {
-            var carIdMapping = new List<IdMap>();
+            var carIdMapping = new List<IdMapDto>();
 
             foreach (var carChange in carChanges)
             {
@@ -118,7 +118,7 @@ namespace CarRentals.Services
             return carIdMapping;
         }
 
-        private IdMap MapChange(Change<Car> carChange, List<IdMap> idMapping)
+        private IdMapDto MapChange(Change<Car> carChange, List<IdMapDto> idMapping)
         {
             var car = carChange.Payload;
 
@@ -131,7 +131,7 @@ namespace CarRentals.Services
             };
         }
 
-        private IdMap MapCreateChange(Car car)
+        private IdMapDto MapCreateChange(Car car)
         {
             if (car.Id > 0)
                 return null;
@@ -146,7 +146,7 @@ namespace CarRentals.Services
             };
         }
 
-        private IdMap MapUpdateChange(Car car, List<IdMap> idMapping)
+        private IdMapDto MapUpdateChange(Car car, List<IdMapDto> idMapping)
         {
             if (car.Id > 0)
             {
@@ -163,7 +163,7 @@ namespace CarRentals.Services
             return null;
         }
 
-        private IdMap MapDeleteChange(Car car)
+        private IdMapDto MapDeleteChange(Car car)
         {
             if (car.Id > 0)
                 Delete(car.Id);

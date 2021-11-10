@@ -18,6 +18,6 @@ namespace CarRentals.Services
 
         Car Delete(int id);
 
-        List<IdMap> MapChanges(List<Change<Car>> carChanges);
+        List<IdMapDto> MapChanges(List<Change<Car>> carChanges);
     }
 }

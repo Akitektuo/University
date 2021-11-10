@@ -60,6 +60,7 @@ namespace CarRentals
 
             services.AddSingleton<IBroadcastHandler, BroadcastHandler>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IParkLocationService, ParkLocationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

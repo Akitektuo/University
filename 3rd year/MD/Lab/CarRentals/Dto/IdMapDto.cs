@@ -1,6 +1,6 @@
 ﻿namespace CarRentals.Models
 {
-    public class IdMap
+    public class IdMapDto
     {
         public int From { get; set; }
 

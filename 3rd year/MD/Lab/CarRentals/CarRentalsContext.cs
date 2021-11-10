@@ -12,5 +12,7 @@ namespace CarRentals
         }
 
         public DbSet<Car> Cars { get; set; }
+
+        public DbSet<ParkLocation> ParkLocations { get; set; }
     }
 }
