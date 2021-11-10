@@ -49,6 +49,7 @@ const CarEdit = ({ initialCar, onClose }: Props) => {
         setModel,
         setFabricationYear,
         setColor,
+        pickPicture,
         takePicture,
         setAutomatic,
         canSave,
@@ -157,6 +158,7 @@ const CarEdit = ({ initialCar, onClose }: Props) => {
                     <Button
                         color="secondary"
                         variant="contained"
+                        onClick={pickPicture}
                         startIcon={<UploadIcon />}>
                         Upload picture
                     </Button>

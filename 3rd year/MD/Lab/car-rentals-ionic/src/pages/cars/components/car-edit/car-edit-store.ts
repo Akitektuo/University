@@ -62,6 +62,19 @@ export class CarEditStore {
         } catch {}
     }
 
+    public pickPicture = async () => {
+        try {
+            const cameraPhoto = await Camera.getPhoto({
+                resultType: CameraResultType.Base64,
+                source: CameraSource.Photos,
+                quality: 100
+            });
+            runInAction(() => {
+                this.car.image = cameraPhoto.base64String ?? "";
+            });
+        } catch {}
+}
+
     public saveCar = async () => {
         const api = this.isAdd ? addCar : updateCar;
 
