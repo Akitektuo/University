@@ -6,6 +6,7 @@ import { authorizedStore, AuthenticationStorage } from "../../infrastructure";
 export class MainPageStore {
     public selectedTab: number = 0;
     public carToEdit: Car | null = null;
+    public showParkLocationDialog: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -15,9 +16,13 @@ export class MainPageStore {
 
     public showAddDialog = () => this.carToEdit = EMPTY_CAR;
 
-    public closeDialog = () => this.carToEdit = null;
+    public closeAddDialog = () => this.carToEdit = null;
 
     public showEditDialog = (car: Car) => this.carToEdit = car;
+
+    public openParkLocationDialog = () => this.showParkLocationDialog = true;
+
+    public closeParkLocationDialog = () => this.showParkLocationDialog = false;
 
     public signOut = async () => {
         await AuthenticationStorage.clear();

@@ -8,6 +8,14 @@ namespace CarRentals.Dto
 
         public decimal Longitude { get; set; }
 
+        public ParkLocationDto() { }
+
+        public ParkLocationDto(decimal latitude, decimal longitude)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
         public ParkLocationDto(ParkLocation parkLocation)
         {
             Latitude = parkLocation.Latitude;

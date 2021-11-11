@@ -2,6 +2,7 @@
 using CarRentals.Extensions;
 using CarRentals.Models;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace CarRentals.Services
 {
@@ -20,7 +21,12 @@ namespace CarRentals.Services
 
         public ParkLocationDto GetParkLocation()
         {
-            var parkLocation = context.ParkLocations.Find(httpContextAccessor.GetUserId());
+            var userId = httpContextAccessor.GetUserId();
+            var parkLocation = context.ParkLocations
+                .FirstOrDefault(location => location.UserId == userId);
+
+            if (parkLocation == null)
+                return null;
 
             return new ParkLocationDto(parkLocation);
         }
@@ -34,7 +40,14 @@ namespace CarRentals.Services
                 UserId = httpContextAccessor.GetUserId()
             };
 
-            context.Update(parkLocation);
+            var exists = context.ParkLocations
+                .Any(location => location.UserId == parkLocation.UserId);
+
+            if (exists)
+                context.Update(parkLocation);
+            else
+                context.Add(parkLocation);
+            context.SaveChanges();
         }
     }
 }

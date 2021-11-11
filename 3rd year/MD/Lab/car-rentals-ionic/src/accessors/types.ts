@@ -59,3 +59,8 @@ export interface IdMap {
     from: number;
     to: number;
 }
+
+export interface ParkLocation {
+    latitude: number;
+    longitude: number;
+}

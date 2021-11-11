@@ -12,8 +12,8 @@ namespace CarRentals.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Latitude = table.Column<decimal>(type: "decimal(28,15)", precision: 28, scale: 15, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(28,15)", precision: 28, scale: 15, nullable: false)
                 },
                 constraints: table =>
                 {

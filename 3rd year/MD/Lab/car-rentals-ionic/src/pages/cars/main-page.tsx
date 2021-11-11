@@ -20,16 +20,21 @@ import InfoIcon from '@mui/icons-material/InfoSharp';
 import NetworkStatusBar from "./components/network-status-bar";
 import FilterBar from "./components/filter-bar";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { getParkLocation } from "../../accessors/online/park-location-accessor";
+import ParkLocationDialog from "./components/park-location-dialog";
 
 const MainPage = ({ availableCars, relatedCars, hasMore, fetchRelatedCars }: WithDataProvider) => {
     const {
         selectedTab,
         carToEdit,
+        showParkLocationDialog,
 
         setSelectedTab,
         showAddDialog,
         showEditDialog,
-        closeDialog,
+        closeAddDialog,
+        openParkLocationDialog,
+        closeParkLocationDialog,
         signOut
     } = useContext(MainPageContext);
 
@@ -39,7 +44,7 @@ const MainPage = ({ availableCars, relatedCars, hasMore, fetchRelatedCars }: Wit
                 <div className={styles.pageContainer}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider"}}>
                         <div className={styles.header}>
-                            <IconButton>
+                            <IconButton onClick={openParkLocationDialog}>
                                 <InfoIcon color="primary" />
                             </IconButton>
                             <IonTitle className={styles.applicationTitle}>Car Rentals</IonTitle>
@@ -93,7 +98,10 @@ const MainPage = ({ availableCars, relatedCars, hasMore, fetchRelatedCars }: Wit
                     <ToastService />
                     <CarEdit
                         initialCar={carToEdit}
-                        onClose={closeDialog} />
+                        onClose={closeAddDialog} />
+                    <ParkLocationDialog
+                        isOpen={showParkLocationDialog}
+                        onClose={closeParkLocationDialog} />
                 </div>
             </IonContent>
         </IonPage>

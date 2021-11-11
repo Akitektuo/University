@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentals.Migrations
 {
     [DbContext(typeof(CarRentalsContext))]
-    [Migration("20211110201035_AddParkLocations")]
+    [Migration("20211111195415_AddParkLocations")]
     partial class AddParkLocations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,10 +130,12 @@ namespace CarRentals.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(28, 15)
+                        .HasColumnType("decimal(28,15)");
 
                     b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(28, 15)
+                        .HasColumnType("decimal(28,15)");
 
                     b.HasKey("UserId");
 

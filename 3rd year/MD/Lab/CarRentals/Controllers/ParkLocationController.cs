@@ -22,6 +22,9 @@ namespace CarRentals.Controllers
         {
             var parkLocation = parkLocationService.GetParkLocation();
 
+            if (parkLocation == null)
+                return NotFound();
+
             return Ok(parkLocation);
         }
 

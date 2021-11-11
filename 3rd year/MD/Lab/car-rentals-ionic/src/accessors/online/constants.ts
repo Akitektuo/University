@@ -6,6 +6,7 @@ export const PORT = 44325;
 
 export const API_PATH_AUTHENTICATE = "authenticate";
 export const API_PATH_CARS = "cars";
+export const API_PATH_PARK_LOCATION = "parkLocation";
 
 export const BASE_URL_WITHOUT_PROTOCOL = `://${BASE_URL}:${PORT}/api/`;
 

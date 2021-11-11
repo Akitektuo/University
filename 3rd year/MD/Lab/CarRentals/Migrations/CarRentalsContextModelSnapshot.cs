@@ -128,10 +128,12 @@ namespace CarRentals.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(28, 15)
+                        .HasColumnType("decimal(28,15)");
 
                     b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(28, 15)
+                        .HasColumnType("decimal(28,15)");
 
                     b.HasKey("UserId");
 
