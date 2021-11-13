@@ -20,8 +20,11 @@ namespace Lab4.Parser
         private void Start(SocketWrapper socket)
         {
             socket.BeginConnect(HandleConnected);
-            while (socket.Connected)
+            do
+            {
                 Thread.Sleep(100);
+            }
+            while (socket.Connected);
         }
 
         private void HandleConnected(SocketWrapper socket)
