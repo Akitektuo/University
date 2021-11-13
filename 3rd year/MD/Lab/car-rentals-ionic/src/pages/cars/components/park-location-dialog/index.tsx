@@ -7,6 +7,9 @@ import { ParkLocationDialogContext } from "./park-location-dialog-store";
 import { IonSpinner } from "@ionic/react";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
+import EmbeddedMap from "./ebedded-map";
+
+const USE_EMBEDDED = true;
 
 interface Props {
     isOpen: boolean;
@@ -65,12 +68,16 @@ const ParkLocationDialog = ({ isOpen, onClose }: Props) => {
             </AppBar>
             <div className={styles.container}>
                 {parkLocation && (
-                    <Map 
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-                        mapElement={<div style={{ height: `100%`, width: "100%" }} />}
-                        containerElement={<div style={{ height: `400px`, width: "100%" }} />}   
-                        loadingElement={<IonSpinner />} 
-                        {...parkLocation} />
+                    USE_EMBEDDED ? (
+                        <EmbeddedMap {...parkLocation} />
+                    ) : (
+                        <Map 
+                            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
+                            mapElement={<div style={{ height: `100%`, width: "100%" }} />}
+                            containerElement={<div style={{ height: `400px`, width: "100%" }} />}   
+                            loadingElement={<IonSpinner />} 
+                            {...parkLocation} />
+                    )
                 )}
                 <Button 
                     color="secondary"
