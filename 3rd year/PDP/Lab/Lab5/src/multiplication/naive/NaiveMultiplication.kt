@@ -1,10 +1,13 @@
 package multiplication.naive
 
-import Polynomial
+import container.Polynomial
 import multiplication.BaseMultiplication
 
-abstract class NaiveMultiplication(firstPolynomial: Polynomial, secondPolynomial: Polynomial) :
-    BaseMultiplication(firstPolynomial, secondPolynomial) {
+abstract class NaiveMultiplication(
+    firstPolynomial: Polynomial,
+    secondPolynomial: Polynomial,
+    withoutLogs: Boolean = false
+) : BaseMultiplication(firstPolynomial, secondPolynomial, withoutLogs) {
 
     protected fun multiplyRange(range: IntRange) = range.forEach {
         computeDegree(it)

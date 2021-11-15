@@ -1,6 +1,6 @@
 package multiplication.naive
 
-import Polynomial
+import container.Polynomial
 import getNumberOfThreads
 import runConcurrently
 import kotlin.math.max
@@ -12,7 +12,7 @@ class ConcurrentNaiveMultiplication(firstPolynomial: Polynomial, secondPolynomia
 
     override fun multiply() = with(result) {
         val step = degree / getNumberOfThreads(degree)
-        val range = 0.until(degree).step(max(step, 1))
+        val range = (0..degree).step(max(step, 1))
 
         runConcurrently(range.map { { multiplyRange(it.until(it + step)) } })
     }

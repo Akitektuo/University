@@ -1,8 +1,13 @@
 import multiplication.BaseMultiplication
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-fun BaseMultiplication.runConcurrently(vararg commands: () -> Unit) = runConcurrently(commands.toList())
+fun <T> BaseMultiplication.async(command: () -> T): Future<T> {
+    val executor = Executors.newFixedThreadPool(getNumberOfThreads(result.degree))
+
+    return executor.submit<T> { command() }
+}
 
 fun BaseMultiplication.runConcurrently(commands: List<() -> Unit>) {
     val executor = Executors.newFixedThreadPool(getNumberOfThreads(result.degree))

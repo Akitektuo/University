@@ -1,9 +1,12 @@
 package multiplication.naive
 
-import Polynomial
+import container.Polynomial
 
-class SequentialNaiveMultiplication(firstPolynomial: Polynomial, secondPolynomial: Polynomial) :
-    NaiveMultiplication(firstPolynomial, secondPolynomial) {
+class SequentialNaiveMultiplication(
+    firstPolynomial: Polynomial,
+    secondPolynomial: Polynomial,
+    withoutLogs: Boolean = false
+) : NaiveMultiplication(firstPolynomial, secondPolynomial, withoutLogs) {
 
     override fun getMultiplicationMethod() = "Sequential Naive Multiplication"
 
