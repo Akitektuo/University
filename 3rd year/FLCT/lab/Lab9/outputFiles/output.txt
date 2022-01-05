@@ -1,0 +1,75 @@
+Reserved word: start
+Reserved word: def
+Identifier: a
+Separator: :
+Reserved word: int
+Separator: ;
+Reserved word: def
+Identifier: b
+Separator: :
+Reserved word: int
+Separator: ;
+Reserved word: def
+Identifier: c
+Separator: :
+Reserved word: int
+Separator: ;
+Reserved word: read
+Separator: (
+Identifier: a
+Separator: )
+Separator: ;
+Reserved word: read
+Separator: (
+Identifier: b
+Separator: )
+Separator: ;
+Reserved word: read
+Separator: (
+Identifier: c
+Separator: )
+Separator: ;
+Reserved word: def
+Identifier: max
+Separator: :
+Reserved word: int
+Separator: =
+Identifier: a
+Separator: ;
+Reserved word: if
+Separator: (
+Identifier: max
+Operator: <
+Identifier: b
+Separator: )
+Reserved word: then
+Separator: {
+Identifier: max
+Separator: =
+Identifier: b
+Separator: ;
+Separator: }
+Reserved word: if
+Separator: (
+Identifier: max
+Operator: <=
+Identifier: c
+Separator: )
+Reserved word: then
+Separator: {
+Identifier: max
+Separator: =
+Identifier: c
+Separator: ;
+Separator: }
+Reserved word: log
+Separator: (
+Constant: "MaxIs"
+Separator: )
+Separator: ;
+Reserved word: log
+Separator: (
+Identifier: max
+Separator: )
+Separator: ;
+Reserved word: finish

@@ -1,0 +1,34 @@
+%{
+#include <stdio.h>
+#include <string.h>
+int lines = 0;
+%}
+
+%option noyywrap
+%option caseless
+NUMBER		\b(0|([+\-]?[1-9]\d*))\b
+BOOL		\b(false|true)\b
+STRING		\"(\\\"|[^\"])*\"
+CONST		{NUMBER}|{BOOL}|{STRING}
+ID			[a-zA-Z]\w*
+OPERATOR	"=="|"="|"\+\+"|"\+="|"\+"|"--"|"-="|"-"|"\*="|"\*"|"/="|"/"|"%="|"%"|"!="|"<="|"<"|">="|">"|"!"|"&="|"\|="|"&"|"\|"
+SEPARATOR	[()}{\]\[ "]
+RESERVED	\b(int|bool|string|input|print|when|otherwise|in|while|each)\b
+
+%%
+
+{CONST}		{printf( "Constant: %s\n", yytext ); }
+
+{ID}		{printf( "Identifier: %s\n", yytext); }
+
+{OPERATOR}	{printf( "Operator: %s\n", yytext); }
+
+{SEPARATOR}	{printf( "Separator: %s\n", yytext); }
+
+{RESERVED}	{printf( "Reserved: %s\n", yytext); }
+
+[ \t]+		{}
+[\n]+		{lines++;}
+
+
+%%
