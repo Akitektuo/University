@@ -17,8 +17,6 @@ SEPARATOR	[()}{\]\[ "]
 
 %%
 
-{RESERVED}	{printf( "Reserved: %s\n", yytext); }
-
 {CONST}		{printf( "Constant: %s\n", yytext ); }
 
 {ID}		{printf( "Identifier: %s\n", yytext); }
@@ -26,6 +24,8 @@ SEPARATOR	[()}{\]\[ "]
 {OPERATOR}	{printf( "Operator: %s\n", yytext); }
 
 {SEPARATOR}	{printf( "Separator: %s\n", yytext); }
+
+{RESERVED}	{printf( "Reserved: %s\n", yytext); }
 
 [ \t]+		{}
 [\n]+		{lines++;}
