@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
+
 int lines = 0;
 %}
 
@@ -29,5 +30,7 @@ SEPARATOR	[()}{\]\[ "]
 
 [ \t]+		{}
 [\n]+		{lines++;}
+
+. printf("Error on line %d\n", lines + 1);
 
 %%
