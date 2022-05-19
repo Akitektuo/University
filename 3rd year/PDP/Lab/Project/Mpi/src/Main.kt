@@ -39,7 +39,7 @@ private fun Matrix.searchMaster() {
             break
         }
 
-        println("Depth $minimumBound reached in ${System.currentTimeMillis() - startTime}ms")
+        println("Depth $minimumBound reached in ${System.currentTimeMillis() - startTime}ms\n${solution}")
         bound = minimumBound
     }
 

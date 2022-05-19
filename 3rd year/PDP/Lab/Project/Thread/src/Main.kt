@@ -27,7 +27,7 @@ fun Matrix.solve(): Matrix {
             return solution
         }
 
-        println("Depth $distance reached in ${System.currentTimeMillis() - startTime}ms")
+        println("Depth $distance reached in ${System.currentTimeMillis() - startTime}ms\n$solution")
         minimumBound = distance
     }
 }
